@@ -1,38 +1,35 @@
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ * @flow strict-local
+ */
 
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
-import Login from './app/componenets/Login/login'
-import Form from './app/componenets/Form/Form';
-import Dashboard from './app/componenets/Dashboard/Dashboard';
-import Incident from './app/componenets/IncidentView/incidentview';
-import  Drawer  from './app/componenets/Drawer/drawer';
+
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import Login from './src/login';
+import Dashboard from './src/dashboard';
 
 
 const Stack = createStackNavigator();
 
-function App() {
+const Section = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-      <Stack.Screen name="Login" component={Login}
-          options={{ headerShown: false }} />
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}>
+        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Dashboard" component={Dashboard} />
-
-        <Stack.Screen name="Form" component={Form}
-          options={{ headerShown: false }} />
-
-        <Stack.Screen name="Incident View" component={Incident}
-          options={{ headerShown: false }} />
-
-        
-        <Stack.Screen name="Drawer" component={Drawer}
-          options={{ headerShown: false }} />
 
 
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};
 
-export default App;
+export default Section;
