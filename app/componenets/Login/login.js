@@ -11,11 +11,12 @@ import {
   Pressable,
   ScrollView,
   ImageBackground,
+  Ionicons
 
 } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
-
+import {useNavigation} from '@react-navigation/native';
 
 import {
   widthPercentageToDP as wp,
@@ -25,17 +26,30 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons/faUser'
 import { faLock } from '@fortawesome/free-solid-svg-icons/faLock'
+import images from "../Images/image"
 
+const Login = () => {
+  const navigation = useNavigation();
+ 
 
-const Login = ({navigation}) => {
-  
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="#593dfff5" barStyle="Light-content" />
       <ScrollView contentContainerStyle={styles.container}>
-      <ImageBackground  source={require('../src/assets/bg.png')} style={styles.logo1}></ImageBackground> 
-        
-
+      <ImageBackground  source={images.worldvision_loginbackground} style={styles.logo1}></ImageBackground> 
+      <Text
+            name="ios-menu-sharp"
+            size={35}
+            style={{
+              justifyContent: 'center',
+              color: '#000',
+              alignSelf: 'flex-end',
+              alignContent: 'center',
+              marginBottom: 13,
+              marginRight: 18,
+              marginTop: 10,
+            }}
+          />
         <View
           style={{
             top: -70,
@@ -47,8 +61,8 @@ const Login = ({navigation}) => {
             
           }}>
       
-      <Image source={require('../src/assets/logo.png')} style={styles.logo} />
-
+      <Image  source={images.worldvision_loginlogo} style={styles.logo} />
+      
           
         </View>
         
@@ -154,12 +168,12 @@ const Login = ({navigation}) => {
             }}>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => navigation.navigate('Dashboard')}>
+              onPress={() => navigation.navigate('Drawer')}>
               <Text style={styles.buttoninput} >LOG-IN</Text>
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{flex: 1, top: -100}}>
+        <View style={{flex: 2, top: -70}}>
           <Text
             style={{
               fontSize: 15,
@@ -195,7 +209,7 @@ const Login = ({navigation}) => {
             }}>
             <TouchableOpacity>
               <Image
-               source={require('../src/assets/fb.png')}
+               source={images.worldvision_fb}
                
             
                 style={{width: 25, height: 25, paddingHorizontal: 4}}
@@ -203,14 +217,13 @@ const Login = ({navigation}) => {
             </TouchableOpacity>
             <TouchableOpacity>
               <Image
-                source={require('../src/assets/linked.png')}
-
+               source={images.worldvision_linkedin}
                 style={{width: 25, height: 25, padding: 5}}
               />
             </TouchableOpacity>
             <TouchableOpacity>
               <Image
-              source={require('../src/assets/twitter.png')}
+               source={images.worldvision_twitter}
 
             
                 style={{width: 25, height: 25}}
@@ -218,7 +231,7 @@ const Login = ({navigation}) => {
             </TouchableOpacity>
             <TouchableOpacity >
               <Image
-              source={require('../src/assets/mail1.png')}
+               source={images.worldvision_mail}
 
             
                 style={{width: 25, height: 25}}
@@ -303,7 +316,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: 40,
-    width: 199,
+    width: 198,
     
     
 
