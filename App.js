@@ -7,12 +7,15 @@ import Form from './app/componenets/Form/Form';
 import Dashboard from './app/componenets/Dashboard/Dashboard';
 import Incident from './app/componenets/IncidentView/incidentview';
 import  Drawer  from './app/componenets/Drawer/drawer';
-
+import  store  from '../WV-CMCP-MOBILE/app/Redux/Store'
+import { Provider  } from 'react-redux'
 
 const Stack = createStackNavigator();
 
 function App() {
   return (
+    <Provider store={store}>
+
     <NavigationContainer>
       <Stack.Navigator>
       <Stack.Screen name="Login" component={Login}
@@ -32,7 +35,11 @@ function App() {
 
       </Stack.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 }
 
 export default App;
+
+
+

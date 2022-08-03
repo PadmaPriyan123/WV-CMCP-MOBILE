@@ -27,8 +27,8 @@ import {ScrollView} from 'react-native-gesture-handler';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {faFile} from '@fortawesome/free-solid-svg-icons/faFile';
-
 const FirstRoute = ({route}) => {
+  
   const [modalVisible, setModalVisible] = React.useState(false);
   const [PhotoFile, setPhotoFile] = React.useState(null);
   const [isPickerShow, setIsPickerShow] = React.useState(false);
@@ -902,14 +902,14 @@ const styles = StyleSheet.create({
   },
   FormTitle: {
     color: '#000',
-    fontFamily: 'Poppins-Regular',
+    fontFamily: "Lora",
     fontSize: 14,
     alignSelf: 'flex-start',
     marginLeft: 13,
   },
   FormTitle1: {
     color: '#000',
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Lora',
     fontSize: 13.5,
     alignSelf: 'flex-start',
     marginLeft: 12,
@@ -1163,8 +1163,8 @@ const styles = StyleSheet.create({
   casemanagenmenttitle: {
     fontSize: 18,
     color: '#fff',
-    fontWeight: 'bold',
-    fontFamily: 'Poppins-Bold',
+    
+    fontFamily: 'Lora',
     marginTop: 5,
   },
 });

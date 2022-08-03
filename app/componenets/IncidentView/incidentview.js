@@ -12,6 +12,7 @@ import {Card} from 'react-native-paper';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCircleChevronRight} from '@fortawesome/free-solid-svg-icons/faCircleChevronRight';
 import {ScrollView} from 'react-native-gesture-handler';
+
 const Incident = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
@@ -338,6 +339,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     marginTop: 25,
     borderRadius: 10,
+    
   },
   iconmain1: {
     display: 'flex',
