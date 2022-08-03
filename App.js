@@ -8,7 +8,6 @@ import Dashboard from './app/componenets/Dashboard/Dashboard';
 import Incident from './app/componenets/IncidentView/incidentview';
 import  Drawer  from './app/componenets/Drawer/drawer';
 
-
 const Stack = createStackNavigator();
 
 function App() {

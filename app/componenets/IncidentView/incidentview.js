@@ -43,8 +43,8 @@ const Incident = ({navigation}) => {
                 </View>
                 <View style={styles.cardcontentpara}>
                   <Text style={styles.carddetail}>Reporter Name :Chandru </Text>
-                  <Text style={styles.carddetail}>District:Assam</Text>
-                  <Text style={styles.carddetail}>State:Assam</Text>
+                  <Text style={styles.carddetail}>District: Assam</Text>
+                  <Text style={styles.carddetail}>State: Assam</Text>
                 </View>
                 <View style={styles.linethrough}></View>
                 <View style={styles.iconmain}>
@@ -98,9 +98,9 @@ const Incident = ({navigation}) => {
                   />
                 </View>
                 <View style={styles.cardcontentpara}>
-                  <Text style={styles.carddetail}>Reporter Name :Selvam </Text>
-                  <Text style={styles.carddetail}>District:west Bengal</Text>
-                  <Text style={styles.carddetail}>State:West Bengal</Text>
+                  <Text style={styles.carddetail}>Reporter Name: Selvam </Text>
+                  <Text style={styles.carddetail}>District: West Bengal</Text>
+                  <Text style={styles.carddetail}>State: West Bengal</Text>
                 </View>
                 <View style={styles.linethrough}></View>
                 <View style={styles.iconmain}>
@@ -125,7 +125,7 @@ const Incident = ({navigation}) => {
                   <View style={styles.verticleLine}></View>
 
                   <View style={styles.iconmain1}>
-                    <Text style={styles.iconname}> Downlaod</Text>
+                    <Text style={styles.iconname}> Download</Text>
                   </View>
                 </View>
               </ImageBackground>
@@ -156,10 +156,10 @@ const Incident = ({navigation}) => {
                 </View>
                 <View style={styles.cardcontentpara}>
                   <Text style={styles.carddetail}>
-                    Reporter Name :Parthiban{' '}
+                    Reporter Name: Parthiban
                   </Text>
-                  <Text style={styles.carddetail}>District:Assam</Text>
-                  <Text style={styles.carddetail}>State:Assam</Text>
+                  <Text style={styles.carddetail}>District: Assam</Text>
+                  <Text style={styles.carddetail}>State: Assam</Text>
                 </View>
                 <View style={styles.linethrough}></View>
                 <View style={styles.iconmain}>
@@ -184,7 +184,7 @@ const Incident = ({navigation}) => {
                   <View style={styles.verticleLine}></View>
 
                   <View style={styles.iconmain1}>
-                    <Text style={styles.iconname}> Downlaod</Text>
+                    <Text style={styles.iconname}> Download</Text>
                   </View>
                 </View>
               </ImageBackground>
@@ -214,9 +214,9 @@ const Incident = ({navigation}) => {
                   />
                 </View>
                 <View style={styles.cardcontentpara}>
-                  <Text style={styles.carddetail}>Reporter Name :Muthu </Text>
-                  <Text style={styles.carddetail}>District:West Bengal</Text>
-                  <Text style={styles.carddetail}>State:WestBengal</Text>
+                  <Text style={styles.carddetail}>Reporter Name: Muthu </Text>
+                  <Text style={styles.carddetail}>District: West Bengal</Text>
+                  <Text style={styles.carddetail}>State: West Bengal</Text>
                 </View>
                 <View style={styles.linethrough}></View>
                 <View style={styles.iconmain}>
@@ -241,7 +241,7 @@ const Incident = ({navigation}) => {
                   <View style={styles.verticleLine}></View>
 
                   <View style={styles.iconmain1}>
-                    <Text style={styles.iconname}> Downlaod</Text>
+                    <Text style={styles.iconname}> Download</Text>
                   </View>
                 </View>
               </ImageBackground>
@@ -262,9 +262,9 @@ const Incident = ({navigation}) => {
                 />
               </View>
               <View style={styles.cardcontentpara}>
-                <Text style={styles.carddetail}>Reporter Name :Siva </Text>
-                <Text style={styles.carddetail}>District:Assam</Text>
-                <Text style={styles.carddetail}>State:Assam</Text>
+                <Text style={styles.carddetail}>Reporter Name: Siva </Text>
+                <Text style={styles.carddetail}>District: Assam</Text>
+                <Text style={styles.carddetail}>State: Assam</Text>
               </View>
               <View style={styles.linethrough}></View>
               <View style={styles.iconmain}>
@@ -289,7 +289,7 @@ const Incident = ({navigation}) => {
                 <View style={styles.verticleLine}></View>
 
                 <View style={styles.iconmain1}>
-                  <Text style={styles.iconname}> Downlaod</Text>
+                  <Text style={styles.iconname}> Download</Text>
                 </View>
               </View>
             </ImageBackground>

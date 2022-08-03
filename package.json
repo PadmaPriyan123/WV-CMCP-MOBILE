@@ -9,7 +9,14 @@
     "test": "jest",
     "lint": "eslint ."
   },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/"
+    ]
+  },
   "dependencies": {
+    "@expo-google-fonts/lato": "^0.2.2",
+    "@fontsource/lato": "^4.5.8",
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.2",
@@ -26,11 +33,13 @@
     "@react-navigation/stack": "^6.2.2",
     "@ui-kitten/components": "^5.1.2",
     "datetimepicker": "^0.1.39",
+    "expo-font": "^10.2.0",
     "install": "^0.13.0",
     "moment": "^2.29.4",
     "react": "18.0.0",
     "react-native": "0.69.1",
     "react-native-bouncy-checkbox": "^2.1.10",
+    "react-native-config": "^1.4.6",
     "react-native-date-input": "^1.0.11",
     "react-native-date-picker": "^4.2.2",
     "react-native-datefield": "^0.3.6",
