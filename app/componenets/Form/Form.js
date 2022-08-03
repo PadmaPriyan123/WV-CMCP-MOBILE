@@ -62,37 +62,37 @@ const FirstRoute = ({route}) => {
   const [value3, setValue3] = React.useState(null);
   const [items3, setItems3] = React.useState([
     {label: 'Assam', value: 'Assam'},
-    {label: 'WestBenagl', value: 'WestBengal'},
+    {label: 'WestBengal', value: 'WestBengal'},
   ]);
   const [open4, setOpen4] = React.useState(false);
   const [value4, setValue4] = React.useState(null);
   const [items4, setItems4] = React.useState([
     {label: 'Assam', value: 'Assam'},
-    {label: 'WestBenagl', value: 'WestBengal'},
+    {label: 'WestBengal', value: 'WestBengal'},
   ]);
   const [open5, setOpen5] = React.useState(false);
   const [value5, setValue5] = React.useState(null);
   const [items5, setItems5] = React.useState([
     {label: 'Assam', value: 'Assam'},
-    {label: 'WestBenagl', value: 'WestBengal'},
+    {label: 'WestBengal', value: 'WestBengal'},
   ]);
   const [open6, setOpen6] = React.useState(false);
   const [value6, setValue6] = React.useState(null);
   const [items6, setItems6] = React.useState([
     {label: 'Assam', value: 'Assam'},
-    {label: 'WestBenagl', value: 'WestBengal'},
+    {label: 'WestBengal', value: 'WestBengal'},
   ]);
   const [open7, setOpen7] = React.useState(false);
   const [value7, setValue7] = React.useState(null);
   const [items7, setItems7] = React.useState([
     {label: 'Assam', value: 'Assam'},
-    {label: 'WestBenagl', value: 'WestBengal'},
+    {label: 'WestBengal', value: 'WestBengal'},
   ]);
   const [open8, setOpen8] = React.useState(false);
   const [value8, setValue8] = React.useState(null);
   const [items8, setItems8] = React.useState([
     {label: 'Assam', value: 'Assam'},
-    {label: 'WestBenagl', value: 'WestBengal'},
+    {label: 'WestBengal', value: 'WestBengal'},
   ]);
 
   const [fileResponse, setFileResponse] = React.useState([]);
@@ -135,7 +135,7 @@ const FirstRoute = ({route}) => {
               />
             </View>
             <View style={{marginTop: 16}}>
-              <Text style={styles.FormTitle}>Desigination:*</Text>
+              <Text style={styles.FormTitle}>Designation:*</Text>
               <View style={styles.formtotalinput}>
                 <TextInput
                   style={styles.FormInput}
@@ -519,8 +519,7 @@ const SecondRoute = ({route}) => {
               <TextInput
                 style={styles.FormInput}
                 type="text"
-                placeholder="Offenders approximate Age
-          "
+                placeholder="Offenders approximate Age"
               />
             </View>
           </View>

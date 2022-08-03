@@ -1,155 +1,222 @@
 import React from "react";
-import { StyleSheet, View, Text, LogBox, } from "react-native";
-import { VictoryBar, VictoryChart, VictoryTheme, VictoryAxis, VictoryLabel } from "victory-native";
-import { DataTable } from 'react-native-paper';
-import { ScrollView } from "react-native-gesture-handler";
-LogBox.ignoreLogs(['Warning: ...']);
-LogBox.ignoreAllLogs();
+import { Text, View, ScrollView, StyleSheet } from 'react-native';
+import { Card, Button, Title, Paragraph } from 'react-native-paper';
+import { faTag } from '@fortawesome/free-solid-svg-icons/faTag'
+import { faPhone } from '@fortawesome/free-solid-svg-icons/faPhone'
+import { faBell } from '@fortawesome/free-solid-svg-icons/faBell'
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import IncidentLogedGraph from "../Graph/IncidentLogedGraph";
+import FirFilledGraph from "../Graph/FirFilledGraph";
+import IncidentClosedGraph from "../Graph/IncidentClosedGraph";
+import UserRegisterGraph from "../Graph/UserRegisterGraph";
 
-const data = [
-  { Year: '2014', CMP: 15.6, label: "15.6%", fill: "green" },
-  { Year: '2015', CMP: 39.9, label: "39.9%", fill: "maroon" },
-  { Year: '2016', CMP: 45.13, label: "45.13%", fill: "red" },
-  { Year: '2017', CMP: 21.69, label: "21.69%", fill: "teal" },
-  { Year: '2018', CMP: 17.6, label: "17.6%", fill: "orange" },
-  { Year: '2019', CMP: 16.5, label: "16.5%", fill: "purple" }
-];
+import {
+    useFonts as useLato,
+    Lato_400Regular_Italic,
+    Lato_900Black_Italic,
+  } from "@expo-google-fonts/lato";
 
-export default function DashboardScreen() {
 
-  return (
-    <>
-      <ScrollView style={{backgroundColor:'#fff'}}>
-        <View style={styles.container}>
-          
-          <Text style={styles.header}>Case Management Report</Text>
-          <View style={styles.chart}>
-            <VictoryChart height={280} width={390}
-              domainPadding={30}
-              theme={VictoryTheme.material} >
-              <VictoryAxis label="YEAR"
-                axisLabelComponent={<VictoryLabel dy={25} />} />
-              <VictoryAxis
-                dependentAxis={true}
-                axisLabelComponent={<VictoryLabel dy={-26} domainPadding={15} />}
-                label={"Percentage  of  Affected  Peoples"}
-                fixLabelOverlap={true}
-              />
-              <VictoryBar
-                data={data}
-                style={{
-                  data: {
-                    fill: ({ datum }) => datum.fill, width: 25
-                  }
-                }}
-                events={ [{ target: 'data', eventHandlers: { onPress: (evt, context, index) => 
-                  { 
-                    // console.log(context.data);
-                    // alert(index);
-                    //Year = context.data[index].Year;
-                    //CMP = context.data[index].CMP;
-                    alert(index); 
-                  }, }, }] } 
-                y="CMP" x="Year" />
-            </VictoryChart>
-            <View>
-              <Text style={styles.content}> % - West Bengal and Assam Combined </Text>
+class CreateCard extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            card1: 1,
+            card2: 0,
+            card3: 0,
+            card4: 0
+        }
+    }
+
+    changeGraph = (type) => {
+        console.log(type);
+        this.setState({
+            card1: 0,
+            card2: 0,
+            card3: 0,
+            card4: 0
+        });
+
+        if (type == 1) {
+            this.setState({ card1: 1 });
+        } else if (type == 2) {
+            this.setState({ card2: 1 });
+        } else if (type == 3) {
+            this.setState({ card3: 1 });
+        } else if (type == 4) {
+            this.setState({ card4: 1 });
+        }
+        else {
+            this.setState('0');
+        }
+    };
+
+    render() {
+        return (
+            <View style= {Styles.DashboardContainer}>
+                <ScrollView >
+                    <View style={Styles.column}>
+                        <Card style={Styles.cardone} onPress={() => { this.changeGraph('1') }}>
+                            <Card.Content >
+                                <Title style={Styles.title}>103</Title>
+                            </Card.Content>
+                            <Card.Content>
+                                <Title style={Styles.title}>Incident Loged
+                                    <FontAwesomeIcon icon={faTag}
+                                        size={20}
+                                        color={'#fff'}
+                                    />
+                                </Title>
+                            </Card.Content>
+                        </Card>
+                        <Card style={Styles.cardtwo} onPress={() => { this.changeGraph('2') }}>
+                            <Card.Content>
+                                <Title style={Styles.title}>230</Title>
+                            </Card.Content>
+                            <Card.Content>
+                                <Title style={Styles.title}>FIR Filled {'\n'}
+                                    <FontAwesomeIcon icon={faPhone}
+                                        size={20}
+                                        color={'#fff'}
+                                    />
+                                </Title>
+                            </Card.Content>
+
+                        </Card>
+                    </View>
+                    <View style={Styles.column}>
+                        <Card style={Styles.cardthree} onPress={() => { this.changeGraph('3') }}>
+                            <Card.Content>
+                                <Title style={Styles.title}>323</Title>
+                            </Card.Content>
+                            <Card.Content>
+                                <Title style={Styles.title}>Incident Closed
+                                    <FontAwesomeIcon icon={faBell}
+                                        size={20}
+                                        color={'#fff'}
+                                    />
+                                </Title>
+                            </Card.Content>
+
+                        </Card>
+
+                        <Card style={Styles.cardfour} onPress={() => { this.changeGraph('4') }}>
+                            <Card.Content>
+                                <Title style={Styles.title}>870</Title>
+                            </Card.Content>
+                            <Card.Content>
+                                <Title style={Styles.title}>User Registered
+                                    <FontAwesomeIcon icon={faEnvelope}
+                                        size={20}
+                                        color={'#fff'}
+                                    />
+                                </Title>
+                            </Card.Content>
+
+                        </Card>
+
+                    </View>
+                    <View style={Styles.columntwo}>
+
+                        <Card style={Styles.cardfive}>
+
+                            <Card.Content style={{ display: this.state.card1 == 1 ? 'flex' : 'none' }}>
+                                <IncidentLogedGraph>
+                                </IncidentLogedGraph>
+                            </Card.Content>
+
+                            <Card.Content style={{ display: this.state.card2 == 1 ? 'flex' : 'none' }}>
+                                <FirFilledGraph>
+                                </FirFilledGraph>
+                            </Card.Content>
+
+                            <Card.Content style={{ display: this.state.card3 == 1 ? 'flex' : 'none' }}>
+                                <IncidentClosedGraph>
+                                </IncidentClosedGraph>
+                            </Card.Content>
+
+                            <Card.Content style={{ display: this.state.card4 == 1 ? 'flex' : 'none' }}>
+                                <UserRegisterGraph>
+                                </UserRegisterGraph>
+                            </Card.Content>
+                        </Card>
+                    </View>
+                </ScrollView >
             </View>
-            {/*<ScrollView>*/}
-            <DataTable style={styles.title}>
-              <DataTable.Header style={{backgroundColor:'#00bad7',borderRadius: 6,borderBottomLeftRadius:2,borderBottomEndRadius:2 }}>
-                <DataTable.Title textStyle={styles.tablecontent}>Incident Name</DataTable.Title>
-                <DataTable.Title numeric textStyle={styles.dastabletitle}>2017</DataTable.Title>
-                <DataTable.Title numeric textStyle={styles.dastabletitle}>2018</DataTable.Title>
-                <DataTable.Title numeric textStyle={styles.dastabletitle}>2019</DataTable.Title>
-              </DataTable.Header>
-
-              <DataTable.Row style={{backgroundColor:'#e9ecef',}} >
-                <DataTable.Cell >FCV</DataTable.Cell>
-                <DataTable.Cell numeric>5587</DataTable.Cell>
-                <DataTable.Cell numeric>4505</DataTable.Cell>
-                <DataTable.Cell numeric>204</DataTable.Cell>
-              </DataTable.Row>
-
-              <DataTable.Row style={{backgroundColor:'#e9ecef'}}>
-                <DataTable.Cell>KAG</DataTable.Cell>
-                <DataTable.Cell numeric>11778</DataTable.Cell>
-                <DataTable.Cell numeric>14157</DataTable.Cell>
-                <DataTable.Cell numeric>6449</DataTable.Cell>
-              </DataTable.Row>
-
-              <DataTable.Row style={{backgroundColor:'#e9ecef'}}>
-                <DataTable.Cell>POCSO</DataTable.Cell>
-                <DataTable.Cell numeric>3253</DataTable.Cell>
-                <DataTable.Cell numeric>3988</DataTable.Cell>
-                <DataTable.Cell numeric>4016</DataTable.Cell>
-              </DataTable.Row>
-
-              <DataTable.Row style={{backgroundColor:'#e9ecef'}}>
-                <DataTable.Cell>POMG</DataTable.Cell>
-                <DataTable.Cell numeric>1390</DataTable.Cell>
-                <DataTable.Cell numeric>1201</DataTable.Cell>
-                <DataTable.Cell numeric>1507</DataTable.Cell>
-              </DataTable.Row>
-
-              <DataTable.Row style={{backgroundColor:'#e9ecef',borderRadius: 6, }}>
-                <DataTable.Cell>MG</DataTable.Cell>
-                <DataTable.Cell numeric>6887</DataTable.Cell>
-                <DataTable.Cell numeric>7691</DataTable.Cell>
-                <DataTable.Cell numeric>7356</DataTable.Cell>
-              </DataTable.Row>
-
-            </DataTable>
-            {/*</ScrollView>*/}
-          </View>
-        </View>
-        
-      </ScrollView>
-    </>
-  );
+        )
+    }
 }
+export default CreateCard;
 
+const Styles = StyleSheet.create({
+    cardone: {
+        alignContent: 'center',
+        margin: 5,
+        width: 160,
+        backgroundColor: '#00acca',
+        borderRadius: 10,
+        height: 120,
+    },
 
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: "center",
-    paddingHorizontal: 15,
-    backgroundColor: "#fff",
-  },
-  header: {
-    fontSize: 22,
-    marginTop: 5,
-    fontWeight: 'bold',
-    textAlign: "center",
-    color: "orange",
-  },
-  chart: {
-    marginTop: -30,
-  },
-  content: {
-    textAlign: 'center',
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "black",
-  },
-  title: {
-    borderWidth: 1,
-    marginTop: 10,
-  borderRadius:7,
-  
-  
-    
-  
-  },
-  tablecontent:{
-    fontSize: 14,
-    fontWeight: "bold",
-    color: "#fff",
-     width: 180
- },
- dastabletitle:{
-  fontSize: 14, 
-  fontWeight: "bold",
-   color: "#fff"
- }
+    cardtwo: {
+        alignContent: 'center',
+        margin: 5,
+        width: 160,
+        backgroundColor: '#9054a1',
+        borderRadius: 10,
+        height: 120,
+    },
+    cardthree: {
+        alignContent: 'center',
+        margin: 5,
+        marginTop: 0,
+        width: 160,
+        backgroundColor: '#ff6b00',
+        borderRadius: 10,
+        height: 120,
+    },
+    cardfour: {
+        alignContent: 'center',
+        margin: 5,
+        marginTop: 0,
+        width: 160,
+        backgroundColor: '#46bb95',
+        borderRadius: 10,
+        height: 120,
+    },
+    cardfive: {
+        alignContent: 'center',
+        margin: 10,
+        marginTop: 0,
+        borderRadius: 10,
+        height: 300,
+        backgroundColor: '#cac4bb',
+    },
+    column: {
+        alignContent: 'center',
+        justifyContent: 'center',
+        margin: 5,
+        flex: 1,
+        flexDirection: 'row',
+        marginBottom: 0,
+    },
+    columntwo: {
+        alignContent: 'center',
+        justifyContent: 'center',
+        margin: 5,
+    },
+    title: {
+        color: '#fff',
+        fontFamily: `${Lato_900Black_Italic}`,
+        fontFamily: 'Lato_900Black_Italic',
+        fontWeight: 'bold',
+        alignItems: 'center'
+    },
+    DashboardContainer: {
+        fontFamily: 'Montserrat-SemiBold',
+        // fontSize: 90,
+        // fontWeight: 'bold'
+    }
+
 })

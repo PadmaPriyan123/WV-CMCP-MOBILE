@@ -50,6 +50,11 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<key>UIAppFonts</key>
+<array>
+  <string>Lato-Bold.ttf</string>
+  <string>Lato-Black.ttf</string>
+</array>
 	<false/>
 </dict>
 </plist>
