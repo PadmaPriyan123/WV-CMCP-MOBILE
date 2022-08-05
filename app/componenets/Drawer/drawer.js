@@ -50,7 +50,7 @@ function CustomDrawerContent(props) {
 
 const Drawer = createDrawerNavigator();
 
-function MyDrawer() {
+export default function MyDrawer() {
   return (
 
     <Drawer.Navigator
@@ -172,13 +172,13 @@ function MyDrawer() {
   );
 }
 
-export default function App() {
-  return (
+// export default function App() {
+//   return (
 
-    <MyDrawer />
+//     <MyDrawer />
 
-  );
-}
+//   );
+// }
 const styles = StyleSheet.create({
 
   lablestyle: {

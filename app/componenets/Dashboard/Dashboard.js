@@ -62,12 +62,17 @@ class CreateCard extends React.Component {
                                 <Title style={Styles.title}>103</Title>
                             </Card.Content>
                             <Card.Content>
+                                <View>
+                                  
                                 <Title style={Styles.title}>Incident Loged
-                                    <FontAwesomeIcon icon={faTag}
+                                
+                                    <FontAwesomeIcon   icon={faTag}
                                         size={20}
                                         color={'#fff'}
                                     />
+                                    
                                 </Title>
+                                </View>
                             </Card.Content>
                         </Card>
                         <Card style={Styles.cardtwo} onPress={() => { this.changeGraph('2') }}>
@@ -75,7 +80,7 @@ class CreateCard extends React.Component {
                                 <Title style={Styles.title}>230</Title>
                             </Card.Content>
                             <Card.Content>
-                                <Title style={Styles.title}>FIR Filled {'\n'}
+                                <Title style={Styles.title}>FIR Filled
                                     <FontAwesomeIcon icon={faPhone}
                                         size={20}
                                         color={'#fff'}
@@ -211,7 +216,8 @@ const Styles = StyleSheet.create({
         fontFamily: `${Lato_900Black_Italic}`,
         fontFamily: 'Lato_900Black_Italic',
         fontWeight: 'bold',
-        alignItems: 'center'
+        alignItems: 'center',
+        
     },
     DashboardContainer: {
         fontFamily: 'Montserrat-SemiBold',

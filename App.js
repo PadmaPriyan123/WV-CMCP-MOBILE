@@ -6,7 +6,7 @@ import Login from './app/componenets/Login/login'
 import Form from './app/componenets/Form/Form';
 import Dashboard from './app/componenets/Dashboard/Dashboard';
 import Incident from './app/componenets/IncidentView/incidentview';
-import  Drawer  from './app/componenets/Drawer/drawer';
+import  MyDrawer  from './app/componenets/Drawer/drawer';
 import  store  from '../WV-CMCP-MOBILE/app/Redux/Store'
 import { Provider  } from 'react-redux'
 
@@ -29,7 +29,7 @@ function App() {
           options={{ headerShown: false }} />
 
         
-        <Stack.Screen name="Drawer" component={Drawer}
+        <Stack.Screen name="Drawer" component={MyDrawer}
           options={{ headerShown: false }} />
 
 

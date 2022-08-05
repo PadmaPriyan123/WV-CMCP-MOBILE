@@ -27,8 +27,9 @@ import {ScrollView} from 'react-native-gesture-handler';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {faFile} from '@fortawesome/free-solid-svg-icons/faFile';
+import CheckBox from '@react-native-community/checkbox';
+
 const FirstRoute = ({route}) => {
-  
   const [modalVisible, setModalVisible] = React.useState(false);
   const [PhotoFile, setPhotoFile] = React.useState(null);
   const [isPickerShow, setIsPickerShow] = React.useState(false);
@@ -119,14 +120,12 @@ const FirstRoute = ({route}) => {
 
   return (
     <View style={styles.Tab}>
-      <View style={styles.casemanagenmentmain}>
-        <Text style={styles.casemanagenmenttitle}>Case Management System</Text>
-      </View>
       <ScrollView style={styles.scrollView}>
         <SafeAreaView style={styles.Form}>
-          <View style={{marginTop:-10}}>
-            
-            <Text style={styles.FormTitle}>Reporter's Name:*</Text>
+          <View style={{marginTop: -10}}>
+            <Text style={styles.FormTitle}>
+              Reporter's Name:<Text style={styles.star}>*</Text>
+            </Text>
             <View style={styles.formtotalinput}>
               <TextInput
                 style={styles.FormInput}
@@ -135,7 +134,9 @@ const FirstRoute = ({route}) => {
               />
             </View>
             <View style={{marginTop: 16}}>
-              <Text style={styles.FormTitle}>Designation:*</Text>
+              <Text style={styles.FormTitle}>
+                Designation:<Text style={styles.star}>*</Text>
+              </Text>
               <View style={styles.formtotalinput}>
                 <TextInput
                   style={styles.FormInput}
@@ -146,14 +147,16 @@ const FirstRoute = ({route}) => {
             </View>
 
             <View style={{marginTop: 16}}>
-              <Text style={styles.FormTitle}>Date Of Reporting:*</Text>
+              <Text style={styles.FormTitle}>
+                Date Of Reporting:<Text style={styles.star}>*</Text>
+              </Text>
               {!isPickerShow && (
                 <View style={{marginLeft: 10, marginTop: 18}}>
                   <Text onPress={showPicker}>
                     <FontAwesomeIcon
                       icon={faCalendarDays}
                       title="Show Picker"
-                      color="#22A7F0"
+                      color="gray"
                     />
                   </Text>
                   <TextInput style={styles.FormInputdate}>
@@ -174,7 +177,9 @@ const FirstRoute = ({route}) => {
             </View>
 
             <View style={{marginTop: -25}}>
-              <Text style={styles.FormTitle}>Name of the Victim:*</Text>
+              <Text style={styles.FormTitle}>
+                Name of the Victim:<Text style={styles.star}>*</Text>
+              </Text>
               <View style={styles.formtotalinput}>
                 <TextInput
                   style={styles.FormInput}
@@ -184,7 +189,9 @@ const FirstRoute = ({route}) => {
               </View>
             </View>
             <View style={{marginTop: 16}}>
-              <Text style={styles.FormTitle}>Guardian's Name:*</Text>
+              <Text style={styles.FormTitle}>
+                Guardian's Name:<Text style={styles.star}>*</Text>
+              </Text>
               <View style={styles.formtotalinput}>
                 <TextInput
                   style={styles.FormInput}
@@ -194,7 +201,9 @@ const FirstRoute = ({route}) => {
               </View>
             </View>
             <View style={{marginTop: 16}}>
-              <Text style={styles.FormTitle}>Victim's Age:*</Text>
+              <Text style={styles.FormTitle}>
+                Victim's Age:<Text style={styles.star}>*</Text>
+              </Text>
               <View style={styles.formtotalinput}>
                 <TextInput
                   style={styles.FormInput}
@@ -206,20 +215,20 @@ const FirstRoute = ({route}) => {
 
             <View style={{marginTop: 3, marginLeft: 10}}>
               <Text style={styles.radioname}>
-                Victim's Dob (if available):*
+                Victim's Dob (if available):<Text style={styles.star}>*</Text>
               </Text>
               <View style={styles.SectionStyle1}>
                 <Text style={styles.gender}> Yes</Text>
                 <RadioButton
                   uncheckedColor={'gray'}
-                  color={'#46bb95'}
+                  color={'#00bad7'}
                   value="first"
                   onPress={() => setModalVisible(true)}
                 />
                 <Text style={styles.gender}>No</Text>
                 <RadioButton
                   uncheckedColor={'gray'}
-                  color={'#46bb95'}
+                  color={'#00bad7'}
                   value="second"
                   status={checked === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setChecked('second')}
@@ -229,11 +238,12 @@ const FirstRoute = ({route}) => {
 
             <View style={{marginTop: 16}}>
               <Text style={styles.FormTitle}>
-                Types of Nature of incident:*{' '}
+                Types of Nature of incident:<Text style={styles.star}>*</Text>
               </Text>
 
               <View style={styles.formdrop}>
                 <DropDownPicker
+                  style={styles.dropdownStyle}
                   open11={countryOpen}
                   onOpen={onCountryOpen}
                   listMode="SCROLLVIEW"
@@ -245,14 +255,18 @@ const FirstRoute = ({route}) => {
                   setItems={setItems2}
                   zIndex={19000}
                   zIndexInverse={1000}
+                  placeholder="Select Nature Of Incident"
                 />
               </View>
             </View>
-            <View style={{marginTop: 16}}>
-              <Text style={styles.FormTitle}>Village Name:* </Text>
+            <View style={{marginTop: 25}}>
+              <Text style={styles.FormTitle}>
+                State:<Text style={styles.star}>*</Text>{' '}
+              </Text>
 
               <View style={styles.formdrop}>
                 <DropDownPicker
+                  style={styles.dropdownStyle}
                   open11={cityOpen}
                   onOpen={onCityOpen}
                   listMode="SCROLLVIEW"
@@ -263,13 +277,17 @@ const FirstRoute = ({route}) => {
                   setValue={setValue3}
                   setItems={setItems3}
                   zIndex={9000}
+                  placeholder="Select State"
                 />
               </View>
             </View>
-            <View style={{marginTop: 16}}>
-              <Text style={styles.FormTitle}>Gram Panchayat:*</Text>
+            <View style={{marginTop: 25}}>
+              <Text style={styles.FormTitle}>
+                District:<Text style={styles.star}>*</Text>
+              </Text>
               <View style={styles.formdrop}>
                 <DropDownPicker
+                  style={styles.dropdownStyle}
                   listMode="SCROLLVIEW"
                   open={open4}
                   value={value4}
@@ -278,12 +296,16 @@ const FirstRoute = ({route}) => {
                   setValue={setValue4}
                   setItems={setItems4}
                   zIndex={8000}
+                  placeholder="Select District"
                 />
               </View>
-              <View style={{marginTop: 16}}>
-                <Text style={styles.FormTitle}>Block:* </Text>
+              <View style={{marginTop: 25}}>
+                <Text style={styles.FormTitle}>
+                  Block:<Text style={styles.star}>*</Text>{' '}
+                </Text>
                 <View style={styles.formdrop}>
                   <DropDownPicker
+                    style={styles.dropdownStyle}
                     listMode="SCROLLVIEW"
                     open={open5}
                     value={value5}
@@ -292,15 +314,20 @@ const FirstRoute = ({route}) => {
                     setValue={setValue5}
                     setItems={setItems5}
                     zIndex={7000}
+                    placeholder="Select Block"
                   />
                 </View>
               </View>
             </View>
-            <View style={{marginTop: 16}}>
-              <Text style={styles.FormTitle}> District :*</Text>
+            <View style={{marginTop: 25}}>
+              <Text style={styles.FormTitle}>
+                {' '}
+                Gram Panchayat :<Text style={styles.star}>*</Text>
+              </Text>
 
               <View style={styles.formdrop}>
                 <DropDownPicker
+                  style={styles.dropdownStyle}
                   listMode="SCROLLVIEW"
                   open={open6}
                   value={value6}
@@ -309,13 +336,17 @@ const FirstRoute = ({route}) => {
                   setValue={setValue6}
                   setItems={setItems6}
                   zIndex={6000}
+                  placeholder="Select Gram Panchayat"
                 />
               </View>
             </View>
-            <View style={{marginTop: 16}}>
-              <Text style={styles.FormTitle}>State:* </Text>
+            <View style={{marginTop: 25}}>
+              <Text style={styles.FormTitle}>
+                Village Name:<Text style={styles.star}>*</Text>{' '}
+              </Text>
               <View style={styles.formdrop}>
                 <DropDownPicker
+                  style={styles.dropdownStyle}
                   dropDownStyle={{backgroundColor: '#fafafa', marginTop: 2}}
                   listMode="SCROLLVIEW"
                   open={open7}
@@ -325,13 +356,17 @@ const FirstRoute = ({route}) => {
                   setValue={setValue7}
                   setItems={setItems7}
                   zIndex={5000}
+                  placeholder="Select Village"
                 />
               </View>
             </View>
-            <View style={{marginTop: 10}}>
-              <Text style={styles.FormTitle}>Police Station:* </Text>
+            <View style={{marginTop: 25}}>
+              <Text style={styles.FormTitle}>
+                Police Station:<Text style={styles.star}>*</Text>{' '}
+              </Text>
               <View style={styles.formdrop}>
                 <DropDownPicker
+                  style={styles.dropdownStyle}
                   dropDownStyle={{backgroundColor: '#fafafa', marginTop: 2}}
                   listMode="SCROLLVIEW"
                   open={open8}
@@ -341,6 +376,7 @@ const FirstRoute = ({route}) => {
                   setValue={setValue8}
                   setItems={setItems8}
                   zIndex={4000}
+                  placeholder="Select PoliceStation"
                 />
               </View>
             </View>
@@ -358,14 +394,14 @@ const FirstRoute = ({route}) => {
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <View style={{marginTop: 16}}>
-                <Text style={styles.FormTitle}>Date Of Reporting</Text>
+                <Text style={styles.FormTitle}>Date Of Reporting:</Text>
                 {!isPickerShow && (
-                  <View style={{marginLeft: 35, marginTop: 15}}>
+                  <View style={{marginLeft: 30, marginTop: 15}}>
                     <Text onPress={showPicker}>
                       <FontAwesomeIcon
                         icon={faCalendarDays}
                         title="Show Picker"
-                        color="#22A7F0"
+                        color="gray"
                       />
                     </Text>
                     <TextInput style={styles.FormInputdate1}>
@@ -400,7 +436,7 @@ const FirstRoute = ({route}) => {
                   <Text onPress={handleDocumentSelection}>
                     <FontAwesomeIcon
                       icon={faFile}
-                      color="#22A7F0"
+                      color="gray"
                       style={styles.fileUpload}
                     />
                   </Text>
@@ -409,149 +445,23 @@ const FirstRoute = ({route}) => {
               <Pressable
                 style={[styles.button, styles.buttonClose]}
                 onPress={() => setModalVisible(!modalVisible)}>
-                <Text style={styles.textStyle}>Hide Modal</Text>
+                <Text style={styles.textStyle}>Close Tab</Text>
               </Pressable>
             </View>
           </View>
         </Modal>
-
       </ScrollView>
-    
+
       <TouchableOpacity
-      
         style={styles.formbutton}
         onPress={() => route.change()}>
         <Text style={styles.formbuttoninput}>NEXT </Text>
       </TouchableOpacity>
-   
     </View>
   );
 };
 
 const SecondRoute = ({route}) => {
-  const [isPickerShow, setIsPickerShow] = React.useState(false);
-  const [date, setDate] = React.useState(new Date(Date.now()));
-
-  const showPicker = () => {
-    setIsPickerShow(true);
-  };
-
-  const onChange = (event, value) => {
-    setDate(value);
-    if (Platform.OS === 'android') {
-      setIsPickerShow(false);
-    }
-  };
-  return (
-    <View style={styles.Tab}>
-      <View
-        style={styles.casemanagenmentmain}>
-        <Text
-          style={styles.casemanagenmenttitle}>
-          Case Management System
-        </Text>
-      </View>
-      <ScrollView style={styles.scrollView}>
-        <SafeAreaView style={styles.Form}>
-          <View style={{marginTop: -10}}>
-            <Text style={styles.FormTitle}>Date Of Incident:*</Text>
-            {!isPickerShow && (
-              <View style={{marginLeft: 10, marginTop: 18}}>
-                <Text onPress={showPicker}>
-                  <FontAwesomeIcon
-                    icon={faCalendarDays}
-                    title="Show Picker"
-                    color="#22A7F0"
-                  />
-                </Text>
-                <TextInput style={styles.FormInputdate}>
-                  {date.toUTCString()}/
-                </TextInput>
-              </View>
-            )}
-
-            {isPickerShow && (
-              <DateTimePicker
-                value={date}
-                mode={'date'}
-                display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-                is24Hour={true}
-                onChange={onChange}
-              />
-            )}
-          </View>
-
-          <View style={{marginTop: -25}}>
-            <Text style={styles.FormTitle}>Description of the Incident:*</Text>
-            <View style={styles.formtotalinput}>
-              <TextInput
-                style={styles.FormInput}
-                type="text"
-                placeholder="Description of the incident"
-              />
-            </View>
-          </View>
-          <View style={{marginTop: 16}}>
-            <Text style={styles.FormTitle}>Name of Alleged Offender:*</Text>
-            <View style={styles.formtotalinput}>
-              <TextInput
-                style={styles.FormInput}
-                type="text"
-                placeholder="Name of Alleged Offender"
-              />
-            </View>
-          </View>
-          <View style={{marginTop: 16}}>
-            <Text style={styles.FormTitle}>
-              Offenders relationship to victim
-            </Text>
-            <View style={styles.formtotalinput}>
-              <TextInput
-                style={styles.FormInput}
-                type="text"
-                placeholder="Offender relationship to victim"
-              />
-            </View>
-          </View>
-          <View style={{marginTop: 16}}>
-            <Text style={styles.FormTitle}>Offenders approximate Age:*</Text>
-            <View style={styles.formtotalinput}>
-              <TextInput
-                style={styles.FormInput}
-                type="text"
-                placeholder="Offenders approximate Age"
-              />
-            </View>
-          </View>
-        </SafeAreaView>
-      </ScrollView>
-      <View style={{backgroundColor:''}}>
-      <TouchableOpacity
-        style={styles.formbutton}
-        onPress={() => route.change()}>
-        <Text style={styles.formbuttoninput}>NEXT </Text>
-      </TouchableOpacity>
-      </View>
-    </View>
-  );
-};
-const ThirdRoute = ({route}) => {
-  const [modalVisible, setModalVisible] = React.useState(false);
-
-  const [isPickerShow, setIsPickerShow] = React.useState(false);
-  const [date, setDate] = React.useState(new Date(Date.now()));
-  const [PhotoFile, setPhotoFile] = React.useState(null);
-
-  const showPicker = () => {
-    setIsPickerShow(true);
-  };
-
-  const onChange = (event, value) => {
-    setDate(value);
-    if (Platform.OS === 'android') {
-      setIsPickerShow(false);
-    }
-  };
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState(null);
   const [items, setItems] = React.useState([
@@ -572,47 +482,113 @@ const ThirdRoute = ({route}) => {
     },
     {label: 'Others', value: 'others'},
   ]);
-  const [open1, setOpen1] = React.useState(false);
-  const [value1, setValue1] = React.useState(null);
-  const [items1, setItems1] = React.useState([
-    {label: 'Local Police station', value: 'Local Police station'},
-    {label: 'Police Helpline 100 ', value: 'Police Helpline 100 '},
-    {label: ' Child Line- 1098', value: ' Child Line- 1098'},
-
-    {label: 'Child Welfare Committee', value: 'Child Welfare Committee'},
-
-    {
-      label: ' District Child Protection Unit    ',
-      value: ' District Child Protection Unit    ',
-    },
-
-    {label: 'Other', value: 'Other'},
-  ]);
-
   const [checked, setChecked] = React.useState('first');
   const [checked1, setChecked1] = React.useState('first1');
-  const [checked2, setChecked2] = React.useState('first2');
-  const [checked3, setChecked3] = React.useState('first2');
-  const [checked4, setChecked4] = React.useState('first2');
-  const [checked5, setChecked5] = React.useState('first2');
 
+  const [isPickerShow, setIsPickerShow] = React.useState(false);
+  const [date, setDate] = React.useState(new Date(Date.now()));
+  const [modalVisible, setModalVisible] = React.useState(false);
+
+  const showPicker = () => {
+    setIsPickerShow(true);
+  };
+
+  const onChange = (event, value) => {
+    setDate(value);
+    if (Platform.OS === 'android') {
+      setIsPickerShow(false);
+    }
+  };
   return (
     <View style={styles.Tab}>
-      <View
-       style={styles.casemanagenmentmain}>
-        <Text
-          style={styles.casemanagenmenttitle}>
-          Case Management System
-        </Text>
-      </View>
       <ScrollView style={styles.scrollView}>
         <SafeAreaView style={styles.Form}>
           <View style={{marginTop: -10}}>
+            <Text style={styles.FormTitle}>
+              Date Of Incident:<Text style={styles.star}>*</Text>
+            </Text>
+            {!isPickerShow && (
+              <View style={{marginLeft: 10, marginTop: 18}}>
+                <Text onPress={showPicker}>
+                  <FontAwesomeIcon
+                    icon={faCalendarDays}
+                    title="Show Picker"
+                    color="gray"
+                  />
+                </Text>
+                <TextInput style={styles.FormInputdate}>
+                  {date.toUTCString()}/
+                </TextInput>
+              </View>
+            )}
+
+            {isPickerShow && (
+              <DateTimePicker
+                value={date}
+                mode={'date'}
+                display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                is24Hour={true}
+                onChange={onChange}
+              />
+            )}
+          </View>
+
+          <View style={{marginTop: -25}}>
+            <Text style={styles.FormTitle}>
+              Description of the Incident:<Text style={styles.star}>*</Text>
+            </Text>
+            <View style={styles.formtotalinput}>
+              <TextInput
+                style={styles.FormInput}
+                type="text"
+                placeholder="Description of the incident"
+              />
+            </View>
+          </View>
+          <View style={{marginTop: 16}}>
+            <Text style={styles.FormTitle}>
+              Name of Alleged Offender:<Text style={styles.star}>*</Text>
+            </Text>
+            <View style={styles.formtotalinput}>
+              <TextInput
+                style={styles.FormInput}
+                type="text"
+                placeholder="Name of Alleged Offender"
+              />
+            </View>
+          </View>
+          <View style={{marginTop: 16}}>
+            <Text style={styles.FormTitle}>
+              Offenders relationship to victim:
+              <Text style={styles.star}>*</Text>
+            </Text>
+            <View style={styles.formtotalinput}>
+              <TextInput
+                style={styles.FormInput}
+                type="text"
+                placeholder="Offender relationship  victim"
+              />
+            </View>
+          </View>
+          <View style={{marginTop: 16}}>
+            <Text style={styles.FormTitle}>
+              Offenders approximate Age:<Text style={styles.star}>*</Text>
+            </Text>
+            <View style={styles.formtotalinput}>
+              <TextInput
+                style={styles.FormInput}
+                type="text"
+                placeholder="Offenders approximate Age"
+              />
+            </View>
+          </View>
+          <View style={{marginTop: 16}}>
             <Text style={styles.FormTitle1}>
-              Who informed about the Incident:*
+              Who informed about the Incident:<Text style={styles.star}>*</Text>
             </Text>
             <View style={styles.formdrop}>
               <DropDownPicker
+                style={styles.dropdownStyle}
                 listMode="SCROLLVIEW"
                 open={open}
                 value={value}
@@ -621,56 +597,19 @@ const ThirdRoute = ({route}) => {
                 setValue={setValue}
                 setItems={setItems}
                 zIndex={9000}
-              />
-            </View>
-          </View>
-          <View style={{marginTop: 16}}>
-            <Text style={styles.FormTitle1}>
-              Whether the incident reported to (tick all that apply){' '}
-            </Text>
-
-            <View style={styles.formdrop}>
-              <DropDownPicker
-                listMode="SCROLLVIEW"
-                open={open1}
-                value={value1}
-                items={items1}
-                setOpen={setOpen1}
-                setValue={setValue1}
-                setItems={setItems1}
+                placeholder='Select the Informed About Incident'
               />
             </View>
           </View>
           <View style={{marginTop: 3, marginLeft: 10}}>
             <Text style={styles.radioname}>
-              Whether the complaint was lodged in PS
+              Complaint Lodged In PS:<Text style={styles.star}>*</Text>
             </Text>
             <View style={styles.SectionStyle1}>
               <Text style={styles.gender}>Yes</Text>
               <RadioButton
                 uncheckedColor={'gray'}
-                color={'#46bc96'}
-                value="first"
-                status={checked === 'first' ? 'checked' : 'unchecked'}
-                onPress={() => setChecked('first')}
-              />
-              <Text style={styles.gender}>No</Text>
-              <RadioButton
-                uncheckedColor={'gray'}
-                color={'#46bc96'}
-                value="second"
-                status={checked === 'second' ? 'checked' : 'unchecked'}
-                onPress={() => setChecked('second')}
-              />
-            </View>
-          </View>
-          <View style={{marginTop: 3, marginLeft: 10}}>
-            <Text style={styles.radioname}>FIR is filed or not?</Text>
-            <View style={styles.SectionStyle1}>
-              <Text style={styles.gender}>Yes</Text>
-              <RadioButton
-                uncheckedColor={'gray'}
-                color={'#46bc96'}
+                color={'#00bad7'}
                 value="first"
                 status={checked1 === 'first' ? 'checked' : 'unchecked'}
                 onPress={() => setChecked1('first')}
@@ -678,41 +617,372 @@ const ThirdRoute = ({route}) => {
               <Text style={styles.gender}>No</Text>
               <RadioButton
                 uncheckedColor={'gray'}
-                color={'#46bc96'}
+                color={'#00bad7'}
                 value="second"
                 status={checked1 === 'second' ? 'checked' : 'unchecked'}
                 onPress={() => setChecked1('second')}
               />
             </View>
           </View>
-          <View style={{marginTop: 3, marginLeft: 10}}>
-            <Text style={styles.radioname}>If yes</Text>
-            <View style={styles.SectionStyle1}>
-              <Text style={styles.gender}>FIR No</Text>
-              <RadioButton
-                color={'#46bc96'}
-                value="first"
-                status={checked2 === 'first' ? 'checked' : 'unchecked'}
-                onPress={() => setChecked2('first')}
+          <View style={{marginTop: 16}}>
+            <Text style={styles.FormTitle}>
+              GD Entry:<Text style={styles.star}>*</Text>
+            </Text>
+            {!isPickerShow && (
+              <View style={{marginLeft: 10, marginTop: 18}}>
+                <Text onPress={showPicker}>
+                  <FontAwesomeIcon
+                    icon={faCalendarDays}
+                    title="Show Picker"
+                    color="gray"
+                  />
+                </Text>
+                <TextInput style={styles.FormInputdate}>
+                  {date.toUTCString()}/
+                </TextInput>
+              </View>
+            )}
+
+            {isPickerShow && (
+              <DateTimePicker
+                value={date}
+                mode={'date'}
+                display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                is24Hour={true}
+                onChange={onChange}
               />
-              <Text style={styles.gender}>Date</Text>
+            )}
+          </View>
+          <View style={{marginTop: -30, marginLeft: 10}}>
+            <Text style={styles.radioname}>
+              FIR Filled Or Not:<Text style={styles.star}>*</Text>
+            </Text>
+            <View style={styles.SectionStyle1}>
+              <Text style={styles.gender}> Yes</Text>
               <RadioButton
                 uncheckedColor={'gray'}
-                color={'#46bc96'}
-                value="second"
-                status={checked2 === 'second' ? 'checked' : 'unchecked'}
+                color={'#00bad7'}
+                value="first"
+                status={checked === 'first' ? 'checked' : 'unchecked'}
                 onPress={() => setModalVisible(true)}
-                style={styles.hhh}
+                />
+              <Text style={styles.gender}>No</Text>
+              <RadioButton
+                uncheckedColor={'gray'}
+                color={'#00bad7'}
+                value="second"
+                status={checked === 'second' ? 'checked' : 'unchecked'}
+                onPress={() => setChecked('second')}
+              />
+            </View>
+          </View>
+        </SafeAreaView>
+      </ScrollView>
+      <View style={{backgroundColor: ''}}>
+        <TouchableOpacity
+          style={styles.formbutton}
+          onPress={() => route.change()}>
+          <Text style={styles.formbuttoninput}>NEXT </Text>
+        </TouchableOpacity>
+      </View>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <View style={{marginTop: 16}}>
+            <View style={{marginTop: 16}}>
+              <Text style={styles.FormTitle}>
+                Designation:<Text style={styles.star}>*</Text>
+              </Text>
+              <View style={styles.formtotalinput}>
+                <TextInput
+                  style={styles.FormInput}
+                  type="text"
+                  placeholder="Desigination"
+                />
+              </View>
+            </View>
+            <View style={{marginTop:20}}>
+              <Text style={styles.FormTitle}>Date Of Reporting</Text>
+              {!isPickerShow && (
+                <View style={{marginLeft: 35, marginTop: 15}}>
+                  
+                  <Text onPress={showPicker}>
+                    <FontAwesomeIcon
+                      icon={faCalendarDays}
+                      title="Show Picker"
+                      color="gray"
+                    />
+                  </Text>
+                  <TextInput style={styles.FormInputdate1}>
+                    {date.toUTCString()}/
+                  </TextInput>
+                </View>
+              )}
+
+              {isPickerShow && (
+                <DateTimePicker
+                  value={date}
+                  mode={'date'}
+                  display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                  is24Hour={true}
+                  onChange={onChange}
+                />
+              )}
+            </View>
+            </View>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}>
+              <Text style={styles.textStyle}>Hide Modal</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+    </View>
+  );
+};
+const ThirdRoute = ({route}) => {
+  const [modalVisible, setModalVisible] = React.useState(false);
+
+  const [isPickerShow, setIsPickerShow] = React.useState(false);
+  const [date, setDate] = React.useState(new Date(Date.now()));
+  const [PhotoFile, setPhotoFile] = React.useState(null);
+
+  const showPicker = () => {
+    setIsPickerShow(true);
+  };
+
+  const onChange = (event, value) => {
+    setDate(value);
+    if (Platform.OS === 'android') {
+      setIsPickerShow(false);
+    }
+  };
+  const [isSelected, setSelection] = useState(false);
+  const [isSelected1, setSelection1] = useState(false);
+  const [isSelected2, setSelection2] = useState(false);
+  const [isSelected3, setSelection3] = useState(false);
+  const [isSelected4, setSelection4] = useState(false);
+
+  const [checked, setChecked] = React.useState('first');
+  const [checked1, setChecked1] = React.useState('first1');
+  const [checked2, setChecked2] = React.useState('first2');
+  const [checked3, setChecked3] = React.useState('first2');
+  const [checked4, setChecked4] = React.useState('first2');
+  const [checked5, setChecked5] = React.useState('first2');
+  const [open, setOpen] = React.useState(false);
+  const [value, setValue] = React.useState(null);
+  const [items, setItems] = React.useState([
+    {label: '161 Statement is done', value: '161 Statement is done'},
+    {label: 'Medical Examination Done ', value: 'Medical Examination Done '},
+    {label: '164 Statement Done', value: '164 Statement Done'},
+
+    {
+      label: 'Victim Produced Before CWC    ',
+      value: 'Victim Produced Before CWC   ',
+    },
+
+    {label: ' Victim admitted in CCI    ', value: 'Victim admitted in CCI    '},
+
+    {
+      label: 'MHPSS services given to victim',
+      value: 'MHPSS services given to victim',
+    },
+    {
+      label: ' Medical Aid given to victim',
+      value: ' Medical Aid given to victim',
+    },
+    {
+      label: 'Victim Compensation application filed',
+      value: 'Victim Compensation application filed',
+    },
+    {
+      label: 'Charge sheet submitted',
+      value: 'Charge sheet submitted',
+    },
+    {label: 'Examination Chief', value: 'Examination Chief'},
+    {label: 'Cross Examination    ', value: 'Cross Examination    '},
+
+    {label: 'Re-examination    ', value: 'Re-examination    '},
+
+    {
+      label: 'Accused convicted / acquitted?    ',
+      value: 'Accused convicted / acquitted?     ',
+    },
+    {label: 'Appeal under process', value: 'Appeal under process    '},
+  ]);
+  return (
+    <View style={styles.Tab}>
+      <ScrollView style={styles.scrollView}>
+        <SafeAreaView style={styles.Form}>
+          <View style={{marginTop: -10}}>
+            <Text style={styles.FormTitle}>
+              Whether The Incident Report:<Text style={styles.star}>*</Text>
+            </Text>
+
+            <CheckBox
+              value={isSelected}
+              onValueChange={setSelection}
+              style={styles.checkbox}
+              tintColors={{ true: '#00bad7', }}
+            />
+            <Text
+              style={{
+                textAlign: 'center',
+                marginTop: -28,
+                fontWeight: 'bold',
+                fontSize: 16,
+                marginRight:50
+              }}>
+              Local Police Station
+            </Text>
+          </View>
+          <View style={{marginTop: 16}}>
+            <Text style={styles.FormTitle}>
+              Police Helpline 100:<Text style={styles.star}>*</Text>
+            </Text>
+
+            <CheckBox
+              value={isSelected1}
+              onValueChange={setSelection1}
+              style={styles.checkbox}
+              tintColors={{ true: '#00bad7', }}
+
+            />
+            <Text
+              style={{
+                textAlign: 'center',
+                marginTop: -28,
+                fontWeight: 'bold',
+                fontSize: 16,
+                marginRight:50
+              }}>
+              {' '}
+              Police Helpline 100
+            </Text>
+          </View>
+          <View style={{marginTop: 16}}>
+            <Text style={styles.FormTitle}>
+              Chile Line-1098:<Text style={styles.star}>*</Text>
+            </Text>
+
+            <CheckBox
+              value={isSelected2}
+              onValueChange={setSelection2}
+              style={styles.checkbox}
+              tintColors={{ true: '#00bad7', }}
+
+            />
+            <Text
+              style={{
+                textAlign: 'center',
+                marginTop: -28,
+                fontWeight: 'bold',
+                fontSize: 16,
+                marginRight:70
+
+              }}>
+              Chile Line-1098
+            </Text>
+          </View>
+          <View style={{marginTop: 16}}>
+            <Text style={styles.FormTitle}>
+              Chile Welfare Committee:<Text style={styles.star}>*</Text>
+            </Text>
+
+            <CheckBox
+              value={isSelected3}
+              onValueChange={setSelection3}
+              style={styles.checkbox}
+              tintColors={{ true: '#00bad7', }}
+
+            />
+            <Text
+              style={{
+                textAlign: 'center',
+                marginTop: -28,
+                fontWeight: 'bold',
+                fontSize: 16,
+                marginLeft: 30,
+                marginRight:50
+
+              }}>
+              Chile Welfare Committee
+            </Text>
+          </View>
+          <View style={{marginTop: 16}}>
+            <Text style={styles.FormTitle}>
+              District Child Protection Unit:<Text style={styles.star}>*</Text>
+            </Text>
+
+            <CheckBox
+              value={isSelected4}
+              onValueChange={setSelection4}
+              style={styles.checkbox}
+              tintColors={{ true: '#00bad7', }}
+
+            />
+            <Text
+              style={{
+                textAlign: 'center',
+                marginTop: -28,
+                fontWeight: 'bold',
+                fontSize: 16,
+                marginLeft: 50,
+                marginRight:50
+
+              }}>
+              District Child Protection Unit
+            </Text>
+          </View>
+          <View style={{marginTop: 16}}>
+            <Text style={styles.FormTitle}>
+              Incident Report Others:<Text style={styles.star}>*</Text>
+            </Text>
+            <View style={styles.formtotalinput}>
+              <TextInput
+                style={styles.FormInput}
+                type="text"
+                placeholder="Incident Report Others"
+              />
+            </View>
+          </View>
+          <View style={{marginTop: 16}}>
+            <Text style={styles.FormTitle1}>
+              Who informed about the Incident:<Text style={styles.star}>*</Text>
+            </Text>
+            <View style={styles.formdrop}>
+              <DropDownPicker
+              
+                style={styles.dropdownStyle}
+                listMode="SCROLLVIEW"
+                open={open}
+                value={value}
+                items={items}
+                setOpen={setOpen}
+                setValue={setValue}
+                setItems={setItems}
+                zIndex={9000}
+                placeholder=" Who informed about the Incident"
               />
             </View>
           </View>
           <View style={{marginTop: 3, marginLeft: 10}}>
-            <Text style={styles.radioname}>Victim recovered or not?</Text>
+            <Text style={styles.radioname}>
+              Victim recovered or not?:<Text style={styles.star}>*</Text>
+            </Text>
             <View style={styles.SectionStyle1}>
               <Text style={styles.gender}>Yes</Text>
               <RadioButton
                 uncheckedColor={'gray'}
-                color={'#46bc96'}
+                color={'#00bad7'}
                 value="first"
                 status={checked3 === 'first' ? 'checked' : 'unchecked'}
                 onPress={() => setChecked3('first')}
@@ -720,7 +990,7 @@ const ThirdRoute = ({route}) => {
               <Text style={styles.gender}>No</Text>
               <RadioButton
                 uncheckedColor={'gray'}
-                color={'#46bc96'}
+                color={'#00bad7'}
                 value="second"
                 status={checked3 === 'second' ? 'checked' : 'unchecked'}
                 onPress={() => setChecked3('second')}
@@ -728,12 +998,14 @@ const ThirdRoute = ({route}) => {
             </View>
           </View>
           <View style={{marginTop: 3, marginLeft: 10}}>
-            <Text style={styles.radioname}>Has the accused arrested?</Text>
+            <Text style={styles.radioname}>
+              Has the accused arrested?:<Text style={styles.star}>*</Text>
+            </Text>
             <View style={styles.SectionStyle1}>
               <Text style={styles.gender}>Yes</Text>
               <RadioButton
                 uncheckedColor={'gray'}
-                color={'#46bc96'}
+                color={'#00bad7'}
                 value="first"
                 status={checked4 === 'first' ? 'checked' : 'unchecked'}
                 onPress={() => setChecked4('first')}
@@ -741,7 +1013,7 @@ const ThirdRoute = ({route}) => {
               <Text style={styles.gender}>No</Text>
               <RadioButton
                 uncheckedColor={'gray'}
-                color={'#46bc96'}
+                color={'#00bad7'}
                 value="second"
                 status={checked4 === 'second' ? 'checked' : 'unchecked'}
                 onPress={() => setChecked4('second')}
@@ -749,12 +1021,14 @@ const ThirdRoute = ({route}) => {
             </View>
           </View>
           <View style={{marginTop: 3, marginLeft: 10}}>
-            <Text style={styles.radioname}>Number of accused arrested?</Text>
+            <Text style={styles.radioname}>
+              Number of accused arrested?:<Text style={styles.star}>*</Text>
+            </Text>
             <View style={styles.SectionStyle1}>
               <Text style={styles.gender}>Yes</Text>
               <RadioButton
                 uncheckedColor={'gray'}
-                color={'#46bc96'}
+                color={'#00bad7'}
                 value="first"
                 status={checked5 === 'first' ? 'checked' : 'unchecked'}
                 onPress={() => setChecked5('first')}
@@ -762,7 +1036,7 @@ const ThirdRoute = ({route}) => {
               <Text style={styles.gender}>No</Text>
               <RadioButton
                 uncheckedColor={'gray'}
-                color={'#46bc96'}
+                color={'#00bad7'}
                 value="second"
                 status={checked5 === 'second' ? 'checked' : 'unchecked'}
                 onPress={() => setChecked5('second')}
@@ -790,7 +1064,7 @@ const ThirdRoute = ({route}) => {
                     <FontAwesomeIcon
                       icon={faCalendarDays}
                       title="Show Picker"
-                      color="#22A7F0"
+                      color="gray"
                     />
                   </Text>
                   <TextInput style={styles.FormInputdate1}>
@@ -864,7 +1138,6 @@ export default function TabViewExample() {
         labelPosition: 'below-icon',
         backgroundColor: '#ff6b00',
         height: 3,
-       
       }}
       style={{
         display: 'flex',
@@ -889,19 +1162,18 @@ export default function TabViewExample() {
       onIndexChange={setIndex}
       renderTabBar={renderTabBar}
       initialLayout={{width: layout.width}}
-      style={{backgroundColor: '#fff',}}></TabView>
+      style={{backgroundColor: '#fff'}}></TabView>
   );
 }
 const styles = StyleSheet.create({
   Tab: {
     backgroundColor: '#fff',
-
-    height: hp('91%'),
+    height: hp('93%'),
     width: wp('99%'),
   },
   FormTitle: {
     color: '#000',
-    fontFamily: "Lora",
+    fontFamily: 'Lora',
     fontSize: 14,
     alignSelf: 'flex-start',
     marginLeft: 13,
@@ -912,31 +1184,26 @@ const styles = StyleSheet.create({
     fontSize: 13.5,
     alignSelf: 'flex-start',
     marginLeft: 12,
-    
   },
   FormInput: {
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 10,
     height: 40,
     width: 201,
-    borderRadius: 10,
-    color: '#212121',
+    borderRadius: 5,
+    color: '#555',
     marginVertical: 6,
     fontFamily: 'Montserrat-SemiBold',
-    backgroundColor: '#ffff',
-    
+    backgroundColor: '#fff',
   },
   Form: {
-    padding:15,
-  
+    padding: 15,
   },
   radioname: {
     color: '#000',
     fontFamily: 'Poppins-Regular',
     fontSize: 14,
     alignSelf: 'flex-start',
-    marginLeft: 10,
+    marginLeft: 5,
     marginTop: 20,
   },
   SectionStyle1: {
@@ -972,13 +1239,13 @@ const styles = StyleSheet.create({
   },
   formbutton: {
     alignSelf: 'center',
-    width: 300,
+    width: 330,
     height: 50,
     justifyContent: 'center',
     borderRadius: 10,
     backgroundColor: '#ff6b00',
-    marginTop: 30,
-    
+    marginTop: 20,
+    marginLeft:5
   },
   formbuttonedit: {
     alignSelf: 'center',
@@ -987,7 +1254,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 10,
     backgroundColor: '#19B5FE',
-    marginTop: 30,
+    marginTop: 20,
     marginRight: 10,
   },
   formbuttoncancel: {
@@ -997,7 +1264,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 10,
     backgroundColor: 'gray',
-    marginTop: 30,
+    marginTop: 20,
     marginRight: 10,
   },
   formbuttoninput: {
@@ -1006,7 +1273,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'Poppins-Bold',
     fontWeight: 'bold',
-    
   },
   formbutton1: {
     alignSelf: 'center',
@@ -1042,17 +1308,18 @@ const styles = StyleSheet.create({
   formtotalinput: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderWidth: 0.8,
-    width: 320,
-    borderRadius: 10,
+    borderWidth: 2,
+    width: wp('90%'),
+    borderRadius: 4,
     height: 47,
     marginTop: 10,
     marginLeft: 6,
+    borderColor: '#ccc',
   },
   formdrop: {
     flexDirection: 'row',
     alignItems: 'center',
-    height: 50,
+    height: 40,
     marginTop: 10,
     marginLeft: 12,
     width: wp('85%'),
@@ -1093,7 +1360,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#F194FF',
   },
   buttonClose: {
-    backgroundColor: '#2196F3',
+    alignSelf: 'center',
+    width: 250,
+    height: 50,
+    justifyContent: 'center',
+    borderRadius: 10,
+    backgroundColor: '#ff6b00',
+    marginTop: 30,
   },
   textStyle: {
     color: 'white',
@@ -1108,7 +1381,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 11,
+    borderRadius: 5,
     backgroundColor: '#ffff',
     marginVertical: 6,
     fontFamily: 'Montserrat-SemiBold',
@@ -1116,10 +1389,11 @@ const styles = StyleSheet.create({
     marginRight: 20,
     bottom: 40,
     padding: 10,
-    borderWidth: 1,
-    width: wp('79%'),
+    borderWidth: 2,
+    width: wp('82%'),
     marginTop: 12,
-    marginLeft: 32,
+    marginLeft: 45,
+    borderColor: '#ccc',
   },
   FormInputdate1: {
     alignSelf: 'center',
@@ -1140,30 +1414,37 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     marginLeft: 33,
+  
   },
-  formbuttonsubmit:{
+  formbuttonsubmit: {
     alignSelf: 'center',
     width: 89,
     height: 40,
     justifyContent: 'center',
     borderRadius: 10,
     backgroundColor: '#F37021',
-    marginTop: 30,
+    marginTop: 20,
     marginRight: 10,
   },
-  casemanagenmentmain: {
-    marginTop: 10,
-    alignItems: 'center',
-    backgroundColor: '#00bad7',
-    height: 40,
-    right: 10,
-    width: 380,
-  },
-  casemanagenmenttitle: {
-    fontSize: 18,
-    color: '#fff',
+
+  checkbox: {
+  
+    marginLeft: 10,
     
-    fontFamily: 'Lora',
-    marginTop: 5,
+  },
+  star: {
+    color: 'red',
+  },
+  dropdownStyle: {
+    backgroundColor: '#ecf0f1',
+    marginLeft: -6,
+    padding: 10,
+    alignSelf: 'stretch',
+    marginVertical: 6,
+
+    borderWidth: 1,
+    borderColor: '#bdc3c7',
+    borderRadius: 5,
+    width: wp('90%'),
   },
 });

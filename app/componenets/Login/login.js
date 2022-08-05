@@ -1,4 +1,6 @@
 import React, {useState,useEffect} from 'react';
+
+
 import {
   View,
   Text,
@@ -26,56 +28,62 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
 import {faLock} from '@fortawesome/free-solid-svg-icons/faLock';
 import images from '../Images/image';
-import {useSelector, useDispatch} from 'react-redux';
-import {usersLogin, userLoginResponse} from '../../Redux/Action';
+import axios from 'axios';
+import Constants from "expo-constants";
 
+const baseUrl = "https://reqres.in";
 const Login = () => {
 
 
   const navigation = useNavigation();
+  
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const [login, setLogin] = useState({ userid: "", password: ""});
-
-  let dispatch = useDispatch();
-  let loginResponse = useSelector((state) => state.Login.loginSuccessfull);
-
-  useEffect(() => {
-    if (loginResponse?.status === 201) {
-      alert(loginResponse.data.message);
-      dispatch(userLoginResponse(""));
-    } else if (loginResponse?.status === 400) {
-      alert(loginResponse.data.message);
-      dispatch(userLoginResponse(""));
-    } else if (loginResponse?.status === 500) {
-      alert(loginResponse.data.message);
-      console.log("ter", loginResponse.data.message);
-      dispatch(userLoginResponse(""));
-    } else if (loginResponse?.status === 200) {
-      alert(loginResponse.data.message);
-      dispatch(userLoginResponse(""));
-      setTimeout(() => {
-        navigate("/");
-      }, 1800);
-    }
-  }, [loginResponse]);
-
-  const Validatation = (e) => {
-   
-      let a = {
-        LoginName: "TestUser",
-        Password: "Wil?Mich0",
-        RoleID: "DF",
-      };
-      let b = {
-        LoginName: "sdaf",
-        Password: "asdvs",  
-        RoleID: "DF",
-      };
-      dispatch(usersLogin(a));
-    alert("success")
+  const onChangeNameHandler = (fullName) => {
+    setFullName(fullName);
   };
 
+  const onChangeEmailHandler = (email) => {
+    setEmail(email);
+  };
+  const onSubmitFormHandler = async (event) => {
+    if (!fullName.trim() || !email.trim()) {
+      alert("Name or Email is invalid");
+      return;
+    }
+    setIsLoading(true);
+    try {
+      const response = await axios.post(`https://reqres.in/api/users`, {
+        name:"padma",
+        job:"devloper",
+      }).then(function (response) {
+        console.log(response,"respone");
+      })
+      .catch(function (error) {
+        console.log("error",error);
+      });
+      console.log("welcome");
 
+      
+      if (response.status === 201) {
+        alert(` You have created: ${JSON.stringify(response.data)}`);
+        setIsLoading(false);
+        setFullName('');
+        setEmail('');
+      } else {
+        throw new Error("An error has occurred");
+      }
+    } catch (error) {
+      alert("An error has occurred");
+      console.log(error)
+      setIsLoading(false);
+    }
+  };
+   
+
+ 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="#593dfff5" barStyle="Light-content" />
@@ -139,11 +147,9 @@ const Login = () => {
                 placeholder="User name"
                 placeholderTextColor="#9e9e9e"
                 textAlign="left"
-                value={login.userid}
-                required
-                onChange={(e) =>
-                  setLogin({ ...login, userid: e.target.value })
-                }
+                value={fullName}
+            editable={!isLoading}
+            onChangeText={onChangeNameHandler}
               />
             </View>
           </View>
@@ -178,10 +184,9 @@ const Login = () => {
                 placeholder="Password"
                 placeholderTextColor="#9e9e9e"
                 secureTextEntry={true}
-                required
-                onChange={(e) =>
-                  setLogin({ ...login, password: e.target.value })
-                }
+                value={email}
+                editable={!isLoading}
+                onChangeText={onChangeEmailHandler}
               />
             </View>
           </View>
@@ -225,7 +230,8 @@ const Login = () => {
             }}>
             <TouchableOpacity
               style={styles.button}
-              onPress={()=>navigation.navigate('Drawer')}>
+              onPress={()=>navigation.navigate("Drawer")}
+              disabled={isLoading} >
               <Text style={styles.buttoninput}>LOG-IN</Text>
             </TouchableOpacity>
           </View>

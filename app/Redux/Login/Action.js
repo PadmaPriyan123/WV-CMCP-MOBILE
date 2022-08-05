@@ -1,4 +1,4 @@
-import { LOGIN } from "./ActionTypes";
+import { LOGIN ,LOGIN_RESPONSE} from "./ActionTypes";
 
 export const usersLogin = (loginCredentials) => ({
     type: LOGIN,

@@ -34,7 +34,7 @@ const Incident = ({navigation}) => {
                 source={images.worldvision_card}
                 style={styles.cardbackground}>
                 <View style={styles.cardfirstline}>
-                  <Text style={styles.cardcontentheading}>Kumaran</Text>
+                  <Text style={styles.cardcontentheading}>1.Kumaran</Text>
                   <FontAwesomeIcon
                     style={{marginRight: 15, marginTop: 10}}
                     icon={faCircleChevronRight}
@@ -90,7 +90,7 @@ const Incident = ({navigation}) => {
                 source={images.worldvision_card}
                 style={styles.cardbackground}>
                 <View style={styles.cardfirstline}>
-                  <Text style={styles.cardcontentheading}>Gunasekaran</Text>
+                  <Text style={styles.cardcontentheading}>2.Gunasekaran</Text>
                   <FontAwesomeIcon
                     style={{marginRight: 15, marginTop: 10}}
                     icon={faCircleChevronRight}
@@ -147,7 +147,7 @@ const Incident = ({navigation}) => {
                 source={images.worldvision_card}
                 style={styles.cardbackground}>
                 <View style={styles.cardfirstline}>
-                  <Text style={styles.cardcontentheading}>Rajukumar</Text>
+                  <Text style={styles.cardcontentheading}>3.Rajukumar</Text>
                   <FontAwesomeIcon
                     style={{marginRight: 15, marginTop: 10}}
                     icon={faCircleChevronRight}
@@ -206,7 +206,7 @@ const Incident = ({navigation}) => {
                 source={images.worldvision_card}
                 style={styles.cardbackground}>
                 <View style={styles.cardfirstline}>
-                  <Text style={styles.cardcontentheading}>Kadhar</Text>
+                  <Text style={styles.cardcontentheading}>4.Kadhar</Text>
                   <FontAwesomeIcon
                     style={{marginRight: 15, marginTop: 10}}
                     icon={faCircleChevronRight}
@@ -254,7 +254,7 @@ const Incident = ({navigation}) => {
               source={images.worldvision_card}
               style={styles.cardbackground}>
               <View style={styles.cardfirstline}>
-                <Text style={styles.cardcontentheading}>Parthiban</Text>
+                <Text style={styles.cardcontentheading}>5.Parthiban</Text>
                 <FontAwesomeIcon
                   style={{marginRight: 15, marginTop: 10}}
                   icon={faCircleChevronRight}
@@ -308,7 +308,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 10,
-    backgroundColor: '#fff',
+    backgroundColor: '#ecf0f1',
   },
   cardcontentheading: {
     fontSize: 20,
@@ -319,11 +319,12 @@ const styles = StyleSheet.create({
   },
   cardcontentpara: {
     marginTop: 10,
-    marginLeft: 10,
+  marginRight:10,
     fontSize: 20,
   },
   card: {
     height: 150,
+  
     
     
   },
@@ -337,8 +338,13 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    marginTop: 25,
-    borderRadius: 10,
+    marginTop: 15,
+    
+    backgroundColor:'#fff',
+    
+    height:36,
+  
+    
     
   },
   iconmain1: {
@@ -346,7 +352,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   iconname: {
-    color: '#fff',
+    color: '#000',
+    marginTop:5,
   },
   carddetail: {
     color: '#fff',
@@ -354,12 +361,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   verticleLine: {
-    height: '80%',
+    height: '70%',
     width: 1,
-    backgroundColor: '#fff',
+    top:5,
+
+    backgroundColor: '#000',
   },
   cardbackground: {
     height: 150,
+    
     
   },
   cardfirstline: {
@@ -368,7 +378,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   linethrough: {
-    borderBottomColor: '#fff',
+    borderBottomColor: '#000',
     borderBottomWidth: StyleSheet.hairlineWidth,
     top: 15,
   },
