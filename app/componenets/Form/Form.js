@@ -14,6 +14,9 @@ import {
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {RadioButton} from 'react-native-paper';
+
+import { Dimensions } from 'react-native';
+
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -27,6 +30,8 @@ import {ScrollView} from 'react-native-gesture-handler';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {faFile} from '@fortawesome/free-solid-svg-icons/faFile';
+import { height } from '@fortawesome/free-solid-svg-icons/faTag';
+
 const FirstRoute = ({route}) => {
   
   const [modalVisible, setModalVisible] = React.useState(false);
@@ -119,9 +124,7 @@ const FirstRoute = ({route}) => {
 
   return (
     <View style={styles.Tab}>
-      <View style={styles.casemanagenmentmain}>
-        <Text style={styles.casemanagenmenttitle}>Case Management System</Text>
-      </View>
+     
       <ScrollView style={styles.scrollView}>
         <SafeAreaView style={styles.Form}>
           <View style={{marginTop:-10}}>
@@ -140,7 +143,7 @@ const FirstRoute = ({route}) => {
                 <TextInput
                   style={styles.FormInput}
                   type="text"
-                  placeholder="Desigination"
+                  placeholder="Designation"
                 />
               </View>
             </View>
@@ -232,8 +235,8 @@ const FirstRoute = ({route}) => {
                 Types of Nature of incident:*{' '}
               </Text>
 
-              <View style={styles.formdrop}>
-                <DropDownPicker
+                <DropDownPicker style={styles.formdrop}
+                dropDownStyle={{marginLeft:5}}
                   open11={countryOpen}
                   onOpen={onCountryOpen}
                   listMode="SCROLLVIEW"
@@ -243,16 +246,15 @@ const FirstRoute = ({route}) => {
                   setOpen={setOpen2}
                   setValue={setValue2}
                   setItems={setItems2}
-                  zIndex={19000}
-                  zIndexInverse={1000}
+                  zIndex={30000}
+                  
                 />
-              </View>
             </View>
+
             <View style={{marginTop: 16}}>
               <Text style={styles.FormTitle}>Village Name:* </Text>
 
-              <View style={styles.formdrop}>
-                <DropDownPicker
+                <DropDownPicker style={styles.dropdownStyle}
                   open11={cityOpen}
                   onOpen={onCityOpen}
                   listMode="SCROLLVIEW"
@@ -262,14 +264,14 @@ const FirstRoute = ({route}) => {
                   setOpen={setOpen3}
                   setValue={setValue3}
                   setItems={setItems3}
-                  zIndex={9000}
+                  zIndex={20000}
                 />
-              </View>
             </View>
+
             <View style={{marginTop: 16}}>
               <Text style={styles.FormTitle}>Gram Panchayat:*</Text>
-              <View style={styles.formdrop}>
-                <DropDownPicker
+             
+                <DropDownPicker  style={styles.formdrop}
                   listMode="SCROLLVIEW"
                   open={open4}
                   value={value4}
@@ -279,11 +281,11 @@ const FirstRoute = ({route}) => {
                   setItems={setItems4}
                   zIndex={8000}
                 />
-              </View>
+              
               <View style={{marginTop: 16}}>
                 <Text style={styles.FormTitle}>Block:* </Text>
-                <View style={styles.formdrop}>
-                  <DropDownPicker
+               
+                  <DropDownPicker style={styles.formdrop}
                     listMode="SCROLLVIEW"
                     open={open5}
                     value={value5}
@@ -294,13 +296,13 @@ const FirstRoute = ({route}) => {
                     zIndex={7000}
                   />
                 </View>
-              </View>
+             
             </View>
             <View style={{marginTop: 16}}>
               <Text style={styles.FormTitle}> District :*</Text>
 
-              <View style={styles.formdrop}>
-                <DropDownPicker
+             
+                <DropDownPicker style={styles.formdrop}
                   listMode="SCROLLVIEW"
                   open={open6}
                   value={value6}
@@ -311,11 +313,11 @@ const FirstRoute = ({route}) => {
                   zIndex={6000}
                 />
               </View>
-            </View>
+            
             <View style={{marginTop: 16}}>
               <Text style={styles.FormTitle}>State:* </Text>
-              <View style={styles.formdrop}>
-                <DropDownPicker
+              
+                <DropDownPicker style={styles.formdrop}
                   dropDownStyle={{backgroundColor: '#fafafa', marginTop: 2}}
                   listMode="SCROLLVIEW"
                   open={open7}
@@ -327,12 +329,12 @@ const FirstRoute = ({route}) => {
                   zIndex={5000}
                 />
               </View>
-            </View>
+            
             <View style={{marginTop: 10}}>
               <Text style={styles.FormTitle}>Police Station:* </Text>
-              <View style={styles.formdrop}>
-                <DropDownPicker
-                  dropDownStyle={{backgroundColor: '#fafafa', marginTop: 2}}
+             
+                <DropDownPicker style={styles.formdrop}
+                  dropDownStyle={{backgroundColor: '#fafafa', marginTop: 2,}}
                   listMode="SCROLLVIEW"
                   open={open8}
                   value={value8}
@@ -343,7 +345,7 @@ const FirstRoute = ({route}) => {
                   zIndex={4000}
                 />
               </View>
-            </View>
+           
           </View>
         </SafeAreaView>
 
@@ -444,13 +446,8 @@ const SecondRoute = ({route}) => {
   };
   return (
     <View style={styles.Tab}>
-      <View
-        style={styles.casemanagenmentmain}>
-        <Text
-          style={styles.casemanagenmenttitle}>
-          Case Management System
-        </Text>
-      </View>
+     
+  
       <ScrollView style={styles.scrollView}>
         <SafeAreaView style={styles.Form}>
           <View style={{marginTop: -10}}>
@@ -598,21 +595,15 @@ const ThirdRoute = ({route}) => {
 
   return (
     <View style={styles.Tab}>
-      <View
-       style={styles.casemanagenmentmain}>
-        <Text
-          style={styles.casemanagenmenttitle}>
-          Case Management System
-        </Text>
-      </View>
+     
       <ScrollView style={styles.scrollView}>
         <SafeAreaView style={styles.Form}>
           <View style={{marginTop: -10}}>
             <Text style={styles.FormTitle1}>
               Who informed about the Incident:*
             </Text>
-            <View style={styles.formdrop}>
-              <DropDownPicker
+            
+              <DropDownPicker style={styles.formdrop}
                 listMode="SCROLLVIEW"
                 open={open}
                 value={value}
@@ -623,14 +614,13 @@ const ThirdRoute = ({route}) => {
                 zIndex={9000}
               />
             </View>
-          </View>
+         
           <View style={{marginTop: 16}}>
             <Text style={styles.FormTitle1}>
               Whether the incident reported to (tick all that apply){' '}
             </Text>
 
-            <View style={styles.formdrop}>
-              <DropDownPicker
+              <DropDownPicker style={styles.formdrop}
                 listMode="SCROLLVIEW"
                 open={open1}
                 value={value1}
@@ -640,7 +630,7 @@ const ThirdRoute = ({route}) => {
                 setItems={setItems1}
               />
             </View>
-          </View>
+         
           <View style={{marginTop: 3, marginLeft: 10}}>
             <Text style={styles.radioname}>
               Whether the complaint was lodged in PS
@@ -896,20 +886,23 @@ const styles = StyleSheet.create({
   Tab: {
     backgroundColor: '#fff',
 
-    height: hp('91%'),
+    height: hp('89%'),
     width: wp('99%'),
   },
   FormTitle: {
     color: '#000',
-    fontFamily: "Lora",
-    fontSize: 14,
+    fontFamily: "Lato-Bold",
+    fontSize: 16,
+    marginTop: 10,
     alignSelf: 'flex-start',
+    borderColor: 'gray',
     marginLeft: 13,
   },
   FormTitle1: {
+    marginTop: 10,
     color: '#000',
-    fontFamily: 'Lora',
-    fontSize: 13.5,
+    fontFamily: 'Lato-Bold',
+    fontSize: 16,
     alignSelf: 'flex-start',
     marginLeft: 12,
     
@@ -923,7 +916,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     color: '#212121',
     marginVertical: 6,
-    fontFamily: 'Montserrat-SemiBold',
+    fontFamily: 'Lato-Regular',
     backgroundColor: '#ffff',
     
   },
@@ -933,11 +926,19 @@ const styles = StyleSheet.create({
   },
   radioname: {
     color: '#000',
-    fontFamily: 'Poppins-Regular',
-    fontSize: 14,
+    fontFamily: 'Lato-Bold',
+    fontSize: 16,
     alignSelf: 'flex-start',
     marginLeft: 10,
     marginTop: 20,
+  },
+  dropdownStyle: {
+    //flex: 1,
+    marginBottom: 7,
+    padding: 7,
+    alignSelf: "stretch",
+    borderColor: 'gray',
+    border:'none'
   },
   SectionStyle1: {
     flexDirection: 'row',
@@ -945,7 +946,7 @@ const styles = StyleSheet.create({
   },
   gender: {
     marginTop: 8,
-
+    fontFamily: 'Lato-Regular',
     color: '#181818',
   },
 
@@ -961,7 +962,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: '#21',
     marginVertical: 6,
-    fontFamily: 'Montserrat-SemiBold',
+    fontFamily: 'Lato-Bold',
     placeholderTextColor: '#9e9e9e',
     marginRight: 80,
     borderRadius: 10,
@@ -977,7 +978,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 10,
     backgroundColor: '#ff6b00',
-    marginTop: 30,
+    marginTop: 10,
     
   },
   formbuttonedit: {
@@ -1003,8 +1004,8 @@ const styles = StyleSheet.create({
   formbuttoninput: {
     textAlign: 'center',
     color: '#ffffff',
-    fontSize: 14,
-    fontFamily: 'Poppins-Bold',
+    fontSize: 16,
+    fontFamily: 'Lato-Bold',
     fontWeight: 'bold',
     
   },
@@ -1012,6 +1013,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: 350,
     height: 50,
+    fontFamily: 'Lato-Bold',
     justifyContent: 'center',
     borderRadius: 10,
     backgroundColor: '#000000',
@@ -1020,8 +1022,8 @@ const styles = StyleSheet.create({
   formbuttoninput1: {
     textAlign: 'center',
     color: '#ffffff',
-    fontSize: 15,
-    fontFamily: 'Poppins-Bold',
+    fontSize: 16,
+    fontFamily: 'Lato-Bold',
   },
   scrollView: {
     paddingVertical: 8,
@@ -1048,18 +1050,20 @@ const styles = StyleSheet.create({
     height: 47,
     marginTop: 10,
     marginLeft: 6,
+    borderColor:'gray'
   },
   formdrop: {
     flexDirection: 'row',
     alignItems: 'center',
+    borderColor: 'gray',
     height: 50,
     marginTop: 10,
-    marginLeft: 12,
-    width: wp('85%'),
+    marginLeft: 8,
+    width: wp('88%'),
   },
   btn: {
     height: hp('77%'),
-    width: wp('85%'),
+    width: wp('87%'),
   },
   centeredView: {
     flex: 1,
@@ -1111,13 +1115,14 @@ const styles = StyleSheet.create({
     borderRadius: 11,
     backgroundColor: '#ffff',
     marginVertical: 6,
-    fontFamily: 'Montserrat-SemiBold',
+    fontFamily: 'Lato-Regular',
     fontSize: 14,
     marginRight: 20,
     bottom: 40,
     padding: 10,
+    borderColor: 'gray',
     borderWidth: 1,
-    width: wp('79%'),
+    width: wp('82%'),
     marginTop: 12,
     marginLeft: 32,
   },
@@ -1125,11 +1130,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-
     borderRadius: 11,
     color: '#212121',
     marginVertical: 6,
-    fontFamily: 'Montserrat-SemiBold',
+    fontFamily: 'Lato-Regular',
     fontSize: 14,
     marginRight: 20,
     bottom: 40,
@@ -1151,19 +1155,5 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginRight: 10,
   },
-  casemanagenmentmain: {
-    marginTop: 10,
-    alignItems: 'center',
-    backgroundColor: '#00bad7',
-    height: 40,
-    right: 10,
-    width: 380,
-  },
-  casemanagenmenttitle: {
-    fontSize: 18,
-    color: '#fff',
-    
-    fontFamily: 'Lora',
-    marginTop: 5,
-  },
+
 });

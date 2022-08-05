@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  View, Text, StyleSheet, Image, TouchableOpacity, PermissionsAndroid, ImageBackground
+  View, Text, StyleSheet, Image, TouchableOpacity, PermissionsAndroid, ImageBackground, StatusBar
 } from 'react-native';
 import {
   createDrawerNavigator,
@@ -10,186 +10,190 @@ import {
 } from '@react-navigation/drawer';
 
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faGauge } from '@fortawesome/free-solid-svg-icons/faGauge'
+import { faChartLine } from '@fortawesome/free-solid-svg-icons/faChartLine'
 import { faIndent } from '@fortawesome/free-solid-svg-icons/faIndent'
 import { faUsers } from '@fortawesome/free-solid-svg-icons/faUsers'
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons/faArrowRightFromBracket'
+import { faBell } from '@fortawesome/free-solid-svg-icons';
 
 import Dashboard from '../Dashboard/Dashboard';
 import Form from '../Form/Form';
 import Incident from '../IncidentView/incidentview';
 import images from '../Images/image'
 import { LinearGradient } from 'react-native-svg';
+
+
+
 function CustomDrawerContent(props) {
   return (
-    <DrawerContentScrollView {...props}>
-      <Image source={images.worldvision_drawer} style={{ width: 250, height: 100, top: -5 }}></Image>
+    <>
 
-      <DrawerItemList {...props} />
+      <DrawerContentScrollView {...props}>
+        <Image source={images.worldvision_drawer} style={{ width: 250, height: 120, top: -5 }}></Image>
 
-      <View style={styles.logout}>
+        <DrawerItemList {...props} />
 
-        <DrawerItem
-          labelStyle={styles.lablestyle}
+        <View style={styles.logout}>
 
-          label="Logout"
-          onPress={() => props.navigation.navigate('Login')}
-          icon={({ color, size }) => (
-            <FontAwesomeIcon icon={faArrowRightFromBracket}
-              size={25}
-              color={'gray'}
-            />
-          )}
+          <DrawerItem
+            labelStyle={styles.lablestyle}
 
-        />
-      </View>
+            label="Logout"
+            onPress={() => props.navigation.navigate('Login')}
+            icon={({ color, size }) => (
+              <FontAwesomeIcon icon={faArrowRightFromBracket}
+                size={25}
+                color={'#fff'}
+              />
+            )}
 
-    </DrawerContentScrollView>
+          />
+        </View>
+
+      </DrawerContentScrollView>
+    </>
   );
 }
 
 const Drawer = createDrawerNavigator();
 
-function MyDrawer() {
+export default function MyDrawer() {
   return (
+    <>
 
-    <Drawer.Navigator
-      screenOptions={{
-        drawerStyle: {
-          backgroundColor: '#fff',
-          width: 240,
-        },
-        drawerActiveTintColor: '#fff',
-        drawerActiveBackgroundColor: '#F37021',
-      }}
-      useLegacyImplementation
-      drawerContent={(props) => <CustomDrawerContent {...props}
-      />}
-    >
-
-      <Drawer.Screen name="Dashboard" component={Dashboard}
-        labelStyle={styles.lablestyle}
-
-        options={{
-          title: 'Dashboard',
-          headerStyle: {
-            backgroundColor: '#f27b1a',
-            height: 50,
+      <Drawer.Navigator
+        screenOptions={{
+          drawerStyle: {
+            backgroundColor: '#cac4bb',
+            width: 240,
           },
-          drawerLabelStyle: {
-            fontFamily: 'Montserrat-SemiBold',
-            fontSize: 17,
-            justifyContent: 'center',
-            fontWeight: 'bold'
-
-          },
-
-          headerTintColor: 'white',
-
-          headerTitleStyle: {
-
-            fontFamily: 'Poppins-Regular',
-            fontWeight: 'bold'
-
-
-
-          },
-          drawerIcon: ({ color, size }) => (
-            <FontAwesomeIcon icon={faGauge}
-              size={25}
-              color={'gray'}
-
-            />
-          ),
+          drawerActiveTintColor: '#fff',
+          drawerActiveBackgroundColor: '#ff6b00',
         }}
-      />
-      <Drawer.Screen name="Form" component={Form}
-        options={{
-          title: 'Incidentlog',
-          headerStyle: {
-            backgroundColor: '#f27b1a',
-            height: 50
-          },
-          drawerLabelStyle: {
-            fontFamily: 'Montserrat-SemiBold',
-            fontSize: 17,
-            justifyContent: 'center',
-            fontWeight: 'bold'
+        useLegacyImplementation
+        drawerContent={(props) => <CustomDrawerContent {...props}
+        />}
+      >
+        
 
-          },
+        <Drawer.Screen name="Dashboard" component={Dashboard}
+          labelStyle={styles.lablestyle}
 
-          headerTintColor: 'white',
+          options={{
+            title: 'Dashboard',
+            headerStyle: {
+              backgroundColor: '#ff6b00',
+              height: 50,
+              color: '#fff'
 
-          headerTitleStyle: {
-            fontFamily: 'Poppins-Regular',
-            fontWeight: 'bold'
-          },
-          drawerIcon: ({ color, size }) => (
-            <FontAwesomeIcon icon={faIndent}
-              size={25}
-              color={'gray'}
+            },
+            drawerLabelStyle: {
+              fontFamily: 'Lato-Bold',
+              fontSize: 17,
+              justifyContent: 'center',
+            },
 
-            />
-          ),
+            headerTintColor: 'white',
+            headerTitleStyle: {
+              fontFamily: 'Lato-Bold',
+              color: '#fff',
+          
+            },
+            // headerRight: () => (
+            //     <TouchableOpacity>
+            //       <FontAwesomeIcon icon={faBell}  size={25} color="white" />
+            //     </TouchableOpacity>
+            //   ),
+            drawerIcon: ({ color, size }) => (
+              <FontAwesomeIcon icon={faChartLine}
+                size={25}
+                color={'#fff'}
+              />
+            ),
+          }}
+        />
+        <Drawer.Screen name="Form" component={Form}
+          options={{
 
-        }} />
-      <Drawer.Screen name="Incident" component={Incident}
+            title: 'Incident Log',
+            headerStyle: {
+              backgroundColor: '#ff6b00',
+              height: 50,
+            },
+            drawerLabelStyle: {
+              fontFamily: 'Lato-Bold',
+              fontSize: 17,
+              justifyContent: 'center',
+            },
 
-        options={{
-          title: 'IncidentView',
-          headerStyle: {
-            backgroundColor: '#f27b1a',
-            height: 50
-          },
+            headerTintColor: 'white',
 
-          drawerLabelStyle: {
-            fontFamily: 'Montserrat-SemiBold',
-            fontSize: 17,
-            justifyContent: 'center',
-            fontWeight: 'bold'
+            headerTitleStyle: {
+              fontFamily: 'Lato-Bold',
 
-          },
+            },
+            drawerIcon: ({ color, size }) => (
+              <FontAwesomeIcon icon={faIndent}
+                size={25}
+                color={'#fff'}
 
-          headerTintColor: 'white',
+              />
+            ),
 
-          headerTitleStyle: {
-            fontFamily: 'Poppins-Regular',
-            fontWeight: 'bold'
-          },
+          }} />
+        <Drawer.Screen name="Incident" component={Incident}
 
-          drawerIcon: ({ color, size }) => (
-            <FontAwesomeIcon icon={faUsers}
-              size={25}
-              color={'gray'}
+          options={{
+            title: 'Incident View',
+            headerStyle: {
+              backgroundColor: '#ff6b00',
+              height: 50
+            },
 
-            />
-          ),
-        }} />
+            drawerLabelStyle: {
+              fontFamily: 'Lato-Bold',
+              fontSize: 17,
+              justifyContent: 'center',
+            },
+
+            headerTintColor: 'white',
+
+            headerTitleStyle: {
+              fontFamily: 'Lato-Bold',
+            },
+
+            drawerIcon: ({ color, size }) => (
+              <FontAwesomeIcon icon={faUsers}
+                size={25}
+                color={'#fff'}
+
+              />
+            ),
+          }} />
 
 
 
-    </Drawer.Navigator>
-  );
+      </Drawer.Navigator>
+
+    </>
+  )
 }
 
-export default function App() {
-  return (
 
-    <MyDrawer />
-
-  );
-}
 const styles = StyleSheet.create({
 
   lablestyle: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: 18,
+    fontFamily: 'Lato-Bold',
+    fontSize: 17,
     justifyContent: 'center',
-    fontWeight: 'bold'
-
 
   },
   logout: {
-    marginTop: 380
-  }
+    marginTop: 320,
+
+  },
+  container2: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

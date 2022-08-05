@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, ScrollView, StyleSheet } from 'react-native';
+import { Text, View, Image, Ionicons, ScrollView, StyleSheet, StatusBar, SafeAreaView} from 'react-native';
 import { Card, Button, Title, Paragraph } from 'react-native-paper';
 import { faTag } from '@fortawesome/free-solid-svg-icons/faTag'
 import { faPhone } from '@fortawesome/free-solid-svg-icons/faPhone'
@@ -9,13 +9,7 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import IncidentLogedGraph from "../Graph/IncidentLogedGraph";
 import FirFilledGraph from "../Graph/FirFilledGraph";
 import IncidentClosedGraph from "../Graph/IncidentClosedGraph";
-import UserRegisterGraph from "../Graph/UserRegisterGraph";
-
-import {
-    useFonts as useLato,
-    Lato_400Regular_Italic,
-    Lato_900Black_Italic,
-  } from "@expo-google-fonts/lato";
+import UserRegisterGraph from "../Graph/UserRegisterGraph"; 
 
 
 class CreateCard extends React.Component {
@@ -54,65 +48,53 @@ class CreateCard extends React.Component {
 
     render() {
         return (
-            <View style= {Styles.DashboardContainer}>
-                <ScrollView >
+                 <ScrollView >
                     <View style={Styles.column}>
                         <Card style={Styles.cardone} onPress={() => { this.changeGraph('1') }}>
-                            <Card.Content >
-                                <Title style={Styles.title}>103</Title>
-                            </Card.Content>
-                            <Card.Content>
-                                <Title style={Styles.title}>Incident Loged
-                                    <FontAwesomeIcon icon={faTag}
-                                        size={20}
-                                        color={'#fff'}
-                                    />
-                                </Title>
-                            </Card.Content>
+                            <Text style={Styles.title}>2041</Text>
+                            <Text style={Styles.title}>Incident Loged</Text>
+                            <Text style={Styles.title}><FontAwesomeIcon icon={faTag}
+                                size={20}
+                                color={'#fff'}
+                            />
+                            </Text>
+
                         </Card>
                         <Card style={Styles.cardtwo} onPress={() => { this.changeGraph('2') }}>
-                            <Card.Content>
-                                <Title style={Styles.title}>230</Title>
-                            </Card.Content>
-                            <Card.Content>
-                                <Title style={Styles.title}>FIR Filled {'\n'}
-                                    <FontAwesomeIcon icon={faPhone}
-                                        size={20}
-                                        color={'#fff'}
-                                    />
-                                </Title>
-                            </Card.Content>
+
+                            <Text style={Styles.title}>630</Text>
+                            <Text style={Styles.title}>FIR Filled</Text>
+                            <Text style={Styles.title}><FontAwesomeIcon icon={faPhone}
+                                size={20}
+                                color={'#fff'}
+                            />
+                            </Text>
 
                         </Card>
                     </View>
                     <View style={Styles.column}>
                         <Card style={Styles.cardthree} onPress={() => { this.changeGraph('3') }}>
-                            <Card.Content>
-                                <Title style={Styles.title}>323</Title>
-                            </Card.Content>
-                            <Card.Content>
-                                <Title style={Styles.title}>Incident Closed
-                                    <FontAwesomeIcon icon={faBell}
-                                        size={20}
-                                        color={'#fff'}
-                                    />
-                                </Title>
-                            </Card.Content>
+
+                            <Text style={Styles.title}>523</Text>
+
+                            <Text style={Styles.title}>Incident Closed </Text>
+                            <Text style={Styles.title}><FontAwesomeIcon icon={faBell}
+                                size={20}
+                                color={'#fff'}
+                            />
+                            </Text>
 
                         </Card>
 
                         <Card style={Styles.cardfour} onPress={() => { this.changeGraph('4') }}>
-                            <Card.Content>
-                                <Title style={Styles.title}>870</Title>
-                            </Card.Content>
-                            <Card.Content>
-                                <Title style={Styles.title}>User Registered
-                                    <FontAwesomeIcon icon={faEnvelope}
-                                        size={20}
-                                        color={'#fff'}
-                                    />
-                                </Title>
-                            </Card.Content>
+                            <Text style={Styles.title}>270</Text>
+
+                            <Text style={Styles.title}>User Registered </Text>
+                            <Text style={Styles.title}><FontAwesomeIcon icon={faEnvelope}
+                                size={20}
+                                color={'#fff'}
+                            />
+                            </Text>
 
                         </Card>
 
@@ -122,28 +104,23 @@ class CreateCard extends React.Component {
                         <Card style={Styles.cardfive}>
 
                             <Card.Content style={{ display: this.state.card1 == 1 ? 'flex' : 'none' }}>
-                                <IncidentLogedGraph>
-                                </IncidentLogedGraph>
+                                <IncidentLogedGraph />
                             </Card.Content>
 
                             <Card.Content style={{ display: this.state.card2 == 1 ? 'flex' : 'none' }}>
-                                <FirFilledGraph>
-                                </FirFilledGraph>
+                                <FirFilledGraph />
                             </Card.Content>
 
                             <Card.Content style={{ display: this.state.card3 == 1 ? 'flex' : 'none' }}>
-                                <IncidentClosedGraph>
-                                </IncidentClosedGraph>
+                                <IncidentClosedGraph />
                             </Card.Content>
 
                             <Card.Content style={{ display: this.state.card4 == 1 ? 'flex' : 'none' }}>
-                                <UserRegisterGraph>
-                                </UserRegisterGraph>
+                                <UserRegisterGraph />
                             </Card.Content>
                         </Card>
                     </View>
-                </ScrollView >
-            </View>
+                </ScrollView>
         )
     }
 }
@@ -156,7 +133,7 @@ const Styles = StyleSheet.create({
         width: 160,
         backgroundColor: '#00acca',
         borderRadius: 10,
-        height: 120,
+        height: 130,
     },
 
     cardtwo: {
@@ -165,7 +142,7 @@ const Styles = StyleSheet.create({
         width: 160,
         backgroundColor: '#9054a1',
         borderRadius: 10,
-        height: 120,
+        height: 130,
     },
     cardthree: {
         alignContent: 'center',
@@ -174,7 +151,7 @@ const Styles = StyleSheet.create({
         width: 160,
         backgroundColor: '#ff6b00',
         borderRadius: 10,
-        height: 120,
+        height: 130,
     },
     cardfour: {
         alignContent: 'center',
@@ -183,14 +160,15 @@ const Styles = StyleSheet.create({
         width: 160,
         backgroundColor: '#46bb95',
         borderRadius: 10,
-        height: 120,
+        height: 130,
     },
     cardfive: {
         alignContent: 'center',
-        margin: 10,
         marginTop: 0,
         borderRadius: 10,
+        marginLeft: 10,
         height: 300,
+        margin: 10,
         backgroundColor: '#cac4bb',
     },
     column: {
@@ -208,15 +186,11 @@ const Styles = StyleSheet.create({
     },
     title: {
         color: '#fff',
-        fontFamily: `${Lato_900Black_Italic}`,
-        fontFamily: 'Lato_900Black_Italic',
-        fontWeight: 'bold',
-        alignItems: 'center'
+        fontSize: 20,
+        padding: 10,
+        paddingLeft: 20,
+        fontFamily: 'Lato-Bold',
+        //alignSelf: 'center'
     },
-    DashboardContainer: {
-        fontFamily: 'Montserrat-SemiBold',
-        // fontSize: 90,
-        // fontWeight: 'bold'
-    }
 
 })

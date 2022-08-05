@@ -8,7 +8,7 @@ import Dashboard from './app/componenets/Dashboard/Dashboard';
 import Incident from './app/componenets/IncidentView/incidentview';
 import  Drawer  from './app/componenets/Drawer/drawer';
 import  store  from '../WV-CMCP-MOBILE/app/Redux/Store'
-import { Provider  } from 'react-redux'
+import { Provider  } from 'react-redux';
 
 const Stack = createStackNavigator();
 
