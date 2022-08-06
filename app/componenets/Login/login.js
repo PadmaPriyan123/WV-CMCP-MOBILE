@@ -127,7 +127,7 @@ const Login = () => {
             <Text
               style={{
                 color: '#000',
-                fontFamily: 'Poppins-Regular',
+                fontFamily: 'Lato-Bold',
                 fontSize: 17,
                 top: -5,
                 alignSelf: 'flex-start',
@@ -144,7 +144,7 @@ const Login = () => {
               />
               <TextInput
                 style={styles.input}
-                placeholder="User name"
+                placeholder="User Name"
                 placeholderTextColor="#9e9e9e"
                 textAlign="left"
                 value={fullName}
@@ -163,7 +163,7 @@ const Login = () => {
             <Text
               style={{
                 color: '#000',
-                fontFamily: 'Poppins-Regular',
+                fontFamily: 'Lato-Bold',
                 fontSize: 17,
                 top: -5,
                 paddingTop: 11,
@@ -199,12 +199,13 @@ const Login = () => {
             }}>
             <BouncyCheckbox
               size={15}
-              fillColor="#F37021"
-              text="Remember me"
+              fillColor="#ff6b00"
+              text="Remember Me"
               iconStyle={{borderColor: '#F37021', marginLeft: 5}}
               textStyle={{
-                fontFamily: 'Poppins-Medium',
-                fontSize: 13,
+                fontFamily: 'Lato-Regular',
+                fontSize: 15,
+                fontWeight: '400',
                 marginTop: 1,
                 marginRight: 4,
               }}
@@ -214,8 +215,8 @@ const Login = () => {
             <TouchableOpacity onPress={e => console.log('pressed')}>
               <Text
                 style={{
-                  color: '#F37021',
-                  fontFamily: 'Poppins-Medium',
+                  color: '#ff6b00',
+                  fontFamily: 'Lato-Regular',
                   marginRight: 5,
                   fontSize: 13,
                   marginTop: 4,
@@ -243,7 +244,7 @@ const Login = () => {
               flex: 1,
               color: '#000',
               textAlign: 'center',
-              fontFamily: 'Poppins-Medium',
+              fontFamily: 'Lato-Regular',
             }}>
             By Loggin-In, you're agree to our
             <TouchableOpacity>
@@ -251,9 +252,9 @@ const Login = () => {
                 style={{
                   fontSize: 15,
                   flex: 1,
-                  color: '#F37021',
+                  color: '#ff6b00',
                   textAlign: 'center',
-                  fontFamily: 'Poppins-Medium',
+                  fontFamily: 'Lato-Regular',
                 }}>
                 Terms & Conditions and Privacy Policy.
               </Text>
@@ -298,7 +299,7 @@ const Login = () => {
             <Text
               style={{
                 color: '#757575',
-                fontFamily: 'Poppins-Medium',
+                fontFamily: 'Lato-Light',
                 fontSize: 13,
                 top: 10,
               }}>
@@ -317,6 +318,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
+    fontFamily: 'Lato-Black',
     color: '#fff',
   },
   logo: {
@@ -338,6 +340,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#ffff',
+
+    borderColor: 'gray',
     elevation: 2,
     borderWidth: 0.7,
     width: 310,
@@ -349,6 +353,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#ffff',
+    borderColor: 'gray',
     elevation: 2,
     borderWidth: 0.7,
     width: 310,
@@ -365,11 +370,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 40,
     width: 198,
-
     borderRadius: 10,
-    color: '#212121',
+    borderColor: 'gray',
     marginVertical: 6,
-    fontFamily: 'Montserrat-SemiBold',
+    fontFamily: 'Lato-Regular',
     backgroundColor: '#ffff',
   },
   button: {
@@ -377,9 +381,10 @@ const styles = StyleSheet.create({
     width: 310,
     height: 60,
     justifyContent: 'center',
+    fontFamily: 'Lato-Bold',
     marginVertical: 9,
     borderRadius: 10,
-    backgroundColor: '#F37021',
+    backgroundColor: '#ff6b00',
     borderWidth: 0,
     paddingVertical: 9,
     elevation: 80,
@@ -391,8 +396,8 @@ const styles = StyleSheet.create({
   buttoninput: {
     textAlign: 'center',
     color: '#fff',
-    fontSize: 19,
-    fontFamily: 'Poppins-Bold',
+    fontSize: 20,
+    fontFamily: 'Lato-Bold',
   },
   checkboxContainer: {
     flexDirection: 'row',

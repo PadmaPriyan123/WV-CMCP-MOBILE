@@ -1,37 +1,64 @@
 import React from "react";
-import { Text, View, ScrollView, StyleSheet } from 'react-native';
-import { Card, Button, Title, Paragraph } from 'react-native-paper';
+import { StyleSheet, View, Text, LogBox, } from "react-native";
+import { VictoryBar, VictoryChart, VictoryTheme, VictoryAxis, VictoryLabel } from "victory-native";
+LogBox.ignoreLogs(['Warning: ...']);
+LogBox.ignoreAllLogs();
 
-import { VictoryLine, VictoryChart, VictoryTheme, VictoryAxis, VictoryLabel, VictoryScatter } from "victory-native";
+// get api connectivity
 
 
-export default function UserRegisterGraph() {
-
-    return (
-            <VictoryChart height={280} width={350}
-            domainPadding={30}
-      theme={VictoryTheme.material}>
-        <VictoryAxis label="YEAR"
-                axisLabelComponent={<VictoryLabel dy={25} />} />
-              <VictoryAxis
-                dependentAxis={true}
-                axisLabelComponent={<VictoryLabel dy={-26} domainPadding={15} />}
-                label={"Percentage  of  Affected  Peoples"}
-                fixLabelOverlap={true}
-              />
-                <VictoryLine
-                    style={{
-                        data: { stroke: "#F37021" },
-                        parent: { border: "1px solid #orange" },
-                    }}
-                    data={[
-                        { x: 1, y: 2 },
-                        { x: 2, y: 3 },
-                        { x: 3, y: 5 },
-                        { x: 4, y: 4 },
-                        { x: 5, y: 7 }
-                    ]}
-                />
-            </VictoryChart >
-            );
+let api_responsedata1 = [{
+  "data": [
+    { "State": 'Assam', "CMP": 340, "fill": "#ff6b00" },
+    { "State": 'West Bengal', "CMP": 572, "fill": "#ff6b00" },
+  ]
 }
+];
+// json_data = Object.keys(json_data).map(key => ({[key]: json_data[key]}));
+const data = api_responsedata1[0].data;
+
+//console.log(data);
+
+
+export default function UserRegisteredGraph() {
+
+  return (
+    <>
+      <Text style={Styles.UserRegisteredGraphTitle}>Number of Users(Active)</Text>
+      <VictoryChart height={250} width={340}
+        domainPadding={50}
+        theme={VictoryTheme.material} >
+        <VictoryAxis /*label="Month"*/
+          axisLabelComponent={<VictoryLabel dy={20} style={Styles.UserRegistered} />} />
+        <VictoryAxis
+          dependentAxis={true}
+          axisLabelComponent={<VictoryLabel dy={-32} domainPadding={15} style={Styles.UserRegistered} />}
+          /*label={"Active Users"}*/
+          fixLabelOverlap={true}
+        />
+        <VictoryBar
+          data={data}
+          style={{
+            data: {
+              fill: ({ datum }) => datum.fill, width: 25
+            }
+          }}
+          y="CMP" x="State" />
+      </VictoryChart>
+    </>
+  );
+}
+
+
+const Styles = StyleSheet.create({
+  UserRegisteredGraphTitle: {
+    fontFamily: 'Lato-Bold',
+    fontSize: 20,
+    marginLeft: 10,
+    marginTop: 20,
+  },
+  UserRegistered: {
+    fontFamily: 'Lato-Regular',
+    fontSize: 12
+  }
+})
