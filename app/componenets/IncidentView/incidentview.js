@@ -8,16 +8,18 @@ import {
 } from 'react-native';
 import DropShadow from 'react-native-drop-shadow';
 import images from '../Images/image';
-import {Card} from 'react-native-paper';
+import {Card, TextInput} from 'react-native-paper';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCircleChevronRight} from '@fortawesome/free-solid-svg-icons/faCircleChevronRight';
 import {ScrollView} from 'react-native-gesture-handler';
 
 const Incident = ({navigation}) => {
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.container}>
+       
           <DropShadow
             style={{
               shadowColor: '#000',
@@ -295,6 +297,7 @@ const Incident = ({navigation}) => {
               </View>
             </ImageBackground>
           </Card>
+         
         </View>
       </ScrollView>
     </SafeAreaView>
