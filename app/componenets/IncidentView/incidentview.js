@@ -314,12 +314,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#ecf0f1',
   },
   cardcontentheading: {
-    fontSize: 22,
+    fontSize: 20,
     marginLeft: 8,
     marginTop: 5,
     color: '#fff',
     fontWeight: 'bold',
-    fontFamily: 'Lato-Bold',
   },
   cardcontentpara: {
     marginTop: 10,
@@ -328,6 +327,7 @@ const styles = StyleSheet.create({
   },
   card: {
     height: 150,
+  
     
     
   },
@@ -355,13 +355,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   iconname: {
-    color: '#fff',
+    color: '#000',
+    marginTop:5,
   },
   carddetail: {
     color: '#fff',
     justifyContent: 'center',
     textAlign: 'center',
-    fontFamily: 'Lato-Bold',
   },
   verticleLine: {
     height: '70%',

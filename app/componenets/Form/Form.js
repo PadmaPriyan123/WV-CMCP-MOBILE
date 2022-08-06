@@ -14,9 +14,6 @@ import {
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {RadioButton} from 'react-native-paper';
-
-import { Dimensions } from 'react-native';
-
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -30,6 +27,8 @@ import {ScrollView} from 'react-native-gesture-handler';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {faFile} from '@fortawesome/free-solid-svg-icons/faFile';
+import CheckBox from '@react-native-community/checkbox';
+
 const FirstRoute = ({route}) => {
   const [modalVisible, setModalVisible] = React.useState(false);
   const [PhotoFile, setPhotoFile] = React.useState(null);
@@ -121,9 +120,6 @@ const FirstRoute = ({route}) => {
 
   return (
     <View style={styles.Tab}>
-      <View style={styles.casemanagenmentmain}>
-        <Text style={styles.casemanagenmenttitle}>Case Management System</Text>
-      </View>
       <ScrollView style={styles.scrollView}>
         <SafeAreaView style={styles.Form}>
           <View style={{marginTop: -10}}>
@@ -146,7 +142,8 @@ const FirstRoute = ({route}) => {
                 <TextInput
                   style={styles.FormInput}
                   type="text"
-                  placeholder="Desigination"
+                  placeholder="Enter Desigination"
+                  placeholderTextColor="#000"
                 />
               </View>
             </View>
@@ -232,7 +229,7 @@ const FirstRoute = ({route}) => {
 
             <View style={{marginTop: 16}}>
               <Text style={styles.FormTitle}>
-                Types of Nature of incident:*{' '}
+                Victim's Age:<Text style={styles.star}>*</Text>
               </Text>
               <View style={styles.formtotalinput}>
                 <TextInput
@@ -244,8 +241,15 @@ const FirstRoute = ({route}) => {
               </View>
             </View>
 
+            <View style={{marginTop: 16}}>
+              <Text style={styles.FormTitle}>
+                Types of Nature of incident:<Text style={styles.star}>*</Text>
+              </Text>
+
               <View style={styles.formdrop}>
                 <DropDownPicker
+                  dropDownContainerStyle={styles.dropopen}
+                  style={styles.dropdownStyle}
                   open11={countryOpen}
                   onOpen={onCountryOpen}
                   listMode="SCROLLVIEW"
@@ -257,14 +261,20 @@ const FirstRoute = ({route}) => {
                   setItems={setItems2}
                   zIndex={19000}
                   zIndexInverse={1000}
+                  placeholder="Select Nature Of Incident"
                 />
               </View>
             </View>
-            <View style={{marginTop: 16}}>
-              <Text style={styles.FormTitle}>Village Name:* </Text>
+            <View style={{marginTop: 25}}>
+              <Text style={styles.FormTitle}>
+                State:<Text style={styles.star}>*</Text>{' '}
+              </Text>
 
               <View style={styles.formdrop}>
                 <DropDownPicker
+                                  dropDownContainerStyle={styles.dropopen}
+
+                  style={styles.dropdownStyle}
                   open11={cityOpen}
                   onOpen={onCityOpen}
                   listMode="SCROLLVIEW"
@@ -275,13 +285,20 @@ const FirstRoute = ({route}) => {
                   setValue={setValue3}
                   setItems={setItems3}
                   zIndex={9000}
+                  
+                  placeholder="Select State"
                 />
               </View>
             </View>
-            <View style={{marginTop: 16}}>
-              <Text style={styles.FormTitle}>Gram Panchayat:*</Text>
+            <View style={{marginTop: 25}}>
+              <Text style={styles.FormTitle}>
+                District:<Text style={styles.star}>*</Text>
+              </Text>
               <View style={styles.formdrop}>
                 <DropDownPicker
+                                  dropDownContainerStyle={styles.dropopen}
+
+                  style={styles.dropdownStyle}
                   listMode="SCROLLVIEW"
                   open={open4}
                   value={value4}
@@ -293,10 +310,13 @@ const FirstRoute = ({route}) => {
                   placeholder="Select District"
                 />
               </View>
-              <View style={{marginTop: 16}}>
-                <Text style={styles.FormTitle}>Block:* </Text>
+              <View style={{marginTop: 25}}>
+                <Text style={styles.FormTitle}>Block </Text>
                 <View style={styles.formdrop}>
                   <DropDownPicker
+                                    dropDownContainerStyle={styles.dropopen}
+
+                    style={styles.dropdownStyle}
                     listMode="SCROLLVIEW"
                     open={open5}
                     value={value5}
@@ -310,11 +330,14 @@ const FirstRoute = ({route}) => {
                 </View>
               </View>
             </View>
-            <View style={{marginTop: 16}}>
-              <Text style={styles.FormTitle}> District :*</Text>
+            <View style={{marginTop: 25}}>
+              <Text style={styles.FormTitle}> Gram Panchayat</Text>
 
               <View style={styles.formdrop}>
                 <DropDownPicker
+                                  dropDownContainerStyle={styles.dropopen}
+
+                  style={styles.dropdownStyle}
                   listMode="SCROLLVIEW"
                   open={open6}
                   value={value6}
@@ -327,10 +350,15 @@ const FirstRoute = ({route}) => {
                 />
               </View>
             </View>
-            <View style={{marginTop: 16}}>
-              <Text style={styles.FormTitle}>State:* </Text>
+            <View style={{marginTop: 25}}>
+              <Text style={styles.FormTitle}>
+                Village Name:<Text style={styles.star}>*</Text>{' '}
+              </Text>
               <View style={styles.formdrop}>
                 <DropDownPicker
+                                  dropDownContainerStyle={styles.dropopen}
+
+                  style={styles.dropdownStyle}
                   dropDownStyle={{backgroundColor: '#fafafa', marginTop: 2}}
                   listMode="SCROLLVIEW"
                   open={open7}
@@ -344,10 +372,13 @@ const FirstRoute = ({route}) => {
                 />
               </View>
             </View>
-            <View style={{marginTop: 10}}>
-              <Text style={styles.FormTitle}>Police Station:* </Text>
+            <View style={{marginTop: 25}}>
+              <Text style={styles.FormTitle}>Police Station </Text>
               <View style={styles.formdrop}>
                 <DropDownPicker
+                                  dropDownContainerStyle={styles.dropopen}
+
+                  style={styles.dropdownStyle}
                   dropDownStyle={{backgroundColor: '#fafafa', marginTop: 2}}
                   listMode="SCROLLVIEW"
                   open={open8}
@@ -360,7 +391,7 @@ const FirstRoute = ({route}) => {
                   placeholder="Select PoliceStation"
                 />
               </View>
-           
+            </View>
           </View>
         </SafeAreaView>
 
@@ -443,124 +474,6 @@ const FirstRoute = ({route}) => {
 };
 
 const SecondRoute = ({route}) => {
-  const [isPickerShow, setIsPickerShow] = React.useState(false);
-  const [date, setDate] = React.useState(new Date(Date.now()));
-
-  const showPicker = () => {
-    setIsPickerShow(true);
-  };
-
-  const onChange = (event, value) => {
-    setDate(value);
-    if (Platform.OS === 'android') {
-      setIsPickerShow(false);
-    }
-  };
-  return (
-    <View style={styles.Tab}>
-     
-  
-      <ScrollView style={styles.scrollView}>
-        <SafeAreaView style={styles.Form}>
-          <View style={{marginTop: -10}}>
-            <Text style={styles.FormTitle}>Date Of Incident:*</Text>
-            {!isPickerShow && (
-              <View style={{marginLeft: 10, marginTop: 18}}>
-                <Text onPress={showPicker}>
-                  <FontAwesomeIcon
-                    icon={faCalendarDays}
-                    title="Show Picker"
-                    color="#22A7F0"
-                  />
-                </Text>
-                <TextInput style={styles.FormInputdate}>
-                  {date.toUTCString()}/
-                </TextInput>
-              </View>
-            )}
-
-            {isPickerShow && (
-              <DateTimePicker
-                value={date}
-                mode={'date'}
-                display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-                is24Hour={true}
-                onChange={onChange}
-              />
-            )}
-          </View>
-
-          <View style={{marginTop: -25}}>
-            <Text style={styles.FormTitle}>Description of the Incident:*</Text>
-            <View style={styles.formtotalinput}>
-              <TextInput
-                style={styles.FormInput}
-                type="text"
-                placeholder="Description of the incident"
-              />
-            </View>
-          </View>
-          <View style={{marginTop: 16}}>
-            <Text style={styles.FormTitle}>Name of Alleged Offender:*</Text>
-            <View style={styles.formtotalinput}>
-              <TextInput
-                style={styles.FormInput}
-                type="text"
-                placeholder="Name of Alleged Offender"
-              />
-            </View>
-          </View>
-          <View style={{marginTop: 16}}>
-            <Text style={styles.FormTitle}>
-              Offenders relationship to victim
-            </Text>
-            <View style={styles.formtotalinput}>
-              <TextInput
-                style={styles.FormInput}
-                type="text"
-                placeholder="Offender relationship to victim"
-              />
-            </View>
-          </View>
-          <View style={{marginTop: 16}}>
-            <Text style={styles.FormTitle}>Offenders approximate Age:*</Text>
-            <View style={styles.formtotalinput}>
-              <TextInput
-                style={styles.FormInput}
-                type="text"
-                placeholder="Offenders approximate Age"
-              />
-            </View>
-          </View>
-        </SafeAreaView>
-      </ScrollView>
-      <View style={{backgroundColor:''}}>
-      <TouchableOpacity
-        style={styles.formbutton}
-        onPress={() => route.change()}>
-        <Text style={styles.formbuttoninput}>NEXT </Text>
-      </TouchableOpacity>
-      </View>
-    </View>
-  );
-};
-const ThirdRoute = ({route}) => {
-  const [modalVisible, setModalVisible] = React.useState(false);
-
-  const [isPickerShow, setIsPickerShow] = React.useState(false);
-  const [date, setDate] = React.useState(new Date(Date.now()));
-  const [PhotoFile, setPhotoFile] = React.useState(null);
-
-  const showPicker = () => {
-    setIsPickerShow(true);
-  };
-
-  const onChange = (event, value) => {
-    setDate(value);
-    if (Platform.OS === 'android') {
-      setIsPickerShow(false);
-    }
-  };
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState(null);
   const [items, setItems] = React.useState([
@@ -581,47 +494,168 @@ const ThirdRoute = ({route}) => {
     },
     {label: 'Others', value: 'others'},
   ]);
-  const [open1, setOpen1] = React.useState(false);
-  const [value1, setValue1] = React.useState(null);
-  const [items1, setItems1] = React.useState([
+  const [open2, setOpen2] = React.useState(false);
+  const [value2, setValue2] = React.useState(null);
+  const [items2, setItems2] = React.useState([
     {label: 'Local Police station', value: 'Local Police station'},
-    {label: 'Police Helpline 100 ', value: 'Police Helpline 100 '},
-    {label: ' Child Line- 1098', value: ' Child Line- 1098'},
-
+    {label: ' Police Helpline 100', value: ' Police Helpline 100'},
+    {label: 'Child Line- 1098', value: 'Child Line- 1098'},
     {label: 'Child Welfare Committee', value: 'Child Welfare Committee'},
+    {label: 'Sexual abuse', value: 'Sexual abuse'},
+    {label: 'Sexual harassment', value: 'Sexual harassment'},
+    {
+      label: 'District Child Protection Unit    ',
+      value: 'District Child Protection Unit    ',
+    },
+    {label: 'others', value: 'others'},
+  ]);
+  const [open3, setOpen3] = React.useState(false);
+  const [value3, setValue3] = React.useState(null);
+  const [items3, setItems3] = React.useState([
+    {label: '161 Statement is done', value: '161 Statement is done'},
+    {label: 'Medical Examination Done ', value: 'Medical Examination Done '},
+    {label: '164 Statement Done', value: '164 Statement Done'},
 
     {
-      label: ' District Child Protection Unit    ',
-      value: ' District Child Protection Unit    ',
+      label: 'Victim Produced Before CWC    ',
+      value: 'Victim Produced Before CWC   ',
     },
 
-    {label: 'Other', value: 'Other'},
-  ]);
+    {label: ' Victim admitted in CCI    ', value: 'Victim admitted in CCI    '},
 
+    {
+      label: 'MHPSS services given to victim',
+      value: 'MHPSS services given to victim',
+    },
+    {
+      label: ' Medical Aid given to victim',
+      value: ' Medical Aid given to victim',
+    },
+    {
+      label: 'Victim Compensation application filed',
+      value: 'Victim Compensation application filed',
+    },
+    {
+      label: 'Charge sheet submitted',
+      value: 'Charge sheet submitted',
+    },
+    {label: 'Examination Chief', value: 'Examination Chief'},
+    {label: 'Cross Examination    ', value: 'Cross Examination    '},
+
+    {label: 'Re-examination    ', value: 'Re-examination    '},
+
+    {
+      label: 'Accused convicted / acquitted?    ',
+      value: 'Accused convicted / acquitted?     ',
+    },
+    {label: 'Appeal under process', value: 'Appeal under process    '},
+  ]);
   const [checked, setChecked] = React.useState('first');
   const [checked1, setChecked1] = React.useState('first1');
-  const [checked2, setChecked2] = React.useState('first2');
-  const [checked3, setChecked3] = React.useState('first2');
-  const [checked4, setChecked4] = React.useState('first2');
-  const [checked5, setChecked5] = React.useState('first2');
 
+  const [isPickerShow, setIsPickerShow] = React.useState(false);
+  const [date, setDate] = React.useState(new Date(Date.now()));
+  const [modalVisible, setModalVisible] = React.useState(false);
+
+  const showPicker = () => {
+    setIsPickerShow(true);
+  };
+
+  const onChange = (event, value) => {
+    setDate(value);
+    if (Platform.OS === 'android') {
+      setIsPickerShow(false);
+    }
+  };
   return (
     <View style={styles.Tab}>
-      <View
-       style={styles.casemanagenmentmain}>
-        <Text
-          style={styles.casemanagenmenttitle}>
-          Case Management System
-        </Text>
-      </View>
       <ScrollView style={styles.scrollView}>
         <SafeAreaView style={styles.Form}>
           <View style={{marginTop: -10}}>
+            <Text style={styles.FormTitle}>
+              Date Of Incident:<Text style={styles.star}>*</Text>
+            </Text>
+            {!isPickerShow && (
+              <View style={{marginLeft: 10, marginTop: 18}}>
+                <Text onPress={showPicker}>
+                  <FontAwesomeIcon
+                    icon={faCalendarDays}
+                    title="Show Picker"
+                    color="gray"
+                  />
+                </Text>
+                <TextInput style={styles.FormInputdate}>
+                  {date.toUTCString()}/
+                </TextInput>
+              </View>
+            )}
+
+            {isPickerShow && (
+              <DateTimePicker
+                value={date}
+                mode={'date'}
+                display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                is24Hour={true}
+                onChange={onChange}
+              />
+            )}
+          </View>
+
+          <View style={{marginTop: -25}}>
+            <Text style={styles.FormTitle}>
+              Description of the Incident:<Text style={styles.star}>*</Text>
+            </Text>
+            <View style={styles.formtotalinput}>
+              <TextInput
+                style={styles.FormInput}
+                type="text"
+                placeholder="Enter Description of the incident"
+                placeholderTextColor="#000"
+              />
+            </View>
+          </View>
+          <View style={{marginTop: 16}}>
+            <Text style={styles.FormTitle}>Name of Alleged Offender</Text>
+            <View style={styles.formtotalinput}>
+              <TextInput
+                style={styles.FormInput}
+                type="text"
+                placeholder="Enter Name of Alleged Offender"
+                placeholderTextColor="#000"
+              />
+            </View>
+          </View>
+          <View style={{marginTop: 16}}>
+            <Text style={styles.FormTitle}>
+              Offenders relationship to victim:
+            </Text>
+            <View style={styles.formtotalinput}>
+              <TextInput
+                style={styles.FormInput}
+                type="text"
+                placeholder="Enter Offender relationship  victim"
+                placeholderTextColor="#000"
+              />
+            </View>
+          </View>
+          <View style={{marginTop: 16}}>
+            <Text style={styles.FormTitle}>Offenders approximate Age:</Text>
+            <View style={styles.formtotalinput}>
+              <TextInput
+                style={styles.FormInput}
+                type="text"
+                placeholder="Enter Offenders approximate Age"
+                placeholderTextColor="#000"
+              />
+            </View>
+          </View>
+          <View style={{marginTop: 16}}>
             <Text style={styles.FormTitle1}>
               Who informed about the Incident:<Text style={styles.star}>*</Text>
             </Text>
             <View style={styles.formdrop}>
               <DropDownPicker
+                style={styles.dropdownStyle}
                 listMode="SCROLLVIEW"
                 open={open}
                 value={value}
@@ -630,26 +664,10 @@ const ThirdRoute = ({route}) => {
                 setValue={setValue}
                 setItems={setItems}
                 zIndex={9000}
+                placeholder="Select the Informed About Incident"
               />
             </View>
           </View>
-          <View style={{marginTop: 16}}>
-            <Text style={styles.FormTitle1}>
-              Whether the incident reported to (tick all that apply){' '}
-            </Text>
-
-            <View style={styles.formdrop}>
-              <DropDownPicker
-                listMode="SCROLLVIEW"
-                open={open1}
-                value={value1}
-                items={items1}
-                setOpen={setOpen1}
-                setValue={setValue1}
-                setItems={setItems1}
-              />
-            </View>
-         
           <View style={{marginTop: 3, marginLeft: 10}}>
             <Text style={styles.radioname}>
               Complaint Lodged In PS:<Text style={styles.star}>*</Text>
@@ -1062,23 +1080,20 @@ export default function TabViewExample() {
 const styles = StyleSheet.create({
   Tab: {
     backgroundColor: '#fff',
-
-    height: hp('91%'),
+    height: hp('93%'),
     width: wp('99%'),
   },
   FormTitle: {
     color: '#000',
-    fontFamily: "Lora",
+    fontFamily: 'Lora',
     fontSize: 14,
     alignSelf: 'flex-start',
-    borderColor: 'gray',
     marginLeft: 13,
   },
   FormTitle1: {
-    marginTop: 10,
     color: '#000',
-    fontFamily: 'Lato-Bold',
-    fontSize: 16,
+    fontFamily: 'Lora',
+    fontSize: 13.5,
     alignSelf: 'flex-start',
     marginLeft: 12,
   },
@@ -1089,27 +1104,18 @@ const styles = StyleSheet.create({
     color: '#555',
     marginVertical: 6,
     fontFamily: 'Montserrat-SemiBold',
-    backgroundColor: '#ffff',
-    
+    backgroundColor: '#ecf0f1',
   },
   Form: {
     padding: 15,
   },
   radioname: {
     color: '#000',
-    fontFamily: 'Lato-Bold',
-    fontSize: 16,
+    fontFamily: 'Poppins-Regular',
+    fontSize: 14,
     alignSelf: 'flex-start',
     marginLeft: 5,
     marginTop: 20,
-  },
-  dropdownStyle: {
-    //flex: 1,
-    marginBottom: 7,
-    padding: 7,
-    alignSelf: "stretch",
-    borderColor: 'gray',
-    border:'none'
   },
   SectionStyle1: {
     flexDirection: 'row',
@@ -1117,7 +1123,7 @@ const styles = StyleSheet.create({
   },
   gender: {
     marginTop: 8,
-    fontFamily: 'Lato-Regular',
+
     color: '#181818',
   },
 
@@ -1133,7 +1139,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: '#21',
     marginVertical: 6,
-    fontFamily: 'Lato-Bold',
+    fontFamily: 'Montserrat-SemiBold',
     placeholderTextColor: '#9e9e9e',
     marginRight: 80,
     borderRadius: 10,
@@ -1149,8 +1155,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 10,
     backgroundColor: '#ff6b00',
-    marginTop: 30,
-    
+    marginTop: 20,
+    marginLeft: 5,
   },
   formbuttonedit: {
     alignSelf: 'center',
@@ -1175,15 +1181,14 @@ const styles = StyleSheet.create({
   formbuttoninput: {
     textAlign: 'center',
     color: '#ffffff',
-    fontSize: 16,
-    fontFamily: 'Lato-Bold',
+    fontSize: 14,
+    fontFamily: 'Poppins-Bold',
     fontWeight: 'bold',
   },
   formbutton1: {
     alignSelf: 'center',
     width: 350,
     height: 50,
-    fontFamily: 'Lato-Bold',
     justifyContent: 'center',
     borderRadius: 10,
     backgroundColor: '#000000',
@@ -1192,8 +1197,8 @@ const styles = StyleSheet.create({
   formbuttoninput1: {
     textAlign: 'center',
     color: '#ffffff',
-    fontSize: 16,
-    fontFamily: 'Lato-Bold',
+    fontSize: 15,
+    fontFamily: 'Poppins-Bold',
   },
   scrollView: {
     paddingVertical: 8,
@@ -1220,18 +1225,20 @@ const styles = StyleSheet.create({
     height: 47,
     marginTop: 10,
     marginLeft: 6,
+    borderColor: '#ccc',
+    backgroundColor: '#ecf0f1',
   },
   formdrop: {
     flexDirection: 'row',
     alignItems: 'center',
-    height: 50,
+    height: 40,
     marginTop: 10,
-    marginLeft: 8,
-    width: wp('88%'),
+    marginLeft: 12,
+    width: wp('85%'),
   },
   btn: {
     height: hp('77%'),
-    width: wp('87%'),
+    width: wp('85%'),
   },
   centeredView: {
     flex: 1,
@@ -1289,13 +1296,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: '#ecf0f1',
     marginVertical: 6,
-    fontFamily: 'Lato-Regular',
+    fontFamily: 'Montserrat-SemiBold',
     fontSize: 14,
     marginRight: 20,
     bottom: 40,
     padding: 10,
-    borderWidth: 1,
-    width: wp('79%'),
+    borderWidth: 2,
+    width: wp('82%'),
     marginTop: 12,
     marginLeft: 45,
     borderColor: '#ccc',
@@ -1304,10 +1311,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
+
     borderRadius: 11,
     color: '#212121',
     marginVertical: 6,
-    fontFamily: 'Lato-Regular',
+    fontFamily: 'Montserrat-SemiBold',
     fontSize: 14,
     marginRight: 20,
     bottom: 40,
@@ -1329,19 +1337,32 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginRight: 10,
   },
-  casemanagenmentmain: {
-    marginTop: 10,
-    alignItems: 'center',
-    backgroundColor: '#00bad7',
-    height: 40,
-    right: 10,
-    width: 380,
+
+  checkbox: {
+    marginLeft: 10,
   },
-  casemanagenmenttitle: {
-    fontSize: 18,
-    color: '#fff',
-    
-    fontFamily: 'Lora',
-    marginTop: 5,
+  star: {
+    color: 'red',
+  },
+  dropdownStyle: {
+    backgroundColor: '#ecf0f1',
+    marginLeft: -6,
+    padding: 10,
+    alignSelf: 'stretch',
+    marginVertical: 6,
+
+    borderWidth: 1,
+    borderColor: '#bdc3c7',
+    borderRadius: 5,
+    width: wp('90%'),
+  },
+  dropopen: {
+    backgroundColor: '#E5E7EB',
+    borderRadius: 10,
+
+    borderWidth: 0,
+    marginLeft: -5,
+    width: 323,
+  
   },
 });
