@@ -48,13 +48,13 @@ class CreateCard extends React.Component {
 
     render() {
         return (
-                 <ScrollView >
+                 <ScrollView>
                     <View style={Styles.column}>
                         <Card style={Styles.cardone} onPress={() => { this.changeGraph('1') }}>
-                            <Text style={Styles.title}>2041</Text>
+                            <Text style={Styles.title1}>2041</Text>
                             <Text style={Styles.title}>Incident Loged</Text>
                             <Text style={Styles.title}><FontAwesomeIcon icon={faTag}
-                                size={20}
+                                size={22}
                                 color={'#fff'}
                             />
                             </Text>
@@ -62,10 +62,10 @@ class CreateCard extends React.Component {
                         </Card>
                         <Card style={Styles.cardtwo} onPress={() => { this.changeGraph('2') }}>
 
-                            <Text style={Styles.title}>630</Text>
+                            <Text style={Styles.title1}>630</Text>
                             <Text style={Styles.title}>FIR Filled</Text>
                             <Text style={Styles.title}><FontAwesomeIcon icon={faPhone}
-                                size={20}
+                                size={22}
                                 color={'#fff'}
                             />
                             </Text>
@@ -75,11 +75,11 @@ class CreateCard extends React.Component {
                     <View style={Styles.column}>
                         <Card style={Styles.cardthree} onPress={() => { this.changeGraph('3') }}>
 
-                            <Text style={Styles.title}>523</Text>
+                            <Text style={Styles.title1}>523</Text>
 
                             <Text style={Styles.title}>Incident Closed </Text>
                             <Text style={Styles.title}><FontAwesomeIcon icon={faBell}
-                                size={20}
+                                size={22}
                                 color={'#fff'}
                             />
                             </Text>
@@ -87,11 +87,11 @@ class CreateCard extends React.Component {
                         </Card>
 
                         <Card style={Styles.cardfour} onPress={() => { this.changeGraph('4') }}>
-                            <Text style={Styles.title}>270</Text>
+                            <Text style={Styles.title1}>270</Text>
 
                             <Text style={Styles.title}>User Registered </Text>
                             <Text style={Styles.title}><FontAwesomeIcon icon={faEnvelope}
-                                size={20}
+                                size={22}
                                 color={'#fff'}
                             />
                             </Text>
@@ -131,8 +131,8 @@ const Styles = StyleSheet.create({
         alignContent: 'center',
         margin: 5,
         width: 160,
-        backgroundColor: '#00acca',
-        borderRadius: 10,
+        backgroundColor: '#ADD8E6',
+        borderRadius: 5,
         height: 130,
     },
 
@@ -140,8 +140,8 @@ const Styles = StyleSheet.create({
         alignContent: 'center',
         margin: 5,
         width: 160,
-        backgroundColor: '#9054a1',
-        borderRadius: 10,
+        backgroundColor: '#cac4bb',
+        borderRadius: 5,
         height: 130,
     },
     cardthree: {
@@ -149,8 +149,8 @@ const Styles = StyleSheet.create({
         margin: 5,
         marginTop: 0,
         width: 160,
-        backgroundColor: '#ff6b00',
-        borderRadius: 10,
+        backgroundColor: '#FDB777',
+        borderRadius: 5,
         height: 130,
     },
     cardfour: {
@@ -158,18 +158,16 @@ const Styles = StyleSheet.create({
         margin: 5,
         marginTop: 0,
         width: 160,
-        backgroundColor: '#46bb95',
-        borderRadius: 10,
+        backgroundColor: '#7CFFCB',
+        borderRadius: 5,
         height: 130,
     },
     cardfive: {
         alignContent: 'center',
         marginTop: 0,
-        borderRadius: 10,
-        marginLeft: 10,
+        borderRadius: 5,
         height: 300,
         margin: 10,
-        backgroundColor: '#cac4bb',
     },
     column: {
         alignContent: 'center',
@@ -179,18 +177,24 @@ const Styles = StyleSheet.create({
         flexDirection: 'row',
         marginBottom: 0,
     },
+   
     columntwo: {
         alignContent: 'center',
         justifyContent: 'center',
         margin: 5,
     },
     title: {
-        color: '#fff',
         fontSize: 20,
         padding: 10,
         paddingLeft: 20,
         fontFamily: 'Lato-Bold',
-        //alignSelf: 'center'
+    },
+    title1: {
+        color: '#00acca',
+        fontSize: 30,
+        padding: 10,
+        paddingLeft: 20,
+        fontFamily: 'Lato-Bold',
     },
 
 })

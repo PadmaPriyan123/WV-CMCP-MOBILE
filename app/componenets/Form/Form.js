@@ -237,6 +237,8 @@ const FirstRoute = ({route}) => {
 
                 <DropDownPicker style={styles.formdrop}
                 dropDownStyle={{marginLeft:5}}
+                containerStyle={{width:340,zIndex:50,
+                  top:20,}}
                   open11={countryOpen}
                   onOpen={onCountryOpen}
                   listMode="SCROLLVIEW"
@@ -246,7 +248,6 @@ const FirstRoute = ({route}) => {
                   setOpen={setOpen2}
                   setValue={setValue2}
                   setItems={setItems2}
-                  zIndex={30000}
                   
                 />
             </View>

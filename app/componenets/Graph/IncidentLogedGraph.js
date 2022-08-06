@@ -58,6 +58,7 @@ export default function IncidentLogedGraph() {
 const Styles = StyleSheet.create({
   IncidentLogedGraphTitle: {
     fontFamily: 'Lato-Bold',
+    
     fontSize: 20,
     marginLeft: 10,
   },
