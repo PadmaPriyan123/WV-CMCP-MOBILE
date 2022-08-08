@@ -52,6 +52,7 @@ export default function UserRegisteredGraph() {
 
 const Styles = StyleSheet.create({
   UserRegisteredGraphTitle: {
+    fontFamily: 'Lato-Bold',
     fontSize: 20,
     marginLeft: 10,
     marginTop: 20,

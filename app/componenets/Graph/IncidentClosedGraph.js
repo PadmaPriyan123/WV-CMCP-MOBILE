@@ -51,6 +51,7 @@ export default function IncidentClosedGraph() {
 
 const Styles = StyleSheet.create({
   IncidentClosedGraphTitle: {
+    fontFamily: 'Lato-Bold',
     fontSize: 20,
     marginLeft: 10,
     marginTop: 20,

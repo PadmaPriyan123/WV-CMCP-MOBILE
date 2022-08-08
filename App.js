@@ -1,15 +1,13 @@
-
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
-import Login from './app/componenets/Login/login'
+import {createStackNavigator} from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
+import Login from './app/componenets/Login/login';
 import Form from './app/componenets/Form/Form';
 import Dashboard from './app/componenets/Dashboard/Dashboard';
 import Incident from './app/componenets/IncidentView/incidentview';
 import  MyDrawer  from './app/componenets/Drawer/drawer';
 import  store  from '../WV-CMCP-MOBILE/app/Redux/Store'
 import { Provider  } from 'react-redux';
-import { StatusBar } from 'react-native'
 
 const Stack = createStackNavigator();
 
@@ -18,7 +16,6 @@ function App() {
     <Provider store={store}>
 
     <NavigationContainer>
-
       <Stack.Navigator>
       <Stack.Screen name="Login" component={Login}
           options={{ headerShown: false }} />
@@ -36,14 +33,9 @@ function App() {
 
 
       </Stack.Navigator>
-      <StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = '#fff' />
-
     </NavigationContainer>
     </Provider>
   );
 }
 
 export default App;
-
-
-
