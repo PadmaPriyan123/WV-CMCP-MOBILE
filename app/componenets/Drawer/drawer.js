@@ -22,18 +22,13 @@ import Form from '../Form/Form';
 import Incident from '../IncidentView/incidentview';
 import images from '../Images/image'
 import Login from '../Login/login';
-import { LinearGradient } from 'react-native-svg';
-import { red100 } from 'react-native-paper/lib/typescript/styles/colors';
 
-// const headerOptions = {
-//   title: 'Task List',
-//   drawerIcon: ({ focused, size, color }) => <Ionicons name="ios-pizza" color="red" size={24} />,
-// };
 
 function CustomDrawerContent(props) {
   return (
     <>
       <DrawerContentScrollView {...props}>
+
         <Image source={images.worldvision_drawer} style={{ width: 250, height: 120, top: -5 }}></Image>
         <DrawerItemList {...props} />
 
@@ -73,6 +68,7 @@ export default function MyDrawer() {
       <Drawer.Navigator
         screenOptions={{
           drawerStyle: {
+            
             backgroundColor: '#ff6b00',
             width: 240,
           },
@@ -85,6 +81,7 @@ export default function MyDrawer() {
         useLegacyImplementation
         drawerContent={(props) => <CustomDrawerContent {...props}
         />}
+        
       >
       
         <Drawer.Screen name="Dashboard" component={Dashboard}
@@ -95,16 +92,17 @@ export default function MyDrawer() {
               backgroundColor: '#ff6b00',
               height: 50,
               color: '#fff'
+              
             },
             drawerLabelStyle: {
-              fontFamily: 'Lato-Bold',
-              fontSize: 17,
+              fontFamily: 'Poppins-Regular',
+              fontSize: 15,
               justifyContent: 'center',
+
             },
 
             headerTintColor: 'white',
             headerTitleStyle: {
-              fontFamily: 'Lato-Bold',
               color: '#fff',
           
             },
@@ -132,15 +130,13 @@ export default function MyDrawer() {
               height: 50,
             },
             drawerLabelStyle: {
-              fontFamily: 'Lato-Bold',
-              fontSize: 17,
+              fontSize: 15,
               justifyContent: 'center',
             },
 
             headerTintColor: 'white',
 
             headerTitleStyle: {
-              fontFamily: 'Lato-Bold',
 
             },
             headerRight: () => (
@@ -167,15 +163,13 @@ export default function MyDrawer() {
             },
 
             drawerLabelStyle: {
-              fontFamily: 'Lato-Bold',
-              fontSize: 17,
+              fontSize: 15,
               justifyContent: 'center',
             },
 
             headerTintColor: 'white',
 
             headerTitleStyle: {
-              fontFamily: 'Lato-Bold',
             },
             headerRight: () => (
               <TouchableOpacity>
@@ -190,36 +184,29 @@ export default function MyDrawer() {
               />
             ),
           }} />
+          
       </Drawer.Navigator>
 
     </>
   )
 }
 
-export default function App() {
-  return (
 
-    <MyDrawer />
-
-  );
-}
 const styles = StyleSheet.create({
 
   lablestyle: {
-    fontFamily: 'Lato-Bold',
     fontSize: 17,
     justifyContent: 'center',
     marginLeft: 10,
 
   },
   logoutlablestyle :{
-    fontFamily: 'Lato-Bold',
     fontSize: 17,
     justifyContent: 'center',
     
   },
   logout: {
-    marginTop: 320,
+    marginTop: 350,
     marginLeft: 2,
   },
   BellIcon:{
@@ -238,6 +225,5 @@ const styles = StyleSheet.create({
     color:'#FFF',
    marginTop: 2,
     marginLeft: 6,
-    fontFamily: 'Lato-Bold',
   },
 });
