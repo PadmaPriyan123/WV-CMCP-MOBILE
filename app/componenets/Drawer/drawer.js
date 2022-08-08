@@ -40,17 +40,19 @@ import Form from '../Form/Form';
 import Incident from '../IncidentView/incidentview';
 import images from '../Images/image';
 import Login from '../Login/login';
-import {LinearGradient} from 'react-native-svg';
-import {red100} from 'react-native-paper/lib/typescript/styles/colors';
-import login from '../../Redux/Login/Saga';
+import { LinearGradient } from 'react-native-svg';
+import { red100 } from 'react-native-paper/lib/typescript/styles/colors';
+
+// const headerOptions = {
+//   title: 'Task List',
+//   drawerIcon: ({ focused, size, color }) => <Ionicons name="ios-pizza" color="red" size={24} />,
+// };
 
 function CustomDrawerContent(props) {
   return (
     <>
       <DrawerContentScrollView {...props}>
-        <Image
-          source={images.worldvision_drawer}
-          style={{width: wp('68%'), height: hp('20%'), top: -5}}></Image>
+        <Image source={images.worldvision_drawer} style={{ width: 250, height: 120, top: -5 }}></Image>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
     </>
@@ -72,8 +74,8 @@ export default function MyDrawer() {
       <Drawer.Navigator
         screenOptions={{
           drawerStyle: {
-            backgroundColor: '#ffffff',
-            width: wp('68%'),
+            backgroundColor: '#ff6b00',
+            width: 240,
           },
           drawerActiveTintColor: '#ffFFFF',
           drawerActiveBackgroundColor: '#ff6b00',
@@ -82,26 +84,31 @@ export default function MyDrawer() {
           activeTintColor: '#ff6b00',
         }}
         useLegacyImplementation
-        drawerContent={props => <CustomDrawerContent {...props} />}>
-        <Drawer.Screen
-          name="Dashboard"
-          component={Dashboard}
+        drawerContent={(props) => <CustomDrawerContent {...props}
+        />}
+      >
+      
+        <Drawer.Screen name="Dashboard" component={Dashboard}
           labelStyle={styles.lablestyle}
           options={{
             title: 'DASHBOARD',
             headerStyle: {
               backgroundColor: '#ff6b00',
               height: 50,
+              color: '#fff'
             },
             drawerLabelStyle: {
               fontFamily: 'Lato-Bold',
-              fontSize: 18,
+              fontSize: 17,
               justifyContent: 'center',
+
             },
 
             headerTintColor: 'white',
             headerTitleStyle: {
               fontFamily: 'Lato-Bold',
+              color: '#fff',
+          
             },
             headerRight: () => (
               <View style={styles.DotHeader}>
@@ -143,8 +150,7 @@ export default function MyDrawer() {
               height: 50,
             },
             drawerLabelStyle: {
-              fontFamily: 'Lato-Bold',
-              fontSize: 17,
+              fontSize: 15,
               justifyContent: 'center',
             },
 
@@ -152,6 +158,7 @@ export default function MyDrawer() {
 
             headerTitleStyle: {
               fontFamily: 'Lato-Bold',
+
             },
             headerRight: () => (
               <View style={styles.DotHeader}>
@@ -195,15 +202,13 @@ export default function MyDrawer() {
             },
 
             drawerLabelStyle: {
-              fontFamily: 'Lato-Bold',
-              fontSize: 17,
+              fontSize: 15,
               justifyContent: 'center',
             },
 
             headerTintColor: 'white',
 
             headerTitleStyle: {
-              fontFamily: 'Lato-Bold',
             },
             headerRight: () => (
               <View style={styles.DotHeader}>
@@ -234,55 +239,27 @@ export default function MyDrawer() {
                 color={focused ? '#fff' : '#000'}
               />
             ),
-          }}
-        />
-        <Drawer.Screen
-          style={styles.logout1}
-          labelStyle={styles.lablestyle1}
-          name="LOGOUT"
-          component={Login}
-          options={{
-            drawerLabelStyle: {
-              fontFamily: 'Lato-Bold',
-              fontSize: 17,
-              justifyContent: 'center',
-            },
-            drawerIcon: ({focused}) => (
-              <FontAwesomeIcon
-                icon={faRightFromBracket}
+            drawerIcon: ({ color, size }) => (
+              <FontAwesomeIcon icon={faUsers}
                 size={25}
                 color="#000"
               />
             ),
-          }}
-          // onPress={() =>
-          //   Alert.alert(
-          //     'Log out',
-          //     'Do you want to logout?',
-          //     [
-          //       {
-          //         text: 'Cancel',
-          //         onPress: () => {
-          //           return null;
-          //         },
-          //       },
-          //       {
-          //         text: 'Confirm',
-          //         onPress: () => {
-          //           props.navigation.navigate('Login');
-          //         },
-          //       },
-          //     ],
-          //     {cancelable: false},
-          //   )
-          // }
-        />
+          }} />
       </Drawer.Navigator>
     </>
-  );
+  )
 }
 
+export default function App() {
+  return (
+
+    <MyDrawer />
+
+  );
+}
 const styles = StyleSheet.create({
+
   lablestyle: {
     fontFamily: 'Lato-Bold',
     fontSize: 17,
@@ -290,73 +267,25 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginLeft: 10,
   },
-  lablestyle: {
-    fontFamily: 'Lato-Bold',
-    fontSize: 17,
-    justifyContent: 'center',
-    marginLeft: 10,
-  },
-  logoutlablestyle: {
+  logoutlablestyle :{
     fontFamily: 'Lato-Bold',
     fontSize: 17,
     justifyContent: 'center',
   },
   logout: {
-    marginTop: hp('45%'),
-    justifyContent: 'center',
-    alignSelf: 'center',
-    width: wp('45%'),
-    fontFamily: 'Lato-Bold',
-    borderRadius: 3,
-    height: 50,
-    backgroundColor: '#ff6b00',
-    marginLeft: 5,
-    marginRight: 5,
+    marginTop: 320,
+    marginLeft: 2,
   },
   BellIcon: {
     marginRight: 10,
     circle: 10,
   },
-
-  circle: {
-    width: 15,
-    height: 15,
-    borderRadius: 18,
-    marginLeft: 10,
-    marginTop: -10,
-    backgroundColor: 'red',
-    position: 'absolute',
-    top: 5,
-    left: 2,
-  },
-  count: {
-    color: '#FFF',
-    marginLeft: 4,
+  count:{
+    color:'#FFF',
+   marginTop: 2,
+    marginLeft: 6,
     fontFamily: 'Lato-Bold',
   },
-  view: {
-    marginHorizontal: 16,
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginTop: 10,
-  },
-  titleView: {
-    flex: 1,
-    marginTop: 8,
-  },
-  DotHeader: {
-    marginHorizontal: 16,
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  logoutButton: {
-    alignSelf: 'center',
-    width: 89,
-    height: 40,
-    justifyContent: 'center',
-    borderRadius: 10,
-    backgroundColor: '#19B5FE',
-    marginTop: 20,
-    marginRight: 10,
-  },
+
+  
 });

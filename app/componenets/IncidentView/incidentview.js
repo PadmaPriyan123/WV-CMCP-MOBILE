@@ -12,9 +12,9 @@ import {Card, TextInput} from 'react-native-paper';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCircleChevronRight} from '@fortawesome/free-solid-svg-icons/faCircleChevronRight';
 import {ScrollView} from 'react-native-gesture-handler';
+import DatePicker from 'react-native-date-picker'
 
 const Incident = ({navigation}) => {
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -31,6 +31,7 @@ const Incident = ({navigation}) => {
               shadowOpacity: 1,
               shadowRadius: 2,
             }}>
+              
             <Card style={styles.card}>
               <ImageBackground
                 source={images.worldvision_card}
@@ -327,6 +328,7 @@ const styles = StyleSheet.create({
   },
   card: {
     height: 150,
+    borderRadius:5
   
     
     

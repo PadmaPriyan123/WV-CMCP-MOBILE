@@ -27,58 +27,60 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
 import {faLock} from '@fortawesome/free-solid-svg-icons/faLock';
 import images from '../Images/image';
-import Constants from 'expo-constants';
+import axios from 'axios';
+import Constants from "expo-constants";
 
 const baseUrl = 'https://reqres.in';
 const Login = () => {
   const navigation = useNavigation();
-
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
+  
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const onChangeNameHandler = fullName => {
+  const onChangeNameHandler = (fullName) => {
     setFullName(fullName);
   };
 
-  const onChangeEmailHandler = email => {
+  const onChangeEmailHandler = (email) => {
     setEmail(email);
   };
-  const onSubmitFormHandler = async event => {
+  const onSubmitFormHandler = async (event) => {
     if (!fullName.trim() || !email.trim()) {
-      alert('Name or Email is invalid');
+      alert("Name or Email is invalid");
       return;
     }
     setIsLoading(true);
     try {
-      const response = await axios
-        .post(`https://reqres.in/api/users`, {
-          name: 'padma',
-          job: 'devloper',
-        })
-        .then(function (response) {
-          console.log(response, 'respone');
-        })
-        .catch(function (error) {
-          console.log('error', error);
-        });
-      console.log('welcome');
+      const response = await axios.post(`https://reqres.in/api/users`, {
+        name:"padma",
+        job:"devloper",
+      }).then(function (response) {
+        console.log(response,"respone");
+      })
+      .catch(function (error) {
+        console.log("error",error);
+      });
+      console.log("welcome");
 
+      
       if (response.status === 201) {
         alert(` You have created: ${JSON.stringify(response.data)}`);
         setIsLoading(false);
         setFullName('');
         setEmail('');
       } else {
-        throw new Error('An error has occurred');
+        throw new Error("An error has occurred");
       }
     } catch (error) {
-      alert('An error has occurred');
-      console.log(error);
+      alert("An error has occurred");
+      console.log(error)
       setIsLoading(false);
     }
   };
+   
 
+ 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="#593dfff5" barStyle="Light-content" />
@@ -99,37 +101,13 @@ const Login = () => {
             marginTop: 10,
           }}
         />
-        <View
-          style={{
-            top: -70,
-            backgroundColor: '#fff',
-            width: wp('100%'),
-            height: hp('14%'),
-            borderTopStartRadius: 30,
-            borderTopEndRadius: 30,
-          }}>
+        <View style={styles.loginlogo}>
           <Image source={images.worldvision_loginlogo} style={styles.logo} />
         </View>
 
         <View style={styles.form}>
-          <View
-            style={{
-              top: -35,
-              alignContent: 'center',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <Text
-              style={{
-                color: '#000',
-                fontFamily: 'Lato-Bold',
-                fontSize: 17,
-                top: -5,
-                alignSelf: 'flex-start',
-                marginLeft: 10,
-              }}>
-              User Name
-            </Text>
+          <View style={styles.loginusernamemain}>
+            <Text style={styles.username}>User Name</Text>
             <View style={styles.customtextinput}>
               <FontAwesomeIcon
                 icon={faUser}
@@ -143,30 +121,13 @@ const Login = () => {
                 placeholderTextColor="#9e9e9e"
                 textAlign="left"
                 value={fullName}
-                editable={!isLoading}
-                onChangeText={onChangeNameHandler}
+            editable={!isLoading}
+            onChangeText={onChangeNameHandler}
               />
             </View>
           </View>
-          <View
-            style={{
-              top: -30,
-              alignContent: 'center',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <Text
-              style={{
-                color: '#000',
-                fontFamily: 'Lato-Bold',
-                fontSize: 17,
-                top: -5,
-                paddingTop: 11,
-                alignSelf: 'flex-start',
-                marginLeft: 10,
-              }}>
-              Password
-            </Text>
+          <View style={styles.loginpasswordmain}>
+            <Text style={styles.loginpassword}>Password</Text>
             <View style={styles.customtextinput2}>
               <FontAwesomeIcon
                 icon={faLock}
@@ -179,13 +140,11 @@ const Login = () => {
                 placeholder="Password"
                 placeholderTextColor="#9e9e9e"
                 secureTextEntry={true}
-                value={email}
-                editable={!isLoading}
-                onChangeText={onChangeEmailHandler}
+               
               />
             </View>
           </View>
-
+         
           <View
             style={{
               flexDirection: 'row',
@@ -197,27 +156,12 @@ const Login = () => {
               fillColor="#ff6b00"
               text="Remember Me"
               iconStyle={{borderColor: '#F37021', marginLeft: 5}}
-              textStyle={{
-                fontFamily: 'Lato-Regular',
-                fontSize: 15,
-                fontWeight: '400',
-                marginTop: 1,
-                marginRight: 4,
-              }}
+              textStyle={styles.BouncyCheckboxcontent}
               style={{marginLeft: 4, marginTop: 3}}
             />
 
             <TouchableOpacity onPress={e => console.log('pressed')}>
-              <Text
-                style={{
-                  color: '#ff6b00',
-                  fontFamily: 'Lato-Regular',
-                  marginRight: 5,
-                  fontSize: 13,
-                  marginTop: 4,
-                }}>
-                Forgot your password?
-              </Text>
+              <Text style={styles.forgot}>Forgot your password?</Text>
             </TouchableOpacity>
           </View>
           <View
@@ -226,8 +170,8 @@ const Login = () => {
             }}>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => navigation.navigate('Drawer')}
-              disabled={isLoading}>
+              onPress={()=>navigation.navigate("Drawer")}
+              disabled={isLoading} >
               <Text style={styles.buttoninput}>LOG-IN</Text>
             </TouchableOpacity>
           </View>
@@ -239,7 +183,6 @@ const Login = () => {
               flex: 1,
               color: '#000',
               textAlign: 'center',
-              fontFamily: 'Lato-Regular',
             }}>
             By Loggin-In, you're agree to our
             <TouchableOpacity>
@@ -249,7 +192,6 @@ const Login = () => {
                   flex: 1,
                   color: '#ff6b00',
                   textAlign: 'center',
-                  fontFamily: 'Lato-Regular',
                 }}>
                 Terms & Conditions and Privacy Policy.
               </Text>
@@ -294,7 +236,6 @@ const Login = () => {
             <Text
               style={{
                 color: '#757575',
-                fontFamily: 'Lato-Light',
                 fontSize: 13,
                 top: 10,
               }}>
@@ -313,7 +254,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
-    fontFamily: 'Lato-Black',
     color: '#fff',
   },
   logo: {
@@ -368,7 +308,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: 'gray',
     marginVertical: 6,
-    fontFamily: 'Lato-Regular',
     backgroundColor: '#ffff',
   },
   button: {
@@ -376,7 +315,6 @@ const styles = StyleSheet.create({
     width: 310,
     height: 60,
     justifyContent: 'center',
-    fontFamily: 'Lato-Bold',
     marginVertical: 9,
     borderRadius: 10,
     backgroundColor: '#ff6b00',
@@ -392,11 +330,63 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#fff',
     fontSize: 20,
-    fontFamily: 'Lato-Bold',
   },
   checkboxContainer: {
     flexDirection: 'row',
     marginBottom: 20,
+  },
+  loginlogo: {
+    top: -70,
+    backgroundColor: '#fff',
+    width: wp('100%'),
+    height: hp('14%'),
+    borderTopStartRadius: 30,
+    borderTopEndRadius: 30,
+  },
+  loginusernamemain: {
+    top: -35,
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  username: {
+    color: '#000',
+    fontSize: 17,
+    top: -5,
+    alignSelf: 'flex-start',
+    marginLeft: 10,
+  },
+  loginpasswordmain: {
+    top: -30,
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  loginpassword: {
+    color: '#000',
+    
+    fontSize: 17,
+    top: -5,
+    paddingTop: 11,
+    alignSelf: 'flex-start',
+    marginLeft: 10,
+  },
+  bouncyforgotmain: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    top: -14,
+  },
+  BouncyCheckboxcontent: {
+    fontSize: 15,
+    fontWeight: '400',
+    marginTop: 1,
+    marginRight: 4,
+  },
+  forgot: {
+    color: '#ff6b00',
+    marginRight: 5,
+    fontSize: 13,
+    marginTop: 4,
   },
 });
 

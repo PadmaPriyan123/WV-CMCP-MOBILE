@@ -73,12 +73,12 @@ export default function FirFilledGraph() {
 const Styles = StyleSheet.create({
   FirFilledGraphTitle: {
     fontFamily: 'Lato-Bold',
-    fontSize: 24,
+    fontSize: 20,
     marginLeft: 10,
     marginTop: 20,
   },
   FirFilled: {
     fontFamily: 'Lato-Regular',
-    fontSize: 12,
-  },
-});
+    fontSize: 12
+  }
+})

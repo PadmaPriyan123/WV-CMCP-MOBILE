@@ -52,12 +52,11 @@ export default function IncidentClosedGraph() {
 const Styles = StyleSheet.create({
   IncidentClosedGraphTitle: {
     fontFamily: 'Lato-Bold',
-    fontSize: 24,
+    fontSize: 20,
     marginLeft: 10,
     marginTop: 20,
   },
   IncidentClosed:{
-    fontFamily: 'Lato-Regular',
     fontSize: 12
   }
 })
