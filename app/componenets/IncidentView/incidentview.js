@@ -336,7 +336,6 @@ const styles = StyleSheet.create({
   },
   card: {
     height: 150,
-    borderRadius:5
   
     
     

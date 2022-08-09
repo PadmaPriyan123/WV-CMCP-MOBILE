@@ -250,6 +250,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
+    fontFamily: 'Lato-Black',
     color: '#fff',
   },
   logo: {
@@ -304,6 +305,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: 'gray',
     marginVertical: 6,
+    fontFamily: 'Lato-Regular',
     backgroundColor: '#ffff',
   },
   button: {
@@ -311,6 +313,7 @@ const styles = StyleSheet.create({
     width: 310,
     height: 60,
     justifyContent: 'center',
+    fontFamily: 'Lato-Bold',
     marginVertical: 9,
     borderRadius: 10,
     backgroundColor: '#ff6b00',
@@ -326,6 +329,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#fff',
     fontSize: 20,
+    fontFamily: 'Lato-Bold',
   },
   checkboxContainer: {
     flexDirection: 'row',

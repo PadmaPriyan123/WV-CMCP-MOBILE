@@ -124,7 +124,6 @@ const FirstRoute = ({route}) => {
                 placeholderTextColor="#000"
               />
             </View>
-
             <View style={{marginTop: 16}}>
               <Text style={styles.FormTitle}>
                 Designation:<Text style={styles.star}>*</Text>
@@ -184,7 +183,6 @@ const FirstRoute = ({route}) => {
                 />
               </View>
             </View>
-
             <View style={{marginTop: 16}}>
               <Text style={styles.FormTitle}>
                 Guardian's Name:<Text style={styles.star}>*</Text>
@@ -198,7 +196,6 @@ const FirstRoute = ({route}) => {
                 />
               </View>
             </View>
-
             <View style={{marginTop: 3, marginLeft: 10}}>
               <Text style={styles.radioname}>
                 Victim's Dob (is available):<Text style={styles.star}>*</Text>
@@ -544,7 +541,6 @@ const SecondRoute = ({route}) => {
       setIsPickerShow(false);
     }
   };
-
   return (
     <View style={styles.Tab}>
       <ScrollView style={styles.scrollView}>
@@ -592,7 +588,6 @@ const SecondRoute = ({route}) => {
               />
             </View>
           </View>
-
           <View style={{marginTop: 16}}>
             <Text style={styles.FormTitle}>Name of alleged Offender</Text>
             <View style={styles.formtotalinput}>
@@ -1033,7 +1028,7 @@ const FourthRoute = () => {
 
         <View style={{marginTop: 3, marginLeft: 10}}>
           <Text style={styles.radioname}>
-            Is the victim given any medical assistance/ treatment?
+            Is the victim given any medical assistance/ treatment? :
             <Text style={styles.star}></Text>
           </Text>
           <View style={styles.SectionStyle1}>

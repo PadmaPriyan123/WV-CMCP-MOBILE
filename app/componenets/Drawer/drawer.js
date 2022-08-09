@@ -8,8 +8,6 @@ import {
   PermissionsAndroid,
   ImageBackground,
   StatusBar,
-  Alert,
-  Button,
 } from 'react-native';
 import {
   createDrawerNavigator,
@@ -17,24 +15,16 @@ import {
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
-
 import {useNavigation} from '@react-navigation/native';
+
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faChartLine} from '@fortawesome/free-solid-svg-icons/faChartLine';
 import {faIndent} from '@fortawesome/free-solid-svg-icons/faIndent';
 import {faUsers} from '@fortawesome/free-solid-svg-icons/faUsers';
 import {faArrowRightFromBracket} from '@fortawesome/free-solid-svg-icons/faArrowRightFromBracket';
-import {
-  faBell,
-  faEllipsisVertical,
-  faRightFromBracket,
-} from '@fortawesome/free-solid-svg-icons';
+import {faBell, faEllipsisVertical} from '@fortawesome/free-solid-svg-icons';
 import {faMenu} from '@fortawesome/free-solid-svg-icons';
-import Feather from 'react-native-vector-icons/Feather';
+import Notification from '../Notification/Notification';
 import Dashboard from '../Dashboard/Dashboard';
 import Form from '../Form/Form';
 import Incident from '../IncidentView/incidentview';
@@ -42,22 +32,38 @@ import images from '../Images/image';
 import Login from '../Login/login';
 import {LinearGradient} from 'react-native-svg';
 import {red100} from 'react-native-paper/lib/typescript/styles/colors';
-
-// const headerOptions = {
-//   title: 'Task List',
-//   drawerIcon: ({ focused, size, color }) => <Ionicons name="ios-pizza" color="red" size={24} />,
-// };
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 function CustomDrawerContent(props) {
   return (
-    <>
-      <DrawerContentScrollView {...props}>
-        <Image
-          source={images.worldvision_drawer}
-          style={{width: 250, height: 120, top: -5}}></Image>
-        <DrawerItemList {...props} />
-      </DrawerContentScrollView>
-    </>
+    <DrawerContentScrollView {...props}>
+      <Image
+        source={images.worldvision_drawer}
+        style={{
+          width: wp('68%'),
+          height: hp('20%'),
+          top: -5,
+          marginBottom: 0,
+        }}></Image>
+      <DrawerItemList {...props} />
+
+      <View style={styles.logout}>
+        <DrawerItem
+          labelStyle={styles.logoutlablestyle}
+          label="LOGOUT"
+          onPress={() => props.navigation.navigate('Login')}
+          icon={({focused}) => (
+            <FontAwesomeIcon
+              icon={faArrowRightFromBracket}
+              size={25}
+              color={focused ? '#fff' : '#000'}
+            />
+          )}
+        />
+      </View>
+    </DrawerContentScrollView>
   );
 }
 
@@ -69,180 +75,179 @@ const Badge = ({count}) => (
 
 const Drawer = createDrawerNavigator();
 
-export default function MyDrawer() {
-  const navigation = useNavigation();
+export default function MyDrawer({navigation}) {
   return (
-    <>
-      <Drawer.Navigator
-        screenOptions={{
-          drawerStyle: {
+    <Drawer.Navigator
+      screenOptions={{
+        drawerStyle: {
+          backgroundColor: '#ffffff',
+          width: wp('68%'),
+        },
+        drawerActiveTintColor: '#ffFFFF',
+        drawerActiveBackgroundColor: '#ff6b00',
+      }}
+      drawerContentOptions={{
+        activeTintColor: '#ff6b00',
+      }}
+      useLegacyImplementation
+      drawerContent={props => <CustomDrawerContent {...props} />}>
+      <Drawer.Screen
+        name="Dashboard"
+        component={Dashboard}
+        labelStyle={styles.lablestyle}
+        options={{
+          title: 'DASHBOARD',
+          headerStyle: {
             backgroundColor: '#ff6b00',
-            width: 240,
+            height: 50,
+            color: '#fff',
           },
-          drawerActiveTintColor: '#ffFFFF',
-          drawerActiveBackgroundColor: '#ff6b00',
+          drawerLabelStyle: {
+            fontFamily: 'Lato-Bold',
+            fontSize: 17,
+            justifyContent: 'center',
+          },
+
+          headerTintColor: 'white',
+          headerTitleStyle: {
+            fontFamily: 'Lato-Bold',
+            color: '#fff',
+          },
+          headerRight: () => (
+            <View style={styles.DotHeader}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('Notification')}>
+                <FontAwesomeIcon
+                  icon={faBell}
+                  style={styles.BellIcon}
+                  size={22}
+                  color="white"
+                />
+                <Badge count={4} />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <FontAwesomeIcon
+                  icon={faEllipsisVertical}
+                  size={22}
+                  color="white"
+                />
+              </TouchableOpacity>
+            </View>
+          ),
+          drawerIcon: ({focused}) => (
+            <FontAwesomeIcon
+              icon={faChartLine}
+              size={25}
+              color={focused ? '#fff' : '#000'}
+            />
+          ),
         }}
-        drawerContentOptions={{
-          activeTintColor: '#ff6b00',
+      />
+      <Drawer.Screen
+        name="Form"
+        component={Form}
+        options={{
+          title: 'INCIDENT LOG',
+          headerStyle: {
+            backgroundColor: '#ff6b00',
+            height: 50,
+          },
+          drawerLabelStyle: {
+            fontFamily: 'Lato-Bold',
+            fontSize: 17,
+            justifyContent: 'center',
+          },
+
+          headerTintColor: 'white',
+>>>>>>> 7dd0519231492ce58a42e94b0dca1002a3e21ad7
+
+          headerTitleStyle: {
+            fontFamily: 'Lato-Bold',
+          },
+
+          headerRight: () => (
+            <View style={styles.DotHeader}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('Notification')}>
+                <FontAwesomeIcon
+                  icon={faBell}
+                  style={styles.BellIcon}
+                  size={22}
+                  color="white"
+                />
+                <Badge count={4} />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <FontAwesomeIcon
+                  icon={faEllipsisVertical}
+                  size={22}
+                  color="white"
+                />
+              </TouchableOpacity>
+            </View>
+          ),
+          drawerIcon: ({focused}) => (
+            <FontAwesomeIcon
+              icon={faIndent}
+              size={25}
+              color={focused ? '#fff' : '#000'}
+            />
+          ),
         }}
-        useLegacyImplementation
-        drawerContent={props => <CustomDrawerContent {...props} />}>
-        <Drawer.Screen
-          name="Dashboard"
-          component={Dashboard}
-          labelStyle={styles.lablestyle}
-          options={{
-            title: 'DASHBOARD',
-            headerStyle: {
-              backgroundColor: '#ff6b00',
-              height: 50,
-              color: '#fff',
-            },
-            drawerLabelStyle: {
-              fontFamily: 'Lato-Bold',
-              fontSize: 17,
-              justifyContent: 'center',
-            },
+      />
+      <Drawer.Screen
+        name="Incident"
+        component={Incident}
+        options={{
+          title: 'INCIDENT VIEW',
+          headerStyle: {
+            backgroundColor: '#ff6b00',
+            height: 50,
+          },
 
-            headerTintColor: 'white',
-            headerTitleStyle: {
-              fontFamily: 'Lato-Bold',
-              color: '#fff',
-            },
-            headerRight: () => (
-              <View style={styles.DotHeader}>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('Notification')}>
-                  <FontAwesomeIcon
-                    icon={faBell}
-                    style={styles.BellIcon}
-                    size={22}
-                    color="white"
-                  />
-                  <Badge count={4} />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <FontAwesomeIcon
-                    icon={faEllipsisVertical}
-                    size={22}
-                    color="white"
-                  />
-                </TouchableOpacity>
-              </View>
-            ),
-            drawerIcon: ({focused}) => (
-              <FontAwesomeIcon
-                icon={faChartLine}
-                size={focused ? 33 : 25}
-                color={focused ? '#fff' : '#000'}
-              />
-            ),
-          }}
-        />
-        <Drawer.Screen
-          name="Form"
-          component={Form}
-          options={{
-            title: 'INCIDENT LOG',
-            headerStyle: {
-              backgroundColor: '#ff6b00',
-              height: 50,
-            },
-            drawerLabelStyle: {
-              fontSize: 15,
-              justifyContent: 'center',
-            },
+          drawerLabelStyle: {
+            fontFamily: 'Lato-Bold',
+            fontSize: 17,
+            justifyContent: 'center',
+          },
 
-            headerTintColor: 'white',
+          headerTintColor: 'white',
 
-            headerTitleStyle: {
-              fontFamily: 'Lato-Bold',
-            },
-            headerRight: () => (
-              <View style={styles.DotHeader}>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('Notification')}>
-                  <FontAwesomeIcon
-                    icon={faBell}
-                    style={styles.BellIcon}
-                    size={22}
-                    color="white"
-                  />
-                  <Badge count={4} />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <FontAwesomeIcon
-                    icon={faEllipsisVertical}
-                    size={22}
-                    color="white"
-                  />
-                </TouchableOpacity>
-              </View>
-            ),
+          headerTitleStyle: {
+            fontFamily: 'Lato-Bold',
+          },
 
-            drawerIcon: ({focused}) => (
-              <FontAwesomeIcon
-                icon={faIndent}
-                size={focused ? 33 : 25}
-                color={focused ? '#fff' : '#000'}
-              />
-            ),
-          }}
-        />
-        <Drawer.Screen
-          name="Incident"
-          component={Incident}
-          options={{
-            title: 'INCIDENT VIEW',
-            headerStyle: {
-              backgroundColor: '#ff6b00',
-              height: 50,
-            },
-
-            drawerLabelStyle: {
-              fontSize: 15,
-              justifyContent: 'center',
-            },
-
-            headerTintColor: 'white',
-
-            headerTitleStyle: {},
-            headerRight: () => (
-              <View style={styles.DotHeader}>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('Notification')}>
-                  <FontAwesomeIcon
-                    icon={faBell}
-                    style={styles.BellIcon}
-                    size={22}
-                    color="white"
-                    onPress={() => alert('hi')}
-                  />
-                  <Badge count={4} />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <FontAwesomeIcon
-                    icon={faEllipsisVertical}
-                    size={22}
-                    color="white"
-                  />
-                </TouchableOpacity>
-              </View>
-            ),
-            drawerIcon: ({focused}) => (
-              <FontAwesomeIcon
-                icon={faUsers}
-                size={focused ? 33 : 25}
-                color={focused ? '#fff' : '#000'}
-              />
-            ),
-            drawerIcon: ({color, size}) => (
-              <FontAwesomeIcon icon={faUsers} size={25} color="#000" />
-            ),
-          }}
-        />
-      </Drawer.Navigator>
-    </>
+          headerRight: () => (
+            <View style={styles.DotHeader}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('Notification')}>
+                <FontAwesomeIcon
+                  icon={faBell}
+                  style={styles.BellIcon}
+                  size={22}
+                  color="white"
+                />
+                <Badge count={4} />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <FontAwesomeIcon
+                  icon={faEllipsisVertical}
+                  size={22}
+                  color="white"
+                />
+              </TouchableOpacity>
+            </View>
+          ),
+          drawerIcon: ({focused}) => (
+            <FontAwesomeIcon
+              icon={faUsers}
+              size={25}
+              color={focused ? '#fff' : '#000'}
+            />
+          ),
+        }}
+      />
+    </Drawer.Navigator>
   );
 }
 
@@ -250,7 +255,6 @@ const styles = StyleSheet.create({
   lablestyle: {
     fontFamily: 'Lato-Bold',
     fontSize: 17,
-    color: '#ffffff',
     justifyContent: 'center',
     marginLeft: 10,
   },
@@ -258,19 +262,51 @@ const styles = StyleSheet.create({
     fontFamily: 'Lato-Bold',
     fontSize: 17,
     justifyContent: 'center',
+    marginLeft: 5,
   },
+
   logout: {
-    marginTop: 320,
-    marginLeft: 2,
+    marginTop: hp('47%'),
+    height: 50,
+    width: wp('62%'),
+    borderRadius: 5,
+    alignSelf: 'center',
+    backgroundColor: '#ff6b00',
   },
   BellIcon: {
-    marginRight: 10,
+    marginRight: 30,
     circle: 10,
+  },
+
+  circle: {
+    width: 15,
+    height: 15,
+    borderRadius: 18,
+    marginLeft: 10,
+    marginTop: -10,
+    backgroundColor: 'red',
+    position: 'absolute',
+    top: 5,
+    left: 2,
   },
   count: {
     color: '#FFF',
-    marginTop: 2,
-    marginLeft: 6,
+    marginLeft: 4,
     fontFamily: 'Lato-Bold',
+  },
+  view: {
+    marginHorizontal: 16,
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginTop: 10,
+  },
+  titleView: {
+    flex: 1,
+    marginTop: 8,
+  },
+  DotHeader: {
+    marginHorizontal: 16,
+    alignItems: 'center',
+    flexDirection: 'row',
   },
 });

@@ -8,17 +8,24 @@ import {
   StyleSheet,
   StatusBar,
   SafeAreaView,
+  Alert,
+  Dimensions,
 } from 'react-native';
 import {Card, Button, Title, Paragraph} from 'react-native-paper';
-import {faTag} from '@fortawesome/free-solid-svg-icons/faTag';
-import {faPhone} from '@fortawesome/free-solid-svg-icons/faPhone';
-import {faBell} from '@fortawesome/free-solid-svg-icons/faBell';
+import {faLock} from '@fortawesome/free-solid-svg-icons/faLock';
+import {faFile} from '@fortawesome/free-solid-svg-icons/faFile';
+import {faUsers} from '@fortawesome/free-solid-svg-icons/faUsers';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faEnvelope,faClose} from '@fortawesome/free-solid-svg-icons';
+import {faClose} from '@fortawesome/free-solid-svg-icons';
 import IncidentLogedGraph from '../Graph/IncidentLogedGraph';
 import FirFilledGraph from '../Graph/FirFilledGraph';
 import IncidentClosedGraph from '../Graph/IncidentClosedGraph';
 import UserRegisterGraph from '../Graph/UserRegisterGraph';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import LinearGradient from 'react-native-linear-gradient';
 
 class CreateCard extends React.Component {
   constructor(props) {
@@ -62,20 +69,15 @@ class CreateCard extends React.Component {
             onPress={() => {
               this.changeGraph('1');
             }}>
-            <View style={Styles.tag}>
-              <Text style={Styles.title}>
-                <FontAwesomeIcon
-                  icon={faTag}
-                  size={25}
-                  style={{marginTop: -5}}
-                  color={'#fff'}
-                />
+            <LinearGradient
+              colors={['#00accc', '#00acca']}
+              style={Styles.LinearGradient}>
+              <Text style={Styles.cardIcon}>
+                <FontAwesomeIcon icon={faLock} size={35} color={'#ffffff'} />
               </Text>
-              <Text style={Styles.title1}>2041</Text>
-            </View>
-            <View>
-              <Text style={Styles.title2}>INCIDENT LOGED</Text>
-            </View>
+              <Text style={Styles.cardCount}>2041</Text>
+              <Text style={Styles.cardLabel}>INCIDENT LOGED</Text>
+            </LinearGradient>
           </Card>
 
           <Card
@@ -83,15 +85,15 @@ class CreateCard extends React.Component {
             onPress={() => {
               this.changeGraph('2');
             }}>
-            <View style={Styles.tag}>
-              <Text style={Styles.title}>
-                <FontAwesomeIcon icon={faPhone} size={25} color={'#fff'} />
+            <LinearGradient
+              colors={['#9054c1', '#9054a1']}
+              style={Styles.LinearGradient}>
+              <Text style={Styles.cardIcon}>
+                <FontAwesomeIcon icon={faFile} size={35} color={'#ffffff'} />
               </Text>
-              <Text style={Styles.title1}>630</Text>
-            </View>
-            <View>
-              <Text style={Styles.title2}>FIR FILLED</Text>
-            </View>
+              <Text style={Styles.cardCount}>630</Text>
+              <Text style={Styles.cardLabel}>FIR FILLED</Text>
+            </LinearGradient>
           </Card>
         </View>
 
@@ -101,15 +103,15 @@ class CreateCard extends React.Component {
             onPress={() => {
               this.changeGraph('3');
             }}>
-            <View style={Styles.tag}>
-              <Text style={Styles.title}>
-                <FontAwesomeIcon icon={faClose} size={25} color={'#fff'} />
+            <LinearGradient
+              colors={['#ff6a01', '#ff6b00']}
+              style={Styles.LinearGradient}>
+              <Text style={Styles.cardIcon}>
+                <FontAwesomeIcon icon={faClose} size={35} color={'#ffffff'} />
               </Text>
-              <Text style={Styles.title1}>523</Text>
-            </View>
-            <View>
-              <Text style={Styles.title2}>AFFECTED VICTIMS</Text>
-            </View>
+              <Text style={Styles.cardCount}>523</Text>
+              <Text style={Styles.cardLabel}>AFFECTED VICTIMS</Text>
+            </LinearGradient>
           </Card>
 
           <Card
@@ -117,15 +119,15 @@ class CreateCard extends React.Component {
             onPress={() => {
               this.changeGraph('4');
             }}>
-            <View style={Styles.tag}>
-              <Text style={Styles.title}>
-                <FontAwesomeIcon icon={faEnvelope} size={25} color={'#fff'} />
+            <LinearGradient
+              colors={['#46bb90', '#46bb95']}
+              style={Styles.LinearGradient}>
+              <Text style={Styles.cardIcon}>
+                <FontAwesomeIcon icon={faUsers} size={35} color={'#ffffff'} />
               </Text>
-              <Text style={Styles.title1}>270</Text>
-            </View>
-            <View>
-              <Text style={Styles.title2}>ACTIVE USERS</Text>
-            </View>
+              <Text style={Styles.cardCount}>270</Text>
+              <Text style={Styles.cardLabel}>USERS IN ACTIVE</Text>
+            </LinearGradient>
           </Card>
         </View>
 
@@ -160,51 +162,55 @@ export default CreateCard;
 
 const Styles = StyleSheet.create({
   cardone: {
+    backgroundColor: '#00acca',
+    height: hp('19%'),
+    width: wp('46%'),
+    margin: wp('1%'),
     alignContent: 'center',
-    margin: 5,
-    width: 160,
-    backgroundColor: '#ADD8E6',
     borderRadius: 5,
-    height: 130,
+    marginBottom: 0,
   },
-
   cardtwo: {
+    backgroundColor: '#9054a1',
+    height: hp('19%'),
+    width: wp('46%'),
+    margin: wp('1%'),
     alignContent: 'center',
-    margin: 5,
-    width: 160,
-    backgroundColor: '#cac4bb',
     borderRadius: 5,
-    height: 130,
+    marginBottom: 0,
   },
   cardthree: {
+    backgroundColor: '#ff6b00',
+    height: hp('19%'),
+    width: wp('46%'),
+    margin: wp('1%'),
     alignContent: 'center',
-    margin: 5,
-    marginTop: 0,
-    width: 160,
-    backgroundColor: '#FDB777',
     borderRadius: 5,
-    height: 130,
   },
   cardfour: {
+    backgroundColor: '#46bb95',
+    height: hp('19%'),
+    width: wp('46%'),
+    margin: wp('1%'),
     alignContent: 'center',
-    margin: 5,
-    marginTop: 0,
-    width: 160,
-    backgroundColor: '#7CFFCB',
     borderRadius: 5,
-    height: 130,
   },
   cardfive: {
+    height: hp('48%'),
+    width: wp('94%'),
+    margin: wp('2%'),
+    marginTop: wp('0%'),
     alignContent: 'center',
-    marginTop: 0,
-    borderRadius: 5,
-    height: 300,
-    margin: 10,
+    borderRadius: 10,
+    //backgroundColor: '#e0ddd8',
+  },
+  DasboardContainer: {
+    backgroundColor: '#e0ddd8',
   },
   column: {
     alignContent: 'center',
     justifyContent: 'center',
-    margin: 5,
+    margin: wp('1%'),
     flex: 1,
     flexDirection: 'row',
     marginBottom: 0,
@@ -213,17 +219,34 @@ const Styles = StyleSheet.create({
   columntwo: {
     alignContent: 'center',
     justifyContent: 'center',
-    margin: 5,
+    margin: wp('1%'),
   },
-  title: {
+  cardIcon: {
+    marginTop: 15,
     color: '#fff',
-    fontFamily: 'Lato_900Black_Italic',
-    fontWeight: 'bold',
-    alignItems: 'center',
+    fontFamily: 'Lato-Black',
+    alignSelf: 'center',
   },
-  DashboardContainer: {
-    fontFamily: 'Montserrat-SemiBold',
-    // fontSize: 90,
-    // fontWeight: 'bold'
+  cardCount: {
+    color: '#fff',
+    fontSize: 22,
+    padding: 10,
+    fontFamily: 'Lato-Black',
+    alignSelf: 'center',
+  },
+  cardLabel: {
+    alignSelf: 'center',
+    color: '#fff',
+    fontSize: 18,
+    fontFamily: 'Lato-Black',
+  },
+  tag: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  LinearGradient: {
+    flex: 1,
+    flexDirection: 'column',
+    borderRadius: 10,
   },
 });
