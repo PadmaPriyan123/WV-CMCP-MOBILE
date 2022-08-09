@@ -8,6 +8,7 @@ import Incident from './app/componenets/IncidentView/incidentview';
 import  MyDrawer  from './app/componenets/Drawer/drawer';
 import  store  from '../WV-CMCP-MOBILE/app/Redux/Store'
 import { Provider  } from 'react-redux';
+import { StatusBar } from 'react-native'
 
 const Stack = createStackNavigator();
 
@@ -33,6 +34,8 @@ function App() {
 
 
       </Stack.Navigator>
+      <StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "#fff" />
+
     </NavigationContainer>
     </Provider>
   );

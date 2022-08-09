@@ -7,14 +7,9 @@ import {
   TextInput,
   Text,
   TouchableOpacity,
-  Modal,
-  Pressable,
-  Image,
-  Button,
 } from 'react-native';
 
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-import DropDownPicker from 'react-native-dropdown-picker';
 import {RadioButton} from 'react-native-paper';
 import {
   widthPercentageToDP as wp,
@@ -26,13 +21,13 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCalendarDays} from '@fortawesome/free-solid-svg-icons/faCalendarDays';
 
 import {ScrollView} from 'react-native-gesture-handler';
+import {Dropdown} from 'react-native-element-dropdown';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {faFile} from '@fortawesome/free-solid-svg-icons/faFile';
-
+import {MultiSelect} from 'react-native-element-dropdown';
 const FirstRoute = ({route}) => {
-  const [modalVisible, setModalVisible] = React.useState(false);
-  const [PhotoFile, setPhotoFile] = React.useState(null);
+ 
   const [isPickerShow, setIsPickerShow] = React.useState(false);
   const [date, setDate] = React.useState(new Date(Date.now()));
 
@@ -46,56 +41,8 @@ const FirstRoute = ({route}) => {
       setIsPickerShow(false);
     }
   };
-  const [open2, setOpen2] = React.useState(false);
-  const [value2, setValue2] = React.useState(null);
-  const [items2, setItems2] = React.useState([
-    {label: 'Child Trafficking', value: 'Child Trafficking'},
-    {label: 'Forced Marraige', value: 'Forced Marraige'},
-    {label: 'Child Missing', value: 'Child Missing'},
-    {label: 'Kidnap/abduction', value: 'Kidnap/abduction'},
-    {label: 'Sexual abuse', value: 'Sexual abuse'},
-    {label: 'Sexual harassment', value: 'Sexual harassment'},
-    {label: 'Online sexual harassment', value: 'Online sexual harassment'},
-    {label: 'others', value: 'others'},
-  ]);
-  const [checked, setChecked] = React.useState('');
 
-  const [open3, setOpen3] = React.useState(false);
-  const [value3, setValue3] = React.useState(null);
-  const [items3, setItems3] = React.useState([
-    {label: 'Assam', value: 'Assam'},
-    {label: 'WestBengal', value: 'WestBengal'},
-  ]);
-  const [open4, setOpen4] = React.useState(false);
-  const [value4, setValue4] = React.useState(null);
-  const [items4, setItems4] = React.useState([
-    {label: 'Assam', value: 'Assam'},
-    {label: 'WestBengal', value: 'WestBengal'},
-  ]);
-  const [open5, setOpen5] = React.useState(false);
-  const [value5, setValue5] = React.useState(null);
-  const [items5, setItems5] = React.useState([
-    {label: 'Assam', value: 'Assam'},
-    {label: 'WestBengal', value: 'WestBengal'},
-  ]);
-  const [open6, setOpen6] = React.useState(false);
-  const [value6, setValue6] = React.useState(null);
-  const [items6, setItems6] = React.useState([
-    {label: 'Assam', value: 'Assam'},
-    {label: 'WestBengal', value: 'WestBengal'},
-  ]);
-  const [open7, setOpen7] = React.useState(false);
-  const [value7, setValue7] = React.useState(null);
-  const [items7, setItems7] = React.useState([
-    {label: 'Assam', value: 'Assam'},
-    {label: 'WestBengal', value: 'WestBengal'},
-  ]);
-  const [open8, setOpen8] = React.useState(false);
-  const [value8, setValue8] = React.useState(null);
-  const [items8, setItems8] = React.useState([
-    {label: 'Assam', value: 'Assam'},
-    {label: 'WestBengal', value: 'WestBengal'},
-  ]);
+  const [checked, setChecked] = React.useState('');
 
   const [fileResponse, setFileResponse] = React.useState([]);
 
@@ -109,21 +56,63 @@ const FirstRoute = ({route}) => {
       console.warn(err);
     }
   }, []);
-  const [countryOpen, setCountryOpen] = useState(false);
-  const [cityOpen, setCityOpen] = useState(false);
-  const onCountryOpen = useCallback(() => {
-    setCityOpen(false);
-  }, []);
+  
+  const data = [
+    {label: 'Others ', value: '1'},
 
-  const onCityOpen = useCallback(() => {
-    setCountryOpen(false);
-  }, []);
+    {label: 'Online sexual harassment ', value: '1'},
+    {label: 'Sexual assault ', value: '1'},
+    {label: 'Sexual harassment    ', value: '2'},
+    {label: 'Sexual abuse', value: '3'},
+    {label: 'Rape ', value: '4'},
+    {label: 'Kidnap/ abduction    ', value: '5'},
+    {label: 'Child Missing    ', value: '6'},
+    {label: 'Forced Marriage', value: '7'},
+    {label: 'Child Trafficking   ', value: '8'},
+  ];
+  const [value, setValue] = useState(null);
+  const data1 = [
+    {label: 'Assam ', value: '1'},
+
+    {label: 'West Bengal ', value: '2'},
+  ];
+  const [value1, setValue1] = useState(null);
+  const data2 = [
+    {label: 'Barpeta ', value: '1'},
+
+    {label: 'West Baksa ', value: '2'},
+  ];
+  const [value2, setValue2] = useState(null);
+  const data3 = [
+    {label: 'Baganpara ', value: '1'},
+
+    {label: ' Bajali ', value: '2'},
+  ];
+  const [value3, setValue3] = useState(null);
+  const data4 = [
+    {label: 'Amingaon ', value: '1'},
+
+    {label: 'Angardhua ', value: '2'},
+  ];
+  const [value4, setValue4] = useState(null);
+  const data5 = [
+    {label: 'Balaibill', value: '1'},
+
+    {label: 'Bamuni Gaon', value: '2'},
+  ];
+  const [value5, setValue5] = useState(null);
+  const data6 = [
+    {label: 'Lakhisarai Thana ', value: '1'},
+
+    {label: 'Virupur Thana ', value: '2'},
+  ];
+  const [value6, setValue6] = useState(null);
 
   return (
     <View style={styles.Tab}>
       <ScrollView style={styles.scrollView}>
         <SafeAreaView style={styles.Form}>
-          <View style={{marginTop: -10}}>
+          <View style={{marginTop: -5}} >
             <Text style={styles.FormTitle}>
               Reporter's Name:<Text style={styles.star}>*</Text>
             </Text>
@@ -131,7 +120,7 @@ const FirstRoute = ({route}) => {
               <TextInput
                 style={styles.FormInput}
                 type="text"
-                placeholder="Enter Reporter name"
+                placeholder="Enter Reporters name"
                 placeholderTextColor="#000"
               />
             </View>
@@ -146,6 +135,8 @@ const FirstRoute = ({route}) => {
                   type="text"
                   placeholder="Enter Desigination"
                   placeholderTextColor="#000"
+                  
+                  
                 />
               </View>
             </View>
@@ -180,7 +171,7 @@ const FirstRoute = ({route}) => {
               )}
             </View>
 
-            <View style={{marginTop: -25}}>
+            <View style={{marginTop: -20}}>
               <Text style={styles.FormTitle}>
                 Name of the Victim:<Text style={styles.star}>*</Text>
               </Text>
@@ -188,7 +179,7 @@ const FirstRoute = ({route}) => {
                 <TextInput
                   style={styles.FormInput}
                   type="text"
-                  placeholder="Enter name of the victim"
+                  placeholder="Enter Name of the victim"
                   placeholderTextColor="#000"
                 />
               </View>
@@ -202,7 +193,7 @@ const FirstRoute = ({route}) => {
                 <TextInput
                   style={styles.FormInput}
                   type="text"
-                  placeholder="Enter guardian's name"
+                  placeholder="Enter Guardians name"
                   placeholderTextColor="#000"
                 />
               </View>
@@ -261,7 +252,9 @@ const FirstRoute = ({route}) => {
                     />
                   )}
                   <View>
-                    <View style={styles.SectionStyle}>
+                    <View style={{marginTop: -10}}>
+                      <Text style={styles.Filefill}>File Upload</Text>
+
                       {fileResponse.map((file, index) => (
                         <Text
                           key={index.toString()}
@@ -273,6 +266,7 @@ const FirstRoute = ({route}) => {
                       ))}
 
                       <Text onPress={handleDocumentSelection}>
+                        
                         <FontAwesomeIcon
                           icon={faFile}
                           color="gray"
@@ -291,8 +285,8 @@ const FirstRoute = ({route}) => {
               <View style={styles.formtotalinput}>
                 <TextInput
                   style={styles.FormInput}
-                  type="text"
-                  placeholder="Enter victim's Age"
+                  keyboardType='numeric'
+                  placeholder="Enter Victims age"
                   placeholderTextColor="#000"
                 />
               </View>
@@ -303,22 +297,20 @@ const FirstRoute = ({route}) => {
                 Nature of incident:<Text style={styles.star}>*</Text>
               </Text>
 
-              <View style={styles.formdrop}>
-                <DropDownPicker
-                  dropDownContainerStyle={styles.dropopen}
-                  style={styles.dropdownStyle}
-                  open11={countryOpen}
-                  onOpen={onCountryOpen}
-                  listMode="SCROLLVIEW"
-                  open={open2}
-                  value={value2}
-                  items={items2}
-                  setOpen={setOpen2}
-                  setValue={setValue2}
-                  setItems={setItems2}
-                  zIndex={19000}
-                  zIndexInverse={1000}
-                  placeholder="Select Nature Of Incident"
+              <View style={styles.droppingn}>
+                <Dropdown
+                  style={styles.dropping}
+                  placeholderStyle={styles.placeholderStyle}
+                  selectedTextStyle={styles.selectedTextStyle}
+                  data={data}
+                  maxHeight={250}
+                  labelField="label"
+                  valueField="value"
+                  placeholder="Select Nature of incident"
+                  value={value}
+                  onChange={item => {
+                    setValue(item.value);
+                  }}
                 />
               </View>
             </View>
@@ -327,21 +319,21 @@ const FirstRoute = ({route}) => {
                 State:<Text style={styles.star}>*</Text>{' '}
               </Text>
 
-              <View style={styles.formdrop}>
-                <DropDownPicker
-                  dropDownContainerStyle={styles.dropopen}
-                  style={styles.dropdownStyle}
-                  open11={cityOpen}
-                  onOpen={onCityOpen}
-                  listMode="SCROLLVIEW"
-                  open={open3}
-                  value={value3}
-                  items={items3}
-                  setOpen={setOpen3}
-                  setValue={setValue3}
-                  setItems={setItems3}
-                  zIndex={9000}
+              <View style={styles.droppingn}>
+                <Dropdown
+                  style={styles.dropping}
+                  placeholderStyle={styles.placeholderStyle}
+                  selectedTextStyle={styles.selectedTextStyle}
+                  iconStyle={styles.iconStyle}
+                  data={data1}
+                  maxHeight={250}
+                  labelField="label"
+                  valueField="value"
                   placeholder="Select State"
+                  value={value1}
+                  onChange={item => {
+                    setValue1(item.value);
+                  }}
                 />
               </View>
             </View>
@@ -349,36 +341,40 @@ const FirstRoute = ({route}) => {
               <Text style={styles.FormTitle}>
                 District:<Text style={styles.star}>*</Text>
               </Text>
-              <View style={styles.formdrop}>
-                <DropDownPicker
-                  dropDownContainerStyle={styles.dropopen}
-                  style={styles.dropdownStyle}
-                  listMode="SCROLLVIEW"
-                  open={open4}
-                  value={value4}
-                  items={items4}
-                  setOpen={setOpen4}
-                  setValue={setValue4}
-                  setItems={setItems4}
-                  zIndex={8000}
+              <View style={styles.droppingn}>
+                <Dropdown
+                  style={styles.dropping}
+                  placeholderStyle={styles.placeholderStyle}
+                  selectedTextStyle={styles.selectedTextStyle}
+                  iconStyle={styles.iconStyle}
+                  data={data2}
+                  maxHeight={250}
+                  labelField="label"
+                  valueField="value"
                   placeholder="Select District"
+                  value={value2}
+                  onChange={item => {
+                    setValue2(item.value);
+                  }}
                 />
               </View>
               <View style={{marginTop: 25}}>
                 <Text style={styles.FormTitle}>Block </Text>
-                <View style={styles.formdrop}>
-                  <DropDownPicker
-                    dropDownContainerStyle={styles.dropopen}
-                    style={styles.dropdownStyle}
-                    listMode="SCROLLVIEW"
-                    open={open5}
-                    value={value5}
-                    items={items5}
-                    setOpen={setOpen5}
-                    setValue={setValue5}
-                    setItems={setItems5}
-                    zIndex={7000}
+                <View style={styles.droppingn}>
+                  <Dropdown
+                    style={styles.dropping}
+                    placeholderStyle={styles.placeholderStyle}
+                    selectedTextStyle={styles.selectedTextStyle}
+                    iconStyle={styles.iconStyle}
+                    data={data3}
+                    maxHeight={250}
+                    labelField="label"
+                    valueField="value"
                     placeholder="Select Block"
+                    value={value3}
+                    onChange={item => {
+                      setValue3(item.value);
+                    }}
                   />
                 </View>
               </View>
@@ -386,19 +382,21 @@ const FirstRoute = ({route}) => {
             <View style={{marginTop: 25}}>
               <Text style={styles.FormTitle}>Gram Panchayat</Text>
 
-              <View style={styles.formdrop}>
-                <DropDownPicker
-                  dropDownContainerStyle={styles.dropopen}
-                  style={styles.dropdownStyle}
-                  listMode="SCROLLVIEW"
-                  open={open6}
-                  value={value6}
-                  items={items6}
-                  setOpen={setOpen6}
-                  setValue={setValue6}
-                  setItems={setItems6}
-                  zIndex={6000}
-                  placeholder="Select Gram Panchayat"
+              <View style={styles.droppingn}>
+                <Dropdown
+                  style={styles.dropping}
+                  placeholderStyle={styles.placeholderStyle}
+                  selectedTextStyle={styles.selectedTextStyle}
+                  iconStyle={styles.iconStyle}
+                  data={data4}
+                  maxHeight={250}
+                  labelField="label"
+                  valueField="value"
+                  placeholder="Select Grampanchayat"
+                  value={value4}
+                  onChange={item => {
+                    setValue4(item.value);
+                  }}
                 />
               </View>
             </View>
@@ -406,94 +404,90 @@ const FirstRoute = ({route}) => {
               <Text style={styles.FormTitle}>
                 Village Name:<Text style={styles.star}>*</Text>{' '}
               </Text>
-              <View style={styles.formdrop}>
-                <DropDownPicker
-                  dropDownContainerStyle={styles.dropopen}
-                  style={styles.dropdownStyle}
-                  dropDownStyle={{backgroundColor: '#fafafa', marginTop: 2}}
-                  listMode="SCROLLVIEW"
-                  open={open7}
-                  value={value7}
-                  items={items7}
-                  setOpen={setOpen7}
-                  setValue={setValue7}
-                  setItems={setItems7}
-                  zIndex={5000}
+              <View style={styles.droppingn}>
+                <Dropdown
+                  style={styles.dropping}
+                  placeholderStyle={styles.placeholderStyle}
+                  selectedTextStyle={styles.selectedTextStyle}
+                  iconStyle={styles.iconStyle}
+                  data={data5}
+                  maxHeight={250}
+                  labelField="label"
+                  valueField="value"
                   placeholder="Select Village"
+                  value={value5}
+                  onChange={item => {
+                    setValue5(item.value);
+                  }}
                 />
               </View>
             </View>
-            <View style={{marginTop: 25}}>
+            <View style={{marginTop: 20}}>
               <Text style={styles.FormTitle}>Police Station </Text>
-              <View style={styles.formdrop}>
-                <DropDownPicker
-                  dropDownContainerStyle={styles.dropopen}
-                  style={styles.dropdownStyle}
-                  dropDownStyle={{backgroundColor: '#fafafa', marginTop: 2}}
-                  listMode="SCROLLVIEW"
-                  open={open8}
-                  value={value8}
-                  items={items8}
-                  setOpen={setOpen8}
-                  setValue={setValue8}
-                  setItems={setItems8}
-                  zIndex={4000}
-                  placeholder="Select PoliceStation"
+              <View style={styles.droppingn}>
+                <Dropdown
+                  style={styles.dropping}
+                  placeholderStyle={styles.placeholderStyle}
+                  selectedTextStyle={styles.selectedTextStyle}
+                  iconStyle={styles.iconStyle}
+                  data={data6}
+                  maxHeight={250}
+                  labelField="label"
+                  valueField="value"
+                  placeholder="Select Policestation"
+                  value={value6}
+                  onChange={item => {
+                    setValue6(item.value);
+                  }}
                 />
               </View>
             </View>
           </View>
         </SafeAreaView>
       </ScrollView>
-
+<View>
       <TouchableOpacity
         style={styles.formbutton}
         onPress={() => route.change()}>
         <Text style={styles.formbuttoninput}>NEXT </Text>
       </TouchableOpacity>
     </View>
+    </View>
   );
 };
 
 const SecondRoute = ({route}) => {
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState(null);
-  const [items, setItems] = React.useState([
-    {label: 'Victim selF', value: 'Victim sel'},
+  const data1 = [
+    {label: 'Victim self', value: 'Victim sel'},
     {label: 'Victims Family member ', value: 'Victims Family member '},
     {label: 'Victims relative', value: 'Victims relative'},
 
     {label: 'Men Care Group member', value: 'Men Care Group member'},
 
-    {label: ' CFLRC facilitator ', value: ' CFLRC facilitator '},
+    {label: 'CFLRC facilitator ', value: ' CFLRC facilitator '},
 
     {label: 'Girl Power Group Members', value: 'Girl Power Group Members'},
-    {label: ' GPG/MCG/VLCPC Volunteers', value: ' GPG/MCG/VLCPC Volunteers'},
+    {label: 'GPG/MCG/VLCPC Volunteers', value: ' GPG/MCG/VLCPC Volunteers'},
     {label: 'WV staff', value: 'WV staff'},
     {
       label: 'Anti-Trafficking Warrior member',
       value: 'Anti-Trafficking Warrior member',
     },
     {label: 'Others', value: 'others'},
-  ]);
-  const [open2, setOpen2] = React.useState(false);
-  const [value2, setValue2] = React.useState(null);
-  const [items2, setItems2] = React.useState([
-    {label: 'Local Police station', value: 'Local Police station'},
-    {label: ' Police Helpline 100', value: ' Police Helpline 100'},
-    {label: 'Child Line- 1098', value: 'Child Line- 1098'},
-    {label: 'Child Welfare Committee', value: 'Child Welfare Committee'},
-    {label: 'Sexual abuse', value: 'Sexual abuse'},
-    {label: 'Sexual harassment', value: 'Sexual harassment'},
-    {
-      label: 'District Child Protection Unit    ',
-      value: 'District Child Protection Unit    ',
-    },
-    {label: 'others', value: 'others'},
-  ]);
-  const [open3, setOpen3] = React.useState(false);
-  const [value3, setValue3] = React.useState(null);
-  const [items3, setItems3] = React.useState([
+  ];
+  const [value1, setValue1] = useState('');
+
+  const data = [
+    {label: 'Other    ', value: '3'},
+    {label: 'District Child Protection Unit', value: '4'},
+    {label: 'Child Welfare Committee', value: '5'},
+    {label: 'Child Line- 1098    ', value: '6'},
+    {label: ' Police Helpline 100', value: '7'},
+    {label: ' Local Police station ', value: '8'},
+  ];
+  const [selected, setSelected] = useState('');
+
+  const data2 = [
     {label: '161 Statement is done', value: '161 Statement is done'},
     {label: 'Medical Examination Done ', value: 'Medical Examination Done '},
     {label: '164 Statement Done', value: '164 Statement Done'},
@@ -503,14 +497,14 @@ const SecondRoute = ({route}) => {
       value: 'Victim Produced Before CWC   ',
     },
 
-    {label: ' Victim admitted in CCI    ', value: 'Victim admitted in CCI    '},
+    {label: 'Victim admitted in CCI    ', value: 'Victim admitted in CCI    '},
 
     {
       label: 'MHPSS services given to victim',
       value: 'MHPSS services given to victim',
     },
     {
-      label: ' Medical Aid given to victim',
+      label: 'Medical Aid given to victim',
       value: ' Medical Aid given to victim',
     },
     {
@@ -531,10 +525,11 @@ const SecondRoute = ({route}) => {
       value: 'Accused convicted / acquitted?     ',
     },
     {label: 'Appeal under process', value: 'Appeal under process    '},
-  ]);
-  const [checked, setChecked] = React.useState('first');
-  const [checked1, setChecked1] = React.useState('first1');
-  const [modalVisible, setModalVisible] = React.useState(false);
+  ];
+  const [value2, setValue2] = useState('');
+
+  const [checked, setChecked] = React.useState('');
+  const [checked1, setChecked1] = React.useState('');
 
   const [isPickerShow, setIsPickerShow] = React.useState(false);
   const [date, setDate] = React.useState(new Date(Date.now()));
@@ -592,19 +587,19 @@ const SecondRoute = ({route}) => {
               <TextInput
                 style={styles.FormInput}
                 type="text"
-                placeholder="Enter description of the incident"
+                placeholder="Enter Description of the incident"
                 placeholderTextColor="#000"
               />
             </View>
           </View>
 
           <View style={{marginTop: 16}}>
-            <Text style={styles.FormTitle}>Name of lleged Offender</Text>
+            <Text style={styles.FormTitle}>Name of alleged Offender</Text>
             <View style={styles.formtotalinput}>
               <TextInput
                 style={styles.FormInput}
                 type="text"
-                placeholder="Enter name of Alleged Offender"
+                placeholder="Enter Name of alleged offender"
                 placeholderTextColor="#000"
               />
             </View>
@@ -618,7 +613,7 @@ const SecondRoute = ({route}) => {
               <TextInput
                 style={styles.FormInput}
                 type="text"
-                placeholder="Enter Offender relationship  victim"
+                placeholder="Enter Offender relationship to victim"
                 placeholderTextColor="#000"
               />
             </View>
@@ -628,7 +623,7 @@ const SecondRoute = ({route}) => {
             <View style={styles.formtotalinput}>
               <TextInput
                 style={styles.FormInput}
-                type="text"
+                keyboardType='numeric'
                 placeholder="Enter Offenders approximate Age"
                 placeholderTextColor="#000"
               />
@@ -638,18 +633,21 @@ const SecondRoute = ({route}) => {
             <Text style={styles.FormTitle1}>
               Who informed about the Incident:<Text style={styles.star}>*</Text>
             </Text>
-            <View style={styles.formdrop}>
-              <DropDownPicker
-                style={styles.dropdownStyle}
-                listMode="SCROLLVIEW"
-                open={open}
-                value={value}
-                items={items}
-                setOpen={setOpen}
-                setValue={setValue}
-                setItems={setItems}
-                zIndex={9000}
-                placeholder="Select the Informed About Incident"
+            <View style={styles.droppingn}>
+              <Dropdown
+                style={styles.dropping}
+                placeholderStyle={styles.placeholderStyle}
+                selectedTextStyle={styles.selectedTextStyle}
+                iconStyle={styles.iconStyle}
+                data={data1}
+                maxHeight={250}
+                labelField="label"
+                valueField="value"
+                placeholder="Select Informed about the incident"
+                value={value1}
+                onChange={item => {
+                  setValue1(item.value);
+                }}
               />
             </View>
           </View>
@@ -765,7 +763,7 @@ const SecondRoute = ({route}) => {
                   <View style={styles.formtotalinput}>
                     <TextInput
                       style={styles.FormInput}
-                      type="text"
+                      keyboardType='numeric'
                       placeholder="Enter Victims Number"
                       placeholderTextColor="#000"
                     />
@@ -778,21 +776,21 @@ const SecondRoute = ({route}) => {
             <Text style={styles.FormTitle}>
               Whether The Incident Report:<Text style={styles.star}>*</Text>
             </Text>
-
-            <View style={styles.formdrop}>
-              <DropDownPicker
-                dropDownContainerStyle={styles.dropopen}
-                style={styles.dropdownStyle}
-                listMode="SCROLLVIEW"
-                open={open2}
-                value={value2}
-                items={items2}
-                setOpen={setOpen2}
-                setValue={setValue2}
-                setItems={setItems2}
-                zIndex={190}
-                zIndexInverse={1000}
-                placeholder="Select  whether the incident report"
+            <View style={{marginTop: 5}}>
+              <MultiSelect
+                style={styles.dropdown}
+                placeholderStyle={styles.placeholderStyle}
+                selectedTextStyle={styles.selectedTextStyle}
+                inputSearchStyle={styles.inputSearchStyle}
+                iconStyle={styles.iconStyle}
+                data={data}
+                labelField="label"
+                valueField="value"
+                placeholder="Select whether the incident"
+                value={selected}
+                onChange={item => {
+                  setSelected(item);
+                }}
               />
             </View>
           </View>
@@ -800,19 +798,21 @@ const SecondRoute = ({route}) => {
             <Text style={styles.FormTitle1}>
               Who informed about the Incident:<Text style={styles.star}>*</Text>
             </Text>
-            <View style={styles.formdrop}>
-              <DropDownPicker
-                dropDownContainerStyle={styles.dropopen}
-                style={styles.dropdownStyle}
-                listMode="SCROLLVIEW"
-                open={open3}
-                value={value3}
-                items={items3}
-                setOpen={setOpen3}
-                setValue={setValue3}
-                setItems={setItems3}
-                zIndex={90}
-                placeholder=" Who informed about the Incident"
+            <View style={styles.droppingn}>
+              <Dropdown
+                style={styles.dropping}
+                placeholderStyle={styles.placeholderStyle}
+                selectedTextStyle={styles.selectedTextStyle}
+                iconStyle={styles.iconStyle}
+                data={data2}
+                maxHeight={250}
+                labelField="label"
+                valueField="value"
+                placeholder="Select Informed about the incident"
+                value={value2}
+                onChange={item => {
+                  setValue2(item.value);
+                }}
               />
             </View>
           </View>
@@ -834,7 +834,7 @@ const SecondRoute = ({route}) => {
       <View style={{backgroundColor: ''}}>
         <TouchableOpacity
           style={styles.formbutton}
-          onPress={e => myFunction(e)}>
+          onPress={() => route.change()}>
           <Text style={styles.formbuttoninput}>NEXT </Text>
         </TouchableOpacity>
       </View>
@@ -902,7 +902,7 @@ const ThirdRoute = ({route}) => {
             <View style={styles.formtotalinput}>
               <TextInput
                 style={styles.FormInput}
-                type="text"
+                keyboardType='numeric'
                 placeholder="Enter Number of accused arrested"
                 placeholderTextColor="#000"
               />
@@ -956,13 +956,11 @@ const FourthRoute = () => {
   return (
     <SafeAreaView>
       <ScrollView>
-        <View style={styles.liningTop}></View>
-
         <View style={styles.reintegration}>
           <Text style={styles.reintegrationTitle}>REINTEGRATION DOMAINS</Text>
         </View>
-        <View style={styles.liningBottom}></View>
-        <View style={{marginTop: 3, marginLeft: 10}}>
+        <View style={styles.lasttab}>
+        <View style={{marginTop: 3, marginLeft: 10,}}>
           <Text style={styles.radioname}>
             Is the victim facilitated to submit application for Victim
             Compensation?:<Text style={styles.star}></Text>
@@ -1016,15 +1014,15 @@ const FourthRoute = () => {
                   onChange={onChange}
                 />
               )}
-              <View style={{marginTop: -10}}>
+              <View style={{marginTop: -20}}>
                 <Text style={styles.FormTitle}>
-                  Victims Number:<Text style={styles.star}>*</Text>
+                Amount:<Text style={styles.star}>*</Text>
                 </Text>
                 <View style={styles.tabfourfirst}>
                   <TextInput
                     style={styles.FormInput}
-                    type="text"
-                    placeholder="Enter Victim Number"
+                    keyboardType='numeric'
+                    placeholder="Enter Amount"
                     placeholderTextColor="#000"
                   />
                 </View>
@@ -1035,7 +1033,7 @@ const FourthRoute = () => {
 
         <View style={{marginTop: 3, marginLeft: 10}}>
           <Text style={styles.radioname}>
-            Is the victim given any medical assistance/ treatment? :
+            Is the victim given any medical assistance/ treatment?
             <Text style={styles.star}></Text>
           </Text>
           <View style={styles.SectionStyle1}>
@@ -1086,7 +1084,7 @@ const FourthRoute = () => {
                     onChange={onChange}
                   />
                 )}
-                <View style={{marginTop: -10}}>
+                <View style={{marginTop: -20}}>
                   <Text style={styles.FormTitle}>
                     Nature Of illness :<Text style={styles.star}>*</Text>
                   </Text>
@@ -1105,7 +1103,7 @@ const FourthRoute = () => {
         </View>
         <View style={{marginTop: 3, marginLeft: 10}}>
           <Text style={styles.radioname}>
-            Has the survivor been re-enrolled in school? :
+            Has the survivor been re-enrolled in school?
             <Text style={styles.star}></Text>
           </Text>
           <View style={styles.SectionStyle1}>
@@ -1188,7 +1186,7 @@ const FourthRoute = () => {
         </View>
         <View style={{marginTop: 3, marginLeft: 10}}>
           <Text style={styles.radioname}>
-            Is the surviovor enrolled in any Vocational Training? :
+            Is the surviovor enrolled in any Vocational Training?
             <Text style={styles.star}></Text>
           </Text>
           <View style={styles.SectionStyle1}>
@@ -1248,20 +1246,20 @@ const FourthRoute = () => {
                   <TextInput
                     style={styles.FormInput}
                     type="text"
-                    placeholder="Enter name Of the Course"
+                    placeholder="Enter Name Of the Course"
                     placeholderTextColor="#000"
                   />
                 </View>
               </View>
               <View style={{marginTop: 10}}>
                 <Text style={styles.FormTitle}>
-                  Nmae Of the Institution:<Text style={styles.star}>*</Text>
+                  Name Of the Institution:<Text style={styles.star}>*</Text>
                 </Text>
                 <View style={styles.tabfourfirst}>
                   <TextInput
                     style={styles.FormInput}
                     type="text"
-                    placeholder="Enter name Of The Institution "
+                    placeholder="Enter Name Of the institution "
                     placeholderTextColor="#000"
                   />
                 </View>
@@ -1353,7 +1351,7 @@ const FourthRoute = () => {
         </View>
         <View style={{marginTop: 3, marginLeft: 10}}>
           <Text style={styles.radioname}>
-            Is the survivor enrolled in survivor support program? :
+            Is the survivor enrolled in survivor support program?
             <Text style={styles.star}></Text>
           </Text>
           <View style={styles.SectionStyle1}>
@@ -1407,6 +1405,7 @@ const FourthRoute = () => {
               )}
             </View>
           )}
+        </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -1478,7 +1477,7 @@ export default function TabViewExample() {
 const styles = StyleSheet.create({
   Tab: {
     backgroundColor: '#fff',
-    height: hp('93%'),
+    height: hp('89%'),
     width: wp('99%'),
   },
   FormTitle: {
@@ -1501,17 +1500,21 @@ const styles = StyleSheet.create({
     color: '#555',
     fontFamily: 'Montserrat-SemiBold',
     backgroundColor: '#ecf0f1',
+        height: hp('6.5%'),
+
   },
   Form: {
-    padding: 15,
+    padding: 17,
   },
   radioname: {
     color: '#000',
     fontFamily: 'Poppins-Regular',
-    fontSize: 14,
+    fontSize: 13,
     alignSelf: 'flex-start',
     marginLeft: 5,
     marginTop: 20,
+    
+
   },
   SectionStyle1: {
     flexDirection: 'row',
@@ -1547,7 +1550,7 @@ const styles = StyleSheet.create({
   formbutton: {
     alignSelf: 'center',
     width: wp('89%'),
-    height: hp('7%'),
+    height: hp('6%'),
     justifyContent: 'center',
     borderRadius: 10,
     backgroundColor: '#f37e20',
@@ -1695,7 +1698,7 @@ const styles = StyleSheet.create({
     marginRight: 20,
     bottom: 40,
     padding: 10,
-    borderWidth: 2,
+    borderWidth: 1,
     width: wp('82%'),
     marginTop: 12,
     marginLeft: 45,
@@ -1716,10 +1719,11 @@ const styles = StyleSheet.create({
     marginLeft: 30,
   },
   formeditbutton: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    marginLeft: 33,
+   display:'flex',
+   flexDirection:'row',
+   justifyContent:'center',
+   alignContent:'center',
+   padding:5
   },
   formbuttonsubmit: {
     alignSelf: 'center',
@@ -1762,7 +1766,6 @@ const styles = StyleSheet.create({
     marginTop: 25,
     marginLeft: 2,
     marginTop: 38,
-    backgroundColor: '#ecf0f1',
     height: 40,
     alignItems: 'center',
   },
@@ -1770,16 +1773,7 @@ const styles = StyleSheet.create({
     color: '#000',
     fontSize: 20,
   },
-  liningTop: {
-    borderBottomColor: '#000',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    top: 35,
-  },
-  liningBottom: {
-    borderBottomColor: '#000',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    top: 1,
-  },
+
   valitation: {
     color: 'red',
   },
@@ -1792,6 +1786,92 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 8,
     borderColor: '#ccc',
-    backgroundColor: '#ecf0f1',
   },
+  dropdown: {
+    backgroundColor: '#ecf0f1',
+    marginLeft: 5,
+    padding: 10,
+    alignSelf: 'stretch',
+    marginVertical: 6,
+
+    borderWidth: 1,
+    borderColor: '#bdc3c7',
+    borderRadius: 5,
+    width: wp('90%'),
+  },
+  placeholderStyle: {
+    fontSize: 14,
+    color: '#000',
+  },
+  selectedTextStyle: {
+    fontSize: 14,
+    color:'#000'
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
+  },
+  icon: {
+    marginRight: 5,
+  },
+  item: {
+    padding: 17,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  selectedStyle: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 14,
+    backgroundColor: 'white',
+    shadowColor: '#000',
+    marginTop: 8,
+    marginRight: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+
+    elevation: 2,
+  },
+  textSelectedStyle: {
+    marginRight: 5,
+    fontSize: 16,
+  },
+  dropping: {
+    backgroundColor: '#ecf0f1',
+    padding: 5,
+    alignSelf: 'stretch',
+    height: hp('7%'),
+    bottom:2.5,
+    borderWidth: 1,
+    borderColor: '#bdc3c7',
+    borderRadius: 5,
+    width: wp('90%'),
+  },
+  droppingn: {
+    marginLeft: 5,
+    top: 10,
+  },
+  Filefill:{
+    bottom:15,
+    color: '#000',
+    fontFamily: 'Lora',
+    fontSize: 14,
+    alignSelf: 'flex-start',
+    marginLeft: 13,
+  },
+  lasttab:{
+padding:7
+  }
 });
