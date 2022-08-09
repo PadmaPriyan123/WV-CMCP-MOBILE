@@ -40,8 +40,8 @@ import Form from '../Form/Form';
 import Incident from '../IncidentView/incidentview';
 import images from '../Images/image';
 import Login from '../Login/login';
-import { LinearGradient } from 'react-native-svg';
-import { red100 } from 'react-native-paper/lib/typescript/styles/colors';
+import {LinearGradient} from 'react-native-svg';
+import {red100} from 'react-native-paper/lib/typescript/styles/colors';
 
 // const headerOptions = {
 //   title: 'Task List',
@@ -52,7 +52,9 @@ function CustomDrawerContent(props) {
   return (
     <>
       <DrawerContentScrollView {...props}>
-        <Image source={images.worldvision_drawer} style={{ width: 250, height: 120, top: -5 }}></Image>
+        <Image
+          source={images.worldvision_drawer}
+          style={{width: 250, height: 120, top: -5}}></Image>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
     </>
@@ -74,8 +76,8 @@ export default function MyDrawer() {
       <Drawer.Navigator
         screenOptions={{
           drawerStyle: {
-            backgroundColor: '#ff6b00',
-            width: 240,
+            backgroundColor: '#ffffff',
+            width: wp('68%'),
           },
           drawerActiveTintColor: '#ffFFFF',
           drawerActiveBackgroundColor: '#ff6b00',
@@ -84,31 +86,26 @@ export default function MyDrawer() {
           activeTintColor: '#ff6b00',
         }}
         useLegacyImplementation
-        drawerContent={(props) => <CustomDrawerContent {...props}
-        />}
-      >
-      
-        <Drawer.Screen name="Dashboard" component={Dashboard}
+        drawerContent={props => <CustomDrawerContent {...props} />}>
+        <Drawer.Screen
+          name="Dashboard"
+          component={Dashboard}
           labelStyle={styles.lablestyle}
           options={{
             title: 'DASHBOARD',
             headerStyle: {
               backgroundColor: '#ff6b00',
               height: 50,
-              color: '#fff'
             },
             drawerLabelStyle: {
               fontFamily: 'Lato-Bold',
-              fontSize: 17,
+              fontSize: 18,
               justifyContent: 'center',
-
             },
 
             headerTintColor: 'white',
             headerTitleStyle: {
               fontFamily: 'Lato-Bold',
-              color: '#fff',
-          
             },
             headerRight: () => (
               <View style={styles.DotHeader}>
@@ -150,7 +147,8 @@ export default function MyDrawer() {
               height: 50,
             },
             drawerLabelStyle: {
-              fontSize: 15,
+              fontFamily: 'Lato-Bold',
+              fontSize: 17,
               justifyContent: 'center',
             },
 
@@ -158,7 +156,6 @@ export default function MyDrawer() {
 
             headerTitleStyle: {
               fontFamily: 'Lato-Bold',
-
             },
             headerRight: () => (
               <View style={styles.DotHeader}>
@@ -209,6 +206,7 @@ export default function MyDrawer() {
             headerTintColor: 'white',
 
             headerTitleStyle: {
+              fontFamily: 'Lato-Bold',
             },
             headerRight: () => (
               <View style={styles.DotHeader}>
@@ -239,27 +237,17 @@ export default function MyDrawer() {
                 color={focused ? '#fff' : '#000'}
               />
             ),
-            drawerIcon: ({ color, size }) => (
-              <FontAwesomeIcon icon={faUsers}
-                size={25}
-                color="#000"
-              />
+            drawerIcon: ({color, size}) => (
+              <FontAwesomeIcon icon={faUsers} size={25} color="#000" />
             ),
-          }} />
+          }}
+        />
       </Drawer.Navigator>
     </>
-  )
-}
-
-export default function App() {
-  return (
-
-    <MyDrawer />
-
   );
 }
-const styles = StyleSheet.create({
 
+const styles = StyleSheet.create({
   lablestyle: {
     fontFamily: 'Lato-Bold',
     fontSize: 17,
@@ -267,7 +255,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginLeft: 10,
   },
-  logoutlablestyle :{
+  logoutlablestyle: {
     fontFamily: 'Lato-Bold',
     fontSize: 17,
     justifyContent: 'center',
@@ -280,12 +268,10 @@ const styles = StyleSheet.create({
     marginRight: 10,
     circle: 10,
   },
-  count:{
-    color:'#FFF',
-   marginTop: 2,
+  count: {
+    color: '#FFF',
+    marginTop: 2,
     marginLeft: 6,
     fontFamily: 'Lato-Bold',
   },
-
-  
 });

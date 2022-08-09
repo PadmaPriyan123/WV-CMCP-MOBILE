@@ -9,8 +9,6 @@ import {
   TouchableOpacity,
   Modal,
   Pressable,
-  Image,
-  Button,
 } from 'react-native';
 
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
@@ -29,6 +27,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {faFile} from '@fortawesome/free-solid-svg-icons/faFile';
+import CheckBox from '@react-native-community/checkbox';
 
 const FirstRoute = ({route}) => {
   const [modalVisible, setModalVisible] = React.useState(false);
@@ -58,7 +57,7 @@ const FirstRoute = ({route}) => {
     {label: 'Online sexual harassment', value: 'Online sexual harassment'},
     {label: 'others', value: 'others'},
   ]);
-  const [checked, setChecked] = React.useState('');
+  const [checked, setChecked] = React.useState('first');
 
   const [open3, setOpen3] = React.useState(false);
   const [value3, setValue3] = React.useState(null);
@@ -135,7 +134,6 @@ const FirstRoute = ({route}) => {
                 placeholderTextColor="#000"
               />
             </View>
-
             <View style={{marginTop: 16}}>
               <Text style={styles.FormTitle}>
                 Designation:<Text style={styles.star}>*</Text>
@@ -193,7 +191,6 @@ const FirstRoute = ({route}) => {
                 />
               </View>
             </View>
-
             <View style={{marginTop: 16}}>
               <Text style={styles.FormTitle}>
                 Guardian's Name:<Text style={styles.star}>*</Text>
@@ -207,7 +204,6 @@ const FirstRoute = ({route}) => {
                 />
               </View>
             </View>
-
             <View style={{marginTop: 3, marginLeft: 10}}>
               <Text style={styles.radioname}>
                 Victim's Dob (is available):<Text style={styles.star}>*</Text>
@@ -216,74 +212,21 @@ const FirstRoute = ({route}) => {
                 <Text style={styles.gender}> Yes</Text>
                 <RadioButton
                   uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  status={checked === 'first' ? 'checked' : 'unchecked'}
-                  onPress={() => setChecked('first')}
+                  color={'#00bad7'}
+                  value="first"
+                  onPress={() => setModalVisible(true)}
                 />
                 <Text style={styles.gender}>No</Text>
                 <RadioButton
                   uncheckedColor={'gray'}
-                  color={'#ff6b00'}
+                  color={'#00bad7'}
                   value="second"
                   status={checked === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setChecked('second')}
                 />
               </View>
             </View>
-            <View style={styles.container}>
-              {/*Here we will return the view when state is true 
-        and will return false if state is false*/}
-              {checked === 'first' && (
-                <View style={{marginTop: 20}}>
-                  <Text style={styles.FormTitle}>Date </Text>
-                  {!isPickerShow && (
-                    <View style={{marginLeft: 10, marginTop: 18}}>
-                      <Text onPress={showPicker}>
-                        <FontAwesomeIcon
-                          icon={faCalendarDays}
-                          title="Show Picker"
-                          color="gray"
-                        />
-                      </Text>
-                      <TextInput style={styles.FormInputdate}>
-                        {date.toUTCString()}/
-                      </TextInput>
-                    </View>
-                  )}
 
-                  {isPickerShow && (
-                    <DateTimePicker
-                      value={date}
-                      mode={'date'}
-                      display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-                      is24Hour={true}
-                      onChange={onChange}
-                    />
-                  )}
-                  <View>
-                    <View style={styles.SectionStyle}>
-                      {fileResponse.map((file, index) => (
-                        <Text
-                          key={index.toString()}
-                          style={styles.uri}
-                          numberOfLines={1}
-                          ellipsizeMode={'middle'}>
-                          {file?.uri}
-                        </Text>
-                      ))}
-
-                      <Text onPress={handleDocumentSelection}>
-                        <FontAwesomeIcon
-                          icon={faFile}
-                          color="gray"
-                          style={styles.fileUpload}
-                        />
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              )}
-            </View>
             <View style={{marginTop: 16}}>
               <Text style={styles.FormTitle}>
                 Victim's Age:<Text style={styles.star}>*</Text>
@@ -300,7 +243,7 @@ const FirstRoute = ({route}) => {
 
             <View style={{marginTop: 16}}>
               <Text style={styles.FormTitle}>
-                Nature of incident:<Text style={styles.star}>*</Text>
+                Types of Nature of incident:<Text style={styles.star}>*</Text>
               </Text>
 
               <View style={styles.formdrop}>
@@ -329,7 +272,8 @@ const FirstRoute = ({route}) => {
 
               <View style={styles.formdrop}>
                 <DropDownPicker
-                  dropDownContainerStyle={styles.dropopen}
+                                  dropDownContainerStyle={styles.dropopen}
+
                   style={styles.dropdownStyle}
                   open11={cityOpen}
                   onOpen={onCityOpen}
@@ -341,6 +285,7 @@ const FirstRoute = ({route}) => {
                   setValue={setValue3}
                   setItems={setItems3}
                   zIndex={9000}
+                  
                   placeholder="Select State"
                 />
               </View>
@@ -351,7 +296,8 @@ const FirstRoute = ({route}) => {
               </Text>
               <View style={styles.formdrop}>
                 <DropDownPicker
-                  dropDownContainerStyle={styles.dropopen}
+                                  dropDownContainerStyle={styles.dropopen}
+
                   style={styles.dropdownStyle}
                   listMode="SCROLLVIEW"
                   open={open4}
@@ -368,7 +314,8 @@ const FirstRoute = ({route}) => {
                 <Text style={styles.FormTitle}>Block </Text>
                 <View style={styles.formdrop}>
                   <DropDownPicker
-                    dropDownContainerStyle={styles.dropopen}
+                                    dropDownContainerStyle={styles.dropopen}
+
                     style={styles.dropdownStyle}
                     listMode="SCROLLVIEW"
                     open={open5}
@@ -384,11 +331,12 @@ const FirstRoute = ({route}) => {
               </View>
             </View>
             <View style={{marginTop: 25}}>
-              <Text style={styles.FormTitle}>Gram Panchayat</Text>
+              <Text style={styles.FormTitle}> Gram Panchayat</Text>
 
               <View style={styles.formdrop}>
                 <DropDownPicker
-                  dropDownContainerStyle={styles.dropopen}
+                                  dropDownContainerStyle={styles.dropopen}
+
                   style={styles.dropdownStyle}
                   listMode="SCROLLVIEW"
                   open={open6}
@@ -408,7 +356,8 @@ const FirstRoute = ({route}) => {
               </Text>
               <View style={styles.formdrop}>
                 <DropDownPicker
-                  dropDownContainerStyle={styles.dropopen}
+                                  dropDownContainerStyle={styles.dropopen}
+
                   style={styles.dropdownStyle}
                   dropDownStyle={{backgroundColor: '#fafafa', marginTop: 2}}
                   listMode="SCROLLVIEW"
@@ -427,7 +376,8 @@ const FirstRoute = ({route}) => {
               <Text style={styles.FormTitle}>Police Station </Text>
               <View style={styles.formdrop}>
                 <DropDownPicker
-                  dropDownContainerStyle={styles.dropopen}
+                                  dropDownContainerStyle={styles.dropopen}
+
                   style={styles.dropdownStyle}
                   dropDownStyle={{backgroundColor: '#fafafa', marginTop: 2}}
                   listMode="SCROLLVIEW"
@@ -444,6 +394,74 @@ const FirstRoute = ({route}) => {
             </View>
           </View>
         </SafeAreaView>
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+            setModalVisible(!modalVisible);
+          }}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <View style={{marginTop: 16}}>
+                <Text style={styles.FormTitle}>Date Of Reporting:</Text>
+                {!isPickerShow && (
+                  <View style={{marginLeft: 30, marginTop: 15}}>
+                    <Text onPress={showPicker}>
+                      <FontAwesomeIcon
+                        icon={faCalendarDays}
+                        title="Show Picker"
+                        color="gray"
+                      />
+                    </Text>
+                    <TextInput style={styles.FormInputdate1}>
+                      {date.toUTCString()}/
+                    </TextInput>
+                  </View>
+                )}
+
+                {isPickerShow && (
+                  <DateTimePicker
+                    value={date}
+                    mode={'date'}
+                    display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                    is24Hour={true}
+                    onChange={onChange}
+                  />
+                )}
+              </View>
+
+              <View style={{}}>
+                <View style={styles.SectionStyle}>
+                  {fileResponse.map((file, index) => (
+                    <Text
+                      key={index.toString()}
+                      style={styles.uri}
+                      numberOfLines={1}
+                      ellipsizeMode={'middle'}>
+                      {file?.uri}
+                    </Text>
+                  ))}
+
+                  <Text onPress={handleDocumentSelection}>
+                    <FontAwesomeIcon
+                      icon={faFile}
+                      color="gray"
+                      style={styles.fileUpload}
+                    />
+                  </Text>
+                </View>
+              </View>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}>
+                <Text style={styles.textStyle}>Close Tab</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
       </ScrollView>
 
       <TouchableOpacity
@@ -534,10 +552,10 @@ const SecondRoute = ({route}) => {
   ]);
   const [checked, setChecked] = React.useState('first');
   const [checked1, setChecked1] = React.useState('first1');
-  const [modalVisible, setModalVisible] = React.useState(false);
 
   const [isPickerShow, setIsPickerShow] = React.useState(false);
   const [date, setDate] = React.useState(new Date(Date.now()));
+  const [modalVisible, setModalVisible] = React.useState(false);
 
   const showPicker = () => {
     setIsPickerShow(true);
@@ -549,7 +567,6 @@ const SecondRoute = ({route}) => {
       setIsPickerShow(false);
     }
   };
-
   return (
     <View style={styles.Tab}>
       <ScrollView style={styles.scrollView}>
@@ -592,24 +609,22 @@ const SecondRoute = ({route}) => {
               <TextInput
                 style={styles.FormInput}
                 type="text"
-                placeholder="Enter description of the incident"
+                placeholder="Enter Description of the incident"
                 placeholderTextColor="#000"
               />
             </View>
           </View>
-
           <View style={{marginTop: 16}}>
-            <Text style={styles.FormTitle}>Name of lleged Offender</Text>
+            <Text style={styles.FormTitle}>Name of Alleged Offender</Text>
             <View style={styles.formtotalinput}>
               <TextInput
                 style={styles.FormInput}
                 type="text"
-                placeholder="Enter name of Alleged Offender"
+                placeholder="Enter Name of Alleged Offender"
                 placeholderTextColor="#000"
               />
             </View>
           </View>
-
           <View style={{marginTop: 16}}>
             <Text style={styles.FormTitle}>
               Offenders relationship to victim:
@@ -661,7 +676,7 @@ const SecondRoute = ({route}) => {
               <Text style={styles.gender}>Yes</Text>
               <RadioButton
                 uncheckedColor={'gray'}
-                color={'#ff6b00'}
+                color={'#00bad7'}
                 value="first"
                 status={checked1 === 'first' ? 'checked' : 'unchecked'}
                 onPress={() => setChecked1('first')}
@@ -669,7 +684,7 @@ const SecondRoute = ({route}) => {
               <Text style={styles.gender}>No</Text>
               <RadioButton
                 uncheckedColor={'gray'}
-                color={'#ff6b00'}
+                color={'#00bad7'}
                 value="second"
                 status={checked1 === 'second' ? 'checked' : 'unchecked'}
                 onPress={() => setChecked1('second')}
@@ -710,69 +725,23 @@ const SecondRoute = ({route}) => {
               FIR Filled Or Not:<Text style={styles.star}>*</Text>
             </Text>
             <View style={styles.SectionStyle1}>
-              <Text style={styles.gender}>Yes</Text>
+              <Text style={styles.gender}> Yes</Text>
               <RadioButton
                 uncheckedColor={'gray'}
-                color={'#ff6b00'}
+                color={'#00bad7'}
                 value="first"
                 status={checked === 'first' ? 'checked' : 'unchecked'}
-                onPress={() => setChecked('first')}
+                onPress={() => setModalVisible(true)}
               />
               <Text style={styles.gender}>No</Text>
               <RadioButton
                 uncheckedColor={'gray'}
-                color={'#ff6b00'}
+                color={'#00bad7'}
                 value="second"
                 status={checked === 'second' ? 'checked' : 'unchecked'}
                 onPress={() => setChecked('second')}
               />
             </View>
-          </View>
-          <View style={styles.container}>
-            {/*Here we will return the view when state is true 
-        and will return false if state is false*/}
-            {checked === 'first' && (
-              <View style={{marginTop: 20}}>
-                <Text style={styles.FormTitle}>Date </Text>
-                {!isPickerShow && (
-                  <View style={{marginLeft: 10, marginTop: 18}}>
-                    <Text onPress={showPicker}>
-                      <FontAwesomeIcon
-                        icon={faCalendarDays}
-                        title="Show Picker"
-                        color="gray"
-                      />
-                    </Text>
-                    <TextInput style={styles.FormInputdate}>
-                      {date.toUTCString()}/
-                    </TextInput>
-                  </View>
-                )}
-
-                {isPickerShow && (
-                  <DateTimePicker
-                    value={date}
-                    mode={'date'}
-                    display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-                    is24Hour={true}
-                    onChange={onChange}
-                  />
-                )}
-                <View style={{marginTop: -10}}>
-                  <Text style={styles.FormTitle}>
-                    Victims Number:<Text style={styles.star}>*</Text>
-                  </Text>
-                  <View style={styles.formtotalinput}>
-                    <TextInput
-                      style={styles.FormInput}
-                      type="text"
-                      placeholder="Enter Victims Number"
-                      placeholderTextColor="#000"
-                    />
-                  </View>
-                </View>
-              </View>
-            )}
           </View>
           <View style={{marginTop: 16}}>
             <Text style={styles.FormTitle}>
@@ -781,7 +750,8 @@ const SecondRoute = ({route}) => {
 
             <View style={styles.formdrop}>
               <DropDownPicker
-                dropDownContainerStyle={styles.dropopen}
+                                dropDownContainerStyle={styles.dropopen}
+
                 style={styles.dropdownStyle}
                 listMode="SCROLLVIEW"
                 open={open2}
@@ -802,7 +772,8 @@ const SecondRoute = ({route}) => {
             </Text>
             <View style={styles.formdrop}>
               <DropDownPicker
-                dropDownContainerStyle={styles.dropopen}
+                                dropDownContainerStyle={styles.dropopen}
+
                 style={styles.dropdownStyle}
                 listMode="SCROLLVIEW"
                 open={open3}
@@ -834,14 +805,90 @@ const SecondRoute = ({route}) => {
       <View style={{backgroundColor: ''}}>
         <TouchableOpacity
           style={styles.formbutton}
-          onPress={e => myFunction(e)}>
+          onPress={() => route.change()}>
           <Text style={styles.formbuttoninput}>NEXT </Text>
         </TouchableOpacity>
       </View>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <View style={{marginTop: 16}}>
+              <View style={{marginTop: 16}}>
+                <Text style={styles.FormTitle}>
+                  Designation:<Text style={styles.star}>*</Text>
+                </Text>
+                <View style={styles.formtotalinput}>
+                  <TextInput
+                    style={styles.FormInput}
+                    type="text"
+                    placeholder="Desigination"
+                  />
+                </View>
+              </View>
+              <View style={{marginTop: 20}}>
+                <Text style={styles.FormTitle}>Date Of Reporting</Text>
+                {!isPickerShow && (
+                  <View style={{marginLeft: 35, marginTop: 15}}>
+                    <Text onPress={showPicker}>
+                      <FontAwesomeIcon
+                        icon={faCalendarDays}
+                        title="Show Picker"
+                        color="gray"
+                      />
+                    </Text>
+                    <TextInput style={styles.FormInputdate1}>
+                      {date.toUTCString()}/
+                    </TextInput>
+                  </View>
+                )}
+
+                {isPickerShow && (
+                  <DateTimePicker
+                    value={date}
+                    mode={'date'}
+                    display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                    is24Hour={true}
+                    onChange={onChange}
+                  />
+                )}
+              </View>
+            </View>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}>
+              <Text style={styles.textStyle}>Hide Modal</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
 const ThirdRoute = ({route}) => {
+  const [modalVisible, setModalVisible] = React.useState(false);
+
+  const [isPickerShow, setIsPickerShow] = React.useState(false);
+  const [date, setDate] = React.useState(new Date(Date.now()));
+  const [PhotoFile, setPhotoFile] = React.useState(null);
+
+  const showPicker = () => {
+    setIsPickerShow(true);
+  };
+
+  const onChange = (event, value) => {
+    setDate(value);
+    if (Platform.OS === 'android') {
+      setIsPickerShow(false);
+    }
+  };
+
   const [checked3, setChecked3] = React.useState('first2');
   const [checked4, setChecked4] = React.useState('first2');
 
@@ -849,7 +896,7 @@ const ThirdRoute = ({route}) => {
     <View style={styles.Tab}>
       <ScrollView style={styles.scrollView}>
         <SafeAreaView style={styles.Form}>
-          <View style={{marginTop: -25, marginLeft: 10}}>
+          <View style={{marginTop: 3, marginLeft: 10}}>
             <Text style={styles.radioname}>
               Victim recovered or not?:<Text style={styles.star}>*</Text>
             </Text>
@@ -857,7 +904,7 @@ const ThirdRoute = ({route}) => {
               <Text style={styles.gender}>Yes</Text>
               <RadioButton
                 uncheckedColor={'gray'}
-                color={'#ff6b00'}
+                color={'#00bad7'}
                 value="first"
                 status={checked3 === 'first' ? 'checked' : 'unchecked'}
                 onPress={() => setChecked3('first')}
@@ -865,7 +912,7 @@ const ThirdRoute = ({route}) => {
               <Text style={styles.gender}>No</Text>
               <RadioButton
                 uncheckedColor={'gray'}
-                color={'#ff6b00'}
+                color={'#00bad7'}
                 value="second"
                 status={checked3 === 'second' ? 'checked' : 'unchecked'}
                 onPress={() => setChecked3('second')}
@@ -880,7 +927,7 @@ const ThirdRoute = ({route}) => {
               <Text style={styles.gender}>Yes</Text>
               <RadioButton
                 uncheckedColor={'gray'}
-                color={'#ff6b00'}
+                color={'#00bad7'}
                 value="first"
                 status={checked4 === 'first' ? 'checked' : 'unchecked'}
                 onPress={() => setChecked4('first')}
@@ -888,7 +935,7 @@ const ThirdRoute = ({route}) => {
               <Text style={styles.gender}>No</Text>
               <RadioButton
                 uncheckedColor={'gray'}
-                color={'#ff6b00'}
+                color={'#00bad7'}
                 value="second"
                 status={checked4 === 'second' ? 'checked' : 'unchecked'}
                 onPress={() => setChecked4('second')}
@@ -911,6 +958,52 @@ const ThirdRoute = ({route}) => {
         </SafeAreaView>
       </ScrollView>
 
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <View style={{marginTop: 16}}>
+              <Text style={styles.FormTitle}>Date Of Reporting</Text>
+              {!isPickerShow && (
+                <View style={{marginLeft: 35, marginTop: 15}}>
+                  <Text onPress={showPicker}>
+                    <FontAwesomeIcon
+                      icon={faCalendarDays}
+                      title="Show Picker"
+                      color="gray"
+                    />
+                  </Text>
+                  <TextInput style={styles.FormInputdate1}>
+                    {date.toUTCString()}/
+                  </TextInput>
+                </View>
+              )}
+
+              {isPickerShow && (
+                <DateTimePicker
+                  value={date}
+                  mode={'date'}
+                  display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                  is24Hour={true}
+                  onChange={onChange}
+                />
+              )}
+            </View>
+
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}>
+              <Text style={styles.textStyle}>Hide Modal</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
       <View style={styles.formeditbutton}>
         <TouchableOpacity
           style={styles.formbuttonedit}
@@ -931,530 +1024,39 @@ const ThirdRoute = ({route}) => {
     </View>
   );
 };
-const FourthRoute = () => {
-  const [isPickerShow, setIsPickerShow] = React.useState(false);
-  const [date, setDate] = React.useState(new Date(Date.now()));
 
-  const showPicker = () => {
-    setIsPickerShow(true);
-  };
-
-  const onChange = (event, value) => {
-    setDate(value);
-    if (Platform.OS === 'android') {
-      setIsPickerShow(false);
-    }
-  };
-
-  const [checked, setChecked] = React.useState('');
-  const [checked1, setChecked1] = React.useState('');
-  const [checked2, setChecked2] = React.useState('');
-  const [checked3, setChecked3] = React.useState('');
-  const [checked4, setChecked4] = React.useState('');
-  const [checked5, setChecked5] = React.useState('');
-
-  return (
-    <SafeAreaView>
-      <ScrollView>
-        <View style={styles.liningTop}></View>
-
-        <View style={styles.reintegration}>
-          <Text style={styles.reintegrationTitle}>REINTEGRATION DOMAINS</Text>
-        </View>
-        <View style={styles.liningBottom}></View>
-        <View style={{marginTop: 3, marginLeft: 10}}>
-          <Text style={styles.radioname}>
-            Is the victim facilitated to submit application for Victim
-            Compensation?:<Text style={styles.star}></Text>
-          </Text>
-          <View style={styles.SectionStyle1}>
-            <Text style={styles.gender}>Yes</Text>
-            <RadioButton
-              uncheckedColor={'gray'}
-              color={'#ff6b00'}
-              value="first"
-              status={checked === 'first' ? 'checked' : 'unchecked'}
-              onPress={() => setChecked('first')}
-            />
-            <Text style={styles.gender}>No</Text>
-            <RadioButton
-              uncheckedColor={'gray'}
-              color={'#ff6b00'}
-              value="second"
-              status={checked === 'second' ? 'checked' : 'unchecked'}
-              onPress={() => setChecked('second')}
-            />
-          </View>
-        </View>
-        <View style={styles.container}>
-          {/*Here we will return the view when state is true 
-        and will return false if state is false*/}
-          {checked === 'first' && (
-            <View style={{marginTop: 20}}>
-              <Text style={styles.FormTitle}>Date </Text>
-              {!isPickerShow && (
-                <View style={{marginLeft: 10, marginTop: 18}}>
-                  <Text onPress={showPicker}>
-                    <FontAwesomeIcon
-                      icon={faCalendarDays}
-                      title="Show Picker"
-                      color="gray"
-                    />
-                  </Text>
-                  <TextInput style={styles.FormInputdate}>
-                    {date.toUTCString()}/
-                  </TextInput>
-                </View>
-              )}
-
-              {isPickerShow && (
-                <DateTimePicker
-                  value={date}
-                  mode={'date'}
-                  display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-                  is24Hour={true}
-                  onChange={onChange}
-                />
-              )}
-              <View style={{marginTop: -10}}>
-                <Text style={styles.FormTitle}>
-                  Victims Number:<Text style={styles.star}>*</Text>
-                </Text>
-                <View style={styles.tabfourfirst}>
-                  <TextInput
-                    style={styles.FormInput}
-                    type="text"
-                    placeholder="Enter Victim Number"
-                    placeholderTextColor="#000"
-                  />
-                </View>
-              </View>
-            </View>
-          )}
-        </View>
-
-        <View style={{marginTop: 3, marginLeft: 10}}>
-          <Text style={styles.radioname}>
-            Is the victim given any medical assistance/ treatment? :
-            <Text style={styles.star}></Text>
-          </Text>
-          <View style={styles.SectionStyle1}>
-            <Text style={styles.gender}>Yes</Text>
-            <RadioButton
-              uncheckedColor={'gray'}
-              color={'#ff6b00'}
-              value="first"
-              status={checked1 === 'first' ? 'checked' : 'unchecked'}
-              onPress={() => setChecked1('first')}
-            />
-            <Text style={styles.gender}>No</Text>
-            <RadioButton
-              uncheckedColor={'gray'}
-              color={'#ff6b00'}
-              value="second"
-              status={checked1 === 'second' ? 'checked' : 'unchecked'}
-              onPress={() => setChecked1('second')}
-            />
-          </View>
-          <View style={styles.container}>
-            {/*Here we will return the view when state is true 
-        and will return false if state is false*/}
-            {checked1 === 'first' && (
-              <View style={{marginTop: 20}}>
-                <Text style={styles.FormTitle}>Date </Text>
-                {!isPickerShow && (
-                  <View style={{marginLeft: 10, marginTop: 18}}>
-                    <Text onPress={showPicker}>
-                      <FontAwesomeIcon
-                        icon={faCalendarDays}
-                        title="Show Picker"
-                        color="gray"
-                      />
-                    </Text>
-                    <TextInput style={styles.FormInputdate}>
-                      {date.toUTCString()}/
-                    </TextInput>
-                  </View>
-                )}
-
-                {isPickerShow && (
-                  <DateTimePicker
-                    value={date}
-                    mode={'date'}
-                    display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-                    is24Hour={true}
-                    onChange={onChange}
-                  />
-                )}
-                <View style={{marginTop: -10}}>
-                  <Text style={styles.FormTitle}>
-                    Nature Of illness :<Text style={styles.star}>*</Text>
-                  </Text>
-                  <View style={styles.tabfourfirst}>
-                    <TextInput
-                      style={styles.FormInput}
-                      type="text"
-                      placeholder="Enter Nature Of illness"
-                      placeholderTextColor="#000"
-                    />
-                  </View>
-                </View>
-              </View>
-            )}
-          </View>
-        </View>
-        <View style={{marginTop: 3, marginLeft: 10}}>
-          <Text style={styles.radioname}>
-            Has the survivor been re-enrolled in school? :
-            <Text style={styles.star}></Text>
-          </Text>
-          <View style={styles.SectionStyle1}>
-            <Text style={styles.gender}>Yes</Text>
-            <RadioButton
-              uncheckedColor={'gray'}
-              color={'#ff6b00'}
-              value="first"
-              status={checked2 === 'first' ? 'checked' : 'unchecked'}
-              onPress={() => setChecked2('first')}
-            />
-            <Text style={styles.gender}>No</Text>
-            <RadioButton
-              uncheckedColor={'gray'}
-              color={'#ff6b00'}
-              value="second"
-              status={checked2 === 'second' ? 'checked' : 'unchecked'}
-              onPress={() => setChecked2('second')}
-            />
-          </View>
-          <View style={styles.container}>
-            {/*Here we will return the view when state is true 
-        and will return false if state is false*/}
-            {checked2 === 'first' && (
-              <View style={{marginTop: 20}}>
-                <Text style={styles.FormTitle}>Date</Text>
-                {!isPickerShow && (
-                  <View style={{marginLeft: 10, marginTop: 18}}>
-                    <Text onPress={showPicker}>
-                      <FontAwesomeIcon
-                        icon={faCalendarDays}
-                        title="Show Picker"
-                        color="gray"
-                      />
-                    </Text>
-                    <TextInput style={styles.FormInputdate}>
-                      {date.toUTCString()}/
-                    </TextInput>
-                  </View>
-                )}
-
-                {isPickerShow && (
-                  <DateTimePicker
-                    value={date}
-                    mode={'date'}
-                    display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-                    is24Hour={true}
-                    onChange={onChange}
-                  />
-                )}
-                <View style={{marginTop: -20}}>
-                  <Text style={styles.FormTitle}>
-                    Class:<Text style={styles.star}>*</Text>
-                  </Text>
-                  <View style={styles.tabfourfirst}>
-                    <TextInput
-                      style={styles.FormInput}
-                      type="text"
-                      placeholder="Enter class"
-                      placeholderTextColor="#000"
-                    />
-                  </View>
-                </View>
-                <View style={{marginTop: 10}}>
-                  <Text style={styles.FormTitle}>
-                    Name Of the School:<Text style={styles.star}>*</Text>
-                  </Text>
-                  <View style={styles.tabfourfirst}>
-                    <TextInput
-                      style={styles.FormInput}
-                      type="text"
-                      placeholder="Enter name of the school"
-                      placeholderTextColor="#000"
-                    />
-                  </View>
-                </View>
-              </View>
-            )}
-          </View>
-        </View>
-        <View style={{marginTop: 3, marginLeft: 10}}>
-          <Text style={styles.radioname}>
-            Is the surviovor enrolled in any Vocational Training? :
-            <Text style={styles.star}></Text>
-          </Text>
-          <View style={styles.SectionStyle1}>
-            <Text style={styles.gender}>Yes</Text>
-            <RadioButton
-              uncheckedColor={'gray'}
-              color={'#ff6b00'}
-              value="first"
-              status={checked3 === 'first' ? 'checked' : 'unchecked'}
-              onPress={() => setChecked3('first')}
-            />
-            <Text style={styles.gender}>No</Text>
-            <RadioButton
-              uncheckedColor={'gray'}
-              color={'#ff6b00'}
-              value="second"
-              status={checked3 === 'second' ? 'checked' : 'unchecked'}
-              onPress={() => setChecked3('second')}
-            />
-          </View>
-        </View>
-        <View style={styles.container}>
-          {/*Here we will return the view when state is true 
-        and will return false if state is false*/}
-          {checked3 === 'first' && (
-            <View style={{marginTop: 20}}>
-              <Text style={styles.FormTitle}>Date</Text>
-              {!isPickerShow && (
-                <View style={{marginLeft: 10, marginTop: 18}}>
-                  <Text onPress={showPicker}>
-                    <FontAwesomeIcon
-                      icon={faCalendarDays}
-                      title="Show Picker"
-                      color="gray"
-                    />
-                  </Text>
-                  <TextInput style={styles.FormInputdate}>
-                    {date.toUTCString()}/
-                  </TextInput>
-                </View>
-              )}
-
-              {isPickerShow && (
-                <DateTimePicker
-                  value={date}
-                  mode={'date'}
-                  display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-                  is24Hour={true}
-                  onChange={onChange}
-                />
-              )}
-              <View style={{marginTop: -10}}>
-                <Text style={styles.FormTitle}>
-                  Name Of the Course:<Text style={styles.star}>*</Text>
-                </Text>
-                <View style={styles.tabfourfirst}>
-                  <TextInput
-                    style={styles.FormInput}
-                    type="text"
-                    placeholder="Enter name Of the Course"
-                    placeholderTextColor="#000"
-                  />
-                </View>
-              </View>
-              <View style={{marginTop: 10}}>
-                <Text style={styles.FormTitle}>
-                  Nmae Of the Institution:<Text style={styles.star}>*</Text>
-                </Text>
-                <View style={styles.tabfourfirst}>
-                  <TextInput
-                    style={styles.FormInput}
-                    type="text"
-                    placeholder="Enter name Of The Institution "
-                    placeholderTextColor="#000"
-                  />
-                </View>
-              </View>
-            </View>
-          )}
-        </View>
-        <View style={{marginTop: 3, marginLeft: 10}}>
-          <Text style={styles.radioname}>
-            Any protective action taken? :<Text style={styles.star}></Text>
-          </Text>
-          <View style={styles.SectionStyle1}>
-            <Text style={styles.gender}>Yes</Text>
-            <RadioButton
-              uncheckedColor={'gray'}
-              color={'#ff6b00'}
-              value="first"
-              status={checked4 === 'first' ? 'checked' : 'unchecked'}
-              onPress={() => setChecked4('first')}
-            />
-            <Text style={styles.gender}>No</Text>
-            <RadioButton
-              uncheckedColor={'gray'}
-              color={'#ff6b00'}
-              value="second"
-              status={checked4 === 'second' ? 'checked' : 'unchecked'}
-              onPress={() => setChecked4('second')}
-            />
-          </View>
-        </View>
-        <View style={styles.container}>
-          {/*Here we will return the view when state is true 
-        and will return false if state is false*/}
-          {checked2 === 'first' && (
-            <View style={{marginTop: 20}}>
-              <Text style={styles.FormTitle}>Date</Text>
-              {!isPickerShow && (
-                <View style={{marginLeft: 10, marginTop: 18}}>
-                  <Text onPress={showPicker}>
-                    <FontAwesomeIcon
-                      icon={faCalendarDays}
-                      title="Show Picker"
-                      color="gray"
-                    />
-                  </Text>
-                  <TextInput style={styles.FormInputdate}>
-                    {date.toUTCString()}/
-                  </TextInput>
-                </View>
-              )}
-
-              {isPickerShow && (
-                <DateTimePicker
-                  value={date}
-                  mode={'date'}
-                  display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-                  is24Hour={true}
-                  onChange={onChange}
-                />
-              )}
-              <View style={{marginTop: -10}}>
-                <Text style={styles.FormTitle}>
-                  Class:<Text style={styles.star}>*</Text>
-                </Text>
-                <View style={styles.formtotalinput}>
-                  <TextInput
-                    style={styles.FormInput}
-                    type="text"
-                    placeholder="Enter Desigination"
-                    placeholderTextColor="#000"
-                  />
-                </View>
-              </View>
-              <View>
-                <Text style={styles.FormTitle}>
-                  Nmae Of the School:<Text style={styles.star}>*</Text>
-                </Text>
-                <View style={styles.formtotalinput}>
-                  <TextInput
-                    style={styles.FormInput}
-                    type="text"
-                    placeholder="Enter Desigination"
-                    placeholderTextColor="#000"
-                  />
-                </View>
-              </View>
-            </View>
-          )}
-        </View>
-        <View style={{marginTop: 3, marginLeft: 10}}>
-          <Text style={styles.radioname}>
-            Is the survivor enrolled in survivor support program? :
-            <Text style={styles.star}></Text>
-          </Text>
-          <View style={styles.SectionStyle1}>
-            <Text style={styles.gender}>Yes</Text>
-            <RadioButton
-              uncheckedColor={'gray'}
-              color={'#ff6b00'}
-              value="first"
-              status={checked5 === 'first' ? 'checked' : 'unchecked'}
-              onPress={() => setChecked5('first')}
-            />
-            <Text style={styles.gender}>No</Text>
-            <RadioButton
-              uncheckedColor={'gray'}
-              color={'#ff6b00'}
-              value="second"
-              status={checked5 === 'second' ? 'checked' : 'unchecked'}
-              onPress={() => setChecked5('second')}
-            />
-          </View>
-        </View>
-        <View style={styles.container}>
-          {/*Here we will return the view when state is true 
-        and will return false if state is false*/}
-          {checked5 === 'first' && (
-            <View style={{marginTop: 20}}>
-              <Text style={styles.FormTitle}>Date</Text>
-              {!isPickerShow && (
-                <View style={{marginLeft: 10, marginTop: 18}}>
-                  <Text onPress={showPicker}>
-                    <FontAwesomeIcon
-                      icon={faCalendarDays}
-                      title="Show Picker"
-                      color="gray"
-                    />
-                  </Text>
-                  <TextInput style={styles.FormInputdate}>
-                    {date.toUTCString()}/
-                  </TextInput>
-                </View>
-              )}
-
-              {isPickerShow && (
-                <DateTimePicker
-                  value={date}
-                  mode={'date'}
-                  display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-                  is24Hour={true}
-                  onChange={onChange}
-                />
-              )}
-            </View>
-          )}
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
 export default function TabViewExample() {
   const layout = useWindowDimensions();
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     {key: 'first', title: 'VICTIM', change: () => setIndex(1)},
-    {key: 'second', title: 'COMPLAINT', change: () => setIndex(2)},
-    {key: 'third', title: 'LEGAL', change: () => setIndex(3)},
-    {key: 'fourth', title: 'SERVICES', change: () => setIndex(Login)},
+    {key: 'second', title: ' COMPLAINTS', change: () => setIndex(2)},
+    {key: 'third', title: 'LEGAL', change: () => setIndex(Login)},
   ]);
 
   const renderScene = SceneMap({
     first: FirstRoute,
     second: SecondRoute,
     third: ThirdRoute,
-    fourth: FourthRoute,
   });
 
   const renderTabBar = props => (
     <TabBar
       {...props}
-      activeColor={'#fff'}
+      activeColor={'#ff6b00'}
       inactiveColor={'gray'}
       indicatorStyle={{
-        width: 80,
-        height: 35,
-        backgroundColor: '#f37e20',
-        paddingVertical: 10,
-        paddingHorizontal: 15,
-        borderColor: '#ccc',
-        borderWidth: 1,
-        borderRadius: 20,
-        fontSize: 16,
-        marginBottom: 5,
-        marginLeft: 5,
+        labelPosition: 'below-icon',
+        backgroundColor: '#ff6b00',
+        height: 3,
       }}
       style={{
         display: 'flex',
         justifyContent: 'center',
         alignContent: 'center',
         marginTop: -10,
-        backgroundColor: '#fff',
-        borderRadius: 20,
+        backgroundColor: '#f2f7fa',
 
         margin: 'auto',
 
@@ -1462,7 +1064,7 @@ export default function TabViewExample() {
         borderColor: '#f2f7fa',
         top: 10,
       }}
-      labelStyle={{fontWeight: 'bold', fontSize: 10}}
+      labelStyle={{fontWeight: 'bold'}}
     />
   );
   return (
@@ -1497,8 +1099,10 @@ const styles = StyleSheet.create({
   },
   FormInput: {
     padding: 10,
+    height: 40,
     borderRadius: 5,
     color: '#555',
+    marginVertical: 6,
     fontFamily: 'Montserrat-SemiBold',
     backgroundColor: '#ecf0f1',
   },
@@ -1546,12 +1150,12 @@ const styles = StyleSheet.create({
   },
   formbutton: {
     alignSelf: 'center',
-    width: wp('89%'),
-    height: hp('7%'),
+    width: 330,
+    height: 50,
     justifyContent: 'center',
     borderRadius: 10,
-    backgroundColor: '#f37e20',
-    marginTop: 14,
+    backgroundColor: '#ff6b00',
+    marginTop: 20,
     marginLeft: 5,
   },
   formbuttonedit: {
@@ -1613,10 +1217,12 @@ const styles = StyleSheet.create({
     buttonColor: 'yellow',
   },
   formtotalinput: {
-    height: hp('7%'),
-    borderRadius: 5,
-
-    borderWidth: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 2,
+    width: wp('90%'),
+    borderRadius: 4,
+    height: 47,
     marginTop: 10,
     marginLeft: 6,
     borderColor: '#ccc',
@@ -1727,7 +1333,7 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: 'center',
     borderRadius: 10,
-    backgroundColor: '#f37e20',
+    backgroundColor: '#F37021',
     marginTop: 20,
     marginRight: 10,
   },
@@ -1751,47 +1357,12 @@ const styles = StyleSheet.create({
     width: wp('90%'),
   },
   dropopen: {
-    backgroundColor: '#fff',
+    backgroundColor: '#E5E7EB',
     borderRadius: 10,
 
-    borderWidth: 1,
-    marginLeft: -6,
-    width: wp('90%'),
-  },
-  reintegration: {
-    marginTop: 25,
-    marginLeft: 2,
-    marginTop: 38,
-    backgroundColor: '#ecf0f1',
-    height: 40,
-    alignItems: 'center',
-  },
-  reintegrationTitle: {
-    color: '#000',
-    fontSize: 20,
-  },
-  liningTop: {
-    borderBottomColor: '#000',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    top: 35,
-  },
-  liningBottom: {
-    borderBottomColor: '#000',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    top: 1,
-  },
-  valitation: {
-    color: 'red',
-  },
-  tabfourfirst: {
-    height: hp('7%'),
-    borderRadius: 5,
-    width: wp('85%'),
-
-    borderWidth: 2,
-    marginTop: 10,
-    marginLeft: 8,
-    borderColor: '#ccc',
-    backgroundColor: '#ecf0f1',
+    borderWidth: 0,
+    marginLeft: -5,
+    width: 323,
+  
   },
 });
