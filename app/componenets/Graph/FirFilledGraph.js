@@ -7,10 +7,12 @@ import {
   VictoryAxis,
   VictoryLabel,
 } from 'victory-native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 LogBox.ignoreLogs(['Warning: ...']);
 LogBox.ignoreAllLogs();
-
-// get api connectivity
 
 let api_responsedata = [
   {
@@ -25,7 +27,7 @@ let api_responsedata = [
     ],
   },
 ];
-// json_data = Object.keys(json_data).map(key => ({[key]: json_data[key]}));
+
 const data = api_responsedata[0].data;
 
 //console.log(data);
@@ -33,10 +35,10 @@ const data = api_responsedata[0].data;
 export default function FirFilledGraph() {
   return (
     <>
-      <Text style={Styles.FirFilledGraphTitle}>FIR - Completed</Text>
+      <Text style={Styles.FirFilledGraphTitle}>FIR - Filed</Text>
       <VictoryChart
-        height={250}
-        width={340}
+        height={hp('39%')}
+        width={wp('95%')}
         domainPadding={20}
         theme={VictoryTheme.material}>
         <VictoryAxis /*label="Month"*/

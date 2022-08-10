@@ -5,9 +5,6 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  PermissionsAndroid,
-  ImageBackground,
-  StatusBar,
 } from 'react-native';
 import {
   createDrawerNavigator,
@@ -24,7 +21,6 @@ import {faUsers} from '@fortawesome/free-solid-svg-icons/faUsers';
 import {faArrowRightFromBracket} from '@fortawesome/free-solid-svg-icons/faArrowRightFromBracket';
 import {faBell, faEllipsisVertical} from '@fortawesome/free-solid-svg-icons';
 import {faMenu} from '@fortawesome/free-solid-svg-icons';
-import Notification from '../Notification/Notification';
 import Dashboard from '../Dashboard/Dashboard';
 import Form from '../Form/Form';
 import Incident from '../IncidentView/incidentview';
@@ -36,6 +32,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
@@ -120,15 +117,15 @@ export default function MyDrawer({navigation}) {
                 <FontAwesomeIcon
                   icon={faBell}
                   style={styles.BellIcon}
-                  size={22}
+                  size={20}
                   color="white"
                 />
-                <Badge count={4} />
+                <Badge count={6} />
               </TouchableOpacity>
               <TouchableOpacity>
                 <FontAwesomeIcon
                   icon={faEllipsisVertical}
-                  size={22}
+                  size={20}
                   color="white"
                 />
               </TouchableOpacity>
@@ -159,7 +156,6 @@ export default function MyDrawer({navigation}) {
           },
 
           headerTintColor: 'white',
->>>>>>> 7dd0519231492ce58a42e94b0dca1002a3e21ad7
 
           headerTitleStyle: {
             fontFamily: 'Lato-Bold',
@@ -172,15 +168,15 @@ export default function MyDrawer({navigation}) {
                 <FontAwesomeIcon
                   icon={faBell}
                   style={styles.BellIcon}
-                  size={22}
+                  size={20}
                   color="white"
                 />
-                <Badge count={4} />
+                <Badge count={6} />
               </TouchableOpacity>
               <TouchableOpacity>
                 <FontAwesomeIcon
                   icon={faEllipsisVertical}
-                  size={22}
+                  size={20}
                   color="white"
                 />
               </TouchableOpacity>
@@ -224,15 +220,15 @@ export default function MyDrawer({navigation}) {
                 <FontAwesomeIcon
                   icon={faBell}
                   style={styles.BellIcon}
-                  size={22}
+                  size={20}
                   color="white"
                 />
-                <Badge count={4} />
+                <Badge count={6} />
               </TouchableOpacity>
               <TouchableOpacity>
                 <FontAwesomeIcon
                   icon={faEllipsisVertical}
-                  size={22}
+                  size={20}
                   color="white"
                 />
               </TouchableOpacity>
@@ -266,7 +262,7 @@ const styles = StyleSheet.create({
   },
 
   logout: {
-    marginTop: hp('47%'),
+    marginTop: hp('50%'),
     height: 50,
     width: wp('62%'),
     borderRadius: 5,
@@ -275,15 +271,15 @@ const styles = StyleSheet.create({
   },
   BellIcon: {
     marginRight: 30,
-    circle: 10,
+    circle: 8,
   },
 
   circle: {
-    width: 15,
-    height: 15,
+    width: 14,
+    height: 14,
     borderRadius: 18,
-    marginLeft: 10,
-    marginTop: -10,
+    marginLeft: 8,
+    marginTop: -9,
     backgroundColor: 'red',
     position: 'absolute',
     top: 5,
@@ -291,7 +287,8 @@ const styles = StyleSheet.create({
   },
   count: {
     color: '#FFF',
-    marginLeft: 4,
+    marginLeft: 3,
+    marginTop: -1,
     fontFamily: 'Lato-Bold',
   },
   view: {

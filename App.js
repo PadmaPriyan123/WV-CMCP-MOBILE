@@ -5,11 +5,11 @@ import Login from './app/componenets/Login/login';
 import Form from './app/componenets/Form/Form';
 import Dashboard from './app/componenets/Dashboard/Dashboard';
 import Incident from './app/componenets/IncidentView/incidentview';
-import  MyDrawer  from './app/componenets/Drawer/drawer';
+import MyDrawer from './app/componenets/Drawer/drawer';
 import Notification from './app/componenets/Notification/Notification';
-import  store  from '../WV-CMCP-MOBILE/app/Redux/Store'
-import { Provider  } from 'react-redux';
-import { StatusBar } from 'react-native'
+import store from '../WV-CMCP-MOBILE/app/Redux/Store';
+import {Provider} from 'react-redux';
+import {StatusBar} from 'react-native';
 
 const Stack = createStackNavigator();
 
@@ -41,18 +41,37 @@ function App() {
             options={{headerShown: false}}
           />
 
-          <Stack.Screen name="Notification" component={Notification} />
-          
+          <Stack.Screen
+            name="Notification"
+            component={Notification}
+            options={{
+              title: 'NOTIFICATION',
+              headerStyle: {
+                backgroundColor: '#ff6b00',
+                height: 50,
+                fontsize: 17,
+              },
+              headerTintColor: 'white',
+              headerTitleStyle: {
+                fontFamily: 'Lato-Bold',
+                color: '#fff',
+              },
+            }}
+          />
 
-        
-        <Stack.Screen name="Drawer" component={MyDrawer}
-          options={{ headerShown: false }} />
+          <Stack.Screen
+            name="Drawer"
+            component={MyDrawer}
+            options={{headerShown: false}}
+          />
+        </Stack.Navigator>
 
-
-      </Stack.Navigator>
-      <StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "#fff" />
-
-    </NavigationContainer>
+        <StatusBar
+          barStyle="dark-content"
+          hidden={false}
+          backgroundColor="#fff"
+        />
+      </NavigationContainer>
     </Provider>
   );
 }

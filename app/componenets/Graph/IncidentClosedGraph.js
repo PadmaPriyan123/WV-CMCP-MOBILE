@@ -1,11 +1,12 @@
 import React from "react";
 import { StyleSheet, View, Text, LogBox, } from "react-native";
 import { VictoryBar, VictoryChart, VictoryTheme, VictoryAxis, VictoryLabel } from "victory-native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 LogBox.ignoreLogs(['Warning: ...']);
 LogBox.ignoreAllLogs();
-
-// get api connectivity
-
 
 let api_responsedata1 = [{
   "data" : [
@@ -13,7 +14,7 @@ let api_responsedata1 = [{
   { "State": 'West Bengal', "CMP": 652 , "fill": "#ff6b00" },
 ]}
 ];
-// json_data = Object.keys(json_data).map(key => ({[key]: json_data[key]}));
+
 const data = api_responsedata1[0].data;
 
 //console.log(data);
@@ -24,7 +25,8 @@ export default function IncidentClosedGraph() {
   return (
     <>
     <Text style={Styles.IncidentClosedGraphTitle}>State Wise Affected Victims</Text>
-      <VictoryChart height={250} width={340} marginLeft={10} 
+      <VictoryChart height={hp('39%')}
+        width={wp('95%')} marginLeft={10} 
         domainPadding={50}
         theme={VictoryTheme.material} >
         <VictoryAxis /*label="State"*/
