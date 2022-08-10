@@ -5,6 +5,7 @@ import {
   View,
   StyleSheet,
   ImageBackground,
+  
 } from 'react-native';
 import DropShadow from 'react-native-drop-shadow';
 import images from '../Images/image';
@@ -13,8 +14,11 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCircleChevronRight} from '@fortawesome/free-solid-svg-icons/faCircleChevronRight';
 import {ScrollView} from 'react-native-gesture-handler';
 
-const Incident = ({navigation}) => {
 
+const Incident = ({navigation}) => {
+  
+  
+  
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -44,6 +48,7 @@ const Incident = ({navigation}) => {
                     color={'#fff'}
                   />
                 </View>
+                
                 <View style={styles.cardcontentpara}>
                   <Text style={styles.carddetail}>Reporter Name :Chandru </Text>
                   <Text style={styles.carddetail}>District: Assam</Text>
@@ -299,6 +304,10 @@ const Incident = ({navigation}) => {
           </Card>
          
         </View>
+        <View style={styles.container}>
+     
+    </View>
+   
       </ScrollView>
     </SafeAreaView>
   );
@@ -385,4 +394,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     top: 15,
   },
+  
+ 
 });

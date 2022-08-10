@@ -29,7 +29,6 @@ import {faLock} from '@fortawesome/free-solid-svg-icons/faLock';
 import images from '../Images/image';
 import Constants from 'expo-constants';
 
-const baseUrl = 'https://reqres.in';
 const Login = () => {
   const navigation = useNavigation();
 
@@ -99,37 +98,13 @@ const Login = () => {
             marginTop: 10,
           }}
         />
-        <View
-          style={{
-            top: -70,
-            backgroundColor: '#fff',
-            width: wp('100%'),
-            height: hp('14%'),
-            borderTopStartRadius: 30,
-            borderTopEndRadius: 30,
-          }}>
+        <View style={styles.loginlogo}>
           <Image source={images.worldvision_loginlogo} style={styles.logo} />
         </View>
 
         <View style={styles.form}>
-          <View
-            style={{
-              top: -35,
-              alignContent: 'center',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <Text
-              style={{
-                color: '#000',
-                fontFamily: 'Lato-Bold',
-                fontSize: 17,
-                top: -5,
-                alignSelf: 'flex-start',
-                marginLeft: 10,
-              }}>
-              User Name
-            </Text>
+          <View style={styles.loginusernamemain}>
+            <Text style={styles.username}>User Name</Text>
             <View style={styles.customtextinput}>
               <FontAwesomeIcon
                 icon={faUser}
@@ -148,25 +123,8 @@ const Login = () => {
               />
             </View>
           </View>
-          <View
-            style={{
-              top: -30,
-              alignContent: 'center',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <Text
-              style={{
-                color: '#000',
-                fontFamily: 'Lato-Bold',
-                fontSize: 17,
-                top: -5,
-                paddingTop: 11,
-                alignSelf: 'flex-start',
-                marginLeft: 10,
-              }}>
-              Password
-            </Text>
+          <View style={styles.loginpasswordmain}>
+            <Text style={styles.loginpassword}>Password</Text>
             <View style={styles.customtextinput2}>
               <FontAwesomeIcon
                 icon={faLock}
@@ -179,9 +137,6 @@ const Login = () => {
                 placeholder="Password"
                 placeholderTextColor="#9e9e9e"
                 secureTextEntry={true}
-                value={email}
-                editable={!isLoading}
-                onChangeText={onChangeEmailHandler}
               />
             </View>
           </View>
@@ -195,29 +150,14 @@ const Login = () => {
             <BouncyCheckbox
               size={15}
               fillColor="#ff6b00"
-              text="Remember Me"
+              text="Remember me"
               iconStyle={{borderColor: '#F37021', marginLeft: 5}}
-              textStyle={{
-                fontFamily: 'Lato-Regular',
-                fontSize: 15,
-                fontWeight: '400',
-                marginTop: 1,
-                marginRight: 4,
-              }}
-              style={{marginLeft: 4, marginTop: 3}}
+              textStyle={styles.BouncyCheckboxcontent}
+              style={{marginLeft: 4, marginTop: 4}}
             />
 
             <TouchableOpacity onPress={e => console.log('pressed')}>
-              <Text
-                style={{
-                  color: '#ff6b00',
-                  fontFamily: 'Lato-Regular',
-                  marginRight: 5,
-                  fontSize: 13,
-                  marginTop: 4,
-                }}>
-                Forgot your password?
-              </Text>
+              <Text style={styles.forgot}>Forgot your password?</Text>
             </TouchableOpacity>
           </View>
           <View
@@ -239,7 +179,6 @@ const Login = () => {
               flex: 1,
               color: '#000',
               textAlign: 'center',
-              fontFamily: 'Lato-Regular',
             }}>
             By Loggin-In, you're agree to our
             <TouchableOpacity>
@@ -249,7 +188,6 @@ const Login = () => {
                   flex: 1,
                   color: '#ff6b00',
                   textAlign: 'center',
-                  fontFamily: 'Lato-Regular',
                 }}>
                 Terms & Conditions and Privacy Policy.
               </Text>
@@ -294,7 +232,6 @@ const Login = () => {
             <Text
               style={{
                 color: '#757575',
-                fontFamily: 'Lato-Light',
                 fontSize: 13,
                 top: 10,
               }}>
@@ -397,6 +334,59 @@ const styles = StyleSheet.create({
   checkboxContainer: {
     flexDirection: 'row',
     marginBottom: 20,
+  },
+  loginlogo: {
+    top: -70,
+    backgroundColor: '#fff',
+    width: wp('100%'),
+    height: hp('14%'),
+    borderTopStartRadius: 30,
+    borderTopEndRadius: 30,
+  },
+  loginusernamemain: {
+    top: -35,
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  username: {
+    color: '#000',
+    fontSize: 17,
+    top: -5,
+    alignSelf: 'flex-start',
+    marginLeft: 10,
+  },
+  loginpasswordmain: {
+    top: -30,
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  loginpassword: {
+    color: '#000',
+
+    fontSize: 17,
+    top: -5,
+    paddingTop: 11,
+    alignSelf: 'flex-start',
+    marginLeft: 10,
+  },
+  bouncyforgotmain: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    top: -14,
+  },
+  BouncyCheckboxcontent: {
+    fontSize: 15,
+    fontWeight: '400',
+    marginTop: 1,
+    marginRight: 4,
+  },
+  forgot: {
+    color: '#ff6b00',
+    marginRight: 5,
+    fontSize: 13,
+    marginTop: 5,
   },
 });
 

@@ -215,6 +215,7 @@ const Styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 0,
   },
+
   columntwo: {
     alignContent: 'center',
     justifyContent: 'center',

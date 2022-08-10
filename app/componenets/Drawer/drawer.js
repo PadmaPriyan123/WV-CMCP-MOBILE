@@ -159,6 +159,7 @@ export default function MyDrawer({navigation}) {
           },
 
           headerTintColor: 'white',
+>>>>>>> 7dd0519231492ce58a42e94b0dca1002a3e21ad7
 
           headerTitleStyle: {
             fontFamily: 'Lato-Bold',
