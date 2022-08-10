@@ -228,7 +228,7 @@ const Styles = StyleSheet.create({
   },
   cardCount: {
     color: '#fff',
-    fontSize: 22,
+    fontSize: 20,
     padding: 10,
     fontFamily: 'Lato-Black',
     alignSelf: 'center',
@@ -236,7 +236,7 @@ const Styles = StyleSheet.create({
   cardLabel: {
     alignSelf: 'center',
     color: '#fff',
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: 'Lato-Black',
   },
   tag: {

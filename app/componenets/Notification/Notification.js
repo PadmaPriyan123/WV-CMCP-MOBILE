@@ -10,6 +10,8 @@ import {
   StatusBar,
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
+import {faUsers} from '@fortawesome/free-solid-svg-icons/faUsers';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
 const Persons = [
   {
@@ -38,34 +40,38 @@ const Persons = [
   },
 ];
 
-const Item = ({name}) => (
+const Item = ({data}) => (
   <View style={styles.container}>
-    {Persons.map(Person => {
-      return (
-        <ScrollView>
-          <View>
-            <Text style={styles.item}>{Person.name}</Text>
-          </View>
-          <View>
-            <Text style={styles.text}>{Person.text}</Text>
-          </View>
-        </ScrollView>
-      );
-    })}
+    <ScrollView style={styles.NotificationContainer}>
+      <View
+        style={styles.item}
+        id={data.id}
+        onPress={() => {
+          console.log('does not work');
+        }}>
+        <Text>{data.name}</Text>
+        <Text>{data.text}</Text>
+        <Text style={{marginRight: 10}}>
+          <FontAwesomeIcon icon={faUsers} size={35} color={'red'} />
+        </Text>
+      </View>
+      {/* <View>
+      </View> */}
+    </ScrollView>
   </View>
 );
 
 const Notification = () => {
-  const renderItem = ({item}) => <Item title={`${item.name} ${item.text}`} />;
+  const renderItem = ({item}) => <Item data={item} />;
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <FlatList
         data={Persons}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.id.toString()}
         renderItem={renderItem}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -78,9 +84,13 @@ const styles = StyleSheet.create({
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
+    flexDirection: 'column',
   },
   title: {
     fontSize: 32,
+  },
+  NotificationContainer: {
+    // flex: 1,
   },
 });
 
