@@ -1,11 +1,5 @@
 import * as React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -50,12 +44,12 @@ function CustomDrawerContent(props) {
         <DrawerItem
           labelStyle={styles.logoutlablestyle}
           label="LOGOUT"
-          onPress={() => props.navigation.navigate('Login')}
-          icon={({focused}) => (
+          icon={({color}) => (
             <FontAwesomeIcon
               icon={faArrowRightFromBracket}
               size={25}
-              color={focused ? '#fff' : '#000'}
+              style={{marginLeft: -8}}
+              color="#fff"
             />
           )}
         />
@@ -120,7 +114,7 @@ export default function MyDrawer({navigation}) {
                   size={20}
                   color="white"
                 />
-                <Badge count={6} />
+                <Badge count={9} />
               </TouchableOpacity>
               <TouchableOpacity>
                 <FontAwesomeIcon
@@ -171,7 +165,7 @@ export default function MyDrawer({navigation}) {
                   size={20}
                   color="white"
                 />
-                <Badge count={6} />
+                <Badge count={9} />
               </TouchableOpacity>
               <TouchableOpacity>
                 <FontAwesomeIcon
@@ -223,7 +217,7 @@ export default function MyDrawer({navigation}) {
                   size={20}
                   color="white"
                 />
-                <Badge count={6} />
+                <Badge count={9} />
               </TouchableOpacity>
               <TouchableOpacity>
                 <FontAwesomeIcon
@@ -258,14 +252,17 @@ const styles = StyleSheet.create({
     fontFamily: 'Lato-Bold',
     fontSize: 17,
     justifyContent: 'center',
+    alignContent: 'center',
+    color: '#fff',
     marginLeft: 5,
   },
 
   logout: {
     marginTop: hp('50%'),
-    height: 50,
+    height: 48,
     width: wp('62%'),
     borderRadius: 5,
+    marginLeft: 2,
     alignSelf: 'center',
     backgroundColor: '#ff6b00',
   },

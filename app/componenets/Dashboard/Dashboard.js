@@ -8,6 +8,10 @@ import {
   faFileAlt,
   faDatabase,
   faPersonDress,
+  faClosedCaptioning,
+  faCircleStop,
+  faClose,
+  faFolderClosed,
 } from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import IncidentLogedGraph from '../Graph/IncidentLogedGraph';
@@ -105,13 +109,13 @@ class CreateCard extends React.Component {
               style={Styles.LinearGradient}>
               <Text style={Styles.cardIcon}>
                 <FontAwesomeIcon
-                  icon={faPersonDress}
+                  icon={faFolderClosed}
                   size={35}
                   color={'#ffffff'}
                 />
               </Text>
               <Text style={Styles.cardCount}>523</Text>
-              <Text style={Styles.cardLabel}>AFFECTED VICTIMS</Text>
+              <Text style={Styles.cardLabel}>INCIDENT CLOSED</Text>
             </LinearGradient>
           </Card>
 
@@ -127,7 +131,7 @@ class CreateCard extends React.Component {
                 <FontAwesomeIcon icon={faUsers} size={35} color={'#ffffff'} />
               </Text>
               <Text style={Styles.cardCount}>270</Text>
-              <Text style={Styles.cardLabel}>USERS IN ACTIVE</Text>
+              <Text style={Styles.cardLabel}>ACTIVE USERS</Text>
             </LinearGradient>
           </Card>
         </View>
@@ -235,6 +239,7 @@ const Styles = StyleSheet.create({
     color: '#fff',
     fontSize: 20,
     padding: 10,
+    marginTop: hp('1%'),
     fontFamily: 'Lato-Black',
     alignSelf: 'center',
   },
@@ -242,6 +247,7 @@ const Styles = StyleSheet.create({
     alignSelf: 'center',
     color: '#fff',
     fontSize: 16,
+    marginTop: 5,
     fontFamily: 'Lato-Black',
   },
   tag: {

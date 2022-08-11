@@ -37,7 +37,7 @@ const data = api_response[0].data;
 export default function IncidentLogedGraph() {
   return (
     <>
-      <Text style={Styles.IncidentLogedGraphTitle}>Incident Logged</Text>
+      <Text style={Styles.IncidentLogedGraphTitle}>Incident logged</Text>
       <VictoryChart
         height={hp('39%')}
         width={wp('95%')}
@@ -79,7 +79,7 @@ export default function IncidentLogedGraph() {
 const Styles = StyleSheet.create({
   IncidentLogedGraphTitle: {
     fontFamily: 'Lato-Bold',
-
+     color: '#00acca',
     fontSize: 24,
     marginLeft: 10,
   },

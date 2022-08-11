@@ -31,7 +31,7 @@ export default function UserRegisteredGraph() {
   return (
     <>
       <Text style={Styles.UserRegisteredGraphTitle}>
-        Number of Users(Active)
+        Number of active users
       </Text>
       <VictoryChart
         height={hp('39%')}
@@ -77,6 +77,7 @@ const Styles = StyleSheet.create({
     fontSize: 24,
     marginLeft: 10,
     marginTop: 20,
+    color: '#46bb95',
   },
   UserRegistered: {
     fontFamily: 'Lato-Regular',

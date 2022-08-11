@@ -35,7 +35,7 @@ const data = api_responsedata[0].data;
 export default function FirFilledGraph() {
   return (
     <>
-      <Text style={Styles.FirFilledGraphTitle}>FIR - Filed</Text>
+      <Text style={Styles.FirFilledGraphTitle}>FIR - filed</Text>
       <VictoryChart
         height={hp('39%')}
         width={wp('95%')}
@@ -78,6 +78,7 @@ const Styles = StyleSheet.create({
     fontSize: 24,
     marginLeft: 10,
     marginTop: 20,
+    color: '#9054a1'
   },
   FirFilled: {
     fontFamily: 'Lato-Regular',
