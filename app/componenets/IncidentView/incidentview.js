@@ -15,7 +15,7 @@ import {Card, TextInput} from 'react-native-paper';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCircleChevronRight} from '@fortawesome/free-solid-svg-icons/faCircleChevronRight';
 import {faAngleDown} from '@fortawesome/free-solid-svg-icons/faAngleDown';
-import {faMagnifyingClass} from '@fortawesome/free-solid-svg-icons/faMagnifyingClass';
+import {faSearch} from '@fortawesome/free-solid-svg-icons/faSearch';
 
 import {ScrollView} from 'react-native-gesture-handler';
 import { Searchbar } from 'react-native-paper';
@@ -63,15 +63,20 @@ const Incident = ({navigation}) => {
         
         <View style={{display:'flex',flexDirection:'row'}}>
           
-      <Searchbar
-      style={{    width: wp('60%') ,height:hp('6%'),    borderRadius:5,marginLeft:10
+      <TextInput
+      style={{    width: wp('60%') ,height:hp('6%'),    borderRadius:5,marginLeft:10,backgroundColor:'#fff'
     }}
       placeholder="Search"
-      pla
-      onChangeText={onChangeSearch}
-      value={searchQuery}
-    />
     
+      
+    />
+    <FontAwesomeIcon
+                    style={{ right:30,top:10}}
+                    icon={faSearch}
+                    size={25}
+                    color={'#000'}
+                    
+                  />
     <TouchableOpacity
           style={styles.fillter}
           onPress={() => setModalVisible(!modalVisible)}
@@ -543,7 +548,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#00bad7',
    
     borderRadius:5,
-    marginLeft: 10,
+    marginLeft: -10,
 
   },
   input:{

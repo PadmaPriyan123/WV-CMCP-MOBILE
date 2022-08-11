@@ -2103,6 +2103,7 @@ const styles = StyleSheet.create({
     borderColor: '#bdc3c7',
     borderRadius: 5,
     width: wp('90%'),
+    
   },
   droppingn: {
     marginLeft: 3,
