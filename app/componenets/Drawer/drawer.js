@@ -95,7 +95,7 @@ export default function MyDrawer({navigation}) {
           },
           drawerLabelStyle: {
             fontFamily: 'Lato-Bold',
-            fontSize: 17,
+            fontSize: 14,
             justifyContent: 'center',
           },
 
@@ -145,7 +145,7 @@ export default function MyDrawer({navigation}) {
           },
           drawerLabelStyle: {
             fontFamily: 'Lato-Bold',
-            fontSize: 17,
+            fontSize: 14,
             justifyContent: 'center',
           },
 
@@ -197,7 +197,7 @@ export default function MyDrawer({navigation}) {
 
           drawerLabelStyle: {
             fontFamily: 'Lato-Bold',
-            fontSize: 17,
+            fontSize: 14,
             justifyContent: 'center',
           },
 

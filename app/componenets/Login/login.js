@@ -80,8 +80,7 @@ const Login = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor="#593dfff5" barStyle="Light-content" />
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView >
         <ImageBackground
           source={images.worldvision_loginbackground}
           style={styles.logo1}></ImageBackground>
@@ -151,9 +150,9 @@ const Login = () => {
               size={15}
               fillColor="#ff6b00"
               text="Remember me"
-              iconStyle={{borderColor: '#F37021', marginLeft: 5}}
+              iconStyle={{borderColor: '#F37021', marginLeft: 10}}
               textStyle={styles.BouncyCheckboxcontent}
-              style={{marginLeft: 4, marginTop: 4}}
+              style={{marginLeft: 25, marginTop: 4}}
             />
 
             <TouchableOpacity onPress={e => console.log('pressed')}>
@@ -172,13 +171,14 @@ const Login = () => {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{flex: 2, top: -70}}>
+        <View style={{flex: 3,top: -30}}>
           <Text
             style={{
               fontSize: 15,
               flex: 1,
               color: '#000',
               textAlign: 'center',
+              fontFamily: 'Lato-Regular',
             }}>
             By Loggin-In, you're agree to our
             <TouchableOpacity>
@@ -188,6 +188,8 @@ const Login = () => {
                   flex: 1,
                   color: '#ff6b00',
                   textAlign: 'center',
+                  fontFamily: 'Lato-Regular',
+                
                 }}>
                 Terms & Conditions and Privacy Policy.
               </Text>
@@ -196,11 +198,10 @@ const Login = () => {
           <View
             style={{
               flexDirection: 'row',
-              justifyContent: 'space-between',
+              justifyContent: 'space-evenly',
               paddingHorizontal: 50,
-              marginBottom: 15,
+              margin: 20,
               flex: 1,
-              top: 30,
             }}>
             <TouchableOpacity>
               <Image
@@ -228,12 +229,18 @@ const Login = () => {
             </TouchableOpacity>
           </View>
           <View
-            style={{top: 15, justifyContent: 'center', alignItems: 'center'}}>
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              fontFamily: 'Lato-Regular',
+            }}>
             <Text
               style={{
-                color: '#757575',
                 fontSize: 13,
-                top: 10,
+                fontFamily: 'Lato-Regular',
+                color: '#000',
+
+
               }}>
               © Copyright 2022, All rights Reserved
             </Text>
@@ -354,7 +361,9 @@ const styles = StyleSheet.create({
     fontSize: 17,
     top: -5,
     alignSelf: 'flex-start',
-    marginLeft: 10,
+    marginLeft: 40,
+    fontFamily: 'Lato-Bold',
+    flex:1
   },
   loginpasswordmain: {
     top: -30,
@@ -364,12 +373,12 @@ const styles = StyleSheet.create({
   },
   loginpassword: {
     color: '#000',
-
+    fontFamily: 'Lato-Bold',
     fontSize: 17,
     top: -5,
     paddingTop: 11,
     alignSelf: 'flex-start',
-    marginLeft: 10,
+    marginLeft: 40,
   },
   bouncyforgotmain: {
     flexDirection: 'row',
@@ -381,12 +390,14 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     marginTop: 1,
     marginRight: 4,
+    fontFamily: 'Lato-Regular',
   },
   forgot: {
     color: '#ff6b00',
-    marginRight: 5,
+    marginRight: 40,
     fontSize: 13,
     marginTop: 5,
+    fontFamily: 'Lato-Regular',
   },
 });
 
