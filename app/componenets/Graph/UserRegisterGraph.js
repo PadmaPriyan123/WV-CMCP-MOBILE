@@ -7,10 +7,12 @@ import {
   VictoryAxis,
   VictoryLabel,
 } from 'victory-native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 LogBox.ignoreLogs(['Warning: ...']);
 LogBox.ignoreAllLogs();
-
-// get api connectivity
 
 let api_responsedata1 = [
   {
@@ -20,7 +22,7 @@ let api_responsedata1 = [
     ],
   },
 ];
-// json_data = Object.keys(json_data).map(key => ({[key]: json_data[key]}));
+
 const data = api_responsedata1[0].data;
 
 //console.log(data);
@@ -29,11 +31,11 @@ export default function UserRegisteredGraph() {
   return (
     <>
       <Text style={Styles.UserRegisteredGraphTitle}>
-        Number of Users(Active)
+        Number of active users
       </Text>
       <VictoryChart
-        height={250}
-        width={340}
+        height={hp('39%')}
+        width={wp('95%')}
         domainPadding={50}
         theme={VictoryTheme.material}>
         <VictoryAxis /*label="Month"*/
@@ -75,6 +77,7 @@ const Styles = StyleSheet.create({
     fontSize: 24,
     marginLeft: 10,
     marginTop: 20,
+    color: '#46bb95',
   },
   UserRegistered: {
     fontFamily: 'Lato-Regular',

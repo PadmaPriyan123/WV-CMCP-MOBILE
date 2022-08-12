@@ -1,14 +1,5 @@
 import * as React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  PermissionsAndroid,
-  ImageBackground,
-  StatusBar,
-} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -24,7 +15,6 @@ import {faUsers} from '@fortawesome/free-solid-svg-icons/faUsers';
 import {faArrowRightFromBracket} from '@fortawesome/free-solid-svg-icons/faArrowRightFromBracket';
 import {faBell, faEllipsisVertical} from '@fortawesome/free-solid-svg-icons';
 import {faMenu} from '@fortawesome/free-solid-svg-icons';
-import Notification from '../Notification/Notification';
 import Dashboard from '../Dashboard/Dashboard';
 import Form from '../Form/Form';
 import Incident from '../IncidentView/incidentview';
@@ -36,6 +26,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
@@ -53,12 +44,12 @@ function CustomDrawerContent(props) {
         <DrawerItem
           labelStyle={styles.logoutlablestyle}
           label="LOGOUT"
-          onPress={() => props.navigation.navigate('Login')}
-          icon={({focused}) => (
+          icon={({color}) => (
             <FontAwesomeIcon
               icon={faArrowRightFromBracket}
               size={25}
-              color={focused ? '#fff' : '#000'}
+              style={{marginLeft: -8}}
+              color="#fff"
             />
           )}
         />
@@ -120,15 +111,15 @@ export default function MyDrawer({navigation}) {
                 <FontAwesomeIcon
                   icon={faBell}
                   style={styles.BellIcon}
-                  size={22}
+                  size={20}
                   color="white"
                 />
-                <Badge count={4} />
+                <Badge count={9} />
               </TouchableOpacity>
               <TouchableOpacity>
                 <FontAwesomeIcon
                   icon={faEllipsisVertical}
-                  size={22}
+                  size={20}
                   color="white"
                 />
               </TouchableOpacity>
@@ -160,7 +151,6 @@ export default function MyDrawer({navigation}) {
 
           headerTintColor: 'white',
 
-
           headerTitleStyle: {
             fontFamily: 'Lato-Bold',
           },
@@ -172,15 +162,15 @@ export default function MyDrawer({navigation}) {
                 <FontAwesomeIcon
                   icon={faBell}
                   style={styles.BellIcon}
-                  size={22}
+                  size={20}
                   color="white"
                 />
-                <Badge count={4} />
+                <Badge count={9} />
               </TouchableOpacity>
               <TouchableOpacity>
                 <FontAwesomeIcon
                   icon={faEllipsisVertical}
-                  size={22}
+                  size={20}
                   color="white"
                 />
               </TouchableOpacity>
@@ -224,15 +214,15 @@ export default function MyDrawer({navigation}) {
                 <FontAwesomeIcon
                   icon={faBell}
                   style={styles.BellIcon}
-                  size={22}
+                  size={20}
                   color="white"
                 />
-                <Badge count={4} />
+                <Badge count={9} />
               </TouchableOpacity>
               <TouchableOpacity>
                 <FontAwesomeIcon
                   icon={faEllipsisVertical}
-                  size={22}
+                  size={20}
                   color="white"
                 />
               </TouchableOpacity>
@@ -262,28 +252,31 @@ const styles = StyleSheet.create({
     fontFamily: 'Lato-Bold',
     fontSize: 17,
     justifyContent: 'center',
+    alignContent: 'center',
+    color: '#fff',
     marginLeft: 5,
   },
 
   logout: {
-    marginTop: hp('47%'),
-    height: 50,
+    marginTop: hp('50%'),
+    height: 48,
     width: wp('62%'),
     borderRadius: 5,
+    marginLeft: 2,
     alignSelf: 'center',
     backgroundColor: '#ff6b00',
   },
   BellIcon: {
     marginRight: 30,
-    circle: 10,
+    circle: 8,
   },
 
   circle: {
-    width: 15,
-    height: 15,
+    width: 14,
+    height: 14,
     borderRadius: 18,
-    marginLeft: 10,
-    marginTop: -10,
+    marginLeft: 8,
+    marginTop: -9,
     backgroundColor: 'red',
     position: 'absolute',
     top: 5,
@@ -291,7 +284,8 @@ const styles = StyleSheet.create({
   },
   count: {
     color: '#FFF',
-    marginLeft: 4,
+    marginLeft: 3,
+    marginTop: -1,
     fontFamily: 'Lato-Bold',
   },
   view: {

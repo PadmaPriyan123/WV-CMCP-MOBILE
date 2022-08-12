@@ -1,22 +1,19 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  Image,
-  Ionicons,
-  ScrollView,
-  StyleSheet,
-  StatusBar,
-  SafeAreaView,
-  Alert,
-  Dimensions,
-} from 'react-native';
+import {Text, View, ScrollView, StyleSheet} from 'react-native';
 import {Card, Button, Title, Paragraph} from 'react-native-paper';
-import {faLock} from '@fortawesome/free-solid-svg-icons/faLock';
-import {faFile} from '@fortawesome/free-solid-svg-icons/faFile';
-import {faUsers} from '@fortawesome/free-solid-svg-icons/faUsers';
+import {
+  faUsers,
+  faSave,
+  faFileArrowUp,
+  faFileAlt,
+  faDatabase,
+  faPersonDress,
+  faClosedCaptioning,
+  faCircleStop,
+  faClose,
+  faFolderClosed,
+} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faClose} from '@fortawesome/free-solid-svg-icons';
 import IncidentLogedGraph from '../Graph/IncidentLogedGraph';
 import FirFilledGraph from '../Graph/FirFilledGraph';
 import IncidentClosedGraph from '../Graph/IncidentClosedGraph';
@@ -73,10 +70,10 @@ class CreateCard extends React.Component {
               colors={['#00accc', '#00acca']}
               style={Styles.LinearGradient}>
               <Text style={Styles.cardIcon}>
-                <FontAwesomeIcon icon={faLock} size={35} color={'#ffffff'} />
+                <FontAwesomeIcon icon={faFileAlt} size={35} color={'#ffffff'} />
               </Text>
               <Text style={Styles.cardCount}>2041</Text>
-              <Text style={Styles.cardLabel}>INCIDENT LOGED</Text>
+              <Text style={Styles.cardLabel}>INCIDENT LOGGED</Text>
             </LinearGradient>
           </Card>
 
@@ -89,10 +86,14 @@ class CreateCard extends React.Component {
               colors={['#9054c1', '#9054a1']}
               style={Styles.LinearGradient}>
               <Text style={Styles.cardIcon}>
-                <FontAwesomeIcon icon={faFile} size={35} color={'#ffffff'} />
+                <FontAwesomeIcon
+                  icon={faDatabase}
+                  size={35}
+                  color={'#ffffff'}
+                />
               </Text>
               <Text style={Styles.cardCount}>630</Text>
-              <Text style={Styles.cardLabel}>FIR FILLED</Text>
+              <Text style={Styles.cardLabel}>FIR FILED</Text>
             </LinearGradient>
           </Card>
         </View>
@@ -107,10 +108,14 @@ class CreateCard extends React.Component {
               colors={['#ff6a01', '#ff6b00']}
               style={Styles.LinearGradient}>
               <Text style={Styles.cardIcon}>
-                <FontAwesomeIcon icon={faClose} size={35} color={'#ffffff'} />
+                <FontAwesomeIcon
+                  icon={faFolderClosed}
+                  size={35}
+                  color={'#ffffff'}
+                />
               </Text>
               <Text style={Styles.cardCount}>523</Text>
-              <Text style={Styles.cardLabel}>AFFECTED VICTIMS</Text>
+              <Text style={Styles.cardLabel}>INCIDENT CLOSED</Text>
             </LinearGradient>
           </Card>
 
@@ -126,7 +131,7 @@ class CreateCard extends React.Component {
                 <FontAwesomeIcon icon={faUsers} size={35} color={'#ffffff'} />
               </Text>
               <Text style={Styles.cardCount}>270</Text>
-              <Text style={Styles.cardLabel}>USERS IN ACTIVE</Text>
+              <Text style={Styles.cardLabel}>ACTIVE USERS</Text>
             </LinearGradient>
           </Card>
         </View>
@@ -202,10 +207,10 @@ const Styles = StyleSheet.create({
     marginTop: wp('0%'),
     alignContent: 'center',
     borderRadius: 10,
-    //backgroundColor: '#e0ddd8',
   },
   DasboardContainer: {
     backgroundColor: '#e0ddd8',
+    alignContent: 'center',
   },
   column: {
     alignContent: 'center',
@@ -219,6 +224,9 @@ const Styles = StyleSheet.create({
   columntwo: {
     alignContent: 'center',
     justifyContent: 'center',
+    flex: 1,
+    flexDirection: 'row',
+    marginBottom: 0,
     margin: wp('1%'),
   },
   cardIcon: {
@@ -229,15 +237,17 @@ const Styles = StyleSheet.create({
   },
   cardCount: {
     color: '#fff',
-    fontSize: 22,
+    fontSize: 20,
     padding: 10,
+    marginTop: hp('1%'),
     fontFamily: 'Lato-Black',
     alignSelf: 'center',
   },
   cardLabel: {
     alignSelf: 'center',
     color: '#fff',
-    fontSize: 18,
+    fontSize: 16,
+    marginTop: 5,
     fontFamily: 'Lato-Black',
   },
   tag: {
