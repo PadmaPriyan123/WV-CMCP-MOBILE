@@ -19,7 +19,7 @@ import Dashboard from '../Dashboard/Dashboard';
 import Form from '../Form/Form';
 import Incident from '../IncidentView/incidentview';
 import images from '../Images/image';
-import Login from '../Login/login';
+import OTPScreen from '../Login/login';
 import {LinearGradient} from 'react-native-svg';
 import {red100} from 'react-native-paper/lib/typescript/styles/colors';
 import {
@@ -44,6 +44,7 @@ function CustomDrawerContent(props) {
         <DrawerItem
           labelStyle={styles.logoutlablestyle}
           label="LOGOUT"
+          onPress={() => props.navigation.navigate('OTPScreen')}
           icon={({color}) => (
             <FontAwesomeIcon
               icon={faArrowRightFromBracket}
@@ -95,7 +96,7 @@ export default function MyDrawer({navigation}) {
           },
           drawerLabelStyle: {
             fontFamily: 'Lato-Bold',
-            fontSize: 14,
+            fontSize: 17,
             justifyContent: 'center',
           },
 
@@ -145,7 +146,7 @@ export default function MyDrawer({navigation}) {
           },
           drawerLabelStyle: {
             fontFamily: 'Lato-Bold',
-            fontSize: 14,
+            fontSize: 17,
             justifyContent: 'center',
           },
 
@@ -197,7 +198,7 @@ export default function MyDrawer({navigation}) {
 
           drawerLabelStyle: {
             fontFamily: 'Lato-Bold',
-            fontSize: 14,
+            fontSize: 17,
             justifyContent: 'center',
           },
 
