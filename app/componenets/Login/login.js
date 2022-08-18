@@ -29,9 +29,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {faLock} from '@fortawesome/free-solid-svg-icons/faLock';
 import images from '../Images/image';
-import Constants from 'expo-constants';
 
-const OTPScreen = ({route}) => {
+const OTPScreen = () => {
   const navigation = useNavigation();
   const OTPInputRef1 = useRef(null);
   const OTPInputRef2 = useRef(null);
@@ -43,25 +42,24 @@ const OTPScreen = ({route}) => {
   const [oTPInputValue2, setOTPInputValue2] = React.useState('');
   const [oTPInputValue3, setOTPInputValue3] = React.useState('');
   const [oTPInputValue4, setOTPInputValue4] = React.useState('');
-  const [submit, setSubmit] = React.useState('');
+
   const [otpCheck, setOtpCheck] = React.useState('');
   const [logintype, setLoginType] = React.useState(false);
   const [enableVerifyOTP, setEnableVerifyOTP] = React.useState(false);
-  const [number, setNumber] = useState({number: ''});
+  const [number, setNumber] = React.useState({number: ''});
 
-  useEffect(() => {
-    if (submit != '') {
-      setOTPInputValue1('');
-      setOTPInputValue2('');
-      setOTPInputValue3('');
-      setOTPInputValue4('');
-      setOtpCheck('');
-      setEnableVerifyOTP(false);
-      setLoginType(false);
-      setNumber('');
-      setSubmit('');
-    }
-  });
+  function clearAll() {
+    setOTPInputValue1('');
+    setOTPInputValue2('');
+    setOTPInputValue3('');
+    setOTPInputValue4('');
+    setError('');
+    setCounter('00');
+    setOtpCheck('');
+    setEnableVerifyOTP(false);
+    setLoginType(false);
+    setNumber({...number, number: ''});
+  }
 
   const [otp, setOtp] = useState(true);
 
@@ -69,6 +67,18 @@ const OTPScreen = ({route}) => {
   const initialOTPErrorMessage = {message: ''};
   const [error, setError] = useState(initialErrorMessage);
   const [otpError, setOtpError] = useState(initialOTPErrorMessage);
+
+  function redirectToOtp() {
+    setOtpCheck('');
+    setNumber('');
+    setError('');
+    setOtpError('');
+    clearAll();
+    setCounter(29);
+    setEnableVerifyOTP(false);
+    setLoginType(false);
+  }
+
   function myFunction() {
     var a = {
       message: '',
@@ -77,22 +87,22 @@ const OTPScreen = ({route}) => {
     var num = /^[0-9]{10}$/;
 
     if (!number.number) {
-      a.message = '*Please enter the Number';
+      a.message = '*Please enter the mobile number';
     }
     if (!num.test(number.number) && !empty.test(number.number)) {
-      a.message = '*Enter 10 digit Number';
+      a.message = '*Enter 10 digit mobile number';
     }
     if (num.test(number.number)) {
       setOtpCheck('first');
+      setOtpError('');
     }
     console.log(number.number);
-    console.log(a);
+
     if (Object.values(a).every(el => el == '')) {
       console.log(Object.values(a).every(el => el == ''));
       setError(a);
       setOtp(true);
       setEnableVerifyOTP(true);
-      setCounter(29);
     } else {
       setError(a);
     }
@@ -131,9 +141,11 @@ const OTPScreen = ({route}) => {
       message: '',
     };
     let otp = oTPInputValue1 + oTPInputValue2 + oTPInputValue3 + oTPInputValue4;
-    if (otp == '1234') {
-      setSubmit('login');
+    if (otp == '') {
+      err.message = '*Please enter the OTP';
+    } else if (otp == '1234') {
       navigation.navigate('Drawer');
+      clearAll();
     } else {
       err.message = '*Invalid OTP';
     }
@@ -158,402 +170,267 @@ const OTPScreen = ({route}) => {
         <ImageBackground
           source={images.worldvision_loginbackground}
           style={styles.logo1}></ImageBackground>
-        <Text
-          name="ios-menu-sharp"
-          size={35}
-          style={{
-            justifyContent: 'center',
-            color: '#000',
-            alignSelf: 'flex-end',
-            alignContent: 'center',
-            marginBottom: 13,
-            marginRight: 18,
-            marginTop: 10,
-          }}
-        />
+
         <View style={styles.loginlogo}>
           <Image source={images.worldvision_loginlogo} style={styles.logo} />
         </View>
-
-        {logintype === false ? (
-          <View style={styles.form}>
-            <View style={styles.loginusernamemain}>
-              <Text style={styles.username}>Mobile No</Text>
-              <View style={styles.customtextinput}>
-                <FontAwesomeIcon
-                  icon={faPhone}
-                  size={19}
-                  color={'gray'}
-                  style={{padding: 10, marginLeft: 9}}
-                />
-                <TextInput
-                  style={styles.input}
-                  placeholder="Enter Mobile Number"
-                  placeholderTextColor="#9e9e9e"
-                  textAlign="left"
-                  maxLength={10}
-                  required
-                  keyboardType="numeric"
-                  onChangeText={e => setNumber({...number, number: e})}
-                />
-              </View>
-              {error?.message && (
-                <Text style={{color: 'red'}} className="registerErrormsg">
-                  {error?.message}
-                </Text>
-              )}
-            </View>
-
-            {otpCheck == 'first' && (
-              <View style={{marginTop: 20}}>
-                <Text style={styles.otpboxname}>Enter the OTP</Text>
-                <View style={styles.otpdiv}>
-                  <View style={styles.otpsmall}>
-                    <TextInput
-                      style={styles.inputotp}
-                      placeholderTextColor="#9e9e9e"
-                      maxLength={1}
-                      keyboardType="numeric"
-                      value={oTPInputValue1}
-                      onChangeText={value => {
-                        setOTPInputValue1(value);
-                        if (value.length >= 1) {
-                          OTPInputRef2.current?.focus();
-                        }
-                      }}
-                    />
-                  </View>
-
-                  <View style={styles.otpsmall}>
-                    <TextInput
-                      style={styles.inputotp}
-                      placeholderTextColor="#9e9e9e"
-                      maxLength={1}
-                      keyboardType="numeric"
-                      value={oTPInputValue2}
-                      onChangeText={value => {
-                        setOTPInputValue2(value);
-                        if (value.length >= 1) {
-                          OTPInputRef3.current?.focus();
-                        }
-                      }}
-                      ref={ref => (OTPInputRef2.current = ref)}
-                    />
-                  </View>
-
-                  <View style={styles.otpsmall}>
-                    <TextInput
-                      style={styles.inputotp}
-                      placeholderTextColor="#9e9e9e"
-                      maxLength={1}
-                      keyboardType="numeric"
-                      value={oTPInputValue3}
-                      onChangeText={value => {
-                        setOTPInputValue3(value);
-                        if (value.length >= 1) {
-                          OTPInputRef4.current?.focus();
-                        }
-                      }}
-                      ref={ref => (OTPInputRef3.current = ref)}
-                    />
-                  </View>
-
-                  <View style={styles.otpsmall}>
-                    <TextInput
-                      style={styles.inputotp}
-                      placeholderTextColor="#9e9e9e"
-                      maxLength={1}
-                      keyboardType="numeric"
-                      value={oTPInputValue4}
-                      onChangeText={value => {
-                        setOTPInputValue4(value);
-                      }}
-                      ref={ref => (OTPInputRef4.current = ref)}
-                    />
-                  </View>
+        <View style={styles.mainotpcontainer}>
+          {logintype === false ? (
+            <View style={styles.form}>
+              <View style={styles.loginmobilemain}>
+                <Text style={styles.Mobilenum}>Mobile No</Text>
+                <View style={styles.customtextinput}>
+                  <FontAwesomeIcon
+                    icon={faPhone}
+                    size={19}
+                    color={'gray'}
+                    style={{padding: 10, marginLeft: 9}}
+                  />
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Enter the mobile number"
+                    placeholderTextColor="#9e9e9e"
+                    maxLength={10}
+                    value={number.number}
+                    required
+                    keyboardType="numeric"
+                    onChangeText={e => setNumber({...number, number: e})}
+                  />
                 </View>
-                <View style={styles.otplabel}>
-                  <View>
+                {error?.message && (
+                  <Text style={styles.errmessage}>{error?.message}</Text>
+                )}
+              </View>
+
+              {otpCheck == 'first' && (
+                <View>
+                  <Text style={styles.otpboxname}>Enter the OTP</Text>
+                  <View style={styles.otpdiv}>
+                    <View style={styles.otpsmall}>
+                      <TextInput
+                        style={styles.inputotp}
+                        placeholderTextColor="#9e9e9e"
+                        maxLength={1}
+                        keyboardType="numeric"
+                        value={oTPInputValue1}
+                        onChangeText={value => {
+                          setOTPInputValue1(value);
+                          if (value.length >= 1) {
+                            OTPInputRef2.current?.focus();
+                          }
+                        }}
+                      />
+                    </View>
+
+                    <View style={styles.otpsmall}>
+                      <TextInput
+                        style={styles.inputotp}
+                        placeholderTextColor="#9e9e9e"
+                        maxLength={1}
+                        keyboardType="numeric"
+                        value={oTPInputValue2}
+                        onChangeText={value => {
+                          setOTPInputValue2(value);
+                          if (value.length >= 1) {
+                            OTPInputRef3.current?.focus();
+                          }
+                        }}
+                        ref={ref => (OTPInputRef2.current = ref)}
+                      />
+                    </View>
+
+                    <View style={styles.otpsmall}>
+                      <TextInput
+                        style={styles.inputotp}
+                        placeholderTextColor="#9e9e9e"
+                        maxLength={1}
+                        keyboardType="numeric"
+                        value={oTPInputValue3}
+                        onChangeText={value => {
+                          setOTPInputValue3(value);
+                          if (value.length >= 1) {
+                            OTPInputRef4.current?.focus();
+                          }
+                        }}
+                        ref={ref => (OTPInputRef3.current = ref)}
+                      />
+                    </View>
+
+                    <View style={styles.otpsmall}>
+                      <TextInput
+                        style={styles.inputotp}
+                        placeholderTextColor="#9e9e9e"
+                        maxLength={1}
+                        keyboardType="numeric"
+                        value={oTPInputValue4}
+                        onChangeText={value => {
+                          setOTPInputValue4(value);
+                        }}
+                        ref={ref => (OTPInputRef4.current = ref)}
+                      />
+                    </View>
+                  </View>
+                  <View style={styles.otperrmsg}>
                     {otpError?.message && (
                       <Text style={styles.message}>{otpError?.message}</Text>
                     )}
                   </View>
-                  <Text style={styles.otpname2}>00:{counter}</Text>
-                  <Text
-                    disabled={enableResend}
-                    onPress={resendOTP}
-                    style={styles.Resendotp}>
-                    Resend OTP
-                  </Text>
+
+                  {counter == 0 ? (
+                    <View style={styles.otpvalidmsg}>
+                      <Text
+                        disabled={enableResend}
+                        onPress={resendOTP}
+                        style={styles.otpresend}>
+                        Resend OTP
+                      </Text>
+                    </View>
+                  ) : (
+                    <View style={styles.otpvalidmsg}>
+                      <Text> OTP expires in </Text>
+                      <Text style={styles.numbercount}>00:{counter}</Text>
+                    </View>
+                  )}
+                </View>
+              )}
+
+              {enableVerifyOTP == false ? (
+                <View
+                  style={{
+                    top: -4,
+                  }}>
+                  <TouchableOpacity
+                    style={styles.button}
+                    disabled={isLoading}
+                    status={otpCheck == 'first' ? 'checked' : 'unchecked'}
+                    onPress={() => {
+                      myFunction();
+                      setCounter(29);
+                    }}>
+                    <Text style={styles.buttoninput}>LOG-IN</Text>
+                  </TouchableOpacity>
+                </View>
+              ) : (
+                <View
+                  style={{
+                    top: -10,
+                  }}>
+                  <TouchableOpacity
+                    style={styles.button}
+                    disabled={isLoading}
+                    onPress={() => {
+                      myFunction();
+                      verifyOTP();
+                    }}>
+                    <Text style={styles.buttoninput}>LOG-IN</Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+
+              <View style={styles.otpname4}>
+                <Text style={styles.or}>(or)</Text>
+                <Text style={styles.otpname3} onPress={setLoginType}>
+                  Login with email and password
+                </Text>
+              </View>
+            </View>
+          ) : (
+            <View style={styles.form}>
+              <View style={styles.loginusernamemain}>
+                <Text style={styles.username}>User Name</Text>
+                <View style={styles.customtextinput}>
+                  <FontAwesomeIcon
+                    icon={faUser}
+                    size={19}
+                    color={'gray'}
+                    style={{padding: 10, marginLeft: 9}}
+                  />
+                  <TextInput
+                    style={styles.input}
+                    placeholder="User Name"
+                    placeholderTextColor="#9e9e9e"
+                    textAlign="left"
+                    value={fullName}
+                    editable={!isLoading}
+                    onChangeText={onChangeNameHandler}
+                  />
                 </View>
               </View>
-            )}
+              <View style={styles.loginpasswordmain}>
+                <Text style={styles.loginpassword}>Password</Text>
+                <View style={styles.customtextinput2}>
+                  <FontAwesomeIcon
+                    icon={faLock}
+                    size={19}
+                    color={'gray'}
+                    style={{padding: 10, marginLeft: 9}}
+                  />
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Password"
+                    placeholderTextColor="#9e9e9e"
+                    secureTextEntry={true}
+                  />
+                </View>
+              </View>
 
-            {enableVerifyOTP == false ? (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  bottom: 50,
+                  justifyContent: 'space-between',
+                }}>
+                <BouncyCheckbox
+                  size={15}
+                  fillColor="#ff6b00"
+                  text="Remember me"
+                  iconStyle={{borderColor: '#F37021', marginLeft: 10}}
+                  textStyle={styles.BouncyCheckboxcontent}
+                  style={{marginLeft: 25, marginTop: 4}}
+                />
+
+                <TouchableOpacity>
+                  <Text style={styles.forgot}>Forgot your password?</Text>
+                </TouchableOpacity>
+              </View>
               <View
                 style={{
                   top: -4,
                 }}>
                 <TouchableOpacity
                   style={styles.button}
-                  disabled={isLoading}
-                  status={otpCheck == 'first' ? 'checked' : 'unchecked'}
-                  onPress={() => myFunction()}>
+                  onPress={() => navigation.navigate('Drawer')}
+                  disabled={isLoading}>
                   <Text style={styles.buttoninput}>LOG-IN</Text>
                 </TouchableOpacity>
               </View>
-            ) : (
-              <View
-                style={{
-                  top: -10,
-                }}>
-                <TouchableOpacity
-                  style={styles.button}
-                  disabled={isLoading}
-                  onPress={() => verifyOTP()}>
-                  <Text style={styles.buttoninput}>LOG-IN</Text>
-                </TouchableOpacity>
-              </View>
-            )}
-
-            <View>
-              <Text style={styles.or}>(or)</Text>
-            </View>
-
-            <View>
-              <Text style={styles.otpname3} onPress={setLoginType}>
-                Login with Email and Password
-              </Text>
-            </View>
-          </View>
-        ) : (
-          <View style={styles.form}>
-            <View style={styles.loginusernamemain}>
-              <Text style={styles.username}>User Name</Text>
-              <View style={styles.customtextinput}>
-                <FontAwesomeIcon
-                  icon={faUser}
-                  size={19}
-                  color={'gray'}
-                  style={{padding: 10, marginLeft: 9}}
-                />
-                <TextInput
-                  style={styles.input}
-                  placeholder="User Name"
-                  placeholderTextColor="#9e9e9e"
-                  textAlign="left"
-                  value={fullName}
-                  editable={!isLoading}
-                  onChangeText={onChangeNameHandler}
-                />
+              <View style={styles.otpname4}>
+                <Text style={styles.or}>(or)</Text>
+                <Text
+                  style={styles.otpname3}
+                  onPress={() => {
+                    redirectToOtp();
+                  }}>
+                  Login with mobile number
+                </Text>
               </View>
             </View>
-            <View style={styles.loginpasswordmain}>
-              <Text style={styles.loginpassword}>Password</Text>
-              <View style={styles.customtextinput2}>
-                <FontAwesomeIcon
-                  icon={faLock}
-                  size={19}
-                  color={'gray'}
-                  style={{padding: 10, marginLeft: 9}}
-                />
-                <TextInput
-                  style={styles.input}
-                  placeholder="Password"
-                  placeholderTextColor="#9e9e9e"
-                  secureTextEntry={true}
-                />
-              </View>
-            </View>
+          )}
+        </View>
 
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                top: -14,
-              }}>
-              <BouncyCheckbox
-                size={15}
-                fillColor="#ff6b00"
-                text="Remember me"
-                iconStyle={{borderColor: '#F37021', marginLeft: 10}}
-                textStyle={styles.BouncyCheckboxcontent}
-                style={{marginLeft: 25, marginTop: 4}}
-              />
-
-              <TouchableOpacity>
-                <Text style={styles.forgot}>Forgot your password?</Text>
-              </TouchableOpacity>
-            </View>
-            <View
-              style={{
-                top: -4,
-              }}>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => navigation.navigate('Drawer')}
-                disabled={isLoading}>
-                <Text style={styles.buttoninput}>LOG-IN</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View>
-              <Text style={styles.or}>(or)</Text>
-            </View>
-
-            <View>
-              <Text
-                style={styles.otpname3}
-                onPress={() => {
-                  setOtpCheck('');
-                  setNumber('');
-                  setError('');
-                  setEnableVerifyOTP(false);
-                  setLoginType(false);
-                }}>
-                Login with Mobile Number
-              </Text>
-            </View>
-          </View>
-        )}
-        <View style={{flex: 3, top: -30}}>
-          <Text
-            style={{
-              fontSize: 14,
-              flex: 1,
-              color: '#000',
-              textAlign: 'center',
-              fontFamily: 'Lato-Regular',
-            }}>
+        <View style={styles.footer}>
+          <Text style={styles.footertext}>
             By Loggin-In, you're agree to our
-            <TouchableOpacity>
-              <Text
-                style={{
-                  fontSize: 15,
-                  marginTop: 10,
-                  flex: 1,
-                  color: '#ff6b00',
-                  textAlign: 'center',
-                  fontFamily: 'Lato-Regular',
-                }}>
-                Terms & Conditions and Privacy Policy.
-              </Text>
-            </TouchableOpacity>
+          </Text>
+          <Text style={styles.footertext2}>
+            Terms & Conditions and Privacy Policy.
           </Text>
 
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              fontFamily: 'Lato-Regular',
-            }}>
-            <Text
-              style={{
-                fontSize: 14,
-                marginTop: hp('2%'),
-                fontFamily: 'Lato-Regular',
-                color: '#000',
-              }}>
-              © Copyright 2022, All rights Reserved
-            </Text>
-          </View>
+          <Text style={styles.footertext3}>
+            © Copyright 2022, All rights Reserved
+          </Text>
         </View>
       </ScrollView>
-    </SafeAreaView>
-  );
-};
-
-const Login = ({secondRoute}) => {
-  const navigation = useNavigation();
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-
-  const onChangeNameHandler = fullName => {
-    setFullName(fullName);
-  };
-
-  const onChangeEmailHandler = email => {
-    setEmail(email);
-  };
-
-  return (
-    <SafeAreaView>
-      <View style={styles.form}>
-        <View style={styles.loginusernamemain}>
-          <Text style={styles.username}>User Name</Text>
-          <View style={styles.customtextinput}>
-            <FontAwesomeIcon
-              icon={faUser}
-              size={19}
-              color={'gray'}
-              style={{padding: 10, marginLeft: 9}}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="User Name"
-              placeholderTextColor="#9e9e9e"
-              textAlign="left"
-              value={fullName}
-              editable={!isLoading}
-              onChangeText={onChangeNameHandler}
-            />
-          </View>
-        </View>
-        <View style={styles.loginpasswordmain}>
-          <Text style={styles.loginpassword}>Password</Text>
-          <View style={styles.customtextinput2}>
-            <FontAwesomeIcon
-              icon={faLock}
-              size={19}
-              color={'gray'}
-              style={{padding: 10, marginLeft: 9}}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Password"
-              placeholderTextColor="#9e9e9e"
-              secureTextEntry={true}
-            />
-          </View>
-        </View>
-
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            top: -14,
-          }}>
-          <BouncyCheckbox
-            size={15}
-            fillColor="#ff6b00"
-            text="Remember me"
-            iconStyle={{borderColor: '#F37021', marginLeft: 10}}
-            textStyle={styles.BouncyCheckboxcontent}
-            style={{marginLeft: 25, marginTop: 4}}
-          />
-
-          <TouchableOpacity onPress={e => console.log('pressed')}>
-            <Text style={styles.forgot}>Forgot your password?</Text>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            top: -4,
-          }}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate('Drawer')}
-            disabled={isLoading}>
-            <Text style={styles.buttoninput}>LOG-IN</Text>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <Text style={styles.otpname3} onPress={() => setLoginType(false)}>
-            Login with Mobile Number
-          </Text>
-        </View>
-      </View>
     </SafeAreaView>
   );
 };
@@ -566,6 +443,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     fontFamily: 'Lato-Black',
     color: '#fff',
+    height: '100%',
   },
   logo: {
     alignItems: 'center',
@@ -590,6 +468,7 @@ const styles = StyleSheet.create({
     elevation: 2,
     borderWidth: 0.7,
     width: 310,
+    bottom: 80,
     borderRadius: 10,
     height: 50,
   },
@@ -603,21 +482,15 @@ const styles = StyleSheet.create({
     borderWidth: 0.7,
     width: 310,
     borderRadius: 10,
+    bottom: 40,
     height: 45,
   },
-  form: {
-    flexGrow: 1,
-    top: -40,
-  },
+
   input: {
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
     height: hp('6.5%'),
     width: wp('60%'),
     borderRadius: 10,
     borderColor: 'gray',
-    marginVertical: 6,
     fontFamily: 'Lato-Regular',
     backgroundColor: '#ffff',
   },
@@ -627,17 +500,12 @@ const styles = StyleSheet.create({
     width: wp('88%'),
     justifyContent: 'center',
     fontFamily: 'Lato-Bold',
-    marginVertical: 9,
     borderRadius: 10,
     backgroundColor: '#ff6b00',
     borderWidth: 0,
-    paddingVertical: 9,
-    elevation: 80,
     marginLeft: 5,
     marginRight: 5,
-    elevation: 12,
-    opacity: 10,
-    bottom: 15,
+    bottom: 38,
   },
   buttoninput: {
     textAlign: 'center',
@@ -658,7 +526,6 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 30,
   },
   loginusernamemain: {
-    top: -35,
     alignContent: 'center',
     alignItems: 'center',
     justifyContent: 'center',
@@ -666,11 +533,23 @@ const styles = StyleSheet.create({
   username: {
     color: '#000',
     fontSize: 17,
-    top: -5,
+    bottom: 90,
     alignSelf: 'flex-start',
     marginLeft: 40,
     fontFamily: 'Lato-Bold',
-    flex: 1,
+  },
+  loginmobilemain: {
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  Mobilenum: {
+    bottom: 90,
+    color: '#000',
+    fontSize: 17,
+    alignSelf: 'flex-start',
+    marginLeft: 40,
+    fontFamily: 'Lato-Bold',
   },
   loginpasswordmain: {
     top: -30,
@@ -682,7 +561,7 @@ const styles = StyleSheet.create({
     color: '#000',
     fontFamily: 'Lato-Bold',
     fontSize: 17,
-    top: -5,
+    bottom: 50,
     paddingTop: 11,
     alignSelf: 'flex-start',
     marginLeft: 40,
@@ -712,10 +591,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   or: {
-    fontSize: 16,
+    fontSize: 20,
     color: '#ff6b00',
-    alignSelf: 'center',
-    bottom: 25,
+    marginLeft: 40,
+    marginRight: 20,
+    fontFamily: 'Lato-Bold',
+  },
+  otpname3: {
+    fontSize: 18,
+    color: '#ff6b00',
+    fontFamily: 'Lato-Bold',
   },
   inputotp: {
     alignSelf: 'center',
@@ -737,7 +622,7 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     height: 45,
     margin: 15,
-    bottom: 30,
+    bottom: 80,
   },
 
   otpname: {
@@ -745,19 +630,14 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginLeft: -20,
   },
-  otpname3: {
-    fontSize: 18,
-    marginTop: -20,
-    marginBottom: 15,
-    color: '#ff6b00',
-    textAlign: 'center',
-    textDecorationLine: 'underline',
+  otpname4: {
+    flexDirection: 'row',
+    bottom: 22,
   },
+
   otpdiv: {
-    flex: 1,
     flexDirection: 'row',
     margin: 10,
-    marginTop: -25,
     padding: 10,
     justifyContent: 'center',
   },
@@ -767,37 +647,71 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: 'Lato-Bold',
   },
+  mainotpcontainer: {
+    height: hp('48%'),
+  },
 
   otpboxname: {
     fontSize: 18,
-    // alignSelf: 'center',
     fontFamily: 'Lato-Bold',
     marginLeft: 40,
+    bottom: 70,
     color: '#000',
-    bottom: 45,
-  },
-  otpname2: {
-    fontSize: 14,
-    marginLeft: 100,
-    marginTop: 5,
-    fontFamily: 'Lato-Regular',
-  },
-  Resendotp: {
-    fontSize: 16,
-    marginTop: 5,
-    marginLeft: 5,
-    fontFamily: 'Lato-Regular',
-    color: '#ff6b00',
   },
   message: {
     color: 'red',
-    marginLeft: -30,
+    marginLeft: -45,
+    marginTop: -100,
   },
-  otplabel: {
+  otpvalidmsg: {
+    flexDirection: 'row',
+    bottom: 70,
+    marginLeft: 40,
+    color: 'red',
+  },
+  otperrmsg: {
     flex: 1,
     flexDirection: 'row',
     marginLeft: 80,
-    bottom: 50,
+  },
+  numbercount: {
+    color: 'red',
+  },
+  errmessage: {
+    color: 'red',
+    marginRight: 110,
+    bottom: 80,
+    height: hp('3%'),
+  },
+  footer: {
+    flex: 1,
+    bottom: 15,
+    height: hp('10%'),
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  footertext: {
+    fontSize: 14,
+    top: 3,
+    color: '#000',
+    textAlign: 'center',
+    fontFamily: 'Lato-Regular',
+  },
+  footertext2: {
+    fontSize: 16,
+    top: 5,
+    color: '#ff6b00',
+    textAlign: 'center',
+    fontFamily: 'Lato-Regular',
+  },
+  footertext3: {
+    fontSize: 14,
+    marginTop: 15,
+    fontFamily: 'Lato-Regular',
+    color: '#000',
+  },
+  otpresend: {
+    color: 'red',
   },
 });
 
