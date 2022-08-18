@@ -69,7 +69,7 @@ const FirstRoute = ({route}) => {
   }, []);
 
   const data = [
-    {label:'Others', value:'1'},
+    {label: 'Others', value: '1'},
     {label: 'Online sexual harassment ', value: '2'},
     {label: 'Sexual assault ', value: '3'},
     {label: 'Sexual harassment    ', value: '4'},
@@ -119,10 +119,8 @@ const FirstRoute = ({route}) => {
   const [value6, setValue6] = useState(null);
 
   return (
-    
     <View style={styles.Tab}>
-      <ScrollView  style={styles.scrollView}
-     >
+      <ScrollView style={styles.scrollView}>
         <View style={styles.Form}>
           <View style={{marginTop: -5}}>
             <Text style={styles.FormTitle}>
@@ -132,7 +130,7 @@ const FirstRoute = ({route}) => {
               <TextInput
                 style={styles.FormInput}
                 type="text"
-                placeholder="Enter Reporters name"
+                placeholder="Enter Reporter's name"
                 placeholderTextColor="gray"
               />
             </View>
@@ -159,13 +157,10 @@ const FirstRoute = ({route}) => {
                   style={styles.textInput}
                   value={getDate()}
                   placeholder="  Enter Date"
-                  placeholderTextColor="gray"
+                  placeholderTextColor={'gray'}
+                  />
 
-                />
-
-                <Text
-                  style={{left: 300, bottom: 39}}
-                  onPress={showDatePicker}>
+                <Text style={{left: 300, bottom: 39}} onPress={showDatePicker}>
                   <FontAwesomeIcon
                     size={20}
                     icon={faCalendarDays}
@@ -203,7 +198,7 @@ const FirstRoute = ({route}) => {
                 <TextInput
                   style={styles.FormInput}
                   type="text"
-                  placeholder="Enter Guardians name"
+                  placeholder="Enter Guardian's name"
                   placeholderTextColor="gray"
                 />
               </View>
@@ -241,9 +236,8 @@ const FirstRoute = ({route}) => {
                       style={styles.textInput}
                       value={getDate()}
                       placeholder="  Enter Date"
-                      placeholderTextColor="gray"
-
-                    />
+                      placeholderTextColor={'gray'}
+                      />
 
                     <Text
                       style={{left: 300, bottom: 39}}
@@ -309,8 +303,7 @@ const FirstRoute = ({route}) => {
 
               <View style={styles.droppingn}>
                 <Dropdown
-                containerStyle={{backgroundColor:'#ecf0f1'}}
-                
+                  containerStyle={{backgroundColor: '#fff'}}
                   style={styles.dropping}
                   placeholderStyle={styles.placeholderStyle}
                   selectedTextStyle={styles.selectedTextStyle}
@@ -333,8 +326,7 @@ const FirstRoute = ({route}) => {
 
               <View style={styles.droppingn}>
                 <Dropdown
-                                containerStyle={{backgroundColor:'#ecf0f1',}}
-
+                  containerStyle={{backgroundColor: '#fff'}}
                   style={styles.dropping}
                   placeholderStyle={styles.placeholderStyle}
                   selectedTextStyle={styles.selectedTextStyle}
@@ -357,8 +349,7 @@ const FirstRoute = ({route}) => {
               </Text>
               <View style={styles.droppingn}>
                 <Dropdown
-                                containerStyle={{backgroundColor:'#ecf0f1',}}
-
+                  containerStyle={{backgroundColor: '#fff'}}
                   style={styles.dropping}
                   placeholderStyle={styles.placeholderStyle}
                   selectedTextStyle={styles.selectedTextStyle}
@@ -378,8 +369,7 @@ const FirstRoute = ({route}) => {
                 <Text style={styles.FormTitle}>Block </Text>
                 <View style={styles.droppingn}>
                   <Dropdown
-                                  containerStyle={{backgroundColor:'#ecf0f1',}}
-
+                    containerStyle={{backgroundColor: '#fff'}}
                     style={styles.dropping}
                     placeholderStyle={styles.placeholderStyle}
                     selectedTextStyle={styles.selectedTextStyle}
@@ -402,8 +392,7 @@ const FirstRoute = ({route}) => {
 
               <View style={styles.droppingn}>
                 <Dropdown
-                                containerStyle={{backgroundColor:'#ecf0f1',}}
-
+                  containerStyle={{backgroundColor: '#fff'}}
                   style={styles.dropping}
                   placeholderStyle={styles.placeholderStyle}
                   selectedTextStyle={styles.selectedTextStyle}
@@ -412,7 +401,7 @@ const FirstRoute = ({route}) => {
                   maxHeight={250}
                   labelField="label"
                   valueField="value"
-                  placeholder="Select Grampanchayat"
+                  placeholder="Select Gram Panchayat"
                   value={value4}
                   onChange={item => {
                     setValue4(item.value);
@@ -426,8 +415,7 @@ const FirstRoute = ({route}) => {
               </Text>
               <View style={styles.droppingn}>
                 <Dropdown
-                                containerStyle={{backgroundColor:'#ecf0f1',}}
-
+                  containerStyle={{backgroundColor: '#fff'}}
                   style={styles.dropping}
                   placeholderStyle={styles.placeholderStyle}
                   selectedTextStyle={styles.selectedTextStyle}
@@ -448,8 +436,7 @@ const FirstRoute = ({route}) => {
               <Text style={styles.FormTitle}>Police Station </Text>
               <View style={styles.droppingn}>
                 <Dropdown
-                                containerStyle={{backgroundColor:'#ecf0f1',}}
-
+                  containerStyle={{backgroundColor: '#fff'}}
                   style={styles.dropping}
                   placeholderStyle={styles.placeholderStyle}
                   selectedTextStyle={styles.selectedTextStyle}
@@ -458,7 +445,7 @@ const FirstRoute = ({route}) => {
                   maxHeight={250}
                   labelField="label"
                   valueField="value"
-                  placeholder="Select Policestation"
+                  placeholder="Select Police Station"
                   value={value6}
                   onChange={item => {
                     setValue6(item.value);
@@ -605,13 +592,9 @@ const SecondRoute = ({route}) => {
                 value={getDate()}
                 placeholder="  Enter Date"
                 color="gray"
-                
-
               />
 
-              <Text
-                style={{left: 300, bottom: 39}}
-                onPress={showDatePicker}>
+              <Text style={{left: 300, bottom: 39}} onPress={showDatePicker}>
                 <FontAwesomeIcon
                   size={20}
                   icon={faCalendarDays}
@@ -683,8 +666,7 @@ const SecondRoute = ({route}) => {
             </Text>
             <View style={styles.droppingn}>
               <Dropdown
-                              containerStyle={{backgroundColor:'#ecf0f1',}}
-
+                containerStyle={{backgroundColor: '#fff'}}
                 style={styles.dropping}
                 placeholderStyle={styles.placeholderStyle}
                 selectedTextStyle={styles.selectedTextStyle}
@@ -734,12 +716,9 @@ const SecondRoute = ({route}) => {
                 value={getDate()}
                 placeholder="  Enter Date"
                 color="gray"
-
               />
 
-              <Text
-                style={{left: 300, bottom: 39}}
-                onPress={showDatePicker}>
+              <Text style={{left: 300, bottom: 39}} onPress={showDatePicker}>
                 <FontAwesomeIcon
                   size={20}
                   icon={faCalendarDays}
@@ -789,6 +768,8 @@ const SecondRoute = ({route}) => {
                     style={styles.textInput}
                     value={getDate()}
                     placeholder="  Enter Date"
+                    Color={'gray'}
+
                   />
 
                   <Text
@@ -810,13 +791,13 @@ const SecondRoute = ({route}) => {
                 </View>
                 <View style={{marginTop: 0}}>
                   <Text style={styles.FormTitle}>
-                    Victims Number:<Text style={styles.star}>*</Text>
+                    Victim's Number:<Text style={styles.star}>*</Text>
                   </Text>
                   <View style={styles.formtotalinput}>
                     <TextInput
                       style={styles.FormInput}
                       keyboardType="numeric"
-                      placeholder="Enter Victims Number"
+                      placeholder="Enter Victim's Number"
                       placeholderTextColor="#000"
                     />
                   </View>
@@ -830,7 +811,6 @@ const SecondRoute = ({route}) => {
             </Text>
             <View style={{marginTop: 5}}>
               <MultiSelect
-
                 style={styles.dropdown}
                 placeholderStyle={styles.placeholderStyle}
                 selectedTextStyle={styles.selectedTextStyle}
@@ -849,12 +829,11 @@ const SecondRoute = ({route}) => {
           </View>
           <View style={{marginTop: 16}}>
             <Text style={styles.FormTitle1}>
-            What sections applied in FIR?:<Text style={styles.star}>*</Text>
+              What sections applied in FIR?:<Text style={styles.star}>*</Text>
             </Text>
             <View style={styles.droppingn}>
               <Dropdown
-                              containerStyle={{backgroundColor:'#ecf0f1',}}
-
+                containerStyle={{backgroundColor: '#fff'}}
                 style={styles.dropping}
                 placeholderStyle={styles.placeholderStyle}
                 selectedTextStyle={styles.selectedTextStyle}
@@ -966,21 +945,11 @@ const ThirdRoute = ({route}) => {
         </SafeAreaView>
       </ScrollView>
 
-      <View style={styles.formeditbutton}>
+      <View>
         <TouchableOpacity
-          style={styles.formbuttonedit}
-          onPress={() => navigation.navigate('Login')}>
-          <Text style={styles.formbuttoninput}>Edit</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.formbuttonsubmit}
-          onPress={() => navigation.navigate('Login')}>
-          <Text style={styles.formbuttoninput}>Submit</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.formbuttoncancel}
-          onPress={() => navigation.navigate('Login')}>
-          <Text style={styles.formbuttoninput}>Cancel</Text>
+          style={styles.formbutton}
+          onPress={() => route.change()}>
+          <Text style={styles.formbuttoninput}>Submit </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -1115,7 +1084,7 @@ const FourthRoute = () => {
             )}
           </View>
 
-          <View style={{marginTop: 3, marginLeft: 10}}>
+          <View style={{marginTop: 3, marginLeft: 12}}>
             <Text style={styles.radioname}>
               Is the victim given any medical assistance/ treatment? :
               <Text style={styles.star}></Text>
@@ -1150,7 +1119,6 @@ const FourthRoute = () => {
                       value={getDate()}
                       placeholder="  Enter Treatment Date"
                       placeholderTextColor={'gray'}
-
                     />
 
                     <Text
@@ -1187,7 +1155,7 @@ const FourthRoute = () => {
               )}
             </View>
           </View>
-          <View style={{marginTop: 3, marginLeft: 10}}>
+          <View style={{marginTop: 3, marginLeft: 13}}>
             <Text style={styles.radioname}>
               Has the survivor been re-enrolled in school?
               <Text style={styles.star}></Text>
@@ -1222,7 +1190,6 @@ const FourthRoute = () => {
                       value={getDate()}
                       placeholder="  Enter Date"
                       placeholderTextColor={'gray'}
-
                     />
 
                     <Text
@@ -1272,9 +1239,9 @@ const FourthRoute = () => {
               )}
             </View>
           </View>
-          <View style={{marginTop: 3, marginLeft: 10}}>
+          <View style={{marginTop: 3, marginLeft: 14}}>
             <Text style={styles.radioname}>
-              Is the surviovor enrolled in any Vocational Training?
+              Is the survivor enrolled in any Vocational Training?
               <Text style={styles.star}></Text>
             </Text>
             <View style={styles.SectionStyle1}>
@@ -1307,6 +1274,8 @@ const FourthRoute = () => {
                     style={styles.textInput1}
                     value={getDate()}
                     placeholder="  Enter Date"
+                    placeholderTextColor={'gray'}
+
                   />
 
                   <Text
@@ -1355,7 +1324,7 @@ const FourthRoute = () => {
               </View>
             )}
           </View>
-          <View style={{marginTop: 3, marginLeft: 10}}>
+          <View style={{marginTop: 3, marginLeft: 15}}>
             <Text style={styles.radioname}>
               Any protective action taken? :<Text style={styles.star}></Text>
             </Text>
@@ -1378,92 +1347,87 @@ const FourthRoute = () => {
               <Text style={styles.gender}>No</Text>
             </View>
             <View style={styles.container}>
-            {/*Here we will return the view when state is true 
+              {/*Here we will return the view when state is true 
         and will return false if state is false*/}
-            {checked4 === 'first' && (
-              <View style={{marginTop: 20}}>
-                <Text style={styles.FormTitle}>Date</Text>
-                <View style={{marginTop: 5}}>
-                  <TextInput
-                    style={styles.textInput1}
-                    value={getDate()}
-                    placeholder="  Enter Date"
-                    placeholderTextColor={'gray'}
-
-                  />
-
-                  <Text
-                    style={{left: 300, bottom: 39}}
-                    onPress={showDatePicker}>
-                    <FontAwesomeIcon
-                      size={20}
-                      icon={faCalendarDays}
-                      title="Show Picker"
-                      color="#00bad7"
-                    />
-                  </Text>
-                  <DateTimePickerModal
-                    isVisible={isDatePickerVisible}
-                    mode="date"
-                    onConfirm={handleConfirm}
-                    onCancel={hideDatePicker}
-                  />
-                </View>
-                <View style={{marginTop: 3}}>
-            <Text style={styles.radioname}>
-            Whether GDE done<Text style={styles.star}></Text>
-            </Text>
-                <View style={styles.SectionStyle1}>
-              <RadioButton
-                uncheckedColor={'gray'}
-                color={'#ff6b00'}
-                value="first"
-                status={checked7 === 'first' ? 'checked' : 'unchecked'}
-                onPress={() => setChecked7('first')}
-              />
-              
-              <Text style={styles.gender}>Yes</Text>
-              <RadioButton
-                uncheckedColor={'gray'}
-                color={'#ff6b00'}
-                value="second"
-                status={checked7 === 'second' ? 'checked' : 'unchecked'}
-                onPress={() => setChecked7('second')}
-              />
-              <Text style={styles.gender}>No</Text>
-            </View>
-            <View style={{marginLeft: 5}}>
-            {/*Here we will return the view when state is true 
-        and will return false if state is false*/}
-            {checked7 === 'first' && (
-              <View style={{marginTop: 20}}>
-               
-                <View style={{marginTop: 0,right:8}}>
-                  <Text style={styles.FormTitle}>
-                    GDE No<Text style={styles.star}>*</Text>
-                  </Text>
-                  <View style={styles.tabfourfirst}>
+              {checked4 === 'first' && (
+                <View style={{marginTop: 20}}>
+                  <Text style={styles.FormTitle}>Date</Text>
+                  <View style={{marginTop: 5}}>
                     <TextInput
-                      style={styles.FormInput}
-                      type="text"
-                      placeholder="Enter class"
-                      placeholderTextColor="gray"
+                      style={styles.textInput1}
+                      value={getDate()}
+                      placeholder="  Enter Date"
+                      placeholderTextColor={'gray'}
+                    />
+
+                    <Text
+                      style={{left: 300, bottom: 39}}
+                      onPress={showDatePicker}>
+                      <FontAwesomeIcon
+                        size={20}
+                        icon={faCalendarDays}
+                        title="Show Picker"
+                        color="#00bad7"
+                      />
+                    </Text>
+                    <DateTimePickerModal
+                      isVisible={isDatePickerVisible}
+                      mode="date"
+                      onConfirm={handleConfirm}
+                      onCancel={hideDatePicker}
                     />
                   </View>
+                  <View style={{marginTop: 3}}>
+                    <Text style={styles.radioname}>
+                      Whether GDE done<Text style={styles.star}></Text>
+                    </Text>
+                    <View style={styles.SectionStyle1}>
+                      <RadioButton
+                        uncheckedColor={'gray'}
+                        color={'#ff6b00'}
+                        value="first"
+                        status={checked7 === 'first' ? 'checked' : 'unchecked'}
+                        onPress={() => setChecked7('first')}
+                      />
+
+                      <Text style={styles.gender}>Yes</Text>
+                      <RadioButton
+                        uncheckedColor={'gray'}
+                        color={'#ff6b00'}
+                        value="second"
+                        status={checked7 === 'second' ? 'checked' : 'unchecked'}
+                        onPress={() => setChecked7('second')}
+                      />
+                      <Text style={styles.gender}>No</Text>
+                    </View>
+                    <View style={{marginLeft: 5}}>
+                      {/*Here we will return the view when state is true 
+        and will return false if state is false*/}
+                      {checked7 === 'first' && (
+                        <View style={{marginTop: 20}}>
+                          <View style={{marginTop: 0, right: 8}}>
+                            <Text style={styles.FormTitle}>
+                              GDE No<Text style={styles.star}>*</Text>
+                            </Text>
+                            <View style={styles.tabfourfirst}>
+                              <TextInput
+                                style={styles.FormInput}
+                                type="text"
+                                placeholder="Enter class"
+                                placeholderTextColor="gray"
+                              />
+                            </View>
+                          </View>
+                        </View>
+                      )}
+                    </View>
+                  </View>
                 </View>
-              
-              </View>
-            )}
-          </View>
-              </View>
-              </View>
-
-            )}
-          </View>
-       
+              )}
+            </View>
           </View>
 
-          <View style={{marginTop: 3, marginLeft: 10}}>
+          <View style={{marginTop: 3, marginLeft: 16}}>
             <Text style={styles.radioname}>
               Is the survivor enrolled in survivor support program?
               <Text style={styles.star}></Text>
@@ -1485,19 +1449,19 @@ const FourthRoute = () => {
                 onPress={() => setChecked5('second')}
               />
               <Text style={styles.gender}>No</Text>
-            </View>
-          </View>
-          <View style={styles.container}>
+              <View style={{right:122,top:30}}>
             {/*Here we will return the view when state is true 
         and will return false if state is false*/}
             {checked5 === 'first' && (
-              <View style={{marginTop: 20, marginLeft: 5}}>
+              <View style={{marginTop: 20}}>
                 <Text style={styles.FormTitle}>Date</Text>
                 <View style={{marginTop: 5}}>
                   <TextInput
                     style={styles.textInput1}
                     value={getDate()}
                     placeholder="  Enter Date"
+                    placeholderTextColor={'gray'}
+
                   />
 
                   <Text
@@ -1517,11 +1481,16 @@ const FourthRoute = () => {
                     onCancel={hideDatePicker}
                   />
                 </View>
+              
+            
               </View>
             )}
           </View>
+            </View>
+          </View>
+
           <View style={styles.reintegration}>
-            <Text style={styles.reintegrationTitle}>MHPSS SUPPROT</Text>
+            <Text style={styles.reintegrationTitle}>MHPSS </Text>
           </View>
           {supportive.length < 1 && (
             <TouchableOpacity style={styles.Initiatebutton}>
@@ -1548,7 +1517,6 @@ const FourthRoute = () => {
                         value={getDate()}
                         placeholder="  Enter Date"
                         placeholderTextColor={'gray'}
-
                       />
 
                       <Text
@@ -1598,13 +1566,13 @@ const FourthRoute = () => {
                       <View style={{marginTop: 15}}>
                         <View style={{bottom: 5}}>
                           <Text style={styles.FormTitle}>
-                            Counseling:<Text style={styles.star}>*</Text>
+                            Counselling:<Text style={styles.star}>*</Text>
                           </Text>
-                          <View style={styles.tabfourfirst}>
+                          <View style={styles.tabfourfirst1}>
                             <TextInput
-                              style={styles.FormInput}
+                              style={styles.counsInput}
                               type="text"
-                              placeholder="Enter Counseling "
+                              placeholder="Enter Counselling "
                               placeholderTextColor="gray"
                             />
                           </View>
@@ -1618,7 +1586,6 @@ const FourthRoute = () => {
                             value={getDate()}
                             placeholder="  Enter Date"
                             placeholderTextColor={'gray'}
-
                           />
 
                           <Text
@@ -1638,9 +1605,9 @@ const FourthRoute = () => {
                             onCancel={hideDatePicker}
                           />
                         </View>
-                        
+
                         {supportive.length - 1 == i && (
-                          <TouchableOpacity style={styles.formbutton}>
+                          <TouchableOpacity style={styles.add}>
                             <Text
                               style={styles.formbuttoninput}
                               onPress={() => handleSupportive()}>
@@ -1655,6 +1622,13 @@ const FourthRoute = () => {
               </>
             );
           })}
+        </View>
+        <View style={{bottom: 15}}>
+          <TouchableOpacity
+            style={styles.formbutton}
+            onPress={() => route.change()}>
+            <Text style={styles.formbuttoninput}>Submit </Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -1684,7 +1658,6 @@ export default function TabViewExample() {
       activeColor={'#f37e20'}
       inactiveColor={'gray'}
       indicatorStyle={{
-       
         backgroundColor: '#f37e20',
 
         borderColor: '#ccc',
@@ -1703,8 +1676,7 @@ export default function TabViewExample() {
         borderColor: '#f2f7fa',
         top: 10,
       }}
-      labelStyle={{ fontSize: 9,fontFamily:'Lato-Bold',
-    }}
+      labelStyle={{fontSize: 9, fontFamily: 'Lato-Bold'}}
     />
   );
   return (
@@ -1821,8 +1793,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#ffffff',
     fontSize: 14,
-    fontFamily: 'lato',
-    fontFamily:'Lato-Bold'
+    fontFamily: 'Lato-Bold',
   },
   formbutton1: {
     alignSelf: 'center',
@@ -1963,7 +1934,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignContent: 'center',
     padding: 5,
-    marginLeft:5
+    marginLeft: 5,
   },
   formbuttonsubmit: {
     alignSelf: 'center',
@@ -2042,23 +2013,20 @@ const styles = StyleSheet.create({
   },
   placeholderStyle: {
     fontSize: 14,
-    color:'gray'
+    color: 'gray',
   },
   selectedTextStyle: {
     fontSize: 14,
-    color:'#000'
-
+    color: '#000',
   },
   iconStyle: {
     width: 20,
     height: 20,
-
   },
   inputSearchStyle: {
     height: 40,
     fontSize: 16,
-    color:"#000"
-    
+    color: '#000',
   },
   icon: {
     marginRight: 5,
@@ -2103,7 +2071,6 @@ const styles = StyleSheet.create({
     borderColor: '#bdc3c7',
     borderRadius: 5,
     width: wp('90%'),
-    
   },
   droppingn: {
     marginLeft: 3,
@@ -2131,7 +2098,7 @@ const styles = StyleSheet.create({
   textInput: {
     height: hp('7%'),
     borderRadius: 5,
-    Color:"gray",
+    Color: 'gray',
 
     borderWidth: 1,
     marginTop: 10,
@@ -2150,14 +2117,42 @@ const styles = StyleSheet.create({
     backgroundColor: '#ecf0f1',
     padding: 5,
   },
-  Initiatebutton:{
+  Initiatebutton: {
     alignSelf: 'center',
     width: wp('45%'),
     height: hp('6%'),
     justifyContent: 'center',
     borderRadius: 10,
-    backgroundColor: '#ff6b00',
-    marginTop: 14,
+    backgroundColor: '#00bad7',
     marginLeft: 5,
+    bottom:10
+  },
+  add: {
+    alignSelf: 'center',
+    width: wp('49%'),
+    height: hp('6%'),
+    justifyContent: 'center',
+    borderRadius: 10,
+    backgroundColor: '#46bb95',
+    marginTop: 14,
+  },
+  counsInput: {
+    padding: 10,
+    borderRadius: 5,
+    color: '#555',
+    backgroundColor: '#ecf0f1',
+    fontFamily: 'Lato',
+    height: hp('14.5%'),
+  },
+  tabfourfirst1:{
+    height: hp('15%'),
+    borderRadius: 5,
+    width: wp('90%'),
+
+    borderWidth: 2,
+    marginTop: 10,
+    marginLeft: 8,
+    borderColor: '#ccc',
   }
+  
 });

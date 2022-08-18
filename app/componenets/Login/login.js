@@ -27,60 +27,90 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
 import {faLock} from '@fortawesome/free-solid-svg-icons/faLock';
 import images from '../Images/image';
-import Constants from 'expo-constants';
+import {useDispatch, useSelector} from 'react-redux';
+import {usersLogin, userLoginResponse} from '../../Redux/Action';
 
 const Login = () => {
   const navigation = useNavigation();
 
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [login, setLogin] = useState({EmailId: '', Password: ''});
 
-  const onChangeNameHandler = fullName => {
-    setFullName(fullName);
-  };
+  let dispatch = useDispatch();
+  let loginResponse = useSelector(state => state.Login.loginSuccessfull);
 
-  const onChangeEmailHandler = email => {
-    setEmail(email);
-  };
-  const onSubmitFormHandler = async event => {
-    if (!fullName.trim() || !email.trim()) {
-      alert('Name or Email is invalid');
-      return;
+  useEffect(() => {
+    console.log(loginResponse);
+  }, []);
+
+  const initialErrorMessage = {EmailId: '', Password: ''};
+
+  const [error, setError] = useState(initialErrorMessage);
+
+  useEffect(() => {
+    let a = {EmailId: '', Password: ''};
+
+    if (
+      loginResponse?.StatusCode === 400 &&
+      loginResponse?.StatusMessage === 'Email not found.'
+    ) {
+      setError({...error, EmailId: '*Email does not exists!'});
+      dispatch(userLoginResponse(''));
+    } else if (
+      loginResponse?.StatusCode === 400 &&
+      loginResponse?.StatusMessage === 'Incorrect password.'
+    ) {
+      setError({...error, Password: '*Incorrect Password!'});
+      dispatch(userLoginResponse(''));
+    } else if (loginResponse?.StatusCode === 500) {
+      alert(loginResponse.StatusMessage);
+      console.log('ter', loginResponse.StatusMessage);
+      dispatch(userLoginResponse(''));
+    } else if (loginResponse?.StatusCode === 201) {
+      alert(loginResponse.StatusMessage);
+      dispatch(userLoginResponse(''));
+      setTimeout(() => {
+        navigation.navigate('Drawer');
+      }, 0);
     }
-    setIsLoading(true);
-    try {
-      const response = await axios
-        .post(`https://reqres.in/api/users`, {
-          name: 'padma',
-          job: 'devloper',
-        })
-        .then(function (response) {
-          console.log(response, 'respone');
-        })
-        .catch(function (error) {
-          console.log('error', error);
-        });
-      console.log('welcome');
+  }, [loginResponse]);
 
-      if (response.status === 201) {
-        alert(` You have created: ${JSON.stringify(response.data)}`);
-        setIsLoading(false);
-        setFullName('');
-        setEmail('');
-      } else {
-        throw new Error('An error has occurred');
-      }
-    } catch (error) {
-      alert('An error has occurred');
-      console.log(error);
-      setIsLoading(false);
+  function myFunction() {
+    console.log('login', login);
+    const EmailIdRegex = /^[a-z]+\S+@\S+\.\S+/;
+    const PasswordRegex =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,12}$/;
+    let a = {EmailId: '', Password: ''};
+
+    if (!login.EmailId) {
+      console.log('came here1');
+      a.EmailId = '*Please Enter email id!';
     }
-  };
+    if (!login.Password) {
+      console.log('came here2');
+      a.Password = '*Please Enter password!';
+    }
+
+    if (login.EmailId && EmailIdRegex.test(login.EmailId) === false) {
+      console.log('came here3');
+      a.EmailId = '*Please Enter Valid email id!';
+    }
+
+    if (login.Password && PasswordRegex.test(login.Password) === false) {
+      console.log('came here4');
+      a.Password = '*Please Enter Valid password!';
+    }
+
+    if (Object.values(a).every(el => el === '')) {
+      setError(a);
+      dispatch(usersLogin(login));
+    } else {
+      setError(a);
+    }
+  }
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView >
+      <ScrollView>
         <ImageBackground
           source={images.worldvision_loginbackground}
           style={styles.logo1}></ImageBackground>
@@ -103,7 +133,7 @@ const Login = () => {
 
         <View style={styles.form}>
           <View style={styles.loginusernamemain}>
-            <Text style={styles.username}>User Name</Text>
+            <Text style={styles.username}>Email</Text>
             <View style={styles.customtextinput}>
               <FontAwesomeIcon
                 icon={faUser}
@@ -113,15 +143,19 @@ const Login = () => {
               />
               <TextInput
                 style={styles.input}
-                placeholder="User Name"
+                placeholder="Email Id"
                 placeholderTextColor="#9e9e9e"
                 textAlign="left"
-                value={fullName}
-                editable={!isLoading}
-                onChangeText={onChangeNameHandler}
+                value={login.EmailId}
+                required
+                onChangeText={e => setLogin({...login, EmailId: e})}
               />
             </View>
+            {error?.EmailId && (
+              <Text style={styles.emailvali}>{error?.EmailId}</Text>
+            )}
           </View>
+
           <View style={styles.loginpasswordmain}>
             <Text style={styles.loginpassword}>Password</Text>
             <View style={styles.customtextinput2}>
@@ -135,9 +169,14 @@ const Login = () => {
                 style={styles.input}
                 placeholder="Password"
                 placeholderTextColor="#9e9e9e"
-                secureTextEntry={true}
+                value={login.Password}
+                required
+                onChangeText={e => setLogin({...login, Password: e})}
               />
             </View>
+            {error?.Password && (
+              <Text style={styles.emailvali1}>{error?.Password}</Text>
+            )}
           </View>
 
           <View
@@ -165,13 +204,12 @@ const Login = () => {
             }}>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => navigation.navigate('Drawer')}
-              disabled={isLoading}>
+              onPress={e => myFunction(e)}>
               <Text style={styles.buttoninput}>LOG-IN</Text>
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{flex: 3,top: -30}}>
+        <View style={{flex: 3, top: -30}}>
           <Text
             style={{
               fontSize: 15,
@@ -189,45 +227,12 @@ const Login = () => {
                   color: '#ff6b00',
                   textAlign: 'center',
                   fontFamily: 'Lato-Regular',
-                
                 }}>
                 Terms & Conditions and Privacy Policy.
               </Text>
             </TouchableOpacity>
           </Text>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-evenly',
-              paddingHorizontal: 50,
-              margin: 20,
-              flex: 1,
-            }}>
-            <TouchableOpacity>
-              <Image
-                source={images.worldvision_fb}
-                style={{width: 25, height: 25, paddingHorizontal: 4}}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Image
-                source={images.worldvision_linkedin}
-                style={{width: 25, height: 25, padding: 5}}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Image
-                source={images.worldvision_twitter}
-                style={{width: 25, height: 25}}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Image
-                source={images.worldvision_mail}
-                style={{width: 25, height: 25}}
-              />
-            </TouchableOpacity>
-          </View>
+
           <View
             style={{
               justifyContent: 'center',
@@ -239,8 +244,7 @@ const Login = () => {
                 fontSize: 13,
                 fontFamily: 'Lato-Regular',
                 color: '#000',
-
-
+                top: 10,
               }}>
               © Copyright 2022, All rights Reserved
             </Text>
@@ -278,7 +282,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#ffff',
+    backgroundColor: '#fff',
 
     borderColor: 'gray',
     elevation: 2,
@@ -363,7 +367,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     marginLeft: 40,
     fontFamily: 'Lato-Bold',
-    flex:1
+    flex: 1,
   },
   loginpasswordmain: {
     top: -30,
@@ -398,6 +402,17 @@ const styles = StyleSheet.create({
     fontSize: 13,
     marginTop: 5,
     fontFamily: 'Lato-Regular',
+  },
+  emailvali: {
+    color: 'red',
+    marginRight: 160,
+    top:5
+
+  },
+  emailvali1: {
+    color: 'red',
+    marginRight: 150,
+    top:5
   },
 });
 

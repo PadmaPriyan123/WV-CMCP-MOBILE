@@ -44,6 +44,7 @@ function CustomDrawerContent(props) {
         <DrawerItem
           labelStyle={styles.logoutlablestyle}
           label="LOGOUT"
+          onPress={() => props.navigation.navigate('Login')}
           icon={({color}) => (
             <FontAwesomeIcon
               icon={faArrowRightFromBracket}
@@ -250,7 +251,7 @@ const styles = StyleSheet.create({
   },
   logoutlablestyle: {
     fontFamily: 'Lato-Bold',
-    fontSize: 17,
+    fontSize: 14,
     justifyContent: 'center',
     alignContent: 'center',
     color: '#fff',
