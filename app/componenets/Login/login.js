@@ -79,7 +79,7 @@ const OTPScreen = () => {
     setLoginType(false);
   }
 
-  function myFunction() {
+  function onFunction() {
     var a = {
       message: '',
     };
@@ -304,7 +304,7 @@ const OTPScreen = () => {
                     disabled={isLoading}
                     status={otpCheck == 'first' ? 'checked' : 'unchecked'}
                     onPress={() => {
-                      myFunction();
+                      onFunction();
                       setCounter(29);
                     }}>
                     <Text style={styles.buttoninput}>LOG-IN</Text>
@@ -319,7 +319,7 @@ const OTPScreen = () => {
                     style={styles.button}
                     disabled={isLoading}
                     onPress={() => {
-                      myFunction();
+                      onFunction();
                       verifyOTP();
                     }}>
                     <Text style={styles.buttoninput}>LOG-IN</Text>

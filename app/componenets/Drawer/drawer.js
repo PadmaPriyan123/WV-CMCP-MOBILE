@@ -7,7 +7,7 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import {useNavigation} from '@react-navigation/native';
-
+import {Dropdown} from 'react-native-element-dropdown';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faChartLine} from '@fortawesome/free-solid-svg-icons/faChartLine';
 import {faIndent} from '@fortawesome/free-solid-svg-icons/faIndent';
@@ -26,6 +26,13 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+
+const [verical, setvertical] = useState(null);
+const profile = [
+  {label: 'Profile', value: '1'},
+
+  {label: 'Sign out', value: '2'},
+];
 
 function CustomDrawerContent(props) {
   return (
@@ -121,8 +128,25 @@ export default function MyDrawer({navigation}) {
                 <FontAwesomeIcon
                   icon={faEllipsisVertical}
                   size={20}
-                  color="white"
-                />
+                  color="white">
+                    <Dropdown
+                      containerStyle={{backgroundColor: '#ecf0f1'}}
+                      style={styles.dropping}
+                      placeholderStyle={styles.placeholderStyle}
+                      selectedTextStyle={styles.selectedTextStyle}
+                      iconStyle={styles.iconStyle}
+                      data={data4}
+                      maxHeight={250}
+                      labelField="label"
+                      valueField="value"
+                      placeholder="Select Grampanchayat"
+                      value={value4}
+                      onChange={item => {
+                        setValue4(item.value);
+                      }}
+                    />
+                
+                </FontAwesomeIcon>
               </TouchableOpacity>
             </View>
           ),
