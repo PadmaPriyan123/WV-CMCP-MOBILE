@@ -377,7 +377,7 @@ const OTPScreen = () => {
               <View
                 style={{
                   flexDirection: 'row',
-                  bottom: 50,
+                  bottom: 58,
                   justifyContent: 'space-between',
                 }}>
                 <BouncyCheckbox
@@ -593,8 +593,8 @@ const styles = StyleSheet.create({
   or: {
     fontSize: 20,
     color: '#ff6b00',
-    marginLeft: 40,
-    marginRight: 20,
+    marginLeft: 20,
+    marginRight: 10,
     fontFamily: 'Lato-Bold',
   },
   otpname3: {
@@ -633,6 +633,7 @@ const styles = StyleSheet.create({
   otpname4: {
     flexDirection: 'row',
     bottom: 22,
+    justifyContent: 'center',
   },
 
   otpdiv: {
