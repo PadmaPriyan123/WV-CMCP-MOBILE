@@ -134,6 +134,7 @@ const OTPScreen = () => {
     setOTPInputValue2('');
     setOTPInputValue3('');
     setOTPInputValue4('');
+    setOtpError('');
   };
 
   const verifyOTP = () => {
@@ -270,27 +271,30 @@ const OTPScreen = () => {
                       />
                     </View>
                   </View>
-                  <View style={styles.otperrmsg}>
-                    {otpError?.message && (
-                      <Text style={styles.message}>{otpError?.message}</Text>
+
+                  <View style={styles.otperrmsgresend}>
+                    <View style={styles.otperrmsg}>
+                      {otpError?.message && (
+                        <Text style={styles.message}>{otpError?.message}</Text>
+                      )}
+                    </View>
+
+                    {counter == 0 ? (
+                      <View style={styles.otpvalidmsg}>
+                        <Text
+                          disabled={enableResend}
+                          onPress={resendOTP}
+                          style={styles.otpresend}>
+                          Resend OTP
+                        </Text>
+                      </View>
+                    ) : (
+                      <View style={styles.otpvalidmsg}>
+                        <Text> OTP expires in </Text>
+                        <Text style={styles.numbercount}>00:{counter}</Text>
+                      </View>
                     )}
                   </View>
-
-                  {counter == 0 ? (
-                    <View style={styles.otpvalidmsg}>
-                      <Text
-                        disabled={enableResend}
-                        onPress={resendOTP}
-                        style={styles.otpresend}>
-                        Resend OTP
-                      </Text>
-                    </View>
-                  ) : (
-                    <View style={styles.otpvalidmsg}>
-                      <Text> OTP expires in </Text>
-                      <Text style={styles.numbercount}>00:{counter}</Text>
-                    </View>
-                  )}
                 </View>
               )}
 
@@ -505,7 +509,7 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     marginLeft: 5,
     marginRight: 5,
-    bottom: 38,
+    bottom: 40,
   },
   buttoninput: {
     textAlign: 'center',
@@ -631,7 +635,7 @@ const styles = StyleSheet.create({
   },
   otpname4: {
     flexDirection: 'row',
-    bottom: 22,
+    bottom: 28,
     justifyContent: 'center',
   },
 
@@ -639,6 +643,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     margin: 10,
     padding: 10,
+    top: 10,
     justifyContent: 'center',
   },
   buttoninput: {
@@ -648,6 +653,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Lato-Bold',
   },
   mainotpcontainer: {
+    top: 5,
     height: hp('48%'),
   },
 
@@ -655,7 +661,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: 'Lato-Bold',
     marginLeft: 40,
-    bottom: 70,
+    bottom: 55,
     color: '#000',
   },
   message: {
@@ -665,14 +671,12 @@ const styles = StyleSheet.create({
   },
   otpvalidmsg: {
     flexDirection: 'row',
-    bottom: 70,
-    marginLeft: 40,
+    bottom: 100,
     color: 'red',
   },
   otperrmsg: {
-    flex: 1,
     flexDirection: 'row',
-    marginLeft: 80,
+    marginLeft: 50,
   },
   numbercount: {
     color: 'red',
@@ -711,6 +715,11 @@ const styles = StyleSheet.create({
   },
   otpresend: {
     color: 'red',
+  },
+  otperrmsgresend: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    top: 20,
   },
 });
 

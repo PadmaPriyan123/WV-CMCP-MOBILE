@@ -129,23 +129,6 @@ export default function MyDrawer({navigation}) {
                   icon={faEllipsisVertical}
                   size={20}
                   color="white">
-                    <Dropdown
-                      containerStyle={{backgroundColor: '#ecf0f1'}}
-                      style={styles.dropping}
-                      placeholderStyle={styles.placeholderStyle}
-                      selectedTextStyle={styles.selectedTextStyle}
-                      iconStyle={styles.iconStyle}
-                      data={data4}
-                      maxHeight={250}
-                      labelField="label"
-                      valueField="value"
-                      placeholder="Select Grampanchayat"
-                      value={value4}
-                      onChange={item => {
-                        setValue4(item.value);
-                      }}
-                    />
-                
                 </FontAwesomeIcon>
               </TouchableOpacity>
             </View>
