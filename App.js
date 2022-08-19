@@ -10,6 +10,8 @@ import Notification from './app/componenets/Notification/Notification';
 import store from '../WV-CMCP-MOBILE/app/Redux/Store';
 import {Provider} from 'react-redux';
 import {StatusBar} from 'react-native';
+import Victims from './app/componenets/Form/IncidentLog/victim';
+
 
 const Stack = createStackNavigator();
 
@@ -64,6 +66,11 @@ function App() {
             component={MyDrawer}
             options={{headerShown: false}}
           />
+          {/* <Stack.Screen
+            name="FirstRoute"
+            component={Victims}
+            options={{headerShown: false}}
+          /> */}
         </Stack.Navigator>
 
         <StatusBar

@@ -19,6 +19,7 @@ const commonFetch = async (url, Method, bodyData, paramsHeader) => {
   await axios(headerComponent)
     .then(response => (result = response.data))
     .catch(error => (result = error.response.data));
+    console.log('hellow',result)
 
   return await result;
 };
