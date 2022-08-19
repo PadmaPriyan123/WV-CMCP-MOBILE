@@ -681,7 +681,7 @@ const styles = StyleSheet.create({
   errmessage: {
     color: 'red',
     marginRight: 110,
-    bottom: 80,
+    bottom: 75,
     height: hp('3%'),
   },
   footer: {
