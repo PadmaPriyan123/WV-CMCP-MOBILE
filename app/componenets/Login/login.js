@@ -593,8 +593,7 @@ const styles = StyleSheet.create({
   or: {
     fontSize: 20,
     color: '#ff6b00',
-    marginLeft: 20,
-    marginRight: 10,
+    marginRight: 15,
     fontFamily: 'Lato-Bold',
   },
   otpname3: {
@@ -685,7 +684,6 @@ const styles = StyleSheet.create({
     height: hp('3%'),
   },
   footer: {
-    flex: 1,
     bottom: 15,
     height: hp('10%'),
     alignItems: 'center',
