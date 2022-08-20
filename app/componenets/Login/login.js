@@ -3,6 +3,7 @@ import {
   View,
   Text,
   StyleSheet,
+  Image,
   TextInput,
   Button,
   Image,
@@ -29,6 +30,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {faLock} from '@fortawesome/free-solid-svg-icons/faLock';
 import images from '../Images/image';
+import {useDispatch, useSelector} from 'react-redux';
+import {usersLogin, userLoginResponse} from '../../Redux/Action';
 
 const OTPScreen = () => {
   const navigation = useNavigation();
@@ -153,17 +156,194 @@ const OTPScreen = () => {
     setOtpError(err);
   };
 
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [oTPInputValue1, setOTPInputValue1] = React.useState('');
+  const [oTPInputValue2, setOTPInputValue2] = React.useState('');
+  const [oTPInputValue3, setOTPInputValue3] = React.useState('');
+  const [oTPInputValue4, setOTPInputValue4] = React.useState('');
 
-  const onChangeNameHandler = fullName => {
-    setFullName(fullName);
+  const [otpCheck, setOtpCheck] = React.useState('');
+  const [logintype, setLoginType] = React.useState(false);
+  const [enableVerifyOTP, setEnableVerifyOTP] = React.useState(false);
+  const [number, setNumber] = React.useState({number: ''});
+
+  function clearAll() {
+    setOTPInputValue1('');
+    setOTPInputValue2('');
+    setOTPInputValue3('');
+    setOTPInputValue4('');
+    setError1('');
+    setCounter('00');
+    setOtpCheck('');
+    setEnableVerifyOTP(false);
+    setLoginType(false);
+    setNumber({...number, number: ''});
+  }
+
+  const [otp, setOtp] = useState(true);
+
+  const initialErrorMessage1 = {message: ''};
+  const initialOTPErrorMessage = {message: ''};
+  const [error1, setError1] = useState(initialErrorMessage1);
+  const [otpError, setOtpError] = useState(initialOTPErrorMessage);
+
+  function redirectToOtp() {
+    setOtpCheck('');
+    setNumber('');
+    setError1('');
+    setOtpError('');
+    clearAll();
+    setCounter(29);
+    setEnableVerifyOTP(false);
+    setLoginType(false);
+  }
+
+  function onFunction() {
+    var a = {
+      message: '',
+    };
+    var empty = /^$/;
+    var num = /^[0-9]{10}$/;
+
+    if (!number.number) {
+      a.message = '*Please enter the mobile number';
+    }
+    if (!num.test(number.number) && !empty.test(number.number)) {
+      a.message = '*Enter 10 digit mobile number';
+    }
+    if (num.test(number.number)) {
+      setOtpCheck('first');
+      setOtpError('');
+    }
+    console.log(number.number);
+
+    if (Object.values(a).every(el => el == '')) {
+      console.log(Object.values(a).every(el => el == ''));
+      setError1(a);
+      setOtp(true);
+      setEnableVerifyOTP(true);
+    } else {
+      setError1(a);
+    }
+  }
+
+  const [counter, setCounter] = React.useState(29);
+  const [enableResend, setEnableResend] = React.useState(true);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      if (counter > 0) {
+        setCounter(counter - 1);
+      }
+      if (counter === 0) {
+        setEnableResend(false);
+        setCounter('00');
+        clearInterval(timer);
+      }
+    }, 1000);
+    return () => {
+      clearInterval(timer);
+    };
+  });
+
+  const resendOTP = () => {
+    setCounter(29);
+    setEnableResend(true);
+    setOTPInputValue1('');
+    setOTPInputValue2('');
+    setOTPInputValue3('');
+    setOTPInputValue4('');
   };
 
-  const onChangeEmailHandler = email => {
-    setEmail(email);
+  const verifyOTP = () => {
+    let err = {
+      message: '',
+    };
+    let otp = oTPInputValue1 + oTPInputValue2 + oTPInputValue3 + oTPInputValue4;
+    if (otp == '') {
+      err.message = '*Please enter the OTP';
+    } else if (otp == '1234') {
+      navigation.navigate('Drawer');
+      clearAll();
+    } else {
+      err.message = '*Invalid OTP';
+    }
+    setOtpError(err);
   };
+
+  const [login, setLogin] = useState({EmailId: '', Password: ''});
+
+  let dispatch = useDispatch();
+  let loginResponse = useSelector(state => state.Login.loginSuccessfull);
+
+  useEffect(() => {
+    console.log(loginResponse);
+  }, []);
+
+  const initialErrorMessage = {EmailId: '', Password: ''};
+
+  const [error, setError] = useState(initialErrorMessage);
+
+  useEffect(() => {
+    let a = {EmailId: '', Password: ''};
+
+    if (
+      loginResponse?.StatusCode === 400 &&
+      loginResponse?.StatusMessage === 'Email not found.'
+    ) {
+      setError({...error, EmailId: '*Email does not exists!'});
+      dispatch(userLoginResponse(''));
+    } else if (
+      loginResponse?.StatusCode === 400 &&
+      loginResponse?.StatusMessage === 'Incorrect password.'
+    ) {
+      setError({...error, Password: '*Incorrect Password!'});
+      dispatch(userLoginResponse(''));
+    } else if (loginResponse?.StatusCode === 500) {
+      alert(loginResponse.StatusMessage);
+      console.log('ter', loginResponse.StatusMessage);
+      dispatch(userLoginResponse(''));
+    } else if (loginResponse?.StatusCode === 201) {
+      alert(loginResponse.StatusMessage);
+      dispatch(userLoginResponse(''));
+      setTimeout(() => {
+        navigation.navigate('Drawer');
+      }, 0);
+    }
+  }, [loginResponse]);
+
+  function myFunction() {
+    console.log('login', login);
+    const EmailIdRegex = /^[a-z]+\S+@\S+\.\S+/;
+    const PasswordRegex =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,12}$/;
+    let a = {EmailId: '', Password: ''};
+
+    if (!login.EmailId) {
+      console.log('came here1');
+      a.EmailId = '*Please Enter email id!';
+    }
+    if (!login.Password) {
+      console.log('came here2');
+      a.Password = '*Please Enter password!';
+    }
+
+    if (login.EmailId && EmailIdRegex.test(login.EmailId) === false) {
+      console.log('came here3');
+      a.EmailId = '*Please Enter Valid email id!';
+    }
+
+    if (login.Password && PasswordRegex.test(login.Password) === false) {
+      console.log('came here4');
+      a.Password = '*Please Enter Valid password!';
+    }
+
+    if (Object.values(a).every(el => el === '')) {
+      setError(a);
+      dispatch(usersLogin(login));
+    } else {
+      setError(a);
+    }
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -341,7 +521,7 @@ const OTPScreen = () => {
           ) : (
             <View style={styles.form}>
               <View style={styles.loginusernamemain}>
-                <Text style={styles.username}>User Name</Text>
+                <Text style={styles.username}>Email</Text>
                 <View style={styles.customtextinput}>
                   <FontAwesomeIcon
                     icon={faUser}
@@ -351,14 +531,17 @@ const OTPScreen = () => {
                   />
                   <TextInput
                     style={styles.input}
-                    placeholder="User Name"
+                    placeholder="Enter the Email"
                     placeholderTextColor="#9e9e9e"
                     textAlign="left"
-                    value={fullName}
-                    editable={!isLoading}
-                    onChangeText={onChangeNameHandler}
+                    value={login.EmailId}
+                    required
+                    onChangeText={e => setLogin({...login, EmailId: e})}
                   />
                 </View>
+                {error?.EmailId && (
+                  <Text style={styles.emailvali}>{error?.EmailId}</Text>
+                )}
               </View>
               <View style={styles.loginpasswordmain}>
                 <Text style={styles.loginpassword}>Password</Text>
@@ -371,11 +554,16 @@ const OTPScreen = () => {
                   />
                   <TextInput
                     style={styles.input}
-                    placeholder="Password"
+                    placeholder="Enter the Password"
                     placeholderTextColor="#9e9e9e"
-                    secureTextEntry={true}
+                    value={login.Password}
+                    required
+                    onChangeText={e => setLogin({...login, Password: e})}
                   />
                 </View>
+                {error?.Password && (
+                  <Text style={styles.emailvali1}>{error?.Password}</Text>
+                )}
               </View>
 
               <View
@@ -468,6 +656,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#ffff',
+
     borderColor: 'gray',
     elevation: 2,
     borderWidth: 0.7,
@@ -491,8 +680,9 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    height: hp('6.5%'),
+    height: hp('6%'),
     width: wp('60%'),
+
     borderRadius: 10,
     borderColor: 'gray',
     fontFamily: 'Lato-Regular',
@@ -522,7 +712,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   loginlogo: {
-    top: -70,
+    top: -50,
     backgroundColor: '#fff',
     width: wp('100%'),
     height: hp('14%'),
@@ -720,6 +910,143 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     top: 20,
+  },
+  OTPinput: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  or: {
+    fontSize: 20,
+    color: '#ff6b00',
+    marginRight: 15,
+    fontFamily: 'Lato-Bold',
+  },
+  otpname3: {
+    fontSize: 18,
+    color: '#ff6b00',
+    fontFamily: 'Lato-Bold',
+  },
+  inputotp: {
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: 'gray',
+    fontFamily: 'Lato-Regular',
+    backgroundColor: '#ffff',
+    textAlign: 'center',
+  },
+  otpsmall: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#ffff',
+    borderColor: 'gray',
+    elevation: 2,
+    borderWidth: 0.7,
+    width: 45,
+    borderRadius: 3,
+    height: 45,
+    margin: 15,
+    bottom: 80,
+  },
+
+  otpname: {
+    fontSize: 20,
+    marginTop: 30,
+    marginLeft: -20,
+  },
+  otpname4: {
+    flexDirection: 'row',
+    bottom: 22,
+    justifyContent: 'center',
+  },
+
+  otpdiv: {
+    flexDirection: 'row',
+    margin: 10,
+    padding: 10,
+    justifyContent: 'center',
+  },
+  buttoninput: {
+    textAlign: 'center',
+    color: '#fff',
+    fontSize: 20,
+    fontFamily: 'Lato-Bold',
+  },
+  mainotpcontainer: {
+    height: hp('48%'),
+  },
+
+  otpboxname: {
+    fontSize: 18,
+    fontFamily: 'Lato-Bold',
+    marginLeft: 40,
+    bottom: 70,
+    color: '#000',
+  },
+  message: {
+    color: 'red',
+    marginLeft: -45,
+    marginTop: -100,
+  },
+  otpvalidmsg: {
+    flexDirection: 'row',
+    bottom: 70,
+    marginLeft: 40,
+    color: 'red',
+  },
+  otperrmsg: {
+    flex: 1,
+    flexDirection: 'row',
+    marginLeft: 80,
+  },
+  numbercount: {
+    color: 'red',
+  },
+  errmessage: {
+    color: 'red',
+    marginRight: 110,
+    bottom: 75,
+    height: hp('3%'),
+  },
+  footer: {
+    bottom: 15,
+    height: hp('10%'),
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  footertext: {
+    fontSize: 14,
+    top: 3,
+    color: '#000',
+    textAlign: 'center',
+    fontFamily: 'Lato-Regular',
+  },
+  footertext2: {
+    fontSize: 16,
+    top: 5,
+    color: '#ff6b00',
+    textAlign: 'center',
+    fontFamily: 'Lato-Regular',
+  },
+  footertext3: {
+    fontSize: 14,
+    marginTop: 15,
+    fontFamily: 'Lato-Regular',
+    color: '#000',
+  },
+  otpresend: {
+    color: 'red',
+  },
+  emailvali: {
+    color: 'red',
+    bottom: 75,
+    marginRight: 150,
+  },
+  emailvali1: {
+    color: 'red',
+    bottom: 35,
+    marginRight: 140,
   },
 });
 

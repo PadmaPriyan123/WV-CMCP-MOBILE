@@ -6,8 +6,9 @@ import {
   StyleSheet,
   ImageBackground,
   Button,
-  TouchableOpacity,Modal,Pressable
-
+  TouchableOpacity,
+  Modal,
+  Pressable,
 } from 'react-native';
 import DropShadow from 'react-native-drop-shadow';
 import images from '../Images/image';
@@ -15,10 +16,10 @@ import {Card, TextInput} from 'react-native-paper';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCircleChevronRight} from '@fortawesome/free-solid-svg-icons/faCircleChevronRight';
 import {faAngleDown} from '@fortawesome/free-solid-svg-icons/faAngleDown';
-import {faMagnifyingClass} from '@fortawesome/free-solid-svg-icons/faMagnifyingClass';
+import {faSearch} from '@fortawesome/free-solid-svg-icons/faSearch';
 
 import {ScrollView} from 'react-native-gesture-handler';
-import { Searchbar } from 'react-native-paper';
+import {Searchbar} from 'react-native-paper';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -51,7 +52,7 @@ const Incident = ({navigation}) => {
       ? `${tempDate[0]} ${tempDate[1]} ${tempDate[2]} ${tempDate[3]}`
       : '';
   };
-  const [modalVisible, setModalVisible] =React. useState(false);
+  const [modalVisible, setModalVisible] = React.useState(false);
 
   const [searchQuery, setSearchQuery] = React.useState('');
 
@@ -60,37 +61,35 @@ const Incident = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        
-        <View style={{display:'flex',flexDirection:'row'}}>
-          
-      <Searchbar
-      style={{    width: wp('60%') ,height:hp('6%'),    borderRadius:5,marginLeft:10
-    }}
-      placeholder="Search"
-      pla
-      onChangeText={onChangeSearch}
-      value={searchQuery}
-    />
-    
-    <TouchableOpacity
-          style={styles.fillter}
-          onPress={() => setModalVisible(!modalVisible)}
-    
-        >
-
-          <Text style={styles.input}>Filter
-         
-                  </Text>
-                  <FontAwesomeIcon
-                    style={{ bottom: 5,marginLeft:70}}
-                    icon={faAngleDown}
-                    size={15}
-                    color={'#fff'}
-                    
-                  />
-                               
-        </TouchableOpacity>
-    </View>
+        <View style={{display: 'flex', flexDirection: 'row'}}>
+          <TextInput
+            style={{
+              width: wp('60%'),
+              height: hp('6%'),
+              borderRadius: 5,
+              marginLeft: 10,
+              backgroundColor: '#fff',
+            }}
+            placeholder="Search"
+          />
+          <FontAwesomeIcon
+            style={{right: 30, top: 10}}
+            icon={faSearch}
+            size={25}
+            color={'gray'}
+          />
+          <TouchableOpacity
+            style={styles.fillter}
+            onPress={() => setModalVisible(!modalVisible)}>
+            <Text style={styles.input}>Filter</Text>
+            <FontAwesomeIcon
+              style={{bottom: 5, marginLeft: 70}}
+              icon={faAngleDown}
+              size={15}
+              color={'#fff'}
+            />
+          </TouchableOpacity>
+        </View>
         <View style={styles.container}>
           <DropShadow
             style={{
@@ -108,21 +107,28 @@ const Incident = ({navigation}) => {
                 source={images.worldvision_card}
                 style={styles.cardbackground}>
                 <View style={styles.cardfirstline}>
-                  <Text style={styles.cardcontentheading}>1.Kumaran</Text>
-                  <FontAwesomeIcon
-                
-                    style={{marginRight: 15, marginTop: 10}}
-                    icon={faCircleChevronRight}
-                    size={20}
-                    color={'#fff'}
-                    
-                  />
+                  <Text style={styles.cardcontentheading}>Id:125647</Text>
+                  <Text></Text>
+                  <View>
+                    <FontAwesomeIcon
+                      style={{marginRight: 15, marginTop: 10}}
+                      icon={faCircleChevronRight}
+                      size={20}
+                      color={'#fff'}
+                    />
+                    <Text onPress={() => navigation.navigate('Form')}></Text>
+                  </View>
                 </View>
-
-                <View style={styles.cardcontentpara}>
-                  <Text style={styles.carddetail}>Reporter Name :Chandru </Text>
-                  <Text style={styles.carddetail}>District: Assam</Text>
-                  <Text style={styles.carddetail}>State: Assam</Text>
+                <View style={{display: 'flex', flexDirection: 'row'}}>
+                  <View style={styles.cardcontentpara}>
+                    <Text style={styles.carddetail}> Date:18.05.2021</Text>
+                    <Text style={styles.carddetail}>Gd Entry:678945</Text>
+                    <Text style={styles.carddetail}>FIR no:678945</Text>
+                  </View>
+                  <View style={{right: 120}}>
+                    <Text style={styles.carddetail}> District:Barpeta</Text>
+                    <Text style={styles.carddetail}>State:Assam</Text>
+                  </View>
                 </View>
                 <View style={styles.linethrough}></View>
                 <View style={styles.iconmain}>
@@ -138,15 +144,10 @@ const Incident = ({navigation}) => {
                   <View style={styles.iconmain1}>
                     <Text
                       style={styles.iconname}
-                      onPress={() => navigation.navigate('FirstRoute')}>
+                      onPress={() => navigation.navigate('Form')}>
                       {' '}
                       Edit
                     </Text>
-                  </View>
-                  <View style={styles.verticleLine}></View>
-
-                  <View style={styles.iconmain1}>
-                    <Text style={styles.iconname}> Download</Text>
                   </View>
                 </View>
               </ImageBackground>
@@ -167,18 +168,27 @@ const Incident = ({navigation}) => {
                 source={images.worldvision_card}
                 style={styles.cardbackground}>
                 <View style={styles.cardfirstline}>
-                  <Text style={styles.cardcontentheading}>2.Gunasekaran</Text>
-                  <FontAwesomeIcon
-                    style={{marginRight: 15, marginTop: 10}}
-                    icon={faCircleChevronRight}
-                    size={20}
-                    color={'#fff'}
-                  />
+                  <Text style={styles.cardcontentheading}> Id:125651</Text>
+                  <View>
+                    <FontAwesomeIcon
+                      style={{marginRight: 15, marginTop: 10}}
+                      icon={faCircleChevronRight}
+                      size={20}
+                      color={'#fff'}
+                    />
+                    <Text onPress={() => navigation.navigate('Form')}></Text>
+                  </View>
                 </View>
-                <View style={styles.cardcontentpara}>
-                  <Text style={styles.carddetail}>Reporter Name: Selvam </Text>
-                  <Text style={styles.carddetail}>District: West Bengal</Text>
-                  <Text style={styles.carddetail}>State: West Bengal</Text>
+                <View style={{display: 'flex', flexDirection: 'row'}}>
+                  <View style={styles.cardcontentpara}>
+                    <Text style={styles.carddetail}> Date:17.05.2021</Text>
+                    <Text style={styles.carddetail}>Gd Entry:678991</Text>
+                    <Text style={styles.carddetail}>FIR no:678015</Text>
+                  </View>
+                  <View style={{right: 120}}>
+                    <Text style={styles.carddetail}> District:Udalguri</Text>
+                    <Text style={styles.carddetail}>State:WestBengal</Text>
+                  </View>
                 </View>
                 <View style={styles.linethrough}></View>
                 <View style={styles.iconmain}>
@@ -199,11 +209,6 @@ const Incident = ({navigation}) => {
                       {' '}
                       Edit
                     </Text>
-                  </View>
-                  <View style={styles.verticleLine}></View>
-
-                  <View style={styles.iconmain1}>
-                    <Text style={styles.iconname}> Download</Text>
                   </View>
                 </View>
               </ImageBackground>
@@ -224,20 +229,27 @@ const Incident = ({navigation}) => {
                 source={images.worldvision_card}
                 style={styles.cardbackground}>
                 <View style={styles.cardfirstline}>
-                  <Text style={styles.cardcontentheading}>3.Rajukumar</Text>
-                  <FontAwesomeIcon
-                    style={{marginRight: 15, marginTop: 10}}
-                    icon={faCircleChevronRight}
-                    size={20}
-                    color={'#fff'}
-                  />
+                  <Text style={styles.cardcontentheading}> Id:125761</Text>
+                  <View>
+                    <FontAwesomeIcon
+                      style={{marginRight: 15, marginTop: 10}}
+                      icon={faCircleChevronRight}
+                      size={20}
+                      color={'#fff'}
+                    />
+                    <Text onPress={() => navigation.navigate('Form')}></Text>
+                  </View>
                 </View>
-                <View style={styles.cardcontentpara}>
-                  <Text style={styles.carddetail}>
-                    Reporter Name: Parthiban
-                  </Text>
-                  <Text style={styles.carddetail}>District: Assam</Text>
-                  <Text style={styles.carddetail}>State: Assam</Text>
+                <View style={{display: 'flex', flexDirection: 'row'}}>
+                  <View style={styles.cardcontentpara}>
+                    <Text style={styles.carddetail}> Date:28.05.2021</Text>
+                    <Text style={styles.carddetail}>Gd Entry:678990</Text>
+                    <Text style={styles.carddetail}>FIR no:678715</Text>
+                  </View>
+                  <View style={{right: 120}}>
+                    <Text style={styles.carddetail}> District:Dibrugarh</Text>
+                    <Text style={styles.carddetail}>State:WestBengal</Text>
+                  </View>
                 </View>
                 <View style={styles.linethrough}></View>
                 <View style={styles.iconmain}>
@@ -258,11 +270,6 @@ const Incident = ({navigation}) => {
                       {' '}
                       Edit
                     </Text>
-                  </View>
-                  <View style={styles.verticleLine}></View>
-
-                  <View style={styles.iconmain1}>
-                    <Text style={styles.iconname}> Download</Text>
                   </View>
                 </View>
               </ImageBackground>
@@ -283,18 +290,27 @@ const Incident = ({navigation}) => {
                 source={images.worldvision_card}
                 style={styles.cardbackground}>
                 <View style={styles.cardfirstline}>
-                  <Text style={styles.cardcontentheading}>4.Kadhar</Text>
-                  <FontAwesomeIcon
-                    style={{marginRight: 15, marginTop: 10}}
-                    icon={faCircleChevronRight}
-                    size={20}
-                    color={'#fff'}
-                  />
+                  <Text style={styles.cardcontentheading}>Id:124704</Text>
+                  <View>
+                    <FontAwesomeIcon
+                      style={{marginRight: 15, marginTop: 10}}
+                      icon={faCircleChevronRight}
+                      size={20}
+                      color={'#fff'}
+                    />
+                    <Text onPress={() => navigation.navigate('Form')}></Text>
+                  </View>
                 </View>
-                <View style={styles.cardcontentpara}>
-                  <Text style={styles.carddetail}>Reporter Name: Muthu </Text>
-                  <Text style={styles.carddetail}>District: West Bengal</Text>
-                  <Text style={styles.carddetail}>State: West Bengal</Text>
+                <View style={{display: 'flex', flexDirection: 'row',}}>
+                  <View style={styles.cardcontentpara}>
+                    <Text style={styles.carddetail}> Date:18.08.2021</Text>
+                    <Text style={styles.carddetail}>Gd Entry:958945</Text>
+                    <Text style={styles.carddetail}>FIR no:609945</Text>
+                  </View>
+                  <View style={{right: 120}}>
+                    <Text style={styles.carddetail}> District:Chirang</Text>
+                    <Text style={styles.carddetail}>State:Assam</Text>
+                  </View>
                 </View>
                 <View style={styles.linethrough}></View>
                 <View style={styles.iconmain}>
@@ -315,11 +331,6 @@ const Incident = ({navigation}) => {
                       {' '}
                       Edit
                     </Text>
-                  </View>
-                  <View style={styles.verticleLine}></View>
-
-                  <View style={styles.iconmain1}>
-                    <Text style={styles.iconname}> Download</Text>
                   </View>
                 </View>
               </ImageBackground>
@@ -331,19 +342,28 @@ const Incident = ({navigation}) => {
               source={images.worldvision_card}
               style={styles.cardbackground}>
               <View style={styles.cardfirstline}>
-                <Text style={styles.cardcontentheading}>5.Parthiban</Text>
-                <FontAwesomeIcon
-                  style={{marginRight: 15, marginTop: 10}}
-                  icon={faCircleChevronRight}
-                  size={20}
-                  color={'#fff'}
-                />
+                <Text style={styles.cardcontentheading}>Id:635647</Text>
+                <View>
+                  <FontAwesomeIcon
+                    style={{marginRight: 15, marginTop: 10}}
+                    icon={faCircleChevronRight}
+                    size={20}
+                    color={'#fff'}
+                  />
+                  <Text onPress={() => navigation.navigate('Form')}></Text>
+                </View>
               </View>
-              <View style={styles.cardcontentpara}>
-                <Text style={styles.carddetail}>Reporter Name: Siva </Text>
-                <Text style={styles.carddetail}>District: Assam</Text>
-                <Text style={styles.carddetail}>State: Assam</Text>
-              </View>
+              <View style={{display: 'flex', flexDirection: 'row'}}>
+                  <View style={styles.cardcontentpara}>
+                    <Text style={styles.carddetail}> Date:01.09.2021</Text>
+                    <Text style={styles.carddetail}>Gd Entry:178945</Text>
+                    <Text style={styles.carddetail}>FIR no:679045</Text>
+                  </View>
+                  <View style={{right: 120}}>
+                    <Text style={styles.carddetail}> District:Hojai</Text>
+                    <Text style={styles.carddetail}>State:Assam</Text>
+                  </View>
+                </View>
               <View style={styles.linethrough}></View>
               <View style={styles.iconmain}>
                 <View style={styles.iconmain1}>
@@ -364,98 +384,88 @@ const Incident = ({navigation}) => {
                     Edit
                   </Text>
                 </View>
-                <View style={styles.verticleLine}></View>
-
-                <View style={styles.iconmain1}>
-                  <Text style={styles.iconname}> Download</Text>
-                </View>
               </View>
             </ImageBackground>
           </Card>
-          
         </View>
         <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-          <View style={{marginTop: 16}}>
-              <Text style={styles.Formpopup}>
-                From Date:<Text style={styles.star}>*</Text>
-              </Text>
-              <View style={{marginTop: 5}}>
-                <TextInput
-                  style={styles.textpopup}
-                  value={getDate()}
-                  placeholder="  Enter Date"
-                  placeholderTextColor="gray"
-
-                />
-
-                <Text
-                  style={{marginLeft: 230, bottom: 40}}
-                  onPress={showDatePicker}>
-                  <FontAwesomeIcon
-                    size={20}
-                    icon={faCalendarDays}
-                    title="Show Picker"
-                    color="#00bad7"
-                  />
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+            setModalVisible(!modalVisible);
+          }}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <View style={{marginTop: 16}}>
+                <Text style={styles.Formpopup}>
+                  From Date:<Text style={styles.star}>*</Text>
                 </Text>
-                <DateTimePickerModal
-                  isVisible={isDatePickerVisible}
-                  mode="date"
-                  onConfirm={handleConfirm}
-                  onCancel={hideDatePicker}
-                />
-              </View>
-            </View>
-            <View style={{marginTop: 16}}>
-              <Text style={styles.Formpopup}>
-                To Date:<Text style={styles.star}>*</Text>
-              </Text>
-              <View style={{marginTop: 5}}>
-                <TextInput
-                  style={styles.textpopup}
-                  value={getDate()}
-                  placeholder="  Enter Date"
-                  placeholderTextColor="gray"
-
-                />
-
-                <Text
-                  style={{marginLeft: 230, bottom: 40}}
-                  onPress={showDatePicker}>
-                  <FontAwesomeIcon
-                    size={20}
-                    icon={faCalendarDays}
-                    title="Show Picker"
-                    color="#00bad7"
+                <View style={{marginTop: 5}}>
+                  <TextInput
+                    style={styles.textpopup}
+                    value={getDate()}
+                    placeholder="  Enter Date"
+                    placeholderTextColor="gray"
                   />
-                </Text>
-                <DateTimePickerModal
-                  isVisible={isDatePickerVisible}
-                  mode="date"
-                  onConfirm={handleConfirm}
-                  onCancel={hideDatePicker}
-                />
+
+                  <Text
+                    style={{marginLeft: 230, bottom: 40}}
+                    onPress={showDatePicker}>
+                    <FontAwesomeIcon
+                      size={20}
+                      icon={faCalendarDays}
+                      title="Show Picker"
+                      color="#00bad7"
+                    />
+                  </Text>
+                  <DateTimePickerModal
+                    isVisible={isDatePickerVisible}
+                    mode="date"
+                    onConfirm={handleConfirm}
+                    onCancel={hideDatePicker}
+                  />
+                </View>
               </View>
+              <View style={{marginTop: 16}}>
+                <Text style={styles.Formpopup}>
+                  To Date:<Text style={styles.star}>*</Text>
+                </Text>
+                <View style={{marginTop: 5}}>
+                  <TextInput
+                    style={styles.textpopup}
+                    value={getDate()}
+                    placeholder="  Enter Date"
+                    placeholderTextColor="gray"
+                  />
+
+                  <Text
+                    style={{marginLeft: 230, bottom: 40}}
+                    onPress={showDatePicker}>
+                    <FontAwesomeIcon
+                      size={20}
+                      icon={faCalendarDays}
+                      title="Show Picker"
+                      color="#00bad7"
+                    />
+                  </Text>
+                  <DateTimePickerModal
+                    isVisible={isDatePickerVisible}
+                    mode="date"
+                    onConfirm={handleConfirm}
+                    onCancel={hideDatePicker}
+                  />
+                </View>
+              </View>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}>
+                <Text style={styles.textStyle}>Close</Text>
+              </Pressable>
             </View>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={styles.textStyle}>Close</Text>
-            </Pressable>
           </View>
-        </View>
-      </Modal>
+        </Modal>
       </ScrollView>
     </SafeAreaView>
   );
@@ -472,15 +482,16 @@ const styles = StyleSheet.create({
   },
   cardcontentheading: {
     fontSize: 20,
-    marginLeft: 8,
+    marginLeft: 11,
     marginTop: 5,
     color: '#fff',
-    fontFamily:'Lato-Bold'
+    fontFamily: 'Lato-Bold',
   },
   cardcontentpara: {
-    marginTop: 19,
-    marginRight: 10,
-    fontSize: 20,
+    marginRight: 240,
+    fontSize: 18,
+    bottom: 18,
+    fontFamily: 'Lato-Regular',
   },
   card: {
     height: 150,
@@ -495,11 +506,11 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    marginTop: 15,
+    bottom: 20,
 
     backgroundColor: '#fff',
 
-    height: 38,
+    height: 35,
   },
   iconmain1: {
     display: 'flex',
@@ -508,13 +519,16 @@ const styles = StyleSheet.create({
   iconname: {
     color: '#000',
     marginTop: 9,
-    fontFamily:'Lato-Regular'
+    fontFamily: 'Lato-Regular',
   },
   carddetail: {
     color: '#fff',
     justifyContent: 'center',
     textAlign: 'center',
-    fontFamily:'Lato-Regular'
+    fontFamily: 'Lato-Regular',
+    fontSize: 13,
+    marginLeft: 7,
+    alignItems:'stretch'
   },
   verticleLine: {
     height: '70%',
@@ -537,75 +551,71 @@ const styles = StyleSheet.create({
     top: 15,
   },
   fillter: {
-    
-    width: 110,
+    width: 104,
     height: 47,
     backgroundColor: '#00bad7',
-   
-    borderRadius:5,
-    marginLeft: 10,
 
+    borderRadius: 5,
+    marginLeft: -10,
   },
-  input:{
-    textAlign:'center',
-    color:'#fff',
-marginRight:10,  
-top:12,
-fontFamily:'Lato-Bold'
+  input: {
+    textAlign: 'center',
+    color: '#fff',
+    marginRight: 10,
+    top: 12,
+    fontFamily: 'Lato-Bold',
   },
   centeredView: {
-    
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
   },
   modalView: {
     width: wp('90%'),
-    height:hp('50%'),
+    height: hp('50%'),
     margin: 20,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
+    alignItems: 'center',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
   },
   button: {
     borderRadius: 10,
     padding: 10,
     elevation: 2,
-    top:30,
+    top: 30,
     width: wp('50%'),
-    height:hp('6%'),
+    height: hp('6%'),
   },
   buttonOpen: {
-    backgroundColor: "#F194FF",
+    backgroundColor: '#F194FF',
   },
   buttonClose: {
-    backgroundColor: "#e26a00",
-
+    backgroundColor: '#e26a00',
   },
   textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center"
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   modalText: {
     marginBottom: 15,
-    textAlign: "center"
+    textAlign: 'center',
   },
   textpopup: {
     height: hp('7%'),
     borderRadius: 5,
-    Color:"gray",
-width:wp('69%'),
+    Color: 'gray',
+    width: wp('69%'),
     borderWidth: 1,
     marginTop: 10,
     marginLeft: 7,
@@ -619,5 +629,4 @@ width:wp('69%'),
     alignSelf: 'flex-start',
     marginLeft: 13,
   },
- 
 });

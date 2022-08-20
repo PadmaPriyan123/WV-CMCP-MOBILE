@@ -27,13 +27,6 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
-const [verical, setvertical] = useState(null);
-const profile = [
-  {label: 'Profile', value: '1'},
-
-  {label: 'Sign out', value: '2'},
-];
-
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
@@ -258,7 +251,7 @@ const styles = StyleSheet.create({
   },
   logoutlablestyle: {
     fontFamily: 'Lato-Bold',
-    fontSize: 17,
+    fontSize: 14,
     justifyContent: 'center',
     alignContent: 'center',
     color: '#fff',
