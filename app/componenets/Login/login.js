@@ -6,7 +6,6 @@ import {
   Image,
   TextInput,
   Button,
-  Image,
   StatusBar,
   TouchableOpacity,
   Pressable,
@@ -57,19 +56,14 @@ const OTPScreen = () => {
     setOTPInputValue3('');
     setOTPInputValue4('');
     setError('');
+    setError1('');
     setCounter('00');
     setOtpCheck('');
     setEnableVerifyOTP(false);
     setLoginType(false);
     setNumber({...number, number: ''});
+    setLogin({...login, EmailId: '', Password: ''});
   }
-
-  const [otp, setOtp] = useState(true);
-
-  const initialErrorMessage = {message: ''};
-  const initialOTPErrorMessage = {message: ''};
-  const [error, setError] = useState(initialErrorMessage);
-  const [otpError, setOtpError] = useState(initialOTPErrorMessage);
 
   function redirectToOtp() {
     setOtpCheck('');
@@ -111,35 +105,6 @@ const OTPScreen = () => {
     }
   }
 
-  const [counter, setCounter] = React.useState(29);
-  const [enableResend, setEnableResend] = React.useState(true);
-
-  React.useEffect(() => {
-    const timer = setInterval(() => {
-      if (counter > 0) {
-        setCounter(counter - 1);
-      }
-      if (counter === 0) {
-        setEnableResend(false);
-        setCounter('00');
-        clearInterval(timer);
-      }
-    }, 1000);
-    return () => {
-      clearInterval(timer);
-    };
-  });
-
-  const resendOTP = () => {
-    setCounter(29);
-    setEnableResend(true);
-    setOTPInputValue1('');
-    setOTPInputValue2('');
-    setOTPInputValue3('');
-    setOTPInputValue4('');
-    setOtpError('');
-  };
-
   const verifyOTP = () => {
     let err = {
       message: '',
@@ -155,29 +120,6 @@ const OTPScreen = () => {
     }
     setOtpError(err);
   };
-
-  const [oTPInputValue1, setOTPInputValue1] = React.useState('');
-  const [oTPInputValue2, setOTPInputValue2] = React.useState('');
-  const [oTPInputValue3, setOTPInputValue3] = React.useState('');
-  const [oTPInputValue4, setOTPInputValue4] = React.useState('');
-
-  const [otpCheck, setOtpCheck] = React.useState('');
-  const [logintype, setLoginType] = React.useState(false);
-  const [enableVerifyOTP, setEnableVerifyOTP] = React.useState(false);
-  const [number, setNumber] = React.useState({number: ''});
-
-  function clearAll() {
-    setOTPInputValue1('');
-    setOTPInputValue2('');
-    setOTPInputValue3('');
-    setOTPInputValue4('');
-    setError1('');
-    setCounter('00');
-    setOtpCheck('');
-    setEnableVerifyOTP(false);
-    setLoginType(false);
-    setNumber({...number, number: ''});
-  }
 
   const [otp, setOtp] = useState(true);
 
@@ -186,46 +128,6 @@ const OTPScreen = () => {
   const [error1, setError1] = useState(initialErrorMessage1);
   const [otpError, setOtpError] = useState(initialOTPErrorMessage);
 
-  function redirectToOtp() {
-    setOtpCheck('');
-    setNumber('');
-    setError1('');
-    setOtpError('');
-    clearAll();
-    setCounter(29);
-    setEnableVerifyOTP(false);
-    setLoginType(false);
-  }
-
-  function onFunction() {
-    var a = {
-      message: '',
-    };
-    var empty = /^$/;
-    var num = /^[0-9]{10}$/;
-
-    if (!number.number) {
-      a.message = '*Please enter the mobile number';
-    }
-    if (!num.test(number.number) && !empty.test(number.number)) {
-      a.message = '*Enter 10 digit mobile number';
-    }
-    if (num.test(number.number)) {
-      setOtpCheck('first');
-      setOtpError('');
-    }
-    console.log(number.number);
-
-    if (Object.values(a).every(el => el == '')) {
-      console.log(Object.values(a).every(el => el == ''));
-      setError1(a);
-      setOtp(true);
-      setEnableVerifyOTP(true);
-    } else {
-      setError1(a);
-    }
-  }
-
   const [counter, setCounter] = React.useState(29);
   const [enableResend, setEnableResend] = React.useState(true);
 
@@ -252,22 +154,7 @@ const OTPScreen = () => {
     setOTPInputValue2('');
     setOTPInputValue3('');
     setOTPInputValue4('');
-  };
-
-  const verifyOTP = () => {
-    let err = {
-      message: '',
-    };
-    let otp = oTPInputValue1 + oTPInputValue2 + oTPInputValue3 + oTPInputValue4;
-    if (otp == '') {
-      err.message = '*Please enter the OTP';
-    } else if (otp == '1234') {
-      navigation.navigate('Drawer');
-      clearAll();
-    } else {
-      err.message = '*Invalid OTP';
-    }
-    setOtpError(err);
+    setOtpError('');
   };
 
   const [login, setLogin] = useState({EmailId: '', Password: ''});
@@ -307,6 +194,7 @@ const OTPScreen = () => {
       dispatch(userLoginResponse(''));
       setTimeout(() => {
         navigation.navigate('Drawer');
+        clearAll();
       }, 0);
     }
   }, [loginResponse]);
@@ -400,6 +288,7 @@ const OTPScreen = () => {
                             OTPInputRef2.current?.focus();
                           }
                         }}
+                        ref={ref => (OTPInputRef1.current = ref)}
                       />
                     </View>
 
@@ -414,6 +303,9 @@ const OTPScreen = () => {
                           setOTPInputValue2(value);
                           if (value.length >= 1) {
                             OTPInputRef3.current?.focus();
+                          }
+                          if (value.length == 0) {
+                            OTPInputRef1.current?.focus();
                           }
                         }}
                         ref={ref => (OTPInputRef2.current = ref)}
@@ -432,6 +324,9 @@ const OTPScreen = () => {
                           if (value.length >= 1) {
                             OTPInputRef4.current?.focus();
                           }
+                          if (value.length == 0) {
+                            OTPInputRef2.current?.focus();
+                          }
                         }}
                         ref={ref => (OTPInputRef3.current = ref)}
                       />
@@ -446,6 +341,12 @@ const OTPScreen = () => {
                         value={oTPInputValue4}
                         onChangeText={value => {
                           setOTPInputValue4(value);
+                          if (value.length == 0) {
+                            OTPInputRef3.current?.focus();
+                          }
+                          if (value.length == 0) {
+                            OTPInputRef3.current?.focus();
+                          }
                         }}
                         ref={ref => (OTPInputRef4.current = ref)}
                       />
@@ -485,7 +386,6 @@ const OTPScreen = () => {
                   }}>
                   <TouchableOpacity
                     style={styles.button}
-                    disabled={isLoading}
                     status={otpCheck == 'first' ? 'checked' : 'unchecked'}
                     onPress={() => {
                       onFunction();
@@ -501,7 +401,6 @@ const OTPScreen = () => {
                   }}>
                   <TouchableOpacity
                     style={styles.button}
-                    disabled={isLoading}
                     onPress={() => {
                       onFunction();
                       verifyOTP();
@@ -591,8 +490,7 @@ const OTPScreen = () => {
                 }}>
                 <TouchableOpacity
                   style={styles.button}
-                  onPress={() => navigation.navigate('Drawer')}
-                  disabled={isLoading}>
+                  onPress={() => myFunction()}>
                   <Text style={styles.buttoninput}>LOG-IN</Text>
                 </TouchableOpacity>
               </View>
@@ -656,7 +554,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#ffff',
-
     borderColor: 'gray',
     elevation: 2,
     borderWidth: 0.7,
@@ -680,9 +577,8 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    height: hp('6%'),
+    height: hp('6.5%'),
     width: wp('60%'),
-
     borderRadius: 10,
     borderColor: 'gray',
     fontFamily: 'Lato-Regular',
@@ -712,7 +608,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   loginlogo: {
-    top: -50,
+    top: -70,
     backgroundColor: '#fff',
     width: wp('100%'),
     height: hp('14%'),
@@ -910,133 +806,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     top: 20,
-  },
-  OTPinput: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  or: {
-    fontSize: 20,
-    color: '#ff6b00',
-    marginRight: 15,
-    fontFamily: 'Lato-Bold',
-  },
-  otpname3: {
-    fontSize: 18,
-    color: '#ff6b00',
-    fontFamily: 'Lato-Bold',
-  },
-  inputotp: {
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: 'gray',
-    fontFamily: 'Lato-Regular',
-    backgroundColor: '#ffff',
-    textAlign: 'center',
-  },
-  otpsmall: {
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#ffff',
-    borderColor: 'gray',
-    elevation: 2,
-    borderWidth: 0.7,
-    width: 45,
-    borderRadius: 3,
-    height: 45,
-    margin: 15,
-    bottom: 80,
-  },
-
-  otpname: {
-    fontSize: 20,
-    marginTop: 30,
-    marginLeft: -20,
-  },
-  otpname4: {
-    flexDirection: 'row',
-    bottom: 22,
-    justifyContent: 'center',
-  },
-
-  otpdiv: {
-    flexDirection: 'row',
-    margin: 10,
-    padding: 10,
-    justifyContent: 'center',
-  },
-  buttoninput: {
-    textAlign: 'center',
-    color: '#fff',
-    fontSize: 20,
-    fontFamily: 'Lato-Bold',
-  },
-  mainotpcontainer: {
-    height: hp('48%'),
-  },
-
-  otpboxname: {
-    fontSize: 18,
-    fontFamily: 'Lato-Bold',
-    marginLeft: 40,
-    bottom: 70,
-    color: '#000',
-  },
-  message: {
-    color: 'red',
-    marginLeft: -45,
-    marginTop: -100,
-  },
-  otpvalidmsg: {
-    flexDirection: 'row',
-    bottom: 70,
-    marginLeft: 40,
-    color: 'red',
-  },
-  otperrmsg: {
-    flex: 1,
-    flexDirection: 'row',
-    marginLeft: 80,
-  },
-  numbercount: {
-    color: 'red',
-  },
-  errmessage: {
-    color: 'red',
-    marginRight: 110,
-    bottom: 75,
-    height: hp('3%'),
-  },
-  footer: {
-    bottom: 15,
-    height: hp('10%'),
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  footertext: {
-    fontSize: 14,
-    top: 3,
-    color: '#000',
-    textAlign: 'center',
-    fontFamily: 'Lato-Regular',
-  },
-  footertext2: {
-    fontSize: 16,
-    top: 5,
-    color: '#ff6b00',
-    textAlign: 'center',
-    fontFamily: 'Lato-Regular',
-  },
-  footertext3: {
-    fontSize: 14,
-    marginTop: 15,
-    fontFamily: 'Lato-Regular',
-    color: '#000',
-  },
-  otpresend: {
-    color: 'red',
   },
   emailvali: {
     color: 'red',

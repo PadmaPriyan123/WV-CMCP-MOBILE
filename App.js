@@ -1,5 +1,4 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import OTPScreen from './app/componenets/Login/login';
@@ -9,6 +8,7 @@ import Incident from './app/componenets/IncidentView/incidentview';
 import MyDrawer from './app/componenets/Drawer/drawer';
 import Notification from './app/componenets/Notification/Notification';
 import store from '../WV-CMCP-MOBILE/app/Redux/Store';
+import UserProfileView from './app/componenets/Userprofile/Userprofile';
 import {Provider} from 'react-redux';
 import {StatusBar} from 'react-native';
 
@@ -48,6 +48,24 @@ function App() {
             component={Notification}
             options={{
               title: 'NOTIFICATION',
+              headerStyle: {
+                backgroundColor: '#ff6b00',
+                height: 50,
+                fontsize: 17,
+              },
+              headerTintColor: 'white',
+              headerTitleStyle: {
+                fontFamily: 'Lato-Bold',
+                color: '#fff',
+              },
+            }}
+          />
+
+          <Stack.Screen
+            name="UserProfileView"
+            component={UserProfileView}
+            options={{
+              title: 'User profile',
               headerStyle: {
                 backgroundColor: '#ff6b00',
                 height: 50,

@@ -19,13 +19,13 @@ LogBox.ignoreAllLogs();
 let api_response = [
   {
     data: [
-      {Month: 'JAN', CMP: 583, fill: '#ff6b00'},
-      {Month: 'FEB', CMP: 528, fill: '#ff6b00'},
-      {Month: 'MAR', CMP: 690, fill: '#ff6b00'},
-      {Month: 'APR', CMP: 902, fill: '#ff6b00'},
-      {Month: 'MAY', CMP: 219, fill: '#ff6b00'},
-      {Month: 'JUN', CMP: 704, fill: '#ff6b00'},
-      {Month: 'JUL', CMP: 409, fill: '#ff6b00'},
+      {Month: 'JAN', CMP: 583, fill: '#00acca'},
+      {Month: 'FEB', CMP: 528, fill: '#00acca'},
+      {Month: 'MAR', CMP: 690, fill: '#00acca'},
+      {Month: 'APR', CMP: 902, fill: '#00acca'},
+      {Month: 'MAY', CMP: 219, fill: '#00acca'},
+      {Month: 'JUN', CMP: 704, fill: '#00acca'},
+      {Month: 'JUL', CMP: 409, fill: '#00acca'},
     ],
   },
 ];
@@ -79,7 +79,7 @@ export default function IncidentLogedGraph() {
 const Styles = StyleSheet.create({
   IncidentLogedGraphTitle: {
     fontFamily: 'Lato-Bold',
-     color: '#00acca',
+    color: '#00acca',
     fontSize: 24,
     marginLeft: 10,
   },

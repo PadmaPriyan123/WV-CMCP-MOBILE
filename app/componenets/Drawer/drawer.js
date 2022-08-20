@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {
   createDrawerNavigator,
@@ -6,8 +7,8 @@ import {
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
-import {useNavigation} from '@react-navigation/native';
-import {Dropdown} from 'react-native-element-dropdown';
+import {Menu, MenuItem, MenuDivider} from 'react-native-material-menu';
+
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faChartLine} from '@fortawesome/free-solid-svg-icons/faChartLine';
 import {faIndent} from '@fortawesome/free-solid-svg-icons/faIndent';
@@ -19,9 +20,6 @@ import Dashboard from '../Dashboard/Dashboard';
 import Form from '../Form/Form';
 import Incident from '../IncidentView/incidentview';
 import images from '../Images/image';
-import OTPScreen from '../Login/login';
-import {LinearGradient} from 'react-native-svg';
-import {red100} from 'react-native-paper/lib/typescript/styles/colors';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -32,29 +30,8 @@ function CustomDrawerContent(props) {
     <DrawerContentScrollView {...props}>
       <Image
         source={images.worldvision_drawer}
-        style={{
-          width: wp('68%'),
-          height: hp('20%'),
-          top: -5,
-          marginBottom: 0,
-        }}></Image>
+        style={styles.DrawerImage}></Image>
       <DrawerItemList {...props} />
-
-      <View style={styles.logout}>
-        <DrawerItem
-          labelStyle={styles.logoutlablestyle}
-          label="LOGOUT"
-          onPress={() => props.navigation.navigate('OTPScreen')}
-          icon={({color}) => (
-            <FontAwesomeIcon
-              icon={faArrowRightFromBracket}
-              size={25}
-              style={{marginLeft: -8}}
-              color="#fff"
-            />
-          )}
-        />
-      </View>
     </DrawerContentScrollView>
   );
 }
@@ -68,6 +45,18 @@ const Badge = ({count}) => (
 const Drawer = createDrawerNavigator();
 
 export default function MyDrawer({navigation}) {
+  const [popup, setPopup] = useState(false);
+  const hideMenu = () => setPopup(false);
+  const showMenu = () => setPopup(true);
+
+  const [popup2, setPopup2] = useState(false);
+  const hideMenu2 = () => setPopup2(false);
+  const showMenu2 = () => setPopup2(true);
+
+  const [popup3, setPopup3] = useState(false);
+  const hideMenu3 = () => setPopup3(false);
+  const showMenu3 = () => setPopup3(true);
+
   return (
     <Drawer.Navigator
       screenOptions={{
@@ -112,17 +101,35 @@ export default function MyDrawer({navigation}) {
                 <FontAwesomeIcon
                   icon={faBell}
                   style={styles.BellIcon}
-                  size={20}
+                  size={18}
                   color="white"
                 />
                 <Badge count={9} />
               </TouchableOpacity>
               <TouchableOpacity>
-                <FontAwesomeIcon
-                  icon={faEllipsisVertical}
-                  size={20}
-                  color="white">
-                </FontAwesomeIcon>
+                <View style={styles.openpopup}>
+                  <Menu
+                    visible={popup}
+                    anchor={
+                      <Text onPress={showMenu}>
+                        <FontAwesomeIcon
+                          icon={faEllipsisVertical}
+                          size={18}
+                          color="white"
+                        />
+                      </Text>
+                    }
+                    onRequestClose={hideMenu}>
+                    <MenuItem
+                      style={styles.menuname}
+                      onPress={() => navigation.navigate('UserProfileView')}>
+                      View profile
+                    </MenuItem>
+                    <MenuItem onPress={() => navigation.navigate('OTPScreen')}>
+                      Logout
+                    </MenuItem>
+                  </Menu>
+                </View>
               </TouchableOpacity>
             </View>
           ),
@@ -163,17 +170,34 @@ export default function MyDrawer({navigation}) {
                 <FontAwesomeIcon
                   icon={faBell}
                   style={styles.BellIcon}
-                  size={20}
+                  size={18}
                   color="white"
                 />
                 <Badge count={9} />
               </TouchableOpacity>
               <TouchableOpacity>
-                <FontAwesomeIcon
-                  icon={faEllipsisVertical}
-                  size={20}
-                  color="white"
-                />
+                <View style={styles.openpopup}>
+                  <Menu
+                    visible={popup2}
+                    anchor={
+                      <Text onPress={showMenu2}>
+                        <FontAwesomeIcon
+                          icon={faEllipsisVertical}
+                          size={18}
+                          color="white"
+                        />
+                      </Text>
+                    }
+                    onRequestClose={hideMenu2}>
+                    <MenuItem
+                      onPress={() => navigation.navigate('UserProfileView')}>
+                      View Profile
+                    </MenuItem>
+                    <MenuItem onPress={() => navigation.navigate('OTPScreen')}>
+                      Logout
+                    </MenuItem>
+                  </Menu>
+                </View>
               </TouchableOpacity>
             </View>
           ),
@@ -215,17 +239,34 @@ export default function MyDrawer({navigation}) {
                 <FontAwesomeIcon
                   icon={faBell}
                   style={styles.BellIcon}
-                  size={20}
+                  size={18}
                   color="white"
                 />
                 <Badge count={9} />
               </TouchableOpacity>
               <TouchableOpacity>
-                <FontAwesomeIcon
-                  icon={faEllipsisVertical}
-                  size={20}
-                  color="white"
-                />
+                <View style={styles.openpopup}>
+                  <Menu
+                    visible={popup3}
+                    anchor={
+                      <Text onPress={showMenu3}>
+                        <FontAwesomeIcon
+                          icon={faEllipsisVertical}
+                          size={18}
+                          color="white"
+                        />
+                      </Text>
+                    }
+                    onRequestClose={hideMenu3}>
+                    <MenuItem
+                      onPress={() => navigation.navigate('UserProfileView')}>
+                      View profile
+                    </MenuItem>
+                    <MenuItem onPress={() => navigation.navigate('OTPScreen')}>
+                      Logout
+                    </MenuItem>
+                  </Menu>
+                </View>
               </TouchableOpacity>
             </View>
           ),
@@ -243,6 +284,12 @@ export default function MyDrawer({navigation}) {
 }
 
 const styles = StyleSheet.create({
+  DrawerImage: {
+    width: wp('68%'),
+    height: hp('20%'),
+    top: -5,
+    marginBottom: 0,
+  },
   lablestyle: {
     fontFamily: 'Lato-Bold',
     fontSize: 17,
@@ -268,7 +315,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#ff6b00',
   },
   BellIcon: {
-    marginRight: 30,
+    marginTop: 6,
+    marginRight: 32,
     circle: 8,
   },
 
@@ -277,7 +325,7 @@ const styles = StyleSheet.create({
     height: 14,
     borderRadius: 18,
     marginLeft: 8,
-    marginTop: -9,
+    marginTop: -3,
     backgroundColor: 'red',
     position: 'absolute',
     top: 5,
@@ -300,8 +348,20 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   DotHeader: {
-    marginHorizontal: 16,
+    marginHorizontal: 15,
     alignItems: 'center',
     flexDirection: 'row',
+  },
+  openpopup: {
+    height: '50%',
+    width: '50%',
+    fontSize: 26,
+    color: 'orange',
+    fontFamily: 'Lato-Bold',
+  },
+  menuname: {
+    fontSize: 26,
+    color: 'orange',
+    fontFamily: 'Lato-Bold',
   },
 });
