@@ -2,7 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import Login from './app/componenets/Login/login';
-import Form from './app/componenets/Form/Form';
+import Form from './app/componenets/Form';
 import Dashboard from './app/componenets/Dashboard/Dashboard';
 import Incident from './app/componenets/IncidentView/incidentview';
 import MyDrawer from './app/componenets/Drawer/drawer';
@@ -66,11 +66,12 @@ function App() {
             component={MyDrawer}
             options={{headerShown: false}}
           />
-          {/* <Stack.Screen
+          <Stack.Screen
             name="FirstRoute"
             component={Victims}
             options={{headerShown: false}}
-          /> */}
+          />
+          
         </Stack.Navigator>
 
         <StatusBar

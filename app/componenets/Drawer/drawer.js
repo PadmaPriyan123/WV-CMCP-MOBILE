@@ -16,7 +16,7 @@ import {faArrowRightFromBracket} from '@fortawesome/free-solid-svg-icons/faArrow
 import {faBell, faEllipsisVertical} from '@fortawesome/free-solid-svg-icons';
 import {faMenu} from '@fortawesome/free-solid-svg-icons';
 import Dashboard from '../Dashboard/Dashboard';
-import Form from '../Form/Form';
+import Form from '../Form';
 import Incident from '../IncidentView/incidentview';
 import images from '../Images/image';
 import Login from '../Login/login';

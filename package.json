@@ -57,6 +57,7 @@
     "react-native-fontawesome": "^7.0.0",
     "react-native-gesture-handler": "^2.5.0",
     "react-native-linear-gradient": "^2.6.2",
+    "react-native-material-menu": "^2.0.0",
     "react-native-modal-datetime-picker": "^13.1.2",
     "react-native-multi-level-selector": "^1.0.9",
     "react-native-multiple-select": "^0.5.9",

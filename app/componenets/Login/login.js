@@ -25,7 +25,7 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
-import { faPhone} from '@fortawesome/free-solid-svg-icons/faPhone';
+import {faPhone} from '@fortawesome/free-solid-svg-icons/faPhone';
 
 import {faLock} from '@fortawesome/free-solid-svg-icons/faLock';
 import images from '../Images/image';
@@ -56,11 +56,13 @@ const Login = () => {
     setOTPInputValue3('');
     setOTPInputValue4('');
     setError1('');
+    setError('');
     setCounter('00');
     setOtpCheck('');
     setEnableVerifyOTP(false);
     setLoginType(false);
     setNumber({...number, number: ''});
+    setLogin({...login, EmailId: '', Password: ''});
   }
 
   const [otp, setOtp] = useState(true);
@@ -147,7 +149,6 @@ const Login = () => {
       err.message = '*Please enter the OTP';
     } else if (otp == '1234') {
       navigation.navigate('Drawer');
-      clearAll();
     } else {
       err.message = '*Invalid OTP';
     }
@@ -160,6 +161,7 @@ const Login = () => {
   let loginResponse = useSelector(state => state.Login.loginSuccessfull);
 
   useEffect(() => {
+    login.EmailId = '';
     console.log(loginResponse);
   }, []);
 
@@ -191,6 +193,7 @@ const Login = () => {
       dispatch(userLoginResponse(''));
       setTimeout(() => {
         navigation.navigate('Drawer');
+        clearAll();
       }, 0);
     }
   }, [loginResponse]);
@@ -204,21 +207,21 @@ const Login = () => {
 
     if (!login.EmailId) {
       console.log('came here1');
-      a.EmailId = '*Please Enter email id!';
+      a.EmailId = '*Please enter email id!';
     }
     if (!login.Password) {
       console.log('came here2');
-      a.Password = '*Please Enter password!';
+      a.Password = '*Please enter password!';
     }
 
     if (login.EmailId && EmailIdRegex.test(login.EmailId) === false) {
       console.log('came here3');
-      a.EmailId = '*Please Enter Valid email id!';
+      a.EmailId = '*Please enter Valid email id!';
     }
 
     if (login.Password && PasswordRegex.test(login.Password) === false) {
       console.log('came here4');
-      a.Password = '*Please Enter Valid password!';
+      a.Password = '*Please enter Valid password!';
     }
 
     if (Object.values(a).every(el => el === '')) {
@@ -228,7 +231,7 @@ const Login = () => {
       setError(a);
     }
   }
-
+  const [forgot, setForgot] = useState('forgot');
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -371,7 +374,9 @@ const Login = () => {
                       onFunction();
                       setCounter(29);
                     }}>
-                    <Text style={styles.buttoninput}>LOG-IN</Text>
+                    <Text style={styles.buttoninput}>
+                      Send One Time Password
+                    </Text>
                   </TouchableOpacity>
                 </View>
               ) : (
@@ -397,8 +402,10 @@ const Login = () => {
                 </Text>
               </View>
             </View>
-          ) : (
+          ) : (<View>{forgot=== 'forgot' ? (
+
             <View style={styles.form}>
+
               <View style={styles.loginusernamemain}>
                 <Text style={styles.username}>Email</Text>
                 <View style={styles.customtextinput}>
@@ -422,6 +429,7 @@ const Login = () => {
                   <Text style={styles.emailvali}>{error?.EmailId}</Text>
                 )}
               </View>
+              
               <View style={styles.loginpasswordmain}>
                 <Text style={styles.loginpassword}>Password</Text>
                 <View style={styles.customtextinput2}>
@@ -460,8 +468,14 @@ const Login = () => {
                   style={{marginLeft: 25, marginTop: 4}}
                 />
 
-                <TouchableOpacity>
-                  <Text style={styles.forgot}>Forgot your password?</Text>
+                <TouchableOpacity
+                  status={forgot === 'first' ? 'forgot' : 'unforgot'}
+                  onPress={() => setForgot('first')}>
+                  <Text
+                    style={styles.forgot}
+>
+                    Forgot your password?
+                  </Text>
                 </TouchableOpacity>
               </View>
               <View
@@ -484,6 +498,45 @@ const Login = () => {
                   Login with mobile number
                 </Text>
               </View>
+            </View>):   <View style={styles.loginusernamemain}>
+                <Text style={styles.username}>Email</Text>
+                <View style={styles.customtextinput}>
+                  <FontAwesomeIcon
+                    icon={faUser}
+                    size={19}
+                    color={'gray'}
+                    style={{padding: 10, marginLeft: 9}}
+                  />
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Enter the Email"
+                    placeholderTextColor="#9e9e9e"
+                    textAlign="left"
+                    value={login.EmailId}
+                    required
+                    onChangeText={e => setLogin({...login, EmailId: e})}
+                  />
+                </View>
+                {error?.EmailId && (
+                  <Text style={styles.emailvali}>{error?.EmailId}</Text>
+                )}
+                 <View style={styles.forgotmain}>
+               <TouchableOpacity
+                  style={styles.backbutton}
+                  onPress={(e)=>setForgot('forgot',e)}
+                  >
+                  <Text style={styles.buttoninput}>Back</Text>
+                </TouchableOpacity>
+              <TouchableOpacity
+                  style={styles.backbutton}
+                  >
+                  <Text style={styles.buttoninput}>Submit</Text>
+                </TouchableOpacity>
+                </View>
+              </View>
+              }
+             
+
             </View>
           )}
         </View>
@@ -499,6 +552,9 @@ const Login = () => {
           <Text style={styles.footertext3}>
             © Copyright 2022, All rights Reserved
           </Text>
+        </View>
+        <View>
+          
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -581,7 +637,7 @@ const styles = StyleSheet.create({
   buttoninput: {
     textAlign: 'center',
     color: '#fff',
-    fontSize: 20,
+    fontSize: 14,
     fontFamily: 'Lato-Bold',
   },
   checkboxContainer: {
@@ -715,7 +771,7 @@ const styles = StyleSheet.create({
   buttoninput: {
     textAlign: 'center',
     color: '#fff',
-    fontSize: 20,
+    fontSize: 18,
     fontFamily: 'Lato-Bold',
   },
   mainotpcontainer: {
@@ -755,7 +811,7 @@ const styles = StyleSheet.create({
     height: hp('3%'),
   },
   footer: {
-    bottom: 15,
+    bottom: 50,
     height: hp('10%'),
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -786,13 +842,30 @@ const styles = StyleSheet.create({
   emailvali: {
     color: 'red',
     bottom: 75,
-    marginRight: 150,
+    marginRight: 130,
   },
   emailvali1: {
     color: 'red',
     bottom: 35,
-    marginRight: 140,
+    marginRight: 128,
   },
+  backbutton:{
+    alignSelf: 'center',
+    height: hp('8%'),
+    width: wp('38%'),
+    justifyContent: 'center',
+    fontFamily: 'Lato-Bold',
+    borderRadius: 10,
+    backgroundColor: '#ff6b00',
+    borderWidth: 0,
+    marginLeft: 5,
+    marginRight: 5,
+    bottom: 38,
+  },
+  forgotmain:{
+    flexDirection:'row'
+  }
+  
 });
 
 export default Login;
