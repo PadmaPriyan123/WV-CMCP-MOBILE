@@ -7,12 +7,13 @@ import {
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
+import {useNavigation} from '@react-navigation/native';
 import {Menu, MenuItem, MenuDivider} from 'react-native-material-menu';
 
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faChartLine} from '@fortawesome/free-solid-svg-icons/faChartLine';
 import {faIndent} from '@fortawesome/free-solid-svg-icons/faIndent';
-import {faUsers} from '@fortawesome/free-solid-svg-icons/faUsers';
+import {faUsers, faUser} from '@fortawesome/free-solid-svg-icons';
 import {faArrowRightFromBracket} from '@fortawesome/free-solid-svg-icons/faArrowRightFromBracket';
 import {faBell, faEllipsisVertical} from '@fortawesome/free-solid-svg-icons';
 import {faMenu} from '@fortawesome/free-solid-svg-icons';
@@ -41,22 +42,46 @@ const Badge = ({count}) => (
     <Text style={styles.count}>{count}</Text>
   </View>
 );
+const PopMenu = () => {
+  const navigation = useNavigation();
+
+  const [popup, setPopup] = useState(false);
+  const hideMenu = () => setPopup(false);
+  const showMenu = () => setPopup(true);
+  return (
+    <Menu
+      visible={popup}
+      anchor={
+        <Text onPress={showMenu}>
+          <FontAwesomeIcon icon={faEllipsisVertical} size={18} color="white" />
+        </Text>
+      }
+      onRequestClose={hideMenu}>
+      <MenuItem
+        style={styles.menuname}
+        onPress={() => navigation.navigate('UserProfileView')}>
+        <View style={styles.poprow}>
+          <Text>
+            <FontAwesomeIcon icon={faUser} size={14} />
+          </Text>
+          <Text style={styles.popupmenu}>View profile </Text>
+        </View>
+      </MenuItem>
+      <MenuItem onPress={() => navigation.navigate('Login')}>
+        <View style={styles.poprow}>
+          <Text>
+            <FontAwesomeIcon icon={faArrowRightFromBracket} size={14} />
+          </Text>
+          <Text style={styles.popupmenu}>Log out</Text>
+        </View>
+      </MenuItem>
+    </Menu>
+  );
+};
 
 const Drawer = createDrawerNavigator();
 
 export default function MyDrawer({navigation}) {
-  const [popup, setPopup] = useState(false);
-  const hideMenu = () => setPopup(false);
-  const showMenu = () => setPopup(true);
-
-  const [popup2, setPopup2] = useState(false);
-  const hideMenu2 = () => setPopup2(false);
-  const showMenu2 = () => setPopup2(true);
-
-  const [popup3, setPopup3] = useState(false);
-  const hideMenu3 = () => setPopup3(false);
-  const showMenu3 = () => setPopup3(true);
-
   return (
     <Drawer.Navigator
       screenOptions={{
@@ -108,27 +133,7 @@ export default function MyDrawer({navigation}) {
               </TouchableOpacity>
               <TouchableOpacity>
                 <View style={styles.openpopup}>
-                  <Menu
-                    visible={popup}
-                    anchor={
-                      <Text onPress={showMenu}>
-                        <FontAwesomeIcon
-                          icon={faEllipsisVertical}
-                          size={18}
-                          color="white"
-                        />
-                      </Text>
-                    }
-                    onRequestClose={hideMenu}>
-                    <MenuItem
-                      style={styles.menuname}
-                      onPress={() => navigation.navigate('UserProfileView')}>
-                      View profile
-                    </MenuItem>
-                    <MenuItem onPress={() => navigation.navigate('OTPScreen')}>
-                      Logout
-                    </MenuItem>
-                  </Menu>
+                  <PopMenu />
                 </View>
               </TouchableOpacity>
             </View>
@@ -177,26 +182,7 @@ export default function MyDrawer({navigation}) {
               </TouchableOpacity>
               <TouchableOpacity>
                 <View style={styles.openpopup}>
-                  <Menu
-                    visible={popup2}
-                    anchor={
-                      <Text onPress={showMenu2}>
-                        <FontAwesomeIcon
-                          icon={faEllipsisVertical}
-                          size={18}
-                          color="white"
-                        />
-                      </Text>
-                    }
-                    onRequestClose={hideMenu2}>
-                    <MenuItem
-                      onPress={() => navigation.navigate('UserProfileView')}>
-                      View Profile
-                    </MenuItem>
-                    <MenuItem onPress={() => navigation.navigate('OTPScreen')}>
-                      Logout
-                    </MenuItem>
-                  </Menu>
+                  <PopMenu />
                 </View>
               </TouchableOpacity>
             </View>
@@ -246,26 +232,7 @@ export default function MyDrawer({navigation}) {
               </TouchableOpacity>
               <TouchableOpacity>
                 <View style={styles.openpopup}>
-                  <Menu
-                    visible={popup3}
-                    anchor={
-                      <Text onPress={showMenu3}>
-                        <FontAwesomeIcon
-                          icon={faEllipsisVertical}
-                          size={18}
-                          color="white"
-                        />
-                      </Text>
-                    }
-                    onRequestClose={hideMenu3}>
-                    <MenuItem
-                      onPress={() => navigation.navigate('UserProfileView')}>
-                      View profile
-                    </MenuItem>
-                    <MenuItem onPress={() => navigation.navigate('OTPScreen')}>
-                      Logout
-                    </MenuItem>
-                  </Menu>
+                  <PopMenu />
                 </View>
               </TouchableOpacity>
             </View>
@@ -356,12 +323,21 @@ const styles = StyleSheet.create({
     height: '50%',
     width: '50%',
     fontSize: 26,
-    color: 'orange',
     fontFamily: 'Lato-Bold',
   },
   menuname: {
     fontSize: 26,
     color: 'orange',
     fontFamily: 'Lato-Bold',
+    backgroundColor: 'white',
+  },
+  popupmenu: {
+    fontSize: 14,
+    fontFamily: 'Lato-Bold',
+    alignSelf: 'center',
+    marginHorizontal: 10,
+  },
+  poprow: {
+    flexDirection: 'row',
   },
 });

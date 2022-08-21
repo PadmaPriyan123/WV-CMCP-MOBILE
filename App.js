@@ -1,7 +1,7 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
-import OTPScreen from './app/componenets/Login/login';
+import Login from './app/componenets/Login/login';
 import Form from './app/componenets/Form/Form';
 import Dashboard from './app/componenets/Dashboard/Dashboard';
 import Incident from './app/componenets/IncidentView/incidentview';
@@ -20,8 +20,8 @@ function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
-            name="OTPScreen"
-            component={OTPScreen}
+            name="Login"
+            component={Login}
             options={{headerShown: false}}
           />
 

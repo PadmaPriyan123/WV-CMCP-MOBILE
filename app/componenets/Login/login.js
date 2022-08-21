@@ -32,7 +32,7 @@ import images from '../Images/image';
 import {useDispatch, useSelector} from 'react-redux';
 import {usersLogin, userLoginResponse} from '../../Redux/Action';
 
-const OTPScreen = () => {
+const Login = () => {
   const navigation = useNavigation();
   const OTPInputRef1 = useRef(null);
   const OTPInputRef2 = useRef(null);
@@ -819,4 +819,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OTPScreen;
+export default Login;
