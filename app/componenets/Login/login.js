@@ -591,7 +591,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#ffff',
     borderColor: 'gray',
-    elevation: 2,
     borderWidth: 0.7,
     width: 310,
     bottom: 80,
@@ -604,12 +603,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#ffff',
     borderColor: 'gray',
-    elevation: 2,
     borderWidth: 0.7,
     width: 310,
-    borderRadius: 10,
     bottom: 40,
-    height: 45,
+    borderRadius: 10,
+    height: 50,
   },
 
   input: {

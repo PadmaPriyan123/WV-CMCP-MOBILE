@@ -11,13 +11,18 @@ import {
   Pressable,
 } from 'react-native';
 import DropShadow from 'react-native-drop-shadow';
-import images from '../Images/image';
+import {SearchBar} from '@rneui/themed';
 import {Card, TextInput} from 'react-native-paper';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faEllipsisVertical} from '@fortawesome/free-solid-svg-icons/faEllipsisVertical';
+import {faEye} from '@fortawesome/free-solid-svg-icons/faEye';
+
+import {faPen} from '@fortawesome/free-solid-svg-icons/faPen';
+import {faStamp} from '@fortawesome/free-solid-svg-icons/faStamp';
 
 import {faAngleDown} from '@fortawesome/free-solid-svg-icons/faAngleDown';
 import {faSearch} from '@fortawesome/free-solid-svg-icons/faSearch';
+import {faXmark} from '@fortawesome/free-solid-svg-icons/faXmark';
 
 import {ScrollView} from 'react-native-gesture-handler';
 import {
@@ -29,6 +34,7 @@ import {faCalendarDays} from '@fortawesome/free-solid-svg-icons/faCalendarDays';
 
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {Menu, MenuItem, MenuDivider} from 'react-native-material-menu';
+import {Dropdown} from 'react-native-element-dropdown';
 
 const Incident = ({navigation}) => {
   const [date, setDate] = React.useState('');
@@ -81,6 +87,15 @@ const Incident = ({navigation}) => {
 
   const showMenu4 = () => setVisible4(true);
 
+  const status = [
+    {label: 'Initiate', value: '1'},
+
+    {label: 'Progress ', value: '2'},
+    {label: 'Completed ', value: '3'},
+    {label: 'Close ', value: '4'},
+  ];
+  const [value1, setValue1] = React.useState('');
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -98,7 +113,7 @@ const Incident = ({navigation}) => {
           <FontAwesomeIcon
             style={{right: 30, top: 10}}
             icon={faSearch}
-            size={25}
+            size={20}
             color={'gray'}
           />
           <TouchableOpacity
@@ -106,7 +121,7 @@ const Incident = ({navigation}) => {
             onPress={() => setModalVisible(!modalVisible)}>
             <Text style={styles.input}>Filter</Text>
             <FontAwesomeIcon
-              style={{bottom: 5, marginLeft: 70}}
+              style={{bottom: 3, marginLeft: 60}}
               icon={faAngleDown}
               size={15}
               color={'#fff'}
@@ -114,241 +129,325 @@ const Incident = ({navigation}) => {
           </TouchableOpacity>
         </View>
         <View style={styles.container}>
-          <DropShadow
-            style={{
-              shadowColor: '#000',
-
-              shadowOffset: {
-                width: 0,
-                height: 0,
-              },
-              shadowOpacity: 1,
-              shadowRadius: 1,
-            }}>
-            <Card style={styles.card}>
-              <ImageBackground
-                source={images.worldvision_card}
-                style={styles.cardbackground}>
-                <View style={styles.cardfirstline}>
-                  <Text style={styles.cardcontentheading}>Case No:125647</Text>
-                  <View style={{marginTop: 8}}>
-                    <Menu
-                      visible={visible}
-                      anchor={
-                        <Text onPress={showMenu}>
-                          <FontAwesomeIcon
-                            icon={faEllipsisVertical}
-                            size={20}
-                            color={'#fff'}
-                          />
-                        </Text>
-                      }
-                      onRequestClose={hideMenu}>
-                      <MenuItem onPress={()=>navigation.navigate('Form')}>View</MenuItem>
-                      <MenuItem  onPress={()=>navigation.navigate('Form')}>Edit</MenuItem>
-                      <MenuItem onPress={hideMenu}>Case Assign</MenuItem>
-                    </Menu>
-                  </View>
-                </View>
-                <View style={styles.cardcontentpara}>
-                  <Text style={styles.carddetail}>
-                    Incident Date:18.05.2021
-                  </Text>
-                  <Text style={styles.carddetail1}>Case active Status</Text>
-                </View>
-                <View
-                  style={{
-                    marginLeft: 150,
-                    backgroundColor: 'gray',
-                    borderRadius: 40,
-                    height: 35,
-                    width: 100,
-                    borderColor: '#fff',
-                    top: 15,
-                  }}>
-                  <Text style={styles.initiate}>Initiate</Text>
-                </View>
-              </ImageBackground>
-            </Card>
-          </DropShadow>
-          <DropShadow
-            style={{
-              shadowColor: '#000',
-              shadowOffset: {
-                width: 0,
-                height: 0,
-              },
-              shadowOpacity: 2,
-              shadowRadius: 2,
-            }}>
-            <Card style={styles.card1}>
-              <ImageBackground
-                source={images.worldvision_card}
-                style={styles.cardbackground}>
-                <View style={styles.cardfirstline}>
-                  <Text style={styles.cardcontentheading}>Case No:165647</Text>
-                  <View style={{marginTop: 8}}>
-                    <Menu
-                      visible={visible1}
-                      anchor={
-                        <Text onPress={showMenu1}>
-                          <FontAwesomeIcon
-                            icon={faEllipsisVertical}
-                            size={20}
-                            color={'#fff'}
-                          />
-                        </Text>
-                      }
-                      onRequestClose={hideMenu1}>
-                      <MenuItem  onPress={()=>navigation.navigate('Form')}>View</MenuItem>
-                      <MenuItem  onPress={()=>navigation.navigate('Form')}>Edit</MenuItem>
-                      <MenuItem onPress={hideMenu1}>Case Assign</MenuItem>
-                    </Menu>
-                  </View>
-                </View>
-                <View style={styles.cardcontentpara}>
-                  <Text style={styles.carddetail}>
-                    Incident Date:17.05.2019
-                  </Text>
-                  <Text style={styles.carddetail1}>Case active Status</Text>
-                </View>
-                <View
-                  style={{
-                    marginLeft: 150,
-                    backgroundColor: 'gray',
-                    borderRadius: 40,
-                    height: 35,
-                    width: 100,
-                    borderColor: '#fff',
-                    top: 15,
-                  }}>
-                  <Text style={styles.initiate}>Initiate</Text>
-                </View>
-              </ImageBackground>
-            </Card>
-          </DropShadow>
-          <DropShadow
-            style={{
-              shadowColor: '#000',
-              shadowOffset: {
-                width: 0,
-                height: 0,
-              },
-              shadowOpacity: 2,
-              shadowRadius: 2,
-            }}>
-            <Card style={styles.card1}>
-              <ImageBackground
-                source={images.worldvision_card}
-                style={styles.cardbackground}>
-                <View style={styles.cardfirstline}>
-                  <Text style={styles.cardcontentheading}>Case No:187463</Text>
-
-                  <View style={{marginTop: 8}}>
-                    <Menu
-                      visible={visible2}
-                      anchor={
-                        <Text onPress={showMenu2}>
-                          <FontAwesomeIcon
-                            icon={faEllipsisVertical}
-                            size={20}
-                            color={'#fff'}
-                          />
-                        </Text>
-                      }
-                      onRequestClose={hideMenu2}>
-                      <MenuItem  onPress={()=>navigation.navigate('Form')}>View</MenuItem>
-                      <MenuItem  onPress={()=>navigation.navigate('Form')}>Edit</MenuItem>
-                      <MenuItem  onPress={()=>navigation.navigate('Form')}>Case Assign</MenuItem>
-                    </Menu>
-                  </View>
-                </View>
-                <View style={styles.cardcontentpara}>
-                  <Text style={styles.carddetail}>
+          <Card style={styles.card}>
+            <View style={styles.cardfirstline}>
+              <Text style={styles.cardcontentheading}>
+                Case No:{' '}
+                <Text style={{fontFamily: 'Lato-Bold', color: '#000'}}>
+                  125647
+                </Text>
+              </Text>
+              <View style={{marginTop: 17, marginRight: 10}}>
+                <Menu
+                  visible={visible}
+                  anchor={
+                    <Text onPress={showMenu}>
+                      <FontAwesomeIcon
+                        icon={faEllipsisVertical}
+                        size={20}
+                        color={'gray'}
+                      />
+                    </Text>
+                  }
+                  onRequestClose={hideMenu}>
+                  <MenuItem onPress={() => navigation.navigate('Form')}>
+                    <View style={{flexDirection: 'row'}}>
+                      <FontAwesomeIcon icon={faEye} size={20} color={'gray'} />
+                      <Text style={{marginLeft: 10, color: '#000'}}>View</Text>
+                    </View>
+                  </MenuItem>
+                  <MenuItem onPress={() => navigation.navigate('Form')}>
+                    <View style={{flexDirection: 'row'}}>
+                      <FontAwesomeIcon icon={faPen} size={20} color={'gray'} />
+                      <Text style={{marginLeft: 10, color: '#000'}}>Edit</Text>
+                    </View>
+                  </MenuItem>
+                  <MenuItem onPress={hideMenu}>
                     {' '}
-                    Incident Date:10.03.2018
+                    <View style={{flexDirection: 'row'}}>
+                      <Text>
+                        <FontAwesomeIcon
+                          icon={faStamp}
+                          size={20}
+                          color={'gray'}
+                        />
+                      </Text>
+                      <Text style={{marginLeft: 8, color: '#000'}}>
+                        Case Assign
+                      </Text>
+                    </View>
+                  </MenuItem>
+                </Menu>
+              </View>
+            </View>
+            <View style={styles.cardcontentpara}>
+              <Text style={styles.carddetail}>17-05-2021</Text>
+            </View>
+            <View
+              style={{
+                marginLeft: 200,
+                backgroundColor: '#00bad7',
+                top: 1,
+                borderRadius: 40,
+                borderWidth: 1,
+                height: 30,
+                width: 100,
+                borderColor: '#fff',
+              }}>
+              <Text style={styles.initiate}>Initiated</Text>
+            </View>
+          </Card>
+          <View style={{marginTop: 8}}>
+            <Card style={styles.card}>
+              <View style={styles.cardfirstline}>
+                <Text style={styles.cardcontentheading}>
+                  Case No:{' '}
+                  <Text style={{fontFamily: 'Lato-Bold', color: '#000'}}>
+                    226746
                   </Text>
-                  <Text style={styles.carddetail1}>Case active Status</Text>
-                </View>
-                <View
-                  style={{
-                    marginLeft: 150,
-                    backgroundColor: 'gray',
-                    borderRadius: 40,
-                    height: 35,
-                    width: 100,
-                    borderColor: '#fff',
-                    top: 15,
-                  }}>
-                  <Text style={styles.initiate}>Initiate</Text>
-                </View>
-              </ImageBackground>
-            </Card>
-          </DropShadow>
-          <DropShadow
-            style={{
-              shadowColor: '#000',
-              shadowOffset: {
-                width: 0,
-                height: 0,
-              },
-              shadowOpacity: 2,
-              shadowRadius: 2,
-            }}>
-            <Card style={styles.card1}>
-              <ImageBackground
-                source={images.worldvision_card}
-                style={styles.cardbackground}>
-                <View style={styles.cardfirstline}>
-                  <Text style={styles.cardcontentheading}>Case No:187631</Text>
-                  <View style={{marginTop: 8}}>
-                    <Menu
-                      visible={visible3}
-                      anchor={
-                        <Text onPress={showMenu3}>
+                </Text>
+                <View style={{marginTop: 17, marginRight: 10}}>
+                  <Menu
+                    visible={visible1}
+                    anchor={
+                      <Text onPress={showMenu1}>
+                        <FontAwesomeIcon
+                          icon={faEllipsisVertical}
+                          size={20}
+                          color={'gray'}
+                        />
+                      </Text>
+                    }
+                    onRequestClose={hideMenu1}>
+                    <MenuItem onPress={() => navigation.navigate('Form')}>
+                      <View style={{flexDirection: 'row'}}>
+                        <FontAwesomeIcon
+                          icon={faEye}
+                          size={20}
+                          color={'gray'}
+                        />
+                        <Text style={{marginLeft: 10, color: '#000'}}>
+                          View
+                        </Text>
+                      </View>
+                    </MenuItem>
+                    <MenuItem onPress={() => navigation.navigate('Form')}>
+                      <View style={{flexDirection: 'row'}}>
+                        <FontAwesomeIcon
+                          icon={faPen}
+                          size={20}
+                          color={'gray'}
+                        />
+                        <Text style={{marginLeft: 10, color: '#000'}}>
+                          Edit
+                        </Text>
+                      </View>
+                    </MenuItem>
+                    <MenuItem onPress={hideMenu1}>
+                      {' '}
+                      <View style={{flexDirection: 'row'}}>
+                        <Text>
                           <FontAwesomeIcon
-                            icon={faEllipsisVertical}
+                            icon={faStamp}
                             size={20}
-                            color={'#fff'}
+                            color={'gray'}
                           />
                         </Text>
-                      }
-                      onRequestClose={hideMenu3}>
-                      <MenuItem  onPress={()=>navigation.navigate('Form')}>View</MenuItem>
-                      <MenuItem  onPress={()=>navigation.navigate('Form')}>Edit</MenuItem>
-                      <MenuItem onPress={hideMenu3}>Case Assign</MenuItem>
-                    </Menu>
-                  </View>
+                        <Text style={{marginLeft: 8, color: '#000'}}>
+                          Case Assign
+                        </Text>
+                      </View>
+                    </MenuItem>
+                  </Menu>
                 </View>
-                <View style={styles.cardcontentpara}>
-                  <Text style={styles.carddetail}>
-                    Incident Date:07.05.2021
-                  </Text>
-                  <Text style={styles.carddetail1}>Case active Status</Text>
-                </View>
-                <View
-                  style={{
-                    marginLeft: 150,
-                    backgroundColor: 'gray',
-                    borderRadius: 40,
-                    height: 35,
-                    width: 100,
-                    borderColor: '#fff',
-                    top: 15,
-                  }}>
-                  <Text style={styles.initiate}>Initiate</Text>
-                </View>
-              </ImageBackground>
+              </View>
+              <View style={styles.cardcontentpara}>
+                <Text style={styles.carddetail}>09-03-2016</Text>
+              </View>
+              <View
+                style={{
+                  marginLeft: 200,
+                  backgroundColor: '#46bb95',
+                  borderRadius: 40,
+                  borderWidth: 1,
+                  height: 30,
+                  width: 100,
+                  borderColor: '#fff',
+                }}>
+                <Text style={styles.Completed}>Completed</Text>
+              </View>
             </Card>
-          </DropShadow>
-
-          <Card style={styles.card1}>
-            <ImageBackground
-              source={images.worldvision_card}
-              style={styles.cardbackground}>
+          </View>
+          <View style={{marginTop: 10}}>
+            <Card style={styles.card}>
               <View style={styles.cardfirstline}>
-                <Text style={styles.cardcontentheading}>Case No:314578</Text>
-                <View style={{marginTop: 8}}>
+                <Text style={styles.cardcontentheading}>
+                  Case No:{' '}
+                  <Text style={{fontFamily: 'Lato-Bold', color: '#000'}}>
+                    778965
+                  </Text>
+                </Text>
+                <View style={{marginTop: 17, marginRight: 10}}>
+                  <Menu
+                    visible={visible2}
+                    anchor={
+                      <Text onPress={showMenu2}>
+                        <FontAwesomeIcon
+                          icon={faEllipsisVertical}
+                          size={20}
+                          color={'gray'}
+                        />
+                      </Text>
+                    }
+                    onRequestClose={hideMenu2}>
+                    <MenuItem onPress={() => navigation.navigate('Form')}>
+                      <View style={{flexDirection: 'row'}}>
+                        <FontAwesomeIcon
+                          icon={faEye}
+                          size={20}
+                          color={'gray'}
+                        />
+                        <Text style={{marginLeft: 10, color: '#000'}}>
+                          View
+                        </Text>
+                      </View>
+                    </MenuItem>
+                    <MenuItem onPress={() => navigation.navigate('Form')}>
+                      <View style={{flexDirection: 'row'}}>
+                        <FontAwesomeIcon
+                          icon={faPen}
+                          size={20}
+                          color={'gray'}
+                        />
+                        <Text style={{marginLeft: 10, color: '#000'}}>
+                          Edit
+                        </Text>
+                      </View>
+                    </MenuItem>
+                    <MenuItem onPress={hideMenu2}>
+                      {' '}
+                      <View style={{flexDirection: 'row'}}>
+                        <Text>
+                          <FontAwesomeIcon
+                            icon={faStamp}
+                            size={20}
+                            color={'gray'}
+                          />
+                        </Text>
+                        <Text style={{marginLeft: 8, color: '#000'}}>
+                          Case Assign
+                        </Text>
+                      </View>
+                    </MenuItem>
+                  </Menu>
+                </View>
+              </View>
+              <View style={styles.cardcontentpara}>
+                <Text style={styles.carddetail}>05-02-2021</Text>
+              </View>
+              <View
+                style={{
+                  marginLeft: 200,
+                  backgroundColor: '#e26a00',
+                  borderRadius: 40,
+                  borderWidth: 1,
+                  height: 30,
+                  width: 100,
+                  borderColor: '#fff',
+                }}>
+                <Text style={styles.Assigned}>Assigned</Text>
+              </View>
+            </Card>
+          </View>
+          <View style={{marginTop: 10}}>
+            <Card style={styles.card}>
+              <View style={styles.cardfirstline}>
+                <Text style={styles.cardcontentheading}>
+                  Case No:{' '}
+                  <Text style={{fontFamily: 'Lato-Bold', color: '#000'}}>
+                    112657
+                  </Text>
+                </Text>
+                <View style={{marginTop: 17, marginRight: 10}}>
+                  <Menu
+                    visible={visible3}
+                    anchor={
+                      <Text onPress={showMenu3}>
+                        <FontAwesomeIcon
+                          icon={faEllipsisVertical}
+                          size={20}
+                          color={'gray'}
+                        />
+                      </Text>
+                    }
+                    onRequestClose={hideMenu3}>
+                    <MenuItem onPress={() => navigation.navigate('Form')}>
+                      <View style={{flexDirection: 'row'}}>
+                        <FontAwesomeIcon
+                          icon={faEye}
+                          size={20}
+                          color={'gray'}
+                        />
+                        <Text style={{marginLeft: 10, color: '#000'}}>
+                          View
+                        </Text>
+                      </View>
+                    </MenuItem>
+                    <MenuItem onPress={() => navigation.navigate('Form')}>
+                      <View style={{flexDirection: 'row'}}>
+                        <FontAwesomeIcon
+                          icon={faPen}
+                          size={20}
+                          color={'gray'}
+                        />
+                        <Text style={{marginLeft: 8, color: '#000'}}>Edit</Text>
+                      </View>
+                    </MenuItem>
+                    <MenuItem onPress={hideMenu3}>
+                      <View style={{flexDirection: 'row'}}>
+                        <Text>
+                          <FontAwesomeIcon
+                            icon={faStamp}
+                            size={20}
+                            color={'gray'}
+                          />
+                        </Text>
+                        <Text style={{marginLeft: 10, color: '#000'}}>
+                          Case Assign
+                        </Text>
+                      </View>
+                    </MenuItem>
+                  </Menu>
+                </View>
+              </View>
+              <View style={styles.cardcontentpara}>
+                <Text style={styles.carddetail}>01-09-2020</Text>
+              </View>
+              <View
+                style={{
+                  marginLeft: 200,
+                  backgroundColor: '#46bb95',
+                  borderRadius: 40,
+                  borderWidth: 1,
+                  height: 30,
+                  width: 100,
+                  borderColor: '#fff',
+                }}>
+                <Text style={styles.Completed}>Completed</Text>
+              </View>
+            </Card>
+          </View>
+
+          <View style={{marginTop: 10}}>
+            <Card style={styles.card}>
+              <View style={styles.cardfirstline}>
+                <Text style={styles.cardcontentheading}>
+                  Case No:{' '}
+                  <Text style={{fontFamily: 'Lato-Bold', color: '#000'}}>
+                    111895
+                  </Text>
+                </Text>
+                <View style={{marginTop: 17, marginRight: 10}}>
                   <Menu
                     visible={visible4}
                     anchor={
@@ -356,35 +455,70 @@ const Incident = ({navigation}) => {
                         <FontAwesomeIcon
                           icon={faEllipsisVertical}
                           size={20}
-                          color={'#fff'}
+                          color={'gray'}
                         />
                       </Text>
                     }
                     onRequestClose={hideMenu4}>
-                    <MenuItem  onPress={()=>navigation.navigate('Form')}>View</MenuItem>
-                    <MenuItem  onPress={()=>navigation.navigate('Form')}>Edit</MenuItem>
-                    <MenuItem onPress={hideMenu4}>Case Assign</MenuItem>
+                    <MenuItem onPress={() => navigation.navigate('Form')}>
+                      <View style={{flexDirection: 'row'}}>
+                        <FontAwesomeIcon
+                          icon={faEye}
+                          size={20}
+                          color={'gray'}
+                        />
+                        <Text style={{marginLeft: 10, color: '#000'}}>
+                          View
+                        </Text>
+                      </View>
+                    </MenuItem>
+                    <MenuItem onPress={() => navigation.navigate('Form')}>
+                      <View style={{flexDirection: 'row'}}>
+                        <FontAwesomeIcon
+                          icon={faPen}
+                          size={20}
+                          color={'gray'}
+                        />
+                        <Text style={{marginLeft: 10, color: '#000'}}>
+                          Edit
+                        </Text>
+                      </View>
+                    </MenuItem>
+                    <MenuItem onPress={hideMenu4}>
+                      <View style={{flexDirection: 'row'}}>
+                        <Text>
+                          <FontAwesomeIcon
+                            icon={faStamp}
+                            size={20}
+                            color={'gray'}
+                          />
+                        </Text>
+                        <Text style={{marginLeft: 8, color: '#000'}}>
+                          Case Assign
+                        </Text>
+                      </View>
+                    </MenuItem>
                   </Menu>
                 </View>
               </View>
               <View style={styles.cardcontentpara}>
-                <Text style={styles.carddetail}>Incident Date:29.05.2021</Text>
-                <Text style={styles.carddetail1}>Case active Status</Text>
+                <Text style={styles.carddetail}>13-02-2015</Text>
               </View>
               <View
                 style={{
-                  marginLeft: 150,
-                  backgroundColor: 'gray',
+                  marginLeft: 200,
+                  backgroundColor: '#00bad7',
+                  top: 1,
                   borderRadius: 40,
-                  height: 35,
+                  borderWidth: 1,
+                  height: 30,
                   width: 100,
                   borderColor: '#fff',
-                  top: 15,
                 }}>
-                <Text style={styles.initiate}>Initiate</Text>
+                <Text style={styles.initiate}>Initiated</Text>
               </View>
-            </ImageBackground>
-          </Card>
+            </Card>
+          </View>
         </View>
         <Modal
           animationType="slide"
@@ -396,10 +530,23 @@ const Incident = ({navigation}) => {
           }}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <View style={{marginTop: 16}}>
-                <Text style={styles.Formpopup}>
-                  From Date:<Text style={styles.star}>*</Text>
+              <View>
+                <Text
+                  style={styles.close}
+                  onPress={() => setModalVisible(!modalVisible)}>
+                  <FontAwesomeIcon icon={faXmark} size={20} color={'gray'} />
                 </Text>
+              </View>
+              <View>
+                <Text style={styles.Formpopup}>Case Id:</Text>
+                <TextInput
+                  style={styles.textpopup}
+                  placeholder="Search by Case id"
+                  placeholderTextColor="gray"
+                />
+              </View>
+              <View style={{marginTop: 16}}>
+                <Text style={styles.Formpopup}>Incident Date:</Text>
                 <View style={{marginTop: 5}}>
                   <TextInput
                     style={styles.textpopup}
@@ -426,40 +573,28 @@ const Incident = ({navigation}) => {
                   />
                 </View>
               </View>
-              <View style={{marginTop: 16}}>
-                <Text style={styles.Formpopup}>
-                  To Date:<Text style={styles.star}>*</Text>
-                </Text>
-                <View style={{marginTop: 5}}>
-                  <TextInput
-                    style={styles.textpopup}
-                    value={getDate()}
-                    placeholder="  Enter Date"
-                    placeholderTextColor="gray"
-                  />
-
-                  <Text
-                    style={{marginLeft: 230, bottom: 40}}
-                    onPress={showDatePicker}>
-                    <FontAwesomeIcon
-                      size={20}
-                      icon={faCalendarDays}
-                      title="Show Picker"
-                      color="#00bad7"
-                    />
-                  </Text>
-                  <DateTimePickerModal
-                    isVisible={isDatePickerVisible}
-                    mode="date"
-                    onConfirm={handleConfirm}
-                    onCancel={hideDatePicker}
+              <View>
+                <Text style={styles.Formpopup}>Cast status:</Text>
+                <View>
+                  <Dropdown
+                    containerStyle={{backgroundColor: '#fff'}}
+                    style={styles.dropping}
+                    placeholderStyle={styles.placeholderStyle}
+                    selectedTextStyle={styles.selectedTextStyle}
+                    data={status}
+                    maxHeight={250}
+                    labelField="label"
+                    valueField="value"
+                    placeholder="Select state"
+                    value={value1}
+                    onChange={item => {
+                      setValue1(item.value);
+                    }}
                   />
                 </View>
               </View>
-              <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => setModalVisible(!modalVisible)}>
-                <Text style={styles.textStyle}>Close</Text>
+              <Pressable style={[styles.button, styles.buttonClose]}>
+                <Text style={styles.textStyle}>Submit</Text>
               </Pressable>
             </View>
           </View>
@@ -485,19 +620,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#ecf0f1',
   },
   cardcontentheading: {
-    fontSize: 20,
-    marginLeft: 11,
-    marginTop: 5,
-    color: '#fff',
-    fontFamily: 'Lato-Bold',
+    fontSize: 16,
+    marginLeft: 15,
+    marginTop: 20,
+    color: 'gray',
+    fontFamily: 'Lato-Lightitalic',
   },
   cardcontentpara: {
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: 'Lato-Regular',
-    top: 20,
+    top: 25,
   },
   card: {
-    height: 150,
+    height: 110,
   },
   card1: {
     marginTop: 20,
@@ -515,15 +650,15 @@ const styles = StyleSheet.create({
 
     height: 41,
   },
-  
+
   carddetail: {
-    color: '#fff',
+    color: '#000',
     justifyContent: 'center',
     textAlign: 'center',
     fontFamily: 'Lato-Regular',
     fontSize: 13,
     alignItems: 'stretch',
-    marginRight: 150,
+    marginRight: 220,
   },
   verticleLine: {
     height: '70%',
@@ -534,20 +669,17 @@ const styles = StyleSheet.create({
   },
   cardbackground: {
     height: 150,
+    backgroundColor: '#fff',
   },
   cardfirstline: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  linethrough: {
-    borderBottomColor: '#000',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    top: 45,
-  },
+
   fillter: {
     width: 90,
-    height: 47,
+    height: 40,
     backgroundColor: '#00bad7',
 
     borderRadius: 5,
@@ -563,37 +695,25 @@ const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
+    alignSelf: 'center',
+    backgroundColor: '#000000aa',
   },
   modalView: {
     width: wp('90%'),
-    height: hp('50%'),
+    height: hp('60%'),
     margin: 20,
     backgroundColor: 'white',
-    borderRadius: 20,
     padding: 35,
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
   },
   button: {
     borderRadius: 10,
     padding: 10,
-    elevation: 2,
     top: 30,
     width: wp('50%'),
     height: hp('6%'),
   },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
+
   buttonClose: {
     backgroundColor: '#e26a00',
   },
@@ -613,7 +733,7 @@ const styles = StyleSheet.create({
     width: wp('69%'),
     borderWidth: 1,
     marginTop: 10,
-    marginLeft: 7,
+    marginLeft: 5,
     borderColor: '#ccc',
     backgroundColor: '#ecf0f1',
   },
@@ -625,15 +745,15 @@ const styles = StyleSheet.create({
     marginLeft: 13,
   },
   initiate: {
-    color: '#fff',
     justifyContent: 'center',
     textAlign: 'center',
     fontFamily: 'Lato-Bold',
-    fontSize: 18,
+    fontSize: 14,
     top: 5,
+    color: '#fff',
   },
   carddetail1: {
-    color: '#fff',
+    color: 'gray',
     justifyContent: 'center',
     textAlign: 'center',
     fontFamily: 'Lato-bold',
@@ -641,5 +761,43 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     marginRight: 172,
     top: 20,
+  },
+  Completed: {
+    justifyContent: 'center',
+    textAlign: 'center',
+    fontFamily: 'Lato-Bold',
+    fontSize: 14,
+    top: 5,
+    color: '#fff',
+  },
+  Assigned: {
+    color: '#fff',
+    justifyContent: 'center',
+    textAlign: 'center',
+    fontFamily: 'Lato-Bold',
+    fontSize: 14,
+    top: 5,
+  },
+
+  dropping: {
+    height: hp('7%'),
+    borderRadius: 5,
+    Color: 'gray',
+    width: wp('69%'),
+    borderWidth: 1,
+    marginTop: 10,
+    marginLeft: 7,
+    borderColor: '#ccc',
+    backgroundColor: '#ecf0f1',
+  },
+  close: {
+    marginLeft: 250,
+    bottom: 20,
+  },
+  selectedTextStyle: {
+    marginLeft: 10,
+  },
+  placeholderStyle: {
+    marginLeft: 10,
   },
 });
