@@ -4,16 +4,16 @@ import {
   TextInput,
   Text,
   View,
-  Image,
   TouchableOpacity,
 } from 'react-native';
+import {Card} from 'react-native-paper';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {ScrollView} from 'react-native-gesture-handler';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faPen} from '@fortawesome/free-solid-svg-icons';
+import {faPen, faEye} from '@fortawesome/free-solid-svg-icons';
 
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {faCalendarDays} from '@fortawesome/free-solid-svg-icons/faCalendarDays';
@@ -25,12 +25,83 @@ const UserProfileView = () => {
     lastName: 'Antony',
     dob: '1998-05-20',
     mobileno: '7200000001',
-    email: 'justinantony2004@gmail.com',
+    email: 'justinantony1998@gmail.com',
     state: 'West Bengal',
   });
-  const [date, setDate] = React.useState('');
+
+  const [profileError, setProfileError] = useState(initProfileErroMsg);
+  const initProfileErroMsg = {
+    firstName: '',
+    lastName: '',
+    mobile: '',
+    email: '',
+    state: '',
+  };
+
+  function handleUserSubmit() {
+    var err = 0;
+    var num = /^[0-9]{10}$/;
+    const emailRegex = /^[a-z]+\S+@\S+\.\S+/;
+    var profileError = {
+      firstName: '',
+      lastName: '',
+      mobile: '',
+      email: '',
+      state: '',
+    };
+
+    if (!userData.firstName) {
+      profileError.firstName = '*Please enter the first name';
+      ++err;
+    } else {
+      profileError.firstName = '';
+    }
+    if (!userData.lastName) {
+      profileError.lastName = '*Please enter the last name';
+      ++err;
+    } else {
+      profileError.lastName = '';
+    }
+    if (!userData.mobileno) {
+      profileError.mobile = '*Please enter the mobileno';
+      ++err;
+    } else {
+      profileError.mobile = '';
+    }
+    if (!num.test(userData.mobileno)) {
+      profileError.mobile = '*Enter 10 digit mobile number';
+      ++err;
+    } else {
+      profileError.mobile = '';
+    }
+
+    if (!userData.email) {
+      profileError.email = '*Please enter the Email-Id';
+      ++err;
+    } else {
+      profileError.email = '';
+    }
+    if (userData.email && emailRegex.test(userData.email) === false) {
+      profileError.email = '*Please Enter Valid email id!';
+      ++err;
+    } else {
+      profileError.email = '';
+    }
+
+    if (!userData.state) {
+      profileError.state = '*Please enter the state name';
+      ++err;
+    } else {
+      profileError.state = '';
+    }
+
+    setProfileError(profileError);
+    if (err == 0) {
+      /* update api call */
+    }
+  }
+
   const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
-  const [checked, setChecked] = React.useState('');
   const showDatePicker = () => {
     if (isEdit) {
       setDatePickerVisibility(true);
@@ -42,31 +113,43 @@ const UserProfileView = () => {
   };
 
   const handleConfirm = date => {
-    console.log('testing+++++++++++++++++++++++++++++++++++++');
     setUserData({...userData, dob: date});
     hideDatePicker();
   };
 
   const getDate = () => {
-    // setDate();
     let newdate = new Date(userData.dob);
     let tempDate = newdate.toString().split(' ');
-    return newdate !== ''
-      ? `${tempDate[0]} ${tempDate[1]} ${tempDate[2]} ${tempDate[3]}`
-      : '';
+    return newdate !== '' ? `${tempDate[1]} ${tempDate[2]} ${tempDate[3]}` : '';
   };
+
   return (
     <ScrollView style={styles.UserProfileContainer}>
-      <View>
-        <View style={styles.UserHeader}>
-          <Text style={styles.headerinfo}>User Profile Information</Text>
-          <Text
-            style={styles.penicon}
-            onPress={() => {
-              setIsEdit(true);
-            }}>
-            <FontAwesomeIcon icon={faPen} size={20} />
-          </Text>
+      <Card style={styles.Userprofilecard}>
+        <View>
+          {isEdit == false ? (
+            <View style={styles.UserHeader}>
+              <Text style={styles.headerinfo}>View profile</Text>
+              <Text
+                style={styles.penicon}
+                onPress={() => {
+                  setIsEdit(true);
+                }}>
+                <FontAwesomeIcon icon={faPen} size={16} />
+              </Text>
+            </View>
+          ) : (
+            <View style={styles.UserHeader}>
+              <Text style={styles.headerinfo}>Edit profile</Text>
+              <Text
+                style={styles.penicon}
+                onPress={() => {
+                  setIsEdit(false);
+                }}>
+                <FontAwesomeIcon icon={faEye} size={16} />
+              </Text>
+            </View>
+          )}
         </View>
         <View style={styles.item}>
           <View style={styles.iconContent}>
@@ -75,12 +158,18 @@ const UserProfileView = () => {
           <TextInput
             style={styles.Userinput}
             selectTextOnFocus={false}
+            backgroundColor={isEdit == false ? '#ecf0f1' : '#ffffff'}
             value={userData.firstName}
             onChangeText={text => {
               setUserData({...userData, firstName: text});
             }}
             editable={isEdit}
           />
+        </View>
+        <View>
+          {profileError?.firstName && (
+            <Text style={styles.usererrmessage}>{profileError?.firstName}</Text>
+          )}
         </View>
 
         <View style={styles.item}>
@@ -90,6 +179,7 @@ const UserProfileView = () => {
           <TextInput
             style={styles.Userinput}
             selectTextOnFocus={false}
+            backgroundColor={isEdit == false ? '#ecf0f1' : '#ffffff'}
             value={userData.lastName}
             onChangeText={text => {
               setUserData({...userData, lastName: text});
@@ -98,41 +188,21 @@ const UserProfileView = () => {
           />
         </View>
 
-        <View style={styles.item}>
-          <View style={styles.iconContent}>
-            <Text style={styles.userlabel}>Date of birth</Text>
-          </View>
-          <TouchableOpacity onPress={showDatePicker}>
-            <TextInput
-              style={styles.Userinput}
-              selectTextOnFocus={false}
-              value={getDate()}
-              editable={false}
-              pointerEvents="none"
-            />
-          </TouchableOpacity>
-          <Text style={{left: 295, bottom: 25}} onPress={showDatePicker}>
-            <FontAwesomeIcon
-              size={20}
-              icon={faCalendarDays}
-              title="Show Picker"
-              color="#00bad7"
-            />
-          </Text>
-          <DateTimePickerModal
-            isVisible={isDatePickerVisible}
-            mode="date"
-            onConfirm={handleConfirm}
-            onCancel={hideDatePicker}
-          />
+        <View>
+          {profileError?.lastName && (
+            <Text style={styles.usererrmessage}>{profileError?.lastName}</Text>
+          )}
         </View>
 
-        <View style={[styles.item, {marginTop: -10}]}>
+        <View style={styles.item}>
           <View style={styles.iconContent}>
             <Text style={styles.userlabel}>Mobile no</Text>
           </View>
           <TextInput
             style={styles.Userinput}
+            backgroundColor={isEdit == false ? '#ecf0f1' : '#ffffff'}
+            maxLength={10}
+            keyboardType="numeric"
             selectTextOnFocus={false}
             value={userData.mobileno}
             onChangeText={text => {
@@ -140,6 +210,11 @@ const UserProfileView = () => {
             }}
             editable={isEdit}
           />
+        </View>
+        <View>
+          {profileError?.mobile && (
+            <Text style={styles.usererrmessage}>{profileError?.mobile}</Text>
+          )}
         </View>
 
         <View style={styles.item}>
@@ -149,6 +224,8 @@ const UserProfileView = () => {
           <TextInput
             style={styles.Userinput}
             selectTextOnFocus={false}
+            keyboardType="email-address"
+            backgroundColor={isEdit == false ? '#ecf0f1' : '#ffffff'}
             value={userData.email}
             onChangeText={text => {
               setUserData({...userData, email: text});
@@ -156,14 +233,51 @@ const UserProfileView = () => {
             editable={isEdit}
           />
         </View>
+        <View>
+          {profileError?.email && (
+            <Text style={styles.usererrmessage}>{profileError?.email}</Text>
+          )}
+        </View>
 
         <View style={styles.item}>
+          <View style={styles.iconContent}>
+            <Text style={styles.userlabel}>Date of birth</Text>
+          </View>
+
+          <TextInput
+            style={styles.Userinput}
+            selectTextOnFocus={false}
+            backgroundColor={isEdit == false ? '#ecf0f1' : '#ffffff'}
+            value={getDate()}
+            editable={isEdit}
+          />
+          <TouchableOpacity>
+            <Text style={{left: 280, bottom: 20}} onPress={showDatePicker}>
+              <FontAwesomeIcon
+                size={20}
+                icon={faCalendarDays}
+                title="Show Picker"
+                color="#00bad7"
+              />
+            </Text>
+          </TouchableOpacity>
+          <DateTimePickerModal
+            isVisible={isDatePickerVisible}
+            mode="date"
+            minDate={new Date('2016-01-01')}
+            onConfirm={handleConfirm}
+            onCancel={hideDatePicker}
+          />
+        </View>
+
+        <View style={[styles.item, {marginTop: -10}]}>
           <View style={styles.iconContent}>
             <Text style={styles.userlabel}>State</Text>
           </View>
           <TextInput
             style={styles.Userinput}
             selectTextOnFocus={false}
+            backgroundColor={isEdit == false ? '#ecf0f1' : '#ffffff'}
             value={userData.state}
             onChangeText={text => {
               setUserData({...userData, state: text});
@@ -171,11 +285,20 @@ const UserProfileView = () => {
             editable={isEdit}
           />
         </View>
+        {profileError?.state && (
+          <Text style={styles.usererrmessage}>{profileError?.state}</Text>
+        )}
 
-        <TouchableOpacity style={styles.Userbutton}>
-          <Text style={styles.Userbuttoninput}>Save</Text>
-        </TouchableOpacity>
-      </View>
+        {isEdit == false ? (
+          ''
+        ) : (
+          <TouchableOpacity
+            style={styles.Userbutton}
+            onPress={() => handleUserSubmit()}>
+            <Text style={styles.Userbuttoninput}>Save</Text>
+          </TouchableOpacity>
+        )}
+      </Card>
     </ScrollView>
   );
 };
@@ -183,39 +306,46 @@ export default UserProfileView;
 
 const styles = StyleSheet.create({
   UserProfileContainer: {
-    top: 30,
+    marginBottom: 10,
+    marginVertical: 20,
+  },
+  Userprofilecard: {
+    margin: '3%',
+    height: hp('120%'),
   },
   UserHeader: {
+    marginTop: 20,
+    marginLeft: '7%',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
   },
   penicon: {
-    marginRight: 10,
+    marginRight: '10%',
   },
   headerinfo: {
-    fontSize: 22,
-    marginLeft: 10,
+    marginRight: '5%',
+    fontSize: 20,
     fontFamily: 'Lato-Bold',
   },
   Userinput: {
     height: hp('6%'),
     width: wp('80%'),
-    color: 'black',
-    borderRadius: 10,
+    borderRadius: 5,
     fontSize: 14,
     justifyContent: 'center',
     alignSelf: 'center',
-    borderWidth: 0.6,
-    borderColor: 'gray',
-    top: 10,
+    borderWidth: 0.7,
+    borderColor: '#d1cdc7',
+    top: 12,
     padding: 10,
+    color: 'black',
     fontFamily: 'Lato-Regular',
-    backgroundColor: '#ffff',
-    marginBottom: 5,
   },
   userlabel: {
     fontSize: 16,
-    top: 7,
+    top: 5,
+    marginTop: 5,
+    color: 'gray',
     fontFamily: 'Lato-Bold',
   },
   item: {
@@ -225,7 +355,7 @@ const styles = StyleSheet.create({
 
   iconContent: {
     fontSize: 18,
-    marginLeft: 40,
+    marginLeft: 25,
     width: wp('25%'),
     fontFamily: 'Lato-Bold',
   },
@@ -246,7 +376,7 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     marginLeft: 5,
     marginRight: 5,
-    marginTop: 70,
+    top: 60,
     marginBottom: 10,
   },
   Userbuttoninput: {
@@ -254,5 +384,12 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 20,
     fontFamily: 'Lato-Bold',
+  },
+  usererrmessage: {
+    color: 'red',
+    padding: 2,
+    top: 10,
+    bottom:5,
+    marginLeft: 25,
   },
 });

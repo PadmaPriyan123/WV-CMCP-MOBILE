@@ -38,7 +38,6 @@ const Login = () => {
   const OTPInputRef2 = useRef(null);
   const OTPInputRef3 = useRef(null);
   const OTPInputRef4 = useRef(null);
-  const OTPInputRef5 = useRef(null);
 
   const [oTPInputValue1, setOTPInputValue1] = React.useState('');
   const [oTPInputValue2, setOTPInputValue2] = React.useState('');
