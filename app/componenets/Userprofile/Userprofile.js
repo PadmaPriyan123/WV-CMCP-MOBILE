@@ -15,10 +15,11 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faPen, faEye} from '@fortawesome/free-solid-svg-icons';
 
+import {Dropdown} from 'react-native-element-dropdown';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {faCalendarDays} from '@fortawesome/free-solid-svg-icons/faCalendarDays';
 
-const UserProfileView = () => {
+const UserProfileView = props => {
   const [isEdit, setIsEdit] = useState(false);
   const [userData, setUserData] = useState({
     firstName: 'Justin',
@@ -28,6 +29,22 @@ const UserProfileView = () => {
     email: 'justinantony1998@gmail.com',
     state: 'West Bengal',
   });
+  const minDate = new Date('1920-01-01');
+  const maxDate = new Date('2004-06-30');
+  const {
+    onChangeText,
+    mode = 'date',
+    min = minDate,
+    max = maxDate,
+    icon = true,
+    ...rest
+  } = props;
+
+  const [dropValue, setDropValue] = useState(null);
+  const UserDropData = [
+    {label: 'Assam ', value: '1'},
+    {label: 'West Bengal ', value: '2'},
+  ];
 
   const [profileError, setProfileError] = useState(initProfileErroMsg);
   const initProfileErroMsg = {
@@ -39,7 +56,6 @@ const UserProfileView = () => {
   };
 
   function handleUserSubmit() {
-    var err = 0;
     var num = /^[0-9]{10}$/;
     const emailRegex = /^[a-z]+\S+@\S+\.\S+/;
     var profileError = {
@@ -52,53 +68,42 @@ const UserProfileView = () => {
 
     if (!userData.firstName) {
       profileError.firstName = '*Please enter the first name';
-      ++err;
     } else {
       profileError.firstName = '';
     }
     if (!userData.lastName) {
       profileError.lastName = '*Please enter the last name';
-      ++err;
     } else {
       profileError.lastName = '';
     }
     if (!userData.mobileno) {
       profileError.mobile = '*Please enter the mobileno';
-      ++err;
     } else {
       profileError.mobile = '';
     }
     if (!num.test(userData.mobileno)) {
       profileError.mobile = '*Enter 10 digit mobile number';
-      ++err;
     } else {
       profileError.mobile = '';
     }
 
     if (!userData.email) {
       profileError.email = '*Please enter the Email-Id';
-      ++err;
     } else {
       profileError.email = '';
     }
+
     if (userData.email && emailRegex.test(userData.email) === false) {
       profileError.email = '*Please Enter Valid email id!';
-      ++err;
-    } else {
-      profileError.email = '';
     }
 
-    if (!userData.state) {
-      profileError.state = '*Please enter the state name';
-      ++err;
-    } else {
-      profileError.state = '';
-    }
+    // if (!userData.state) {
+    //   profileError.state = '*Please enter the state name';
+    // } else {
+    //   profileError.state = '';
+    // }
 
     setProfileError(profileError);
-    if (err == 0) {
-      /* update api call */
-    }
   }
 
   const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
@@ -264,30 +269,58 @@ const UserProfileView = () => {
           <DateTimePickerModal
             isVisible={isDatePickerVisible}
             mode="date"
-            minDate={new Date('2016-01-01')}
             onConfirm={handleConfirm}
             onCancel={hideDatePicker}
+            minimumDate={min}
+            maximumDate={max}
           />
         </View>
 
         <View style={[styles.item, {marginTop: -10}]}>
-          <View style={styles.iconContent}>
+          {/* <View style={styles.iconContent}>
             <Text style={styles.userlabel}>State</Text>
-          </View>
-          <TextInput
-            style={styles.Userinput}
-            selectTextOnFocus={false}
-            backgroundColor={isEdit == false ? '#ecf0f1' : '#ffffff'}
-            value={userData.state}
-            onChangeText={text => {
-              setUserData({...userData, state: text});
-            }}
-            editable={isEdit}
-          />
+          </View> */}
+
+          {isEdit == false ? (
+            <View style={styles.item}>
+              <View style={styles.iconContent}>
+                <Text style={styles.userlabel}>State</Text>
+              </View>
+              <TextInput
+                style={styles.Userinput}
+                selectTextOnFocus={false}
+                backgroundColor={isEdit == false ? '#ecf0f1' : '#ffffff'}
+                value={userData.state}
+                onChangeText={text => {
+                  setUserData({...userData, state: text});
+                }}
+                editable={isEdit}
+              />
+            </View>
+          ) : (
+            <View style={styles.item}>
+              <View style={styles.iconContent}>
+                <Text style={styles.userlabel}>State</Text>
+              </View>
+
+              <Dropdown
+                style={styles.Userinput}
+                containerStyle={{backgroundColor: '#ecf0f1'}}
+                selectTextOnFocus={false}
+                placeholder="Select State"
+                data={UserDropData}
+                labelField="label"
+                valueField="value"
+                maxHeight={100}
+                value={dropValue}
+                onChange={item => {
+                  setDropValue(item.value);
+                }}
+                editable={isEdit}
+              />
+            </View>
+          )}
         </View>
-        {profileError?.state && (
-          <Text style={styles.usererrmessage}>{profileError?.state}</Text>
-        )}
 
         {isEdit == false ? (
           ''
@@ -311,7 +344,7 @@ const styles = StyleSheet.create({
   },
   Userprofilecard: {
     margin: '3%',
-    height: hp('120%'),
+    height: hp('100%'),
   },
   UserHeader: {
     marginTop: 20,
@@ -324,7 +357,7 @@ const styles = StyleSheet.create({
   },
   headerinfo: {
     marginRight: '5%',
-    fontSize: 20,
+    fontSize: 24,
     fontFamily: 'Lato-Bold',
   },
   Userinput: {
@@ -389,7 +422,7 @@ const styles = StyleSheet.create({
     color: 'red',
     padding: 2,
     top: 10,
-    bottom:5,
+    bottom: 5,
     marginLeft: 25,
   },
 });
