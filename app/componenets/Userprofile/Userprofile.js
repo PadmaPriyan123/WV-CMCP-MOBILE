@@ -13,11 +13,9 @@ import {
 } from 'react-native-responsive-screen';
 import {ScrollView} from 'react-native-gesture-handler';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faPen, faEye} from '@fortawesome/free-solid-svg-icons';
-
+import {faPen, faEye, faCalendarDays} from '@fortawesome/free-solid-svg-icons';
 import {Dropdown} from 'react-native-element-dropdown';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import {faCalendarDays} from '@fortawesome/free-solid-svg-icons/faCalendarDays';
 
 const UserProfileView = props => {
   const [isEdit, setIsEdit] = useState(false);
@@ -31,19 +29,12 @@ const UserProfileView = props => {
   });
   const minDate = new Date('1920-01-01');
   const maxDate = new Date('2004-06-30');
-  const {
-    onChangeText,
-    mode = 'date',
-    min = minDate,
-    max = maxDate,
-    icon = true,
-    ...rest
-  } = props;
+  const {onChangeText, mode = 'date', min = minDate, max = maxDate} = props;
 
-  const [dropValue, setDropValue] = useState(null);
+  const [dropValue, setDropValue] = useState('West Bengal');
   const UserDropData = [
     {label: 'Assam ', value: '1'},
-    {label: 'West Bengal ', value: '2'},
+    {label: 'West Bengal ', value: '2', state: 'West Bengal'},
   ];
 
   const [profileError, setProfileError] = useState(initProfileErroMsg);
@@ -296,8 +287,9 @@ const UserProfileView = props => {
                 style={styles.Userinput}
                 containerStyle={{backgroundColor: '#ecf0f1'}}
                 selectTextOnFocus={false}
-                placeholder="Select State"
+                placeholder="Select the state"
                 data={UserDropData}
+                defaultValue={'West Bengal'}
                 labelField="label"
                 valueField="value"
                 maxHeight={100}
