@@ -96,13 +96,6 @@ const UserProfileView = props => {
     if (userData.email && emailRegex.test(userData.email) === false) {
       profileError.email = '*Please Enter Valid email id!';
     }
-
-    // if (!userData.state) {
-    //   profileError.state = '*Please enter the state name';
-    // } else {
-    //   profileError.state = '';
-    // }
-
     setProfileError(profileError);
   }
 
@@ -276,11 +269,7 @@ const UserProfileView = props => {
           />
         </View>
 
-        <View style={[styles.item, {marginTop: -10}]}>
-          {/* <View style={styles.iconContent}>
-            <Text style={styles.userlabel}>State</Text>
-          </View> */}
-
+        <View style={{marginTop: -15}}>
           {isEdit == false ? (
             <View style={styles.item}>
               <View style={styles.iconContent}>
