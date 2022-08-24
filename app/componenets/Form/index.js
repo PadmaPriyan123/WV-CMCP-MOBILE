@@ -40,6 +40,12 @@ const FourthRoute = () => {
     </>
   );
 };
+const FivthRoute = () => {
+  return (
+    <>
+    </>
+  );
+};
 export default function TabViewExample() {
   const layout = useWindowDimensions();
  
@@ -47,8 +53,11 @@ export default function TabViewExample() {
   const [routes] = React.useState([
     {key: 'first', title: 'VICTIMS', change: () => setIndex(1)},
     {key: 'second', title: 'COMPLAINTS', change: () => setIndex(2)},
-   {key: 'third', title: 'LEGAL', change: () => setIndex(3)},
-   {key: 'fourth', title: 'SERVICES', change: () => setIndex(Login)},
+      {key: 'third', title: 'LEGAL', change: () => setIndex(3)},
+     {key: 'fourth', title: 'SERVICES', change: () => setIndex(Login)},
+        // {key: 'fivth', title: 'CARD', change: () => setIndex(Login)},
+ 
+
   ]);
 
   
@@ -58,6 +67,8 @@ export default function TabViewExample() {
     second: SecondRoute,
     third: ThirdRoute,
     fourth: FourthRoute,
+    fivth: FivthRoute,
+
   });
 
   const renderTabBar = props => (

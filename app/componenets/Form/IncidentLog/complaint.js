@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {
   View,
   StyleSheet,
@@ -16,6 +16,7 @@ import {
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
 import {faCalendarDays} from '@fortawesome/free-solid-svg-icons/faCalendarDays';
+import {faFile} from '@fortawesome/free-solid-svg-icons/faFile';
 
 import {ScrollView} from 'react-native-gesture-handler';
 import {Dropdown} from 'react-native-element-dropdown';
@@ -48,22 +49,22 @@ const Complaints = ({route}) => {
   };
 
   const data1 = [
-    {label: 'Victim self', value: 'Victim sel'},
-    {label: 'Victims Family member ', value: 'Victims Family member '},
-    {label: 'Victims relative', value: 'Victims relative'},
+    {label: 'Victim self', value: '1'},
+    {label: 'Victims Family member ', value: '2 '},
+    {label: 'Victims relative', value: '3'},
 
-    {label: 'Men Care Group member', value: 'Men Care Group member'},
+    {label: 'Men Care Group member', value: '4'},
 
-    {label: 'CFLRC facilitator ', value: ' CFLRC facilitator '},
+    {label: 'CFLRC facilitator ', value: ' 5 '},
 
-    {label: 'Girl Power Group Members', value: 'Girl Power Group Members'},
-    {label: 'GPG/MCG/VLCPC Volunteers', value: ' GPG/MCG/VLCPC Volunteers'},
-    {label: 'WV staff', value: 'WV staff'},
+    {label: 'Girl Power Group Members', value: '6'},
+    {label: 'GPG/MCG/VLCPC Volunteers', value: ' 7'},
+    {label: 'WV staff', value: '8'},
     {
       label: 'Anti-Trafficking Warrior member',
-      value: 'Anti-Trafficking Warrior member',
+      value: '9',
     },
-    {label: 'Others', value: 'others'},
+    {label: 'Others', value: '10'},
   ];
   const [value1, setValue1] = useState('');
 
@@ -116,7 +117,9 @@ const Complaints = ({route}) => {
     },
     {label: 'Appeal under process', value: 'Appeal under process    '},
   ];
+
   const [value2, setValue2] = useState('');
+  const [checked0, setChecked0] = React.useState('');
 
   const [checked, setChecked] = React.useState('');
   const [checked1, setChecked1] = React.useState('');
@@ -134,6 +137,21 @@ const Complaints = ({route}) => {
       setIsPickerShow(false);
     }
   };
+  const [others, setOthers] = useState(false);
+  const [others1, setOthers1] = useState(false);
+  const [fileResponse, setFileResponse] = React.useState([]);
+
+  const handleDocumentSelection = useCallback(async () => {
+    try {
+      const response = await DocumentPicker.pick({
+        presentationStyle: 'fullScreen',
+      });
+      setFileResponse(response);
+    } catch (err) {
+      console.warn(err);
+    }
+  }, []);
+
   return (
     <View style={styles.Tab}>
       <ScrollView style={styles.scrollView}>
@@ -159,6 +177,8 @@ const Complaints = ({route}) => {
                 />
               </Text>
               <DateTimePickerModal
+              minDate={new Date('03-19-2022')}
+              maxDate={new Date('03-21-2022')}
                 isVisible={isDatePickerVisible}
                 mode="date"
                 onConfirm={handleConfirm}
@@ -234,11 +254,27 @@ const Complaints = ({route}) => {
                 placeholder="Select who informed about the incident"
                 value={value1}
                 onChange={item => {
-                  setValue1(item.value);
+                  {
+                    setValue1(item.value);
+                    item.value === '10' ? setOthers(true) : setOthers(false);
+                  }
                 }}
               />
             </View>
           </View>
+          {others == true && (
+            <View style={{marginTop: 16}}>
+              <Text style={styles.FormTitle}>Others ( Who informed about the incident):</Text>
+              <View style={styles.formtotalinput}>
+                <TextInput
+                  style={styles.FormInput}
+                  type="text"
+                  placeholder="Others"
+                  placeholderTextColor="gray"
+                />
+              </View>
+            </View>
+          )}
           <View style={{marginTop: 3, marginLeft: 10}}>
             <Text style={styles.radioname}>
               Complaint lodged in ps:<Text style={styles.star}>*</Text>
@@ -262,35 +298,94 @@ const Complaints = ({route}) => {
               <Text style={styles.gender}>No</Text>
             </View>
           </View>
-          <View style={{marginTop: 16}}>
-            <Text style={styles.FormTitle}>
-              Gd entry:<Text style={styles.star}>*</Text>
+          <View style={{marginTop: 3, marginLeft: 10}}>
+            <Text style={styles.radioname}>
+              GDE entry:<Text style={styles.star}>*</Text>
             </Text>
-            <View style={{marginTop: 5, marginLeft: 3}}>
-              <TextInput
-                style={styles.textInput}
-                value={getDate()}
-                placeholder="  Enter date"
-                color="gray"
+            <View style={styles.SectionStyle1}>
+              <RadioButton
+                uncheckedColor={'gray'}
+                color={'#ff6b00'}
+                value="first"
+                status={checked0 === 'first' ? 'checked' : 'unchecked'}
+                onPress={() => setChecked0('first')}
               />
-
-              <Text style={{left: 300, bottom: 39}} onPress={showDatePicker}>
-                <FontAwesomeIcon
-                  size={20}
-                  icon={faCalendarDays}
-                  title="Show Picker"
-                  color="#00bad7"
-                />
-              </Text>
-              <DateTimePickerModal
-                isVisible={isDatePickerVisible}
-                mode="date"
-                onConfirm={handleConfirm}
-                onCancel={hideDatePicker}
+              <Text style={styles.gender}>Yes</Text>
+              <RadioButton
+                uncheckedColor={'gray'}
+                color={'#ff6b00'}
+                value="second"
+                status={checked0 === 'second' ? 'checked' : 'unchecked'}
+                onPress={() => setChecked0('second')}
               />
+              <Text style={styles.gender}>No</Text>
             </View>
           </View>
-          <View style={{marginTop: -10, marginLeft: 10}}>
+          {checked0 === 'first' && (
+            <View style={{marginTop: 20}}>
+              <Text style={styles.FormTitle}>GDE Date: </Text>
+              <View style={{marginTop: 5}}>
+                <TextInput
+                  style={styles.textInput}
+                  value={getDate()}
+                  placeholder="  Enter Date"
+                  Color={'gray'}
+                />
+
+                <Text style={{left: 300, bottom: 39}} onPress={showDatePicker}>
+                  <FontAwesomeIcon
+                    size={20}
+                    icon={faCalendarDays}
+                    title="Show Picker"
+                    color="#00bad7"
+                  />
+                </Text>
+                <DateTimePickerModal
+                  isVisible={isDatePickerVisible}
+                  mode="Date"
+                  onConfirm={handleConfirm}
+                  onCancel={hideDatePicker}
+                />
+              </View>
+              <View style={{marginTop: 0}}>
+                <Text style={styles.FormTitle}>
+                  GDE Number:<Text style={styles.star}>*</Text>
+                </Text>
+                <View style={styles.formtotalinput}>
+                  <TextInput
+                    style={styles.FormInput}
+                    keyboardType="numeric"
+                    placeholder="Enter FIR Number"
+                    placeholderTextColor="#000"
+                  />
+                </View>
+              </View>
+              <View>
+                <View style={{marginTop: 30}}>
+                  <Text style={styles.Filefill}>GDE Document:</Text>
+
+                  {fileResponse.map((file, index) => (
+                    <Text
+                      key={index.toString()}
+                      style={styles.uri}
+                      numberOfLines={1}
+                      ellipsizeMode={'middle'}>
+                      {file?.uri}
+                    </Text>
+                  ))}
+
+                  <Text onPress={handleDocumentSelection}>
+                    <FontAwesomeIcon
+                      icon={faFile}
+                      color="gray"
+                      style={styles.fileUpload}
+                    />
+                  </Text>
+                </View>
+              </View>
+            </View>
+          )}
+          <View style={{ marginLeft: 10}}>
             <Text style={styles.radioname}>
               FIR filled or not:<Text style={styles.star}>*</Text>
             </Text>
@@ -318,7 +413,7 @@ const Complaints = ({route}) => {
           and will return false if state is false*/}
             {checked === 'first' && (
               <View style={{marginTop: 20}}>
-                <Text style={styles.FormTitle}>Date </Text>
+                <Text style={styles.FormTitle}>FIR Date: </Text>
                 <View style={{marginTop: 5}}>
                   <TextInput
                     style={styles.textInput}
@@ -339,22 +434,45 @@ const Complaints = ({route}) => {
                   </Text>
                   <DateTimePickerModal
                     isVisible={isDatePickerVisible}
-                    mode="date"
+                    mode="Date"
                     onConfirm={handleConfirm}
                     onCancel={hideDatePicker}
                   />
                 </View>
                 <View style={{marginTop: 0}}>
                   <Text style={styles.FormTitle}>
-                    Victim's number:<Text style={styles.star}>*</Text>
+                    FIR Number:<Text style={styles.star}>*</Text>
                   </Text>
                   <View style={styles.formtotalinput}>
                     <TextInput
                       style={styles.FormInput}
                       keyboardType="numeric"
-                      placeholder="Enter victim's number"
+                      placeholder="Enter FIR Number"
                       placeholderTextColor="#000"
                     />
+                  </View>
+                </View>
+                <View>
+                  <View style={{marginTop: 30}}>
+                    <Text style={styles.Filefill}>FIR Document</Text>
+
+                    {fileResponse.map((file, index) => (
+                      <Text
+                        key={index.toString()}
+                        style={styles.uri}
+                        numberOfLines={1}
+                        ellipsizeMode={'middle'}>
+                        {file?.uri}
+                      </Text>
+                    ))}
+
+                    <Text onPress={handleDocumentSelection}>
+                      <FontAwesomeIcon
+                        icon={faFile}
+                        color="gray"
+                        style={styles.fileUpload}
+                      />
+                    </Text>
                   </View>
                 </View>
               </View>
@@ -377,18 +495,36 @@ const Complaints = ({route}) => {
                 placeholder="Select whether the incident"
                 value={selected}
                 onChange={item => {
-                  setSelected(item);
+                  {
+                    setSelected(item);
+                    item.selected === '3'
+                      ? setOthers1(true)
+                      : setOthers1(false);
+                  }
                 }}
               />
             </View>
           </View>
+          {others1 === true && (
+            <View style={{marginTop: 16}}>
+              <Text style={styles.FormTitle}>Others:</Text>
+              <View style={styles.formtotalinput}>
+                <TextInput
+                  style={styles.FormInput}
+                  keyboardType="numeric"
+                  placeholder="Others"
+                  placeholderTextColor="gray"
+                />
+              </View>
+            </View>
+          )}
           <View style={{marginTop: 16}}>
             <Text style={styles.FormTitle1}>
-              What sections applied in fir?:<Text style={styles.star}>*</Text>
+              What sections applied in FIR?:<Text style={styles.star}>*</Text>
             </Text>
             <View style={styles.droppingn}>
               <Dropdown
-                containerStyle={{backgroundColor: '#fff'}}
+                containerStyle={{backgroundColor: 'green'}}
                 style={styles.dropping}
                 placeholderStyle={styles.placeholderStyle}
                 selectedTextStyle={styles.selectedTextStyle}
@@ -397,7 +533,7 @@ const Complaints = ({route}) => {
                 maxHeight={250}
                 labelField="label"
                 valueField="value"
-                placeholder="Select what sections applied in fir?"
+                placeholder="Select what sections applied in FIR?"
                 value={value2}
                 onChange={item => {
                   setValue2(item.value);
@@ -421,12 +557,12 @@ const Complaints = ({route}) => {
         </SafeAreaView>
       </ScrollView>
       <View style={styles.complaintbutton}>
-      <TouchableOpacity
+        <TouchableOpacity
           style={styles.formbutton1}
           onPress={() => route.change(1)}>
           <Text style={styles.formbuttoninput}>BACK </Text>
         </TouchableOpacity>
-      <TouchableOpacity
+        <TouchableOpacity
           style={styles.formbutton0}
           onPress={() => route.change()}>
           <Text style={styles.formbuttoninput}>SAVE </Text>
@@ -906,13 +1042,12 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     borderColor: '#ccc',
   },
-  complaintbutton:{
-    flexDirection:'row',
-    justifyContent:'center',
-    top:10
-
+  complaintbutton: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    top: 10,
   },
-  formbutton0:{
+  formbutton0: {
     alignSelf: 'center',
     width: wp('30%'),
     height: hp('6%'),
@@ -921,9 +1056,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#46bb95',
     marginTop: 14,
     marginLeft: 5,
-   
   },
-  formbutton1:{
+  formbutton1: {
     alignSelf: 'center',
     width: wp('30%'),
     height: hp('6%'),
@@ -932,6 +1066,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#00bad7',
     marginTop: 14,
     marginLeft: 5,
-
-  }
+  },
 });

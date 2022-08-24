@@ -172,6 +172,7 @@ const Login = () => {
 
   useEffect(() => {
     let a = {EmailId: '', Password: ''};
+    console.log('loginresponse', loginResponse);
 
     if (
       loginResponse?.StatusCode === 400 &&
@@ -191,11 +192,14 @@ const Login = () => {
       dispatch(userLoginResponse(''));
     } else if (loginResponse?.StatusCode === 201) {
       alert(loginResponse.StatusMessage);
-      dispatch(userLoginResponse(''));
-      setTimeout(() => {
-        navigation.navigate('Drawer');
-        clearAll();
-      }, 0);
+      navigation.navigate('Drawer');
+      clearAll()
+      console.log('came here');
+       dispatch(userLoginResponse(''));
+
+      // setTimeout(() => {
+      //   clearAll();
+      // }, 0);
     }
   }, [loginResponse]);
 

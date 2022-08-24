@@ -24,7 +24,6 @@ function* userLogin({payload: loginCredentials}) {
       yield put(userLoginResponse(response));
     }
   } catch (error) {
-    console.log('err', error);
   }
 }
 function* login() {
