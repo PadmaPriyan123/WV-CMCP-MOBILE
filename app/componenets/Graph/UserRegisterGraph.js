@@ -17,8 +17,8 @@ LogBox.ignoreAllLogs();
 let api_responsedata1 = [
   {
     data: [
-      {State: 'Assam', CMP: 340, fill: '#ff6b00'},
-      {State: 'West Bengal', CMP: 572, fill: '#ff6b00'},
+      {State: 'Assam', CMP: 340, fill: '#46bb95'},
+      {State: 'West Bengal', CMP: 572, fill: '#46bb95'},
     ],
   },
 ];

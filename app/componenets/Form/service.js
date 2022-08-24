@@ -20,6 +20,7 @@ import {faCalendarDays} from '@fortawesome/free-solid-svg-icons/faCalendarDays';
 import {ScrollView} from 'react-native-gesture-handler';
 
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import DSMTrauma from './DSMTraumaScreening';
 
 const Service = () => {
   const [date, setDate] = React.useState('');
@@ -53,7 +54,6 @@ const Service = () => {
   const [checked5, setChecked5] = React.useState('');
   const [checked6, setChecked6] = React.useState('');
   const [checked7, setChecked7] = React.useState('');
-
   const [expanded, setExpanded] = React.useState(true);
 
   const handlePress = () => setExpanded(!expanded);
@@ -685,6 +685,11 @@ const Service = () => {
             );
           })}
         </View>
+
+        <View>
+          <DSMTrauma />
+        </View>
+
         <View style={{bottom: 15}}>
           <TouchableOpacity
             style={styles.formbutton}

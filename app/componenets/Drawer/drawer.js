@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {
   createDrawerNavigator,
@@ -7,21 +8,15 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import {useNavigation} from '@react-navigation/native';
+import {Menu, MenuItem, MenuDivider} from 'react-native-material-menu';
 
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faChartLine} from '@fortawesome/free-solid-svg-icons/faChartLine';
-import {faIndent} from '@fortawesome/free-solid-svg-icons/faIndent';
-import {faUsers} from '@fortawesome/free-solid-svg-icons/faUsers';
-import {faArrowRightFromBracket} from '@fortawesome/free-solid-svg-icons/faArrowRightFromBracket';
-import {faBell, faEllipsisVertical} from '@fortawesome/free-solid-svg-icons';
-import {faMenu} from '@fortawesome/free-solid-svg-icons';
+import {faUsers, faUser, faIndent, faArrowRightFromBracket, faBell, faEllipsisVertical} from '@fortawesome/free-solid-svg-icons';
 import Dashboard from '../Dashboard/Dashboard';
 import Form from '../Form';
 import Incident from '../IncidentView/incidentview';
 import images from '../Images/image';
-import Login from '../Login/login';
-import {LinearGradient} from 'react-native-svg';
-import {red100} from 'react-native-paper/lib/typescript/styles/colors';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -32,29 +27,8 @@ function CustomDrawerContent(props) {
     <DrawerContentScrollView {...props}>
       <Image
         source={images.worldvision_drawer}
-        style={{
-          width: wp('68%'),
-          height: hp('20%'),
-          top: -5,
-          marginBottom: 0,
-        }}></Image>
+        style={styles.DrawerImage}></Image>
       <DrawerItemList {...props} />
-
-      <View style={styles.logout}>
-        <DrawerItem
-          labelStyle={styles.logoutlablestyle}
-          label="LOGOUT"
-          onPress={() => props.navigation.navigate('Login')}
-          icon={({color}) => (
-            <FontAwesomeIcon
-              icon={faArrowRightFromBracket}
-              size={25}
-              style={{marginLeft: -8}}
-              color="#fff"
-            />
-          )}
-        />
-      </View>
     </DrawerContentScrollView>
   );
 }
@@ -64,6 +38,42 @@ const Badge = ({count}) => (
     <Text style={styles.count}>{count}</Text>
   </View>
 );
+const PopMenu = () => {
+  const navigation = useNavigation();
+
+  const [popup, setPopup] = useState(false);
+  const hideMenu = () => setPopup(false);
+  const showMenu = () => setPopup(true);
+  return (
+    <Menu
+      visible={popup}
+      anchor={
+        <Text onPress={showMenu}>
+          <FontAwesomeIcon icon={faEllipsisVertical} size={18} color="white" />
+        </Text>
+      }
+      onRequestClose={hideMenu}>
+      <MenuItem
+        style={styles.menuname}
+        onPress={() => navigation.navigate('UserProfileView')}>
+        <View style={styles.poprow}>
+          <Text>
+            <FontAwesomeIcon icon={faUser} size={14} />
+          </Text>
+          <Text style={styles.popupmenu}>View profile </Text>
+        </View>
+      </MenuItem>
+      <MenuItem onPress={() => navigation.navigate('Login')}>
+        <View style={styles.poprow}>
+          <Text>
+            <FontAwesomeIcon icon={faArrowRightFromBracket} size={14} />
+          </Text>
+          <Text style={styles.popupmenu}>Log out</Text>
+        </View>
+      </MenuItem>
+    </Menu>
+  );
+};
 
 const Drawer = createDrawerNavigator();
 
@@ -96,7 +106,7 @@ export default function MyDrawer({navigation}) {
           },
           drawerLabelStyle: {
             fontFamily: 'Lato-Bold',
-            fontSize: 14,
+            fontSize: 17,
             justifyContent: 'center',
           },
 
@@ -112,17 +122,15 @@ export default function MyDrawer({navigation}) {
                 <FontAwesomeIcon
                   icon={faBell}
                   style={styles.BellIcon}
-                  size={20}
+                  size={18}
                   color="white"
                 />
                 <Badge count={9} />
               </TouchableOpacity>
               <TouchableOpacity>
-                <FontAwesomeIcon
-                  icon={faEllipsisVertical}
-                  size={20}
-                  color="white"
-                />
+                <View style={styles.openpopup}>
+                  <PopMenu />
+                </View>
               </TouchableOpacity>
             </View>
           ),
@@ -146,7 +154,7 @@ export default function MyDrawer({navigation}) {
           },
           drawerLabelStyle: {
             fontFamily: 'Lato-Bold',
-            fontSize: 14,
+            fontSize: 17,
             justifyContent: 'center',
           },
 
@@ -163,17 +171,15 @@ export default function MyDrawer({navigation}) {
                 <FontAwesomeIcon
                   icon={faBell}
                   style={styles.BellIcon}
-                  size={20}
+                  size={18}
                   color="white"
                 />
                 <Badge count={9} />
               </TouchableOpacity>
               <TouchableOpacity>
-                <FontAwesomeIcon
-                  icon={faEllipsisVertical}
-                  size={20}
-                  color="white"
-                />
+                <View style={styles.openpopup}>
+                  <PopMenu />
+                </View>
               </TouchableOpacity>
             </View>
           ),
@@ -198,7 +204,7 @@ export default function MyDrawer({navigation}) {
 
           drawerLabelStyle: {
             fontFamily: 'Lato-Bold',
-            fontSize: 14,
+            fontSize: 17,
             justifyContent: 'center',
           },
 
@@ -215,17 +221,15 @@ export default function MyDrawer({navigation}) {
                 <FontAwesomeIcon
                   icon={faBell}
                   style={styles.BellIcon}
-                  size={20}
+                  size={18}
                   color="white"
                 />
                 <Badge count={9} />
               </TouchableOpacity>
               <TouchableOpacity>
-                <FontAwesomeIcon
-                  icon={faEllipsisVertical}
-                  size={20}
-                  color="white"
-                />
+                <View style={styles.openpopup}>
+                  <PopMenu />
+                </View>
               </TouchableOpacity>
             </View>
           ),
@@ -243,6 +247,12 @@ export default function MyDrawer({navigation}) {
 }
 
 const styles = StyleSheet.create({
+  DrawerImage: {
+    width: wp('68%'),
+    height: hp('20%'),
+    top: -5,
+    marginBottom: 0,
+  },
   lablestyle: {
     fontFamily: 'Lato-Bold',
     fontSize: 17,
@@ -268,7 +278,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#ff6b00',
   },
   BellIcon: {
-    marginRight: 30,
+    marginTop: 6,
+    marginRight: 32,
     circle: 8,
   },
 
@@ -277,7 +288,7 @@ const styles = StyleSheet.create({
     height: 14,
     borderRadius: 18,
     marginLeft: 8,
-    marginTop: -9,
+    marginTop: -3,
     backgroundColor: 'red',
     position: 'absolute',
     top: 5,
@@ -300,8 +311,29 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   DotHeader: {
-    marginHorizontal: 16,
+    marginHorizontal: 15,
     alignItems: 'center',
+    flexDirection: 'row',
+  },
+  openpopup: {
+    height: '50%',
+    width: '50%',
+    fontSize: 26,
+    fontFamily: 'Lato-Bold',
+  },
+  menuname: {
+    fontSize: 26,
+    color: 'orange',
+    fontFamily: 'Lato-Bold',
+    backgroundColor: 'white',
+  },
+  popupmenu: {
+    fontSize: 14,
+    fontFamily: 'Lato-Bold',
+    alignSelf: 'center',
+    marginHorizontal: 10,
+  },
+  poprow: {
     flexDirection: 'row',
   },
 });

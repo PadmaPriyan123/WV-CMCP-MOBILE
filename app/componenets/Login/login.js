@@ -1,5 +1,4 @@
 import React, {useState, useEffect, useRef} from 'react';
-
 import {
   View,
   Text,
@@ -17,16 +16,17 @@ import {
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 import {useNavigation} from '@react-navigation/native';
-
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
-import {faPhone} from '@fortawesome/free-solid-svg-icons/faPhone';
-
+import {
+  faUser,
+  faPhone,
+  faTruckMedical,
+} from '@fortawesome/free-solid-svg-icons';
 import {faLock} from '@fortawesome/free-solid-svg-icons/faLock';
 import images from '../Images/image';
 import {useDispatch, useSelector} from 'react-redux';
@@ -38,7 +38,6 @@ const Login = () => {
   const OTPInputRef2 = useRef(null);
   const OTPInputRef3 = useRef(null);
   const OTPInputRef4 = useRef(null);
-  const OTPInputRef5 = useRef(null);
 
   const [oTPInputValue1, setOTPInputValue1] = React.useState('');
   const [oTPInputValue2, setOTPInputValue2] = React.useState('');
@@ -55,6 +54,7 @@ const Login = () => {
     setOTPInputValue2('');
     setOTPInputValue3('');
     setOTPInputValue4('');
+    setError('');
     setError1('');
     setError('');
     setCounter('00');
@@ -65,17 +65,10 @@ const Login = () => {
     setLogin({...login, EmailId: '', Password: ''});
   }
 
-  const [otp, setOtp] = useState(true);
-
-  const initialErrorMessage1 = {message: ''};
-  const initialOTPErrorMessage = {message: ''};
-  const [error1, setError1] = useState(initialErrorMessage1);
-  const [otpError, setOtpError] = useState(initialOTPErrorMessage);
-
   function redirectToOtp() {
     setOtpCheck('');
     setNumber('');
-    setError1('');
+    setError('');
     setOtpError('');
     clearAll();
     setCounter(29);
@@ -104,13 +97,36 @@ const Login = () => {
 
     if (Object.values(a).every(el => el == '')) {
       console.log(Object.values(a).every(el => el == ''));
-      setError1(a);
+      setError(a);
       setOtp(true);
       setEnableVerifyOTP(true);
     } else {
-      setError1(a);
+      setError(a);
     }
   }
+
+  const verifyOTP = () => {
+    let err = {
+      message: '',
+    };
+    let otp = oTPInputValue1 + oTPInputValue2 + oTPInputValue3 + oTPInputValue4;
+    if (otp == '') {
+      err.message = '*Please enter the OTP';
+    } else if (otp == '1234') {
+      navigation.navigate('Drawer');
+      clearAll();
+    } else {
+      err.message = '*Invalid OTP';
+    }
+    setOtpError(err);
+  };
+
+  const [otp, setOtp] = useState(true);
+
+  const initialErrorMessage1 = {message: ''};
+  const initialOTPErrorMessage = {message: ''};
+  const [error1, setError1] = useState(initialErrorMessage1);
+  const [otpError, setOtpError] = useState(initialOTPErrorMessage);
 
   const [counter, setCounter] = React.useState(29);
   const [enableResend, setEnableResend] = React.useState(true);
@@ -138,21 +154,6 @@ const Login = () => {
     setOTPInputValue2('');
     setOTPInputValue3('');
     setOTPInputValue4('');
-  };
-
-  const verifyOTP = () => {
-    let err = {
-      message: '',
-    };
-    let otp = oTPInputValue1 + oTPInputValue2 + oTPInputValue3 + oTPInputValue4;
-    if (otp == '') {
-      err.message = '*Please enter the OTP';
-    } else if (otp == '1234') {
-      navigation.navigate('Drawer');
-    } else {
-      err.message = '*Invalid OTP';
-    }
-    setOtpError(err);
   };
 
   const [login, setLogin] = useState({EmailId: '', Password: ''});
@@ -269,8 +270,8 @@ const Login = () => {
                     onChangeText={e => setNumber({...number, number: e})}
                   />
                 </View>
-                {error1?.message && (
-                  <Text style={styles.errmessage}>{error1?.message}</Text>
+                {error?.message && (
+                  <Text style={styles.errmessage}>{error?.message}</Text>
                 )}
               </View>
 
@@ -291,6 +292,7 @@ const Login = () => {
                             OTPInputRef2.current?.focus();
                           }
                         }}
+                        ref={ref => (OTPInputRef1.current = ref)}
                       />
                     </View>
 
@@ -305,6 +307,9 @@ const Login = () => {
                           setOTPInputValue2(value);
                           if (value.length >= 1) {
                             OTPInputRef3.current?.focus();
+                          }
+                          if (value.length == 0) {
+                            OTPInputRef1.current?.focus();
                           }
                         }}
                         ref={ref => (OTPInputRef2.current = ref)}
@@ -323,6 +328,9 @@ const Login = () => {
                           if (value.length >= 1) {
                             OTPInputRef4.current?.focus();
                           }
+                          if (value.length == 0) {
+                            OTPInputRef2.current?.focus();
+                          }
                         }}
                         ref={ref => (OTPInputRef3.current = ref)}
                       />
@@ -337,32 +345,41 @@ const Login = () => {
                         value={oTPInputValue4}
                         onChangeText={value => {
                           setOTPInputValue4(value);
+                          if (value.length == 0) {
+                            OTPInputRef3.current?.focus();
+                          }
+                          if (value.length == 0) {
+                            OTPInputRef3.current?.focus();
+                          }
                         }}
                         ref={ref => (OTPInputRef4.current = ref)}
                       />
                     </View>
                   </View>
-                  <View style={styles.otperrmsg}>
-                    {otpError?.message && (
-                      <Text style={styles.message}>{otpError?.message}</Text>
+
+                  <View style={styles.otperrmsgresend}>
+                    <View style={styles.otperrmsg}>
+                      {otpError?.message && (
+                        <Text style={styles.message}>{otpError?.message}</Text>
+                      )}
+                    </View>
+
+                    {counter == 0 ? (
+                      <View style={styles.otpvalidmsg}>
+                        <Text
+                          disabled={enableResend}
+                          onPress={resendOTP}
+                          style={styles.otpresend}>
+                          Resend OTP
+                        </Text>
+                      </View>
+                    ) : (
+                      <View style={styles.otpvalidmsg}>
+                        <Text> OTP expires in </Text>
+                        <Text style={styles.numbercount}>00:{counter}</Text>
+                      </View>
                     )}
                   </View>
-
-                  {counter == 0 ? (
-                    <View style={styles.otpvalidmsg}>
-                      <Text
-                        disabled={enableResend}
-                        onPress={resendOTP}
-                        style={styles.otpresend}>
-                        Resend OTP
-                      </Text>
-                    </View>
-                  ) : (
-                    <View style={styles.otpvalidmsg}>
-                      <Text> OTP expires in </Text>
-                      <Text style={styles.numbercount}>00:{counter}</Text>
-                    </View>
-                  )}
                 </View>
               )}
 
@@ -606,9 +623,8 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    height: hp('6%'),
+    height: hp('6.5%'),
     width: wp('60%'),
-
     borderRadius: 10,
     borderColor: 'gray',
     fontFamily: 'Lato-Regular',
@@ -625,7 +641,7 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     marginLeft: 5,
     marginRight: 5,
-    bottom: 38,
+    bottom: 40,
   },
   buttoninput: {
     textAlign: 'center',
@@ -638,7 +654,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   loginlogo: {
-    top: -50,
+    top: -70,
     backgroundColor: '#fff',
     width: wp('100%'),
     height: hp('14%'),
@@ -751,7 +767,7 @@ const styles = StyleSheet.create({
   },
   otpname4: {
     flexDirection: 'row',
-    bottom: 22,
+    bottom: 28,
     justifyContent: 'center',
   },
 
@@ -759,6 +775,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     margin: 10,
     padding: 10,
+    top: 10,
     justifyContent: 'center',
   },
   buttoninput: {
@@ -768,6 +785,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Lato-Bold',
   },
   mainotpcontainer: {
+    top: 5,
     height: hp('48%'),
   },
 
@@ -775,7 +793,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: 'Lato-Bold',
     marginLeft: 40,
-    bottom: 70,
+    bottom: 55,
     color: '#000',
   },
   message: {
@@ -785,14 +803,12 @@ const styles = StyleSheet.create({
   },
   otpvalidmsg: {
     flexDirection: 'row',
-    bottom: 70,
-    marginLeft: 40,
+    bottom: 100,
     color: 'red',
   },
   otperrmsg: {
-    flex: 1,
     flexDirection: 'row',
-    marginLeft: 80,
+    marginLeft: 50,
   },
   numbercount: {
     color: 'red',
@@ -804,7 +820,7 @@ const styles = StyleSheet.create({
     height: hp('3%'),
   },
   footer: {
-    bottom: 50,
+    bottom: 30,
     height: hp('10%'),
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -831,6 +847,11 @@ const styles = StyleSheet.create({
   },
   otpresend: {
     color: 'red',
+  },
+  otperrmsgresend: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    top: 20,
   },
   emailvali: {
     color: 'red',

@@ -17,13 +17,13 @@ LogBox.ignoreAllLogs();
 let api_responsedata = [
   {
     data: [
-      {Month: 'JAN', CMP: 53, fill: '#ff6b00'},
-      {Month: 'FEB', CMP: 52, fill: '#ff6b00'},
-      {Month: 'MAR', CMP: 69, fill: '#ff6b00'},
-      {Month: 'APR', CMP: 92, fill: '#ff6b00'},
-      {Month: 'MAY', CMP: 29, fill: '#ff6b00'},
-      {Month: 'JUN', CMP: 104, fill: '#ff6b00'},
-      {Month: 'JUL', CMP: 70, fill: '#ff6b00'},
+      {Month: 'JAN', CMP: 53, fill: '#9054a1'},
+      {Month: 'FEB', CMP: 52, fill: '#9054a1'},
+      {Month: 'MAR', CMP: 69, fill: '#9054a1'},
+      {Month: 'APR', CMP: 92, fill: '#9054a1'},
+      {Month: 'MAY', CMP: 29, fill: '#9054a1'},
+      {Month: 'JUN', CMP: 104, fill: '#9054a1'},
+      {Month: 'JUL', CMP: 70, fill: '#9054a1'},
     ],
   },
 ];
@@ -78,7 +78,7 @@ const Styles = StyleSheet.create({
     fontSize: 24,
     marginLeft: 10,
     marginTop: 20,
-    color: '#9054a1'
+    color: '#9054a1',
   },
   FirFilled: {
     fontFamily: 'Lato-Regular',
