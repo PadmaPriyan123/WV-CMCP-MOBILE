@@ -31,10 +31,10 @@ const UserProfileView = props => {
   const maxDate = new Date('2004-06-30');
   const {onChangeText, mode = 'date', min = minDate, max = maxDate} = props;
 
-  const [dropValue, setDropValue] = useState('West Bengal');
+  const [dropValue, setDropValue] = useState('2');
   const UserDropData = [
     {label: 'Assam ', value: '1'},
-    {label: 'West Bengal ', value: '2', state: 'West Bengal'},
+    {label: 'West Bengal ', value: '2'},
   ];
 
   const [profileError, setProfileError] = useState(initProfileErroMsg);
@@ -289,7 +289,6 @@ const UserProfileView = props => {
                 selectTextOnFocus={false}
                 placeholder="Select the state"
                 data={UserDropData}
-                defaultValue={'West Bengal'}
                 labelField="label"
                 valueField="value"
                 maxHeight={100}
