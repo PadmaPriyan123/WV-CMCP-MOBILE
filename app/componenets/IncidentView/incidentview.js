@@ -16,7 +16,6 @@ import {Card, TextInput} from 'react-native-paper';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faEllipsisVertical} from '@fortawesome/free-solid-svg-icons/faEllipsisVertical';
 import {faEye} from '@fortawesome/free-solid-svg-icons/faEye';
-
 import {faPen} from '@fortawesome/free-solid-svg-icons/faPen';
 import {faStamp} from '@fortawesome/free-solid-svg-icons/faStamp';
 
@@ -162,7 +161,8 @@ const Incident = ({navigation}) => {
                       <Text style={{marginLeft: 10, color: '#000'}}>Edit</Text>
                     </View>
                   </MenuItem>
-                  <MenuItem onPress={hideMenu}>
+                  <MenuItem
+                    onPress={() => navigation.navigate('caseAssignmentModal')}>
                     {' '}
                     <View style={{flexDirection: 'row'}}>
                       <Text>
