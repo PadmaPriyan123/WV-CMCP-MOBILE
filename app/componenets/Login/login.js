@@ -171,6 +171,7 @@ const Login = () => {
 
   useEffect(() => {
     let a = {EmailId: '', Password: ''};
+    console.log('loginresponse', loginResponse);
 
     if (
       loginResponse?.StatusCode === 400 &&
@@ -190,11 +191,14 @@ const Login = () => {
       dispatch(userLoginResponse(''));
     } else if (loginResponse?.StatusCode === 201) {
       alert(loginResponse.StatusMessage);
-      dispatch(userLoginResponse(''));
-      setTimeout(() => {
-        navigation.navigate('Drawer');
-        clearAll();
-      }, 0);
+      navigation.navigate('Drawer');
+      clearAll()
+      console.log('came here');
+       dispatch(userLoginResponse(''));
+
+      // setTimeout(() => {
+      //   clearAll();
+      // }, 0);
     }
   }, [loginResponse]);
 
@@ -402,141 +406,134 @@ const Login = () => {
                 </Text>
               </View>
             </View>
-          ) : (<View>{forgot=== 'forgot' ? (
+          ) : (
+            <View>
+              {forgot === 'forgot' ? (
+                <View style={styles.form}>
+                  <View style={styles.loginusernamemain}>
+                    <Text style={styles.username}>Email</Text>
+                    <View style={styles.customtextinput}>
+                      <FontAwesomeIcon
+                        icon={faUser}
+                        size={19}
+                        color={'gray'}
+                        style={{padding: 10, marginLeft: 9}}
+                      />
+                      <TextInput
+                        style={styles.input}
+                        placeholder="Enter the Email"
+                        placeholderTextColor="#9e9e9e"
+                        textAlign="left"
+                        value={login.EmailId}
+                        required
+                        onChangeText={e => setLogin({...login, EmailId: e})}
+                      />
+                    </View>
+                    {error?.EmailId && (
+                      <Text style={styles.emailvali}>{error?.EmailId}</Text>
+                    )}
+                  </View>
 
-            <View style={styles.form}>
+                  <View style={styles.loginpasswordmain}>
+                    <Text style={styles.loginpassword}>Password</Text>
+                    <View style={styles.customtextinput2}>
+                      <FontAwesomeIcon
+                        icon={faLock}
+                        size={19}
+                        color={'gray'}
+                        style={{padding: 10, marginLeft: 9}}
+                      />
+                      <TextInput
+                        style={styles.input}
+                        placeholder="Enter the Password"
+                        placeholderTextColor="#9e9e9e"
+                        value={login.Password}
+                        required
+                        onChangeText={e => setLogin({...login, Password: e})}
+                      />
+                    </View>
+                    {error?.Password && (
+                      <Text style={styles.emailvali1}>{error?.Password}</Text>
+                    )}
+                  </View>
 
-              <View style={styles.loginusernamemain}>
-                <Text style={styles.username}>Email</Text>
-                <View style={styles.customtextinput}>
-                  <FontAwesomeIcon
-                    icon={faUser}
-                    size={19}
-                    color={'gray'}
-                    style={{padding: 10, marginLeft: 9}}
-                  />
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Enter the Email"
-                    placeholderTextColor="#9e9e9e"
-                    textAlign="left"
-                    value={login.EmailId}
-                    required
-                    onChangeText={e => setLogin({...login, EmailId: e})}
-                  />
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      bottom: 58,
+                      justifyContent: 'space-between',
+                    }}>
+                    <BouncyCheckbox
+                      size={15}
+                      fillColor="#ff6b00"
+                      text="Remember me"
+                      iconStyle={{borderColor: '#F37021', marginLeft: 10}}
+                      textStyle={styles.BouncyCheckboxcontent}
+                      style={{marginLeft: 25, marginTop: 4}}
+                    />
+
+                    <TouchableOpacity
+                      status={forgot === 'first' ? 'forgot' : 'unforgot'}
+                      onPress={() => setForgot('first')}>
+                      <Text style={styles.forgot}>Forgot your password?</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View
+                    style={{
+                      top: -4,
+                    }}>
+                    <TouchableOpacity
+                      style={styles.button}
+                      onPress={() => myFunction()}>
+                      <Text style={styles.buttoninput}>LOG-IN</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.otpname4}>
+                    <Text style={styles.or}>(or)</Text>
+                    <Text
+                      style={styles.otpname3}
+                      onPress={() => {
+                        redirectToOtp();
+                      }}>
+                      Login with mobile number
+                    </Text>
+                  </View>
                 </View>
-                {error?.EmailId && (
-                  <Text style={styles.emailvali}>{error?.EmailId}</Text>
-                )}
-              </View>
-              
-              <View style={styles.loginpasswordmain}>
-                <Text style={styles.loginpassword}>Password</Text>
-                <View style={styles.customtextinput2}>
-                  <FontAwesomeIcon
-                    icon={faLock}
-                    size={19}
-                    color={'gray'}
-                    style={{padding: 10, marginLeft: 9}}
-                  />
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Enter the Password"
-                    placeholderTextColor="#9e9e9e"
-                    value={login.Password}
-                    required
-                    onChangeText={e => setLogin({...login, Password: e})}
-                  />
+              ) : (
+                <View style={styles.loginusernamemain}>
+                  <Text style={styles.username}>Email</Text>
+                  <View style={styles.customtextinput}>
+                    <FontAwesomeIcon
+                      icon={faUser}
+                      size={19}
+                      color={'gray'}
+                      style={{padding: 10, marginLeft: 9}}
+                    />
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Enter the Email"
+                      placeholderTextColor="#9e9e9e"
+                      textAlign="left"
+                      value={login.EmailId}
+                      required
+                      onChangeText={e => setLogin({...login, EmailId: e})}
+                    />
+                  </View>
+                  {error?.EmailId && (
+                    <Text style={styles.emailvali}>{error?.EmailId}</Text>
+                  )}
+                  <View style={styles.forgotmain}>
+                    <TouchableOpacity
+                      style={styles.backbutton}
+                      onPress={e => setForgot('forgot', e)}>
+                      <Text style={styles.buttoninput}>Back</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.backbutton}>
+                      <Text style={styles.buttoninput}>Submit</Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
-                {error?.Password && (
-                  <Text style={styles.emailvali1}>{error?.Password}</Text>
-                )}
-              </View>
-
-              <View
-                style={{
-                  flexDirection: 'row',
-                  bottom: 58,
-                  justifyContent: 'space-between',
-                }}>
-                <BouncyCheckbox
-                  size={15}
-                  fillColor="#ff6b00"
-                  text="Remember me"
-                  iconStyle={{borderColor: '#F37021', marginLeft: 10}}
-                  textStyle={styles.BouncyCheckboxcontent}
-                  style={{marginLeft: 25, marginTop: 4}}
-                />
-
-                <TouchableOpacity
-                  status={forgot === 'first' ? 'forgot' : 'unforgot'}
-                  onPress={() => setForgot('first')}>
-                  <Text
-                    style={styles.forgot}
->
-                    Forgot your password?
-                  </Text>
-                </TouchableOpacity>
-              </View>
-              <View
-                style={{
-                  top: -4,
-                }}>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={() => myFunction()}>
-                  <Text style={styles.buttoninput}>LOG-IN</Text>
-                </TouchableOpacity>
-              </View>
-              <View style={styles.otpname4}>
-                <Text style={styles.or}>(or)</Text>
-                <Text
-                  style={styles.otpname3}
-                  onPress={() => {
-                    redirectToOtp();
-                  }}>
-                  Login with mobile number
-                </Text>
-              </View>
-            </View>):   <View style={styles.loginusernamemain}>
-                <Text style={styles.username}>Email</Text>
-                <View style={styles.customtextinput}>
-                  <FontAwesomeIcon
-                    icon={faUser}
-                    size={19}
-                    color={'gray'}
-                    style={{padding: 10, marginLeft: 9}}
-                  />
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Enter the Email"
-                    placeholderTextColor="#9e9e9e"
-                    textAlign="left"
-                    value={login.EmailId}
-                    required
-                    onChangeText={e => setLogin({...login, EmailId: e})}
-                  />
-                </View>
-                {error?.EmailId && (
-                  <Text style={styles.emailvali}>{error?.EmailId}</Text>
-                )}
-                 <View style={styles.forgotmain}>
-               <TouchableOpacity
-                  style={styles.backbutton}
-                  onPress={(e)=>setForgot('forgot',e)}
-                  >
-                  <Text style={styles.buttoninput}>Back</Text>
-                </TouchableOpacity>
-              <TouchableOpacity
-                  style={styles.backbutton}
-                  >
-                  <Text style={styles.buttoninput}>Submit</Text>
-                </TouchableOpacity>
-                </View>
-              </View>
-              }
-             
-
+              )}
             </View>
           )}
         </View>
@@ -553,9 +550,7 @@ const Login = () => {
             © Copyright 2022, All rights Reserved
           </Text>
         </View>
-        <View>
-          
-        </View>
+        <View></View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -847,7 +842,7 @@ const styles = StyleSheet.create({
     bottom: 35,
     marginRight: 128,
   },
-  backbutton:{
+  backbutton: {
     alignSelf: 'center',
     height: hp('8%'),
     width: wp('38%'),
@@ -860,10 +855,9 @@ const styles = StyleSheet.create({
     marginRight: 5,
     bottom: 38,
   },
-  forgotmain:{
-    flexDirection:'row'
-  }
-  
+  forgotmain: {
+    flexDirection: 'row',
+  },
 });
 
 export default Login;

@@ -10,8 +10,7 @@ import {
   Modal,
   Pressable,
 } from 'react-native';
-import DropShadow from 'react-native-drop-shadow';
-import {SearchBar} from '@rneui/themed';
+
 import {Card, TextInput} from 'react-native-paper';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faEllipsisVertical} from '@fortawesome/free-solid-svg-icons/faEllipsisVertical';
@@ -19,9 +18,8 @@ import {faEye} from '@fortawesome/free-solid-svg-icons/faEye';
 
 import {faPen} from '@fortawesome/free-solid-svg-icons/faPen';
 import {faStamp} from '@fortawesome/free-solid-svg-icons/faStamp';
+import {faPlus} from '@fortawesome/free-solid-svg-icons/faPlus';
 
-import {faAngleDown} from '@fortawesome/free-solid-svg-icons/faAngleDown';
-import {faSearch} from '@fortawesome/free-solid-svg-icons/faSearch';
 import {faXmark} from '@fortawesome/free-solid-svg-icons/faXmark';
 
 import {ScrollView} from 'react-native-gesture-handler';
@@ -88,46 +86,21 @@ const Incident = ({navigation}) => {
   const showMenu4 = () => setVisible4(true);
 
   const status = [
-    {label: 'Initiate', value: '1'},
+    {label: 'Initiated', value: '1'},
 
-    {label: 'Progress ', value: '2'},
+    {label: 'Inprogress ', value: '2'},
     {label: 'Completed ', value: '3'},
-    {label: 'Close ', value: '4'},
+    {label: 'Closed', value: '4'},
   ];
+  console.log('hjjd', status);
   const [value1, setValue1] = React.useState('');
+  console.log('hjjd', value1);
+
+  const [checked, setChecked] = React.useState(false);
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <View style={{display: 'flex', flexDirection: 'row'}}>
-          <TextInput
-            style={{
-              width: wp('60%'),
-              height: hp('6%'),
-              borderRadius: 5,
-              marginLeft: 10,
-              backgroundColor: '#fff',
-            }}
-            placeholder="Search"
-          />
-          <FontAwesomeIcon
-            style={{right: 30, top: 10}}
-            icon={faSearch}
-            size={20}
-            color={'gray'}
-          />
-          <TouchableOpacity
-            style={styles.fillter}
-            onPress={() => setModalVisible(!modalVisible)}>
-            <Text style={styles.input}>Filter</Text>
-            <FontAwesomeIcon
-              style={{bottom: 3, marginLeft: 60}}
-              icon={faAngleDown}
-              size={15}
-              color={'#fff'}
-            />
-          </TouchableOpacity>
-        </View>
         <View style={styles.container}>
           <Card style={styles.card}>
             <View style={styles.cardfirstline}>
@@ -606,6 +579,30 @@ const Incident = ({navigation}) => {
             justifyContent: 'center',
           }}></View>
       </ScrollView>
+      <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+        <View
+          style={{
+            marginTop: 10,
+            width: 50,
+            height: 50,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 100,
+            backgroundColor: '#e26a00',
+            marginLeft: 270,
+          }}>
+          <Text style={styles.initiate}>
+            <View>
+              <FontAwesomeIcon
+                style={{bottom: 5}}
+                icon={faPlus}
+                size={30}
+                color={'#fff'}
+              />
+            </View>
+          </Text>
+        </View>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -634,22 +631,6 @@ const styles = StyleSheet.create({
   card: {
     height: 110,
   },
-  card1: {
-    marginTop: 20,
-    height: 150,
-    backgroundColor: '#e26a00',
-    borderRadius: 13,
-  },
-  iconmain: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    top: 45,
-
-    backgroundColor: '#fff',
-
-    height: 41,
-  },
 
   carddetail: {
     color: '#000',
@@ -660,38 +641,13 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     marginRight: 220,
   },
-  verticleLine: {
-    height: '70%',
-    width: 1,
-    top: 5,
 
-    backgroundColor: '#000',
-  },
-  cardbackground: {
-    height: 150,
-    backgroundColor: '#fff',
-  },
   cardfirstline: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
 
-  fillter: {
-    width: 90,
-    height: 40,
-    backgroundColor: '#00bad7',
-
-    borderRadius: 5,
-    marginLeft: -10,
-  },
-  input: {
-    textAlign: 'center',
-    color: '#fff',
-    marginRight: 10,
-    top: 12,
-    fontFamily: 'Lato-Bold',
-  },
   centeredView: {
     flex: 1,
     justifyContent: 'center',
@@ -700,7 +656,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     width: wp('90%'),
-    height: hp('60%'),
+    height: hp('70%'),
     margin: 20,
     backgroundColor: 'white',
     padding: 35,
@@ -722,10 +678,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
-  },
+
   textpopup: {
     height: hp('7%'),
     borderRadius: 5,
@@ -752,16 +705,7 @@ const styles = StyleSheet.create({
     top: 5,
     color: '#fff',
   },
-  carddetail1: {
-    color: 'gray',
-    justifyContent: 'center',
-    textAlign: 'center',
-    fontFamily: 'Lato-bold',
-    fontSize: 15,
-    alignItems: 'stretch',
-    marginRight: 172,
-    top: 20,
-  },
+
   Completed: {
     justifyContent: 'center',
     textAlign: 'center',

@@ -48,22 +48,22 @@ const Complaints = ({route}) => {
   };
 
   const data1 = [
-    {label: 'Victim self', value: 'Victim sel'},
-    {label: 'Victims Family member ', value: 'Victims Family member '},
-    {label: 'Victims relative', value: 'Victims relative'},
+    {label: 'Victim self', value: '1'},
+    {label: 'Victims Family member ', value: '2 '},
+    {label: 'Victims relative', value: '3'},
 
-    {label: 'Men Care Group member', value: 'Men Care Group member'},
+    {label: 'Men Care Group member', value: '4'},
 
-    {label: 'CFLRC facilitator ', value: ' CFLRC facilitator '},
+    {label: 'CFLRC facilitator ', value: ' 5 '},
 
-    {label: 'Girl Power Group Members', value: 'Girl Power Group Members'},
-    {label: 'GPG/MCG/VLCPC Volunteers', value: ' GPG/MCG/VLCPC Volunteers'},
-    {label: 'WV staff', value: 'WV staff'},
+    {label: 'Girl Power Group Members', value: '6'},
+    {label: 'GPG/MCG/VLCPC Volunteers', value: ' 7'},
+    {label: 'WV staff', value: '8'},
     {
       label: 'Anti-Trafficking Warrior member',
-      value: 'Anti-Trafficking Warrior member',
+      value: '9',
     },
-    {label: 'Others', value: 'others'},
+    {label: 'Others', value: '10'},
   ];
   const [value1, setValue1] = useState('');
 
@@ -116,6 +116,7 @@ const Complaints = ({route}) => {
     },
     {label: 'Appeal under process', value: 'Appeal under process    '},
   ];
+
   const [value2, setValue2] = useState('');
 
   const [checked, setChecked] = React.useState('');
@@ -134,6 +135,9 @@ const Complaints = ({route}) => {
       setIsPickerShow(false);
     }
   };
+  const[others,setOthers]=useState(false);
+  const[others1,setOthers1]=useState(false);
+
   return (
     <View style={styles.Tab}>
       <ScrollView style={styles.scrollView}>
@@ -234,11 +238,25 @@ const Complaints = ({route}) => {
                 placeholder="Select who informed about the incident"
                 value={value1}
                 onChange={item => {
-                  setValue1(item.value);
+                  {setValue1(item.value);item.value ==='10'? setOthers(true):setOthers(false)};
                 }}
               />
             </View>
+
           </View>
+          {others==true&&(
+          <View style={{marginTop: 16}}>
+            <Text style={styles.FormTitle}>Others:</Text>
+            <View style={styles.formtotalinput}>
+              <TextInput
+                style={styles.FormInput}
+                type="text"
+                placeholder="Others"
+                placeholderTextColor="gray"
+              />
+            </View>
+          </View>
+          )}
           <View style={{marginTop: 3, marginLeft: 10}}>
             <Text style={styles.radioname}>
               Complaint lodged in ps:<Text style={styles.star}>*</Text>
@@ -377,14 +395,27 @@ const Complaints = ({route}) => {
                 placeholder="Select whether the incident"
                 value={selected}
                 onChange={item => {
-                  setSelected(item);
+                  {setSelected(item);item.selected ==='3'? setOthers1(true):setOthers1(false)};
                 }}
               />
             </View>
           </View>
+          {others1===true&&(
+            <View style={{marginTop: 16}}>
+            <Text style={styles.FormTitle}>Others:</Text>
+            <View style={styles.formtotalinput}>
+              <TextInput
+                style={styles.FormInput}
+                keyboardType="numeric"
+                placeholder="Others"
+                placeholderTextColor="gray"
+              />
+            </View>
+          </View>
+          )}
           <View style={{marginTop: 16}}>
             <Text style={styles.FormTitle1}>
-              What sections applied in fir?:<Text style={styles.star}>*</Text>
+              What sections applied in FIR?:<Text style={styles.star}>*</Text>
             </Text>
             <View style={styles.droppingn}>
               <Dropdown
@@ -397,7 +428,7 @@ const Complaints = ({route}) => {
                 maxHeight={250}
                 labelField="label"
                 valueField="value"
-                placeholder="Select what sections applied in fir?"
+                placeholder="Select what sections applied in FIR?"
                 value={value2}
                 onChange={item => {
                   setValue2(item.value);
