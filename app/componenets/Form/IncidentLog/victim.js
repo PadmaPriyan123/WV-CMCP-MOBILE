@@ -246,7 +246,7 @@ const Victim = ({route}) => {
         and will return false if state is false*/}
               {checked === 'first' && (
                 <View style={{marginTop: 20}}>
-                  <Text style={styles.FormTitle}>Date </Text>
+                  <Text style={styles.FormTitle}>Victim (dob) : </Text>
                   <View style={{marginTop: 5}}>
                     <TextInput
                       style={styles.textInput}
@@ -274,7 +274,7 @@ const Victim = ({route}) => {
                   </View>
                   <View>
                     <View style={{marginTop: 20}}>
-                      <Text style={styles.Filefill}>File upload</Text>
+                      <Text style={styles.Filefill}>Victim Documents:</Text>
 
                       {fileResponse.map((file, index) => (
                         <Text
@@ -340,7 +340,7 @@ const Victim = ({route}) => {
             {other === true && (
               <View style={{marginTop: 25}}>
                 <Text style={styles.FormTitle}>
-                  Others:<Text style={styles.star}>*</Text>
+                  Others  (Nature of incident):<Text style={styles.star}>*</Text>
                 </Text>
                 <View style={styles.formtotalinput}>
                   <TextInput
