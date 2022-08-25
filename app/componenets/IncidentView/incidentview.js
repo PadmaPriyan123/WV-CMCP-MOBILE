@@ -11,8 +11,6 @@ import {
   Pressable,
 } from 'react-native';
 
-import {MultiSelect} from 'react-native-element-dropdown';
-
 import {Card, TextInput} from 'react-native-paper';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faEllipsisVertical} from '@fortawesome/free-solid-svg-icons/faEllipsisVertical';
@@ -57,15 +55,21 @@ const Incident = ({navigation}) => {
   const [modalVisible, setModalVisible] = React.useState(false);
   const [modalVisible2, setModalVisible2] = React.useState(false);
 
+  const [mhpss, setMhpss] = React.useState([]);
+  const [mhpss2, setMhpss2] = React.useState([]);
+
   useEffect(() => {
     var incidenterr = {
       legalerr: '',
-      mphss: '',
+      mphsserr: '',
     };
     setIncidentError(incidenterr);
     setAssignValue1('');
     setAssignValue2('');
+    setMhpss([]);
+    setMhpss2([]);
   }, [modalVisible2]);
+
   const PopIncidentMenu = () => {
     const hideMenu = () => setVisible(false);
     const showMenu = () => setVisible(true);
@@ -95,7 +99,10 @@ const Incident = ({navigation}) => {
             <Text style={{marginLeft: 10, color: '#000'}}>Edit</Text>
           </View>
         </MenuItem>
-        <MenuItem onPress={() => setModalVisible2(!modalVisible2)}>
+        <MenuItem
+          onPress={() => {
+            setModalVisible2(!modalVisible2);
+          }}>
           {' '}
           <View style={{flexDirection: 'row'}}>
             <Text>
@@ -110,11 +117,11 @@ const Incident = ({navigation}) => {
 
   const [assignValue1, setAssignValue1] = React.useState('');
   const assignLegal = [
-    {label: 'Biju', value: '1'},
-    {label: 'Murali ', value: '2'},
-    {label: 'Bharath ', value: '3'},
-    {label: 'Arun', value: '4'},
-    {label: 'Bala', value: '5'},
+    {label: 'Biju', id: '1'},
+    {label: 'Murali ', id: '2'},
+    {label: 'Bharat ', id: '3'},
+    {label: 'Arun', id: '4'},
+    {label: 'Bala', id: '5'},
   ];
 
   const [incidentError, setIncidentError] = React.useState({
@@ -123,6 +130,7 @@ const Incident = ({navigation}) => {
   });
 
   const [assignValue2, setAssignValue2] = React.useState('');
+
   const assignLegal2 = [
     {label: 'Mano', id: '1'},
     {label: 'Vino ', id: '2'},
@@ -145,46 +153,49 @@ const Incident = ({navigation}) => {
 
   function incidentmodal() {
     let err = 0;
-    console.log(assignValue1);
     var incidenterr = {
       legalerr: '',
     };
-    if (!assignValue1.length) {
-      incidenterr.legalerr = '*Please select atleast one person';
+    if (!mhpss2.length) {
+      incidenterr.legalerr = '*Please select atleast one User';
       ++err;
     } else {
       incidenterr.legalerr = '';
     }
-    if (!assignValue2.length) {
-      incidenterr.mphsserr = '*Please select atleast one person from MHPSS';
+    if (!mhpss.length) {
+      incidenterr.mphsserr = '*Please select atleast one User';
       ++err;
     } else {
       incidenterr.mphsserr = '';
     }
     setIncidentError(incidenterr);
     if (err == 0) {
-      alert('Case successfully assigned!!!');
+      alert('Case assigned successfully');
     }
   }
 
   function caseAssignValidation() {
+    console.log('validation');
+    console.log(mhpss);
+    console.log(mhpss2);
+    console.log(incidentError);
     let cnt = 0;
     var incidenterr = {
       legalerr: '',
-      mphss: '',
+      mphsserr: '',
     };
     if (incidentError.legalerr != '') {
       ++cnt;
-      if (!assignValue1.length) {
-        incidenterr.legalerr = '*Please select atleast one person';
+      if (!mhpss2.length) {
+        incidenterr.legalerr = '*Please select atleast one User';
       } else {
         incidenterr.legalerr = '';
       }
     }
     if (incidentError.mphsserr != '') {
       ++cnt;
-      if (!assignValue2.length) {
-        incidenterr.mphsserr = '*Please select atleast one person from MHPSS';
+      if (!mhpss.length) {
+        incidenterr.mphsserr = '*Please select atleast one User';
       } else {
         incidenterr.mphsserr = '';
       }
@@ -195,7 +206,33 @@ const Incident = ({navigation}) => {
     }
   }
 
-  const [checked, setChecked] = React.useState(false);
+  function setMhpssPerson(item) {
+    if (mhpss.length < 3) {
+      if (mhpss.map(val => val?.id).includes(item.id)) {
+        alert('The name already exists');
+        return '';
+      } else {
+        let a = assignLegal2.filter(val => val.id == item.id);
+        setMhpss([...mhpss, ...a]);
+      }
+    } else {
+      alert('You can able to select only 3 persons');
+    }
+  }
+
+  function setLegalPerson(item) {
+    if (mhpss2.length < 3) {
+      if (mhpss2.map(val => val?.id).includes(item.id)) {
+        alert('The name already exists');
+        return '';
+      } else {
+        let c = assignLegal.filter(val => val.id == item.id);
+        setMhpss2([...mhpss2, ...c]);
+      }
+    } else {
+      alert('You can able to select only 3 persons');
+    }
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -465,6 +502,7 @@ const Incident = ({navigation}) => {
       </TouchableOpacity>
 
       {/* Case Assignment Modal */}
+
       <View>
         <Modal
           animationType="slide"
@@ -475,38 +513,61 @@ const Incident = ({navigation}) => {
             setModalVisible2(!modalVisible2);
           }}>
           <View style={styles.centeredView}>
-            <View style={styles.modalView}>
+            <View style={styles.assignmodalView}>
               <View>
                 <Text
                   style={styles.close}
                   onPress={() => setModalVisible2(!modalVisible2)}>
-                  <FontAwesomeIcon icon={faXmark} size={20} color={'gray'} />
+                  <FontAwesomeIcon icon={faXmark} size={20} color={'red'} />
                 </Text>
               </View>
               <View>
-                <Text style={styles.caseAssignment}>Case Assigned</Text>
+                <Text style={styles.caseAssignment}>Case Assignment</Text>
               </View>
-              <View styles={styles.assigncontent}>
-                <Text style={styles.AssignPopup}>Legal Persons</Text>
+              <View>
+                <Text style={styles.AssignPopup}>Legal Person</Text>
+                <View style={styles.mhpsscontent}>
+                  {mhpss2 &&
+                    mhpss2.length > 0 &&
+                    mhpss2.map((val, i) => {
+                      return (
+                        <TouchableOpacity
+                          key={i}
+                          onPress={() => {
+                            let c = mhpss2.filter((d, index) => index != i);
+                            setMhpss2([...c]);
+                          }}>
+                          <View style={styles.selectedStyle2}>
+                            <Text style={styles.textSelectedStyle2}>
+                              {val.label}
+                            </Text>
+                            <FontAwesomeIcon
+                              icon={faXmark}
+                              size={16}
+                              color={'#000'}
+                            />
+                          </View>
+                        </TouchableOpacity>
+                      );
+                    })}
+                </View>
                 <View style={styles.assingnmentdrop}>
-                  <MultiSelect
+                  <Dropdown
                     containerStyle={{backgroundColor: '#ddd'}}
-                    style={styles.dropping}
-                    placeholderStyle={styles.placeholderStyle}
-                    selectedTextStyle={styles.selectedTextStyle}
+                    style={styles.droppingpopup}
+                    placeholderStyle={styles.AssignplaceholderStyle}
+                    selectedTextStyle={styles.AssignselectedTextStyle}
                     inputSearchStyle={styles.inputSearchStyle}
                     data={assignLegal}
                     maxHeight={250}
                     maxSelect={3}
                     labelField="label"
-                    valueField="value"
-                    placeholder="Assign the Person"
-                    submitButtonText="Submit"
+                    valueField="id"
+                    placeholder="Assign the Legal Person"
                     value={assignValue1}
                     onChange={item => {
-                      console.log(item);
                       setAssignValue1(item);
-                      // caseAssignValidation();
+                      setLegalPerson(item);
                     }}
                   />
                   <View>
@@ -520,24 +581,49 @@ const Incident = ({navigation}) => {
               </View>
               <View styles={styles.assigncontent}>
                 <Text style={styles.AssignPopup}>MHPSS</Text>
+                <View style={styles.mhpsscontent}>
+                  {mhpss &&
+                    mhpss.length > 0 &&
+                    mhpss.map((val, i) => {
+                      return (
+                        <TouchableOpacity
+                          key={i}
+                          onPress={() => {
+                            let a = mhpss.filter((b, index) => index != i);
+                            setMhpss([...a]);
+                          }}>
+                          <View style={styles.selectedStyle2}>
+                            <Text style={styles.textSelectedStyle2}>
+                              {val.label}
+                            </Text>
+                            <FontAwesomeIcon
+                              icon={faXmark}
+                              size={16}
+                              color={'#000'}
+                            />
+                          </View>
+                        </TouchableOpacity>
+                      );
+                    })}
+                </View>
                 <View style={styles.assingnmentdrop}>
-                  <MultiSelect
+                  <Dropdown
                     containerStyle={{backgroundColor: '#ddd'}}
-                    style={styles.dropping}
-                    placeholderStyle={styles.placeholderStyle}
-                    selectedTextStyle={styles.selectedTextStyle}
+                    style={styles.droppingpopup}
+                    placeholderStyle={styles.AssignplaceholderStyle}
+                    selectedTextStyle={styles.AssignselectedTextStyle}
                     inputSearchStyle={styles.inputSearchStyle}
                     data={assignLegal2}
                     maxSelect={3}
                     maxHeight={250}
                     labelField="label"
                     valueField="id"
-                    placeholder="Assign the Person"
+                    placeholder="Assign the MHPSS Person"
                     value={assignValue2}
-                    submitButtonText="Submit"
+                    dropdownPosition="bottom"
                     onChange={item => {
                       setAssignValue2(item);
-                      // caseAssignValidation();
+                      setMhpssPerson(item);
                     }}
                   />
                   <View>
@@ -549,17 +635,11 @@ const Incident = ({navigation}) => {
                   </View>
                 </View>
               </View>
-              <View style={styles.modalbuttons}>
-                <Pressable
-                  style={styles.button1}
-                  onPress={() => incidentmodal()}>
-                  <Text style={styles.textStyle}>Case Assigned</Text>
-                </Pressable>
-                <Pressable style={styles.button2}>
-                  <Text style={styles.textStyle}>Cancel</Text>
-                </Pressable>
-              </View>
             </View>
+
+            <Pressable style={styles.button1} onPress={() => incidentmodal()}>
+              <Text style={styles.assigntextStyle}>Submit</Text>
+            </Pressable>
           </View>
         </Modal>
       </View>
@@ -622,6 +702,14 @@ const styles = StyleSheet.create({
     padding: 35,
     alignItems: 'center',
   },
+  assignmodalView: {
+    width: wp('90%'),
+    height: hp('75%'),
+    margin: 20,
+    backgroundColor: 'white',
+    padding: 35,
+    alignItems: 'center',
+  },
   button: {
     borderRadius: 10,
     padding: 10,
@@ -632,20 +720,11 @@ const styles = StyleSheet.create({
   button1: {
     borderRadius: 10,
     padding: 10,
-    top: 10,
-    width: wp('30%'),
+    width: wp('50%'),
     height: hp('6%'),
-    marginRight: wp('10%'),
     backgroundColor: '#e26a00',
-  },
-  button2: {
-    borderRadius: 10,
-    padding: 10,
-    top: 10,
-    width: wp('30%'),
-    height: hp('6%'),
-    marginLeft: wp('10%'),
-    backgroundColor: 'red',
+    alignSelf: 'center',
+    marginTop: -80,
   },
 
   buttonClose: {
@@ -655,6 +734,15 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  assigntextStyle: {
+    color: 'white',
+    fontSize: 18,
+    textAlign: 'center',
+    fontFamily: 'Lato-Bold',
+  },
+  assigncontent: {
+    bottom: 30,
   },
 
   textpopup: {
@@ -677,12 +765,10 @@ const styles = StyleSheet.create({
   },
   AssignPopup: {
     color: '#000',
-    fontFamily: 'Lato-Regular',
-    fontSize: 16,
+    fontFamily: 'Lato-Bold',
+    fontSize: 18,
     alignSelf: 'flex-start',
-    marginTop: 20,
-    bottom: 40,
-    marginLeft: 12,
+    bottom: 20,
   },
   initiate: {
     justifyContent: 'center',
@@ -716,7 +802,18 @@ const styles = StyleSheet.create({
     Color: 'gray',
     width: wp('70%'),
     borderWidth: 1,
-    marginTop: 10,
+    marginTop: 5,
+    borderColor: '#ccc',
+    backgroundColor: '#ecf0f1',
+  },
+
+  droppingpopup: {
+    height: hp('7%'),
+    borderRadius: 5,
+    Color: 'gray',
+    top: 5,
+    width: wp('70%'),
+    borderWidth: 1,
     borderColor: '#ccc',
     backgroundColor: '#ecf0f1',
   },
@@ -724,34 +821,99 @@ const styles = StyleSheet.create({
     marginLeft: 250,
     bottom: 20,
   },
+  AssignselectedTextStyle: {
+    marginLeft: 5,
+    fontFamily: 'Lato-Regular',
+    fontSize: 12,
+  },
   selectedTextStyle: {
     marginLeft: 10,
+    fontFamily: 'Lato-Regular',
+    fontSize: 12,
+  },
+  selectedStyle: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 14,
+    backgroundColor: '#e26a00',
+    color: 'white',
+    marginTop: 8,
+    marginRight: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2,
+  },
+  textSelectedStyle: {
+    marginRight: 5,
+    fontFamily: 'Lato-Bold',
+    fontSize: 16,
+  },
+  selectedStyle2: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 14,
+    backgroundColor: '#e26a00',
+    color: 'white',
+    marginTop: 8,
+    marginRight: 12,
+    bottom: 15,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    width: wp('20%'),
+    shadowOffset: {
+      width: 0,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2,
+  },
+  textSelectedStyle2: {
+    marginRight: 5,
+    fontFamily: 'Lato-Bold',
+    fontSize: 16,
+    flexDirection: 'row',
   },
   placeholderStyle: {
     marginLeft: 10,
+    fontSize: 14,
+    fontFamily: 'Lato-Regular',
+    padding: 5,
+  },
+  AssignplaceholderStyle: {
+    marginLeft: 10,
+    marginRight: 10,
+    fontSize: 16,
+    fontFamily: 'Lato-Regular',
+    padding: 4,
   },
   caseAssignment: {
     bottom: 40,
-    color: '#000',
-    fontSize: 20,
+    color: '#e26a00',
+    fontSize: 24,
     fontFamily: 'Lato-Bold',
   },
   assingnmentdrop: {
-    bottom: 40,
+    height: hp('20%'),
   },
-  assigncontent: {
-    bottom: 30,
-  },
-  modalbuttons: {
-    flexDirection: 'row',
-    marginRight: 10,
-    justifyContent: 'space-around',
-  },
+
   incidenterrmessage: {
     color: 'red',
-    padding: 2,
-    top: 10,
-    bottom: 5,
-    marginLeft: 25,
+    padding: 5,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
+  },
+  mhpsscontent: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
 });
