@@ -123,13 +123,13 @@ const Incident = ({navigation}) => {
                     </Text>
                   }
                   onRequestClose={hideMenu}>
-                  <MenuItem onPress={() => navigation.navigate('Form')}>
+                  <MenuItem onPress={() => navigation.navigate('viewcard')}>
                     <View style={{flexDirection: 'row'}}>
                       <FontAwesomeIcon icon={faEye} size={20} color={'gray'} />
                       <Text style={{marginLeft: 10, color: '#000'}}>View</Text>
                     </View>
                   </MenuItem>
-                  <MenuItem onPress={() => navigation.navigate('Form')}>
+                  <MenuItem onPress={() => navigation.navigate('viewcard')}>
                     <View style={{flexDirection: 'row'}}>
                       <FontAwesomeIcon icon={faPen} size={20} color={'gray'} />
                       <Text style={{marginLeft: 10, color: '#000'}}>Edit</Text>
@@ -273,7 +273,7 @@ const Incident = ({navigation}) => {
                       </Text>
                     }
                     onRequestClose={hideMenu2}>
-                    <MenuItem onPress={() => navigation.navigate('Form')}>
+                    <MenuItem onPress={() => navigation.navigate('viewcard')}>
                       <View style={{flexDirection: 'row'}}>
                         <FontAwesomeIcon
                           icon={faEye}
@@ -285,7 +285,7 @@ const Incident = ({navigation}) => {
                         </Text>
                       </View>
                     </MenuItem>
-                    <MenuItem onPress={() => navigation.navigate('Form')}>
+                    <MenuItem onPress={() => navigation.navigate('viewcard')}>
                       <View style={{flexDirection: 'row'}}>
                         <FontAwesomeIcon
                           icon={faPen}
@@ -354,7 +354,7 @@ const Incident = ({navigation}) => {
                       </Text>
                     }
                     onRequestClose={hideMenu3}>
-                    <MenuItem onPress={() => navigation.navigate('Form')}>
+                    <MenuItem onPress={() => navigation.navigate('viewcard')}>
                       <View style={{flexDirection: 'row'}}>
                         <FontAwesomeIcon
                           icon={faEye}
@@ -366,7 +366,7 @@ const Incident = ({navigation}) => {
                         </Text>
                       </View>
                     </MenuItem>
-                    <MenuItem onPress={() => navigation.navigate('Form')}>
+                    <MenuItem onPress={() => navigation.navigate('viewcard')}>
                       <View style={{flexDirection: 'row'}}>
                         <FontAwesomeIcon
                           icon={faPen}
@@ -433,7 +433,7 @@ const Incident = ({navigation}) => {
                       </Text>
                     }
                     onRequestClose={hideMenu4}>
-                    <MenuItem onPress={() => navigation.navigate('Form')}>
+                    <MenuItem onPress={() => navigation.navigate('viewcard')}>
                       <View style={{flexDirection: 'row'}}>
                         <FontAwesomeIcon
                           icon={faEye}
@@ -445,7 +445,7 @@ const Incident = ({navigation}) => {
                         </Text>
                       </View>
                     </MenuItem>
-                    <MenuItem onPress={() => navigation.navigate('Form')}>
+                    <MenuItem onPress={() => navigation.navigate('viewcard')}>
                       <View style={{flexDirection: 'row'}}>
                         <FontAwesomeIcon
                           icon={faPen}
@@ -560,9 +560,11 @@ const Incident = ({navigation}) => {
                     valueField="value"
                     placeholder="Select state"
                     value={value1}
+                    
                     onChange={item => {
                       setValue1(item.value);
                     }}
+                    
                   />
                 </View>
               </View>
@@ -582,14 +584,14 @@ const Incident = ({navigation}) => {
       <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
         <View
           style={{
-            marginTop: 10,
-            width: 50,
+         width: 50,
             height: 50,
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: 100,
             backgroundColor: '#e26a00',
-            marginLeft: 270,
+            marginLeft: 300,
+            bottom:10
           }}>
           <Text style={styles.initiate}>
             <View>

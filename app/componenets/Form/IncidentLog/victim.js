@@ -23,6 +23,8 @@ import {useNavigation} from '@react-navigation/native';
 
 import {faFile} from '@fortawesome/free-solid-svg-icons/faFile';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import {useDispatch, useSelector} from 'react-redux';
+import {IncidentLog, IncidentLogResponse} from '../../Redux/Action';
 
 const Victim = ({route}) => {
   const navigation = useNavigation();
@@ -66,7 +68,7 @@ const Victim = ({route}) => {
   }, []);
 
   const data = [
-    {label: 'Others', value: '1'},
+    {label: 'Child Trafficking', value: '1'},
     {label: 'Online sexual harassment ', value: '2'},
     {label: 'Sexual assault ', value: '3'},
     {label: 'Sexual harassment    ', value: '4'},
@@ -75,7 +77,7 @@ const Victim = ({route}) => {
     {label: 'Kidnap/ abduction    ', value: '7'},
     {label: 'Child Missing    ', value: '8'},
     {label: 'Forced Marriage', value: '9'},
-    {label: 'Child Trafficking   ', value: '10'},
+    {label: ' Others  ', value: '10'},
   ];
   const [value, setValue] = useState(null);
   const data1 = [
@@ -125,6 +127,135 @@ const Victim = ({route}) => {
   ];
   const [value7, setValue7] = useState(null);
   const [other, setOther] = useState(false);
+  
+
+  const [validation, setValidation] = useState({
+    reporterName: '',
+    value: '',
+    dateofreporting: '',
+    nameofVictim: '',
+    gardianName: '',
+    victimAge: '',
+    victimDOB: '',
+    proofofDOB: '',
+    natureofIncident: '',
+    state: '',
+    district: '',
+    block: '',
+    gramPanchayat: '',
+    village: '',
+    policeStation: '',
+  });
+  const initialErrorMessage = {
+    reporterName: '',
+    designation: '',
+    dateofreporting: '',
+    nameofVictim: '',
+    gardianName: '',
+    victimAge: '',
+    victimDOB: '',
+    proofofDOB: '',
+    natureofIncident: '',
+    state: '',
+    district: '',
+    block: '',
+    gramPanchayat: '',
+    village: '',
+    policeStation: '',
+  };
+  const [error, setError] = useState(initialErrorMessage);
+  function myFunction() {
+    let a = {
+      reporterName: '',
+      designation: '',
+      dateofreporting: '',
+      nameofVictim: '',
+      gardianName: '',
+      victimAge: '',
+      victimDOB: '',
+      proofofDOB: '',
+      natureofIncident: '',
+      state: '',
+      district: '',
+      block: '',
+      gramPanchayat: '',
+      village: '',
+      policeStation: '',
+    };
+    var letters = /[A-Za-z]{3,15}/;
+    var empty = /^$/;
+    var Age = /^[0-9]{1,2}$/;
+
+    if (!validation.reporterName) {
+      a.reporterName = '*Please enter the reporter name';
+    }
+    if (
+      !letters.test(validation.reporterName) &&
+      !empty.test(validation.reporterName)
+    ) {
+      a.reporterName = 'Enter a valid reporter name';
+    }
+    if (!validation.designation) {
+      a.designation = '*Please enter the designation';
+    }
+    if (!validation.dateofreporting) {
+      a.dateofreporting = '*Please enter the date of reporting';
+    }
+    if (!validation.nameofVictim) {
+      a.nameofVictim = '*Please enter the name of the victim';
+    }
+    if (
+      !letters.test(validation.nameofVictim) &&
+      !empty.test(validation.nameofVictim)
+    ) {
+      a.nameofVictim = 'Enter a valid  victim name';
+    }
+    if (!validation.gardianName) {
+      a.gardianName = '*Please enter the gardian name';
+    }
+    if (
+      !letters.test(validation.gardianName) &&
+      !empty.test(validation.gardianName)
+    ) {
+      a.gardianName = 'Enter a valid guardian name';
+    }
+    if (!validation.victimAge) {
+      a.victimAge = '*Please enter the victim age';
+    }
+    if (!Age.test(validation.victimAge) && !empty.test(validation.victimAge)) {
+      a.victimAge = 'Enter a valid victim age';
+    }
+    if (!validation.victimDOB) {
+      a.victimDOB = '*Please select the victim date of birth';
+    }
+    if (!validation.natureofIncident) {
+      a.natureofIncident = '*Please select the nature of incident';
+    }
+    if (!validation.state) {
+      a.state = '*Please select the state';
+    }
+    if (!validation.district) {
+      a.district = '*Please select the district';
+    }
+    if (!validation.block) {
+      a.block = '*Please Select the Block';
+    }
+    if (!validation.gramPanchayat) {
+      a.gramPanchayat = '*Please Select the Gram Panchayat';
+    }
+    if (!validation.village) {
+      a.village = '*Please Select the Village';
+    }
+    if (!validation.policeStation) {
+      a.policeStation = '*Please Select the Police Station';
+    }
+    if (Object.values(a).every(el => el === '')) {
+      console.log(Object.values(a).every(el => el === ''));
+      setError(a);
+    } else {
+      setError(a);
+    }
+  }
 
   return (
     <View style={styles.Tab}>
@@ -140,7 +271,15 @@ const Victim = ({route}) => {
                 type="text"
                 placeholder="Enter reporter's name"
                 placeholderTextColor="gray"
+                onChangeText={text => {
+                  setValidation({...validation, reporterName: text});
+                }}
               />
+            </View>
+            <View>
+              {error?.reporterName && (
+                <Text style={styles.errormessage}>{error?.reporterName}</Text>
+              )}
             </View>
             <View style={{marginTop: 16}}>
               <Text style={styles.FormTitle}>
@@ -158,12 +297,17 @@ const Victim = ({route}) => {
                   placeholder="Select designation"
                   value={value7}
                   onChange={item => {
-                    setValue7(item.value);
+                    {setValue7(item.value); setValidation({...validation, designation: item.value})};
                   }}
+                  
                 />
               </View>
             </View>
-
+            <View>
+              {error?.designation && (
+                <Text style={styles.errormessage}>{error?.designation}</Text>
+              )}
+            </View>
             <View style={{marginTop: 18}}>
               <Text style={styles.FormTitle}>
                 Date of reporting:<Text style={styles.star}>*</Text>
@@ -203,8 +347,16 @@ const Victim = ({route}) => {
                   type="text"
                   placeholder="Enter name of the victim"
                   placeholderTextColor="gray"
+                  onChangeText={text => {
+                    setValidation({...validation, nameofVictim: text});
+                  }}
                 />
               </View>
+            </View>
+            <View>
+              {error?.nameofVictim && (
+                <Text style={styles.errormessage}>{error?.nameofVictim}</Text>
+              )}
             </View>
             <View style={{marginTop: 16}}>
               <Text style={styles.FormTitle}>
@@ -216,8 +368,16 @@ const Victim = ({route}) => {
                   type="text"
                   placeholder="Enter guardian's name"
                   placeholderTextColor="gray"
+                  onChangeText={text => {
+                    setValidation({...validation, gardianName: text});
+                  }}
                 />
               </View>
+            </View>
+            <View>
+              {error?.gardianName && (
+                <Text style={styles.errormessage}>{error?.gardianName}</Text>
+              )}
             </View>
             <View style={{marginTop: 3, marginLeft: 10}}>
               <Text style={styles.radioname}>
@@ -241,6 +401,7 @@ const Victim = ({route}) => {
                 <Text style={styles.gender}>No</Text>
               </View>
             </View>
+            
             <View style={styles.container}>
               {/*Here we will return the view when state is true 
         and will return false if state is false*/}
@@ -308,10 +469,17 @@ const Victim = ({route}) => {
                   keyboardType="numeric"
                   placeholder="Enter victims age"
                   placeholderTextColor="gray"
+                  onChangeText={text => {
+                    setValidation({...validation, victimAge: text});
+                  }}
                 />
               </View>
             </View>
-
+            <View>
+              {error?.victimAge && (
+                <Text style={styles.errormessage}>{error?.victimAge}</Text>
+              )}
+            </View>
             <View style={{marginTop: 16}}>
               <Text style={styles.FormTitle}>
                 Nature of incident:<Text style={styles.star}>*</Text>
@@ -331,16 +499,21 @@ const Victim = ({route}) => {
                   onChange={item => {
                     {
                       setValue(item.value);
-                      item.value === '1' ? setOther(true) : setOther(false);
+                      item.value === '10' ? setOther(true) : setOther(false);setValidation({...validation, natureofIncident: item.value})
                     }
                   }}
                 />
               </View>
+              <View>
+              {error?.natureofIncident && (
+                <Text style={styles.errormessage}>{error?.natureofIncident}</Text>
+              )}
+            </View>
             </View>
             {other === true && (
               <View style={{marginTop: 25}}>
                 <Text style={styles.FormTitle}>
-                  Others  (Nature of incident):<Text style={styles.star}>*</Text>
+                  Others (Nature of incident):<Text style={styles.star}>*</Text>
                 </Text>
                 <View style={styles.formtotalinput}>
                   <TextInput
@@ -371,10 +544,15 @@ const Victim = ({route}) => {
                   placeholder="Select state"
                   value={value1}
                   onChange={item => {
-                    setValue1(item.value);
+                    {setValue1(item.value);setValidation({...validation, state: item.value})};
                   }}
                 />
               </View>
+            </View>
+            <View>
+              {error?.state && (
+                <Text style={styles.errormessage}>{error?.state}</Text>
+              )}
             </View>
             <View style={{marginTop: 25}}>
               <Text style={styles.FormTitle}>
@@ -394,10 +572,15 @@ const Victim = ({route}) => {
                   placeholder="Select district"
                   value={value2}
                   onChange={item => {
-                    setValue2(item.value);
+                    {setValue2(item.value);setValidation({...validation, district: item.value})};
                   }}
                 />
               </View>
+              <View>
+              {error?.district && (
+                <Text style={styles.errormessage}>{error?.district}</Text>
+              )}
+            </View>
               <View style={{marginTop: 25}}>
                 <Text style={styles.FormTitle}>Block: </Text>
                 <View style={styles.droppingn}>
@@ -460,10 +643,15 @@ const Victim = ({route}) => {
                   placeholder="Select village"
                   value={value5}
                   onChange={item => {
-                    setValue5(item.value);
+                    {setValue5(item.value);setValidation({...validation, village: item.value})};
                   }}
                 />
               </View>
+            </View>
+            <View>
+              {error?.village && (
+                <Text style={styles.errormessage}>{error?.village}</Text>
+              )}
             </View>
             <View style={{marginTop: 20}}>
               <Text style={styles.FormTitle}>Police station:</Text>
@@ -497,7 +685,7 @@ const Victim = ({route}) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.formbutton}
-          onPress={() => route.change()}>
+          onPress={() => myFunction()}>
           <Text style={styles.formbuttoninput}>NEXT </Text>
         </TouchableOpacity>
       </View>
@@ -508,7 +696,7 @@ export default Victim;
 const styles = StyleSheet.create({
   Tab: {
     backgroundColor: '#fff',
-    height: hp('87%'),
+    height: hp('100%'),
     width: wp('99%'),
   },
   FormTitle: {
@@ -582,7 +770,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 10,
     backgroundColor: '#ff6b00',
-    marginTop: 14,
+    bottom: 40,
+
     marginLeft: 5,
   },
   formbuttonedit: {
@@ -973,7 +1162,7 @@ const styles = StyleSheet.create({
   victimbutton: {
     flexDirection: 'row',
     justifyContent: 'center',
-    top: 10,
+    height: hp('20%'),
   },
   formbutton0: {
     alignSelf: 'center',
@@ -982,7 +1171,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 10,
     backgroundColor: '#46bb95',
-    marginTop: 14,
     marginLeft: 5,
+    bottom: 40,
+  },
+  errormessage: {
+    color: 'red',
+    marginLeft: 10,
+    top:5
   },
 });

@@ -104,7 +104,7 @@ const Service = () => {
           </View>
           <View style={styles.container}>
             {/*Here we will return the view when state is true 
-          and will return false if state is false*/}
+					and will return false if state is false*/}
             {checked === 'first' && (
               <View style={{marginTop: 20, marginLeft: 5}}>
                 <Text style={styles.FormTitle}>Compensation Date </Text>
@@ -175,7 +175,7 @@ const Service = () => {
             </View>
             <View style={styles.container}>
               {/*Here we will return the view when state is true 
-          and will return false if state is false*/}
+					and will return false if state is false*/}
               {checked1 === 'first' && (
                 <View style={{marginTop: 20}}>
                   <Text style={styles.FormTitle}>Treatment Date </Text>
@@ -246,7 +246,7 @@ const Service = () => {
             </View>
             <View style={styles.container}>
               {/*Here we will return the view when state is true 
-          and will return false if state is false*/}
+					and will return false if state is false*/}
               {checked2 === 'first' && (
                 <View style={{marginTop: 20}}>
                   <Text style={styles.FormTitle}>Date</Text>
@@ -331,7 +331,7 @@ const Service = () => {
           </View>
           <View style={{marginLeft: 5}}>
             {/*Here we will return the view when state is true 
-          and will return false if state is false*/}
+					and will return false if state is false*/}
             {checked3 === 'first' && (
               <View style={{marginTop: 20}}>
                 <Text style={styles.FormTitle}>Date</Text>
@@ -413,7 +413,7 @@ const Service = () => {
             </View>
             <View style={styles.container}>
               {/*Here we will return the view when state is true 
-          and will return false if state is false*/}
+					and will return false if state is false*/}
               {checked4 === 'first' && (
                 <View style={{marginTop: 20}}>
                   <Text style={styles.FormTitle}>Date</Text>
@@ -467,7 +467,7 @@ const Service = () => {
                     </View>
                     <View style={{marginLeft: 5}}>
                       {/*Here we will return the view when state is true 
-          and will return false if state is false*/}
+					and will return false if state is false*/}
                       {checked7 === 'first' && (
                         <View style={{marginTop: 20}}>
                           <View style={{marginTop: 0, right: 8}}>
@@ -516,11 +516,11 @@ const Service = () => {
               <Text style={styles.gender}>No</Text>
               <View style={{right: 122, top: 30}}>
                 {/*Here we will return the view when state is true 
-          and will return false if state is false*/}
+					and will return false if state is false*/}
                 {checked5 === 'first' && (
-                  <View style={{marginTop: 20}}>
+                  <View style={{marginTop: 20,right:10}}>
                     <Text style={styles.FormTitle}>Date</Text>
-                    <View style={{marginTop: 5}}>
+                    <View style={{}}>
                       <TextInput
                         style={styles.textInput1}
                         value={getDate()}
@@ -551,146 +551,10 @@ const Service = () => {
             </View>
           </View>
 
-          <View style={styles.reintegration}>
-            <Text style={styles.reintegrationTitle}>MHPSS </Text>
-          </View>
-          {supportive.length < 1 && (
-            <TouchableOpacity style={styles.Initiatebutton}>
-              <Text
-                style={styles.formbuttoninput}
-                onPress={() => handleSupportive()}>
-                Initiate{' '}
-              </Text>
-            </TouchableOpacity>
-          )}
-
-          {supportive.map((data, i) => {
-            return (
-              <>
-                <View style={{marginTop: 10}}>
-                  <Text style={styles.FormTitle}>
-                    Supprotive Call -{i + 1}:
-                  </Text>
-                  <View style={{marginTop: 20, marginLeft: 5}}>
-                    <Text style={styles.FormTitle}>Date & Time</Text>
-                    <View style={{marginTop: 5}}>
-                      <TextInput
-                        style={styles.textInput1}
-                        value={getDate()}
-                        placeholder="  Enter Date"
-                        placeholderTextColor={'gray'}
-                      />
-
-                      <Text
-                        style={{left: 300, bottom: 39}}
-                        onPress={showDatePicker}>
-                        <FontAwesomeIcon
-                          size={20}
-                          icon={faCalendarDays}
-                          title="Show Picker"
-                          color="#00bad7"
-                        />
-                      </Text>
-                      <DateTimePickerModal
-                        isVisible={isDatePickerVisible}
-                        mode="date"
-                        onConfirm={handleConfirm}
-                        onCancel={hideDatePicker}
-                      />
-                    </View>
-                  </View>
-                </View>
-                <View style={{bottom: 20, marginLeft: 10}}>
-                  <Text style={styles.radioname}>
-                    Consent
-                    <Text style={styles.star}></Text>
-                  </Text>
-                  <View style={styles.SectionStyle1}>
-                    <RadioButton
-                      uncheckedColor={'gray'}
-                      color={'#ff6b00'}
-                      value="first"
-                      status={checked6 === 'first' ? 'checked' : 'unchecked'}
-                      onPress={() => setChecked6('first')}
-                    />
-                    <Text style={styles.gender}>Yes</Text>
-                    <RadioButton
-                      uncheckedColor={'gray'}
-                      color={'#ff6b00'}
-                      value="second"
-                      status={checked6 === 'second' ? 'checked' : 'unchecked'}
-                      onPress={() => setChecked6('second')}
-                    />
-                    <Text style={styles.gender}>No</Text>
-                  </View>
-                  <View style={styles.container}>
-                    {checked6 === 'first' && (
-                      <View style={{marginTop: 15}}>
-                        <View style={{bottom: 5}}>
-                          <Text style={styles.FormTitle}>
-                            Counselling:<Text style={styles.star}>*</Text>
-                          </Text>
-                          <View style={styles.tabfourfirst1}>
-                            <TextInput
-                              style={styles.counsInput}
-                              type="text"
-                              placeholder="Enter Counselling "
-                              placeholderTextColor="gray"
-                            />
-                          </View>
-                        </View>
-                        <Text style={styles.FormTitle}>
-                          Scheduling for next session date & Time{' '}
-                        </Text>
-                        <View style={{marginTop: 5}}>
-                          <TextInput
-                            style={styles.textInput1}
-                            value={getDate()}
-                            placeholder="  Enter Date"
-                            placeholderTextColor={'gray'}
-                          />
-
-                          <Text
-                            style={{left: 300, bottom: 39}}
-                            onPress={showDatePicker}>
-                            <FontAwesomeIcon
-                              size={20}
-                              icon={faCalendarDays}
-                              title="Show Picker"
-                              color="#00bad7"
-                            />
-                          </Text>
-                          <DateTimePickerModal
-                            isVisible={isDatePickerVisible}
-                            mode="date"
-                            onConfirm={handleConfirm}
-                            onCancel={hideDatePicker}
-                          />
-                        </View>
-
-                        {supportive.length - 1 == i && (
-                          <TouchableOpacity style={styles.add}>
-                            <Text
-                              style={styles.formbuttoninput}
-                              onPress={() => handleSupportive()}>
-                              Add
-                            </Text>
-                          </TouchableOpacity>
-                        )}
-                      </View>
-                    )}
-                  </View>
-                </View>
-              </>
-            );
-          })}
         </View>
 
-        <View>
-          <DSMTrauma />
-        </View>
-
-        <View style={{bottom: 15}}>
+       
+        <View style={{}}>
           <TouchableOpacity
             style={styles.formbutton}
             onPress={() => route.change()}>
@@ -704,6 +568,7 @@ const Service = () => {
 export default Service;
 const styles = StyleSheet.create({
   Tab: {
+    
     backgroundColor: '#fff',
     height: hp('87%'),
     width: wp('99%'),
@@ -990,7 +855,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
     marginLeft: 2,
     marginTop: 38,
-    height: 40,
+    height: 50,
     alignItems: 'center',
   },
   reintegrationTitle: {

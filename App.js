@@ -9,7 +9,13 @@ import MyDrawer from './app/componenets/Drawer/drawer';
 import Notification from './app/componenets/Notification/Notification';
 import store from '../WV-CMCP-MOBILE/app/Redux/Store';
 import UserProfileView from './app/componenets/Userprofile/Userprofile';
-import Victims from './app/componenets/Form/IncidentLog/victim';
+import Viewcard from './app/componenets/Viewcard/viewcard';
+import Victim from './app/componenets/Form/IncidentLog/victim';
+import Complaints from './app/componenets/Form/IncidentLog/complaint';
+import Legal from './app/componenets/Form/legal';
+import Service from './app/componenets/Form/service';
+import Mhpss from './app/componenets/Form/mhpss';
+
 import {Provider} from 'react-redux';
 import {StatusBar} from 'react-native';
 
@@ -79,18 +85,116 @@ function App() {
               },
             }}
           />
-
+            <Stack.Screen
+            name="viewcard"
+            component={Viewcard}
+            options={{
+              title: 'Viewcard',
+              headerStyle: {
+                backgroundColor: '#ff6b00',
+                height: 50,
+                fontsize: 17,
+              },
+              headerTintColor: 'white',
+              headerTitleStyle: {
+                fontFamily: 'Lato-Bold',
+                color: '#fff',
+              },
+            }}
+          />
+  <Stack.Screen
+            name="victim"
+            component={Victim}
+            options={{
+              title: 'Viewcard',
+              headerStyle: {
+                backgroundColor: '#ff6b00',
+                height: 50,
+                fontsize: 17,
+              },
+              headerTintColor: 'white',
+              headerTitleStyle: {
+                fontFamily: 'Lato-Bold',
+                color: '#fff',
+              },
+            }}
+          />
+   <Stack.Screen
+            name="complaints"
+            component={Complaints}
+            options={{
+              title: 'Viewcard',
+              headerStyle: {
+                backgroundColor: '#ff6b00',
+                height: 50,
+                fontsize: 17,
+              },
+              headerTintColor: 'white',
+              headerTitleStyle: {
+                fontFamily: 'Lato-Bold',
+                color: '#fff',
+              },
+            }}
+          />
+          <Stack.Screen
+            name="legal"
+            component={Legal}
+            options={{
+              title: 'Viewcard',
+              headerStyle: {
+                backgroundColor: '#ff6b00',
+                height: 50,
+                fontsize: 17,
+              },
+              headerTintColor: 'white',
+              headerTitleStyle: {
+                fontFamily: 'Lato-Bold',
+                color: '#fff',
+              },
+            }}
+          />
+           <Stack.Screen
+            name="service"
+            component={Service}
+            options={{
+              title: 'Viewcard',
+              headerStyle: {
+                backgroundColor: '#ff6b00',
+                height: 50,
+                fontsize: 17,
+              },
+              headerTintColor: 'white',
+              headerTitleStyle: {
+                fontFamily: 'Lato-Bold',
+                color: '#fff',
+              },
+            }}
+          />
+          
+          <Stack.Screen
+            name="mhpss"
+            component={Mhpss}
+            options={{
+              title: 'Viewcard',
+              headerStyle: {
+                backgroundColor: '#ff6b00',
+                height: 50,
+                fontsize: 17,
+              },
+              headerTintColor: 'white',
+              headerTitleStyle: {
+                fontFamily: 'Lato-Bold',
+                color: '#fff',
+              },
+            }}
+          />
           <Stack.Screen
             name="Drawer"
             component={MyDrawer}
             options={{headerShown: false}}
           />
 
-          <Stack.Screen
-            name="FirstRoute"
-            component={Victims}
-            options={{headerShown: false}}
-          />
+        
         </Stack.Navigator>
 
         <StatusBar

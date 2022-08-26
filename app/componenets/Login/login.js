@@ -193,9 +193,9 @@ const Login = () => {
     } else if (loginResponse?.StatusCode === 201) {
       alert(loginResponse.StatusMessage);
       navigation.navigate('Drawer');
-      clearAll()
+      clearAll();
       console.log('came here');
-       dispatch(userLoginResponse(''));
+      dispatch(userLoginResponse(''));
 
       // setTimeout(() => {
       //   clearAll();
@@ -603,11 +603,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#ffff',
     borderColor: 'gray',
-    borderWidth: 0.7,
+    borderWidth: 1,
     width: 310,
     bottom: 80,
     borderRadius: 10,
-    height: 50,
   },
   customtextinput2: {
     flexDirection: 'row',
@@ -619,7 +618,6 @@ const styles = StyleSheet.create({
     width: 310,
     bottom: 40,
     borderRadius: 10,
-    height: 50,
   },
 
   input: {
@@ -671,7 +669,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
     bottom: 90,
     alignSelf: 'flex-start',
-    marginLeft: 40,
+    marginLeft: 50,
     fontFamily: 'Lato-Bold',
   },
   loginmobilemain: {
@@ -684,7 +682,7 @@ const styles = StyleSheet.create({
     color: '#000',
     fontSize: 17,
     alignSelf: 'flex-start',
-    marginLeft: 40,
+    marginLeft: 50,
     fontFamily: 'Lato-Bold',
   },
   loginpasswordmain: {
@@ -700,7 +698,7 @@ const styles = StyleSheet.create({
     bottom: 50,
     paddingTop: 11,
     alignSelf: 'flex-start',
-    marginLeft: 40,
+    marginLeft: 50,
   },
   bouncyforgotmain: {
     flexDirection: 'row',
