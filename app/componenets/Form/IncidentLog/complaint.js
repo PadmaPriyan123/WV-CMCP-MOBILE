@@ -201,14 +201,24 @@ const Complaints = ({route}) => {
       a.dateogIncident = '*Please Select the Date Of Incident';
     }
     if (!validation1.discriptionofIncident) {
-      a.discriptionofIncident = '*Please Select the Description Of Incident';
+      a.discriptionofIncident = '*Please enter the description Of the incident';
+    }
+    if (!validation1.nameofOffender) {
+      a.nameofOffender = '*Please enter the name of offender';
+    }
+    if (!validation1.offenderdrelationtoVictim) {
+      a.offenderdrelationtoVictim =
+        '*Please select the offender relation to the victim';
     }
     if (!validation1.whoinformedtheincident) {
       a.whoinformedtheincident =
         '*Please Enter the Who Informed About Incident';
     }
+    if (!validation1.offenderapproximateage) {
+      a.offenderapproximateage = '*Please enter the offender approximate age';
+    }
     if (!validation1.complaintLogPS) {
-      a.complaintLogPS = '*Please Enter the Complaint lodged in PS';
+      a.complaintLogPS = '*Please Select the Complaint lodged in PS';
     }
     if (!validation1.GDEntry) {
       a.GDEntry = '*Please Enter the GD-Entry';
@@ -293,10 +303,17 @@ const Complaints = ({route}) => {
                 type="text"
                 placeholder="Enter name of alleged offender"
                 placeholderTextColor="gray"
+                onChangeText={text => {
+                  setValidation1({...validation1, nameofOffender: text});
+                }}
               />
             </View>
           </View>
-
+          <View>
+            {error?.nameofOffender && (
+              <Text style={styles.errormessage}>{error?.nameofOffender}</Text>
+            )}
+          </View>
           <View style={{marginTop: 16}}>
             <Text style={styles.FormTitle}>
               Offenders relationship to victim:
@@ -307,8 +324,21 @@ const Complaints = ({route}) => {
                 type="text"
                 placeholder="Enter offender relationship to victim"
                 placeholderTextColor="gray"
+                onChangeText={text => {
+                  setValidation1({
+                    ...validation1,
+                    offenderdrelationtoVictim: text,
+                  });
+                }}
               />
             </View>
+          </View>
+          <View>
+            {error?.offenderdrelationtoVictim && (
+              <Text style={styles.errormessage}>
+                {error?.offenderdrelationtoVictim}
+              </Text>
+            )}
           </View>
           <View style={{marginTop: 16}}>
             <Text style={styles.FormTitle}>Offenders approximate age:</Text>
@@ -318,8 +348,21 @@ const Complaints = ({route}) => {
                 keyboardType="numeric"
                 placeholder="Enter offenders approximate age"
                 placeholderTextColor="gray"
+                onChangeText={text => {
+                  setValidation1({
+                    ...validation1,
+                    offenderapproximateage: text,
+                  });
+                }}
               />
             </View>
+          </View>
+          <View>
+            {error?.offenderapproximateage && (
+              <Text style={styles.errormessage}>
+                {error?.offenderapproximateage}
+              </Text>
+            )}
           </View>
           <View style={{marginTop: 16}}>
             <Text style={styles.FormTitle1}>
@@ -341,7 +384,11 @@ const Complaints = ({route}) => {
                 onChange={item => {
                   {
                     setValue1(item.value);
-                    item.value === '10' ?setOthers(true) :setOthers(false); setValidation1({...validation1, whoinformedtheincident:item.value})
+                    item.value === '10' ? setOthers(true) : setOthers(false);
+                    setValidation1({
+                      ...validation1,
+                      whoinformedtheincident: item.value,
+                    });
                   }
                 }}
               />
@@ -349,10 +396,12 @@ const Complaints = ({route}) => {
           </View>
 
           <View>
-              {error?.whoinformedtheincident && (
-                <Text style={styles.errormessage}>{error?.whoinformedtheincident}</Text>
-              )}
-            </View>
+            {error?.whoinformedtheincident && (
+              <Text style={styles.errormessage}>
+                {error?.whoinformedtheincident}
+              </Text>
+            )}
+          </View>
           {others == true && (
             <View style={{marginTop: 16}}>
               <Text style={styles.FormTitle}>
@@ -400,7 +449,7 @@ const Complaints = ({route}) => {
               />
             </View>
           </View>
-          
+
           <View>
             {error?.district && (
               <Text style={styles.errormessage}>{error?.district}</Text>
@@ -1192,6 +1241,6 @@ const styles = StyleSheet.create({
   errormessage: {
     color: 'red',
     marginLeft: 10,
-    top:5
+    top: 5,
   },
 });

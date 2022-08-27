@@ -12,7 +12,14 @@ import {Menu, MenuItem, MenuDivider} from 'react-native-material-menu';
 
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faChartLine} from '@fortawesome/free-solid-svg-icons/faChartLine';
-import {faUsers, faUser, faIndent, faArrowRightFromBracket, faBell, faEllipsisVertical} from '@fortawesome/free-solid-svg-icons';
+import {
+  faUsers,
+  faUser,
+  faIndent,
+  faArrowRightFromBracket,
+  faBell,
+  faEllipsisVertical,
+} from '@fortawesome/free-solid-svg-icons';
 import Dashboard from '../Dashboard/Dashboard';
 import Form from '../Form';
 import Incident from '../IncidentView/incidentview';

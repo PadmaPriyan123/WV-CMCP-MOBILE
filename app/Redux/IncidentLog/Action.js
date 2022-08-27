@@ -1,11 +1,11 @@
-import { INCIDENTLOG ,INCIDENTLOG_RESPONSE} from "./ActionTypes";
+import {INCIDENTLOG, INCIDENTLOG_RESPONSE} from './ActionTypes';
 
-export const IncidentLog = (incidentlogCredentials) => ({
-    type: INCIDENTLOG,
-    payload: incidentlogCredentials,
+export const IncidentLog = incidentlogCredentials => ({
+  type: INCIDENTLOG,
+  payload: incidentlogCredentials,
 });
 
-export const IncidentLogResponse = (incidentlogResponse) => ({
-    type: INCIDENTLOG_RESPONSE,
-    payload: incidentlogResponse,
+export const IncidentLogResponse = incidentlogResponse => ({
+  type: INCIDENTLOG_RESPONSE,
+  payload: incidentlogResponse,
 });

@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     top: 50,
     fontSize: 20,
     color: '#fff',
-    marginLeft: 20,
+    marginLeft: 15,
     fontFamily: 'Lato-Bold',
 
   },
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
 
   card: {
     width: wp('40%'),
-    height: hp('20%'),
+    height: hp('25%'),
     borderRadius: 10,
     backgroundColor: '#46bb95',
     bottom:50
@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
   card1: {
     backgroundColor: '#00acca',
     width: wp('40%'),
-    height: hp('20%'),
+    height: hp('25%'),
     borderRadius: 10,
     bottom:50
 
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
   card2: {
     backgroundColor: '#9054a1',
     width: wp('40%'),
-    height: hp('20%'),
+    height: hp('25%'),
     borderRadius: 10,
     bottom:50
 
@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
   card3: {
     backgroundColor: '#006661',
     width: wp('40%'),
-    height: hp('20%'),
+    height: hp('25%'),
     borderRadius: 10,
     bottom:50
 
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
   card4: {
     backgroundColor: '#ff6b00',
     width: wp('40%'),
-    height: hp('20%'),
+    height: hp('25%'),
     borderRadius: 10,
     textAlign: 'center',
     bottom:50

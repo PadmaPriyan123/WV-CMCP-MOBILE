@@ -1,11 +1,7 @@
-import { all } from "redux-saga/effects";
-import login from "./Login/Saga";
-import Incidentlog from "./IncidentLog/Reducers";
-
+import {all} from 'redux-saga/effects';
+import login from './Login/Saga';
+import incidentlog from './IncidentLog/Saga';
 
 export default function* rootSaga() {
-    yield all([
-        login(),
-        Incidentlog(),
-    ])
+  yield all([login(), incidentlog()]);
 }
