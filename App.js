@@ -45,12 +45,6 @@ function App() {
           />
 
           <Stack.Screen
-            name="Incident View"
-            component={Incident}
-            options={{headerShown: false}}
-          />
-
-          <Stack.Screen
             name="Notification"
             component={Notification}
             options={{
@@ -66,6 +60,11 @@ function App() {
                 color: '#fff',
               },
             }}
+          />
+          <Stack.Screen
+            name="Incident View"
+            component={Incident}
+            options={{headerShown: false}}
           />
 
           <Stack.Screen

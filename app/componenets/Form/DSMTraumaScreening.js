@@ -8,6 +8,10 @@ import {
 } from 'react-native';
 import {RadioButton} from 'react-native-paper';
 import {ScrollView} from 'react-native-gesture-handler';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const DSMTrauma = () => {
   const [dsmChecked, setDsmChecked] = React.useState('');
@@ -30,13 +34,13 @@ const DSMTrauma = () => {
   const [dsmChecked18, setDsmChecked18] = React.useState('');
   const [dsmChecked19, setDsmChecked19] = React.useState('');
   const [dsmChecked20, setDsmChecked20] = React.useState('');
-  const [dsmChecked21, setDsmChecked21] = React.useState('');
-  const [dsmChecked22, setDsmChecked22] = React.useState('');
-  const [dsmChecked23, setDsmChecked23] = React.useState('');
-  const [dsmChecked24, setDsmChecked24] = React.useState('');
-  const [dsmChecked25, setDsmChecked25] = React.useState('');
-  const [dsmChecked26, setDsmChecked26] = React.useState('');
-  const [dsmChecked27, setDsmChecked27] = React.useState('');
+  // const [dsmChecked21, setDsmChecked21] = React.useState('');
+  // const [dsmChecked22, setDsmChecked22] = React.useState('');
+  // const [dsmChecked23, setDsmChecked23] = React.useState('');
+  // const [dsmChecked24, setDsmChecked24] = React.useState('');
+  // const [dsmChecked25, setDsmChecked25] = React.useState('');
+  // const [dsmChecked26, setDsmChecked26] = React.useState('');
+  // const [dsmChecked27, setDsmChecked27] = React.useState('');
   return (
     <SafeAreaView>
       <ScrollView>
@@ -45,10 +49,13 @@ const DSMTrauma = () => {
         </View>
         <View style={styles.DsmContainer}>
           <View style={styles.DsmContent}>
-            <Text style={styles.DsmQuestion}>
-              1. Having upsetting thoughts or pictures about it that came into
-              your head when you didn't want them to
-            </Text>
+            <View style={styles.Dsmnoques}>
+              <Text style={styles.DsmQuestion}>1.</Text>
+              <Text style={styles.DsmQuestion}>
+                Having upsetting thoughts or pictures about it that came into
+                your head when you didn't want them to
+              </Text>
+            </View>
             <View style={styles.DSMRadioButton}>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -109,9 +116,12 @@ const DSMTrauma = () => {
             </View>
           </View>
           <View style={styles.DsmContent}>
-            <Text style={styles.DsmQuestion}>
-              2. Having bad dreams or nightmares
-            </Text>
+            <View style={styles.Dsmnoques}>
+              <Text style={styles.DsmQuestion}>2.</Text>
+              <Text style={styles.DsmQuestion}>
+                Having bad dreams or nightmares
+              </Text>
+            </View>
             <View style={styles.DSMRadioButton}>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -172,10 +182,13 @@ const DSMTrauma = () => {
             </View>
           </View>
           <View style={styles.DsmContent}>
-            <Text style={styles.DsmQuestion}>
-              3. Acting or feeling as if it was happening again (seeing or
-              hearing something and feeling as if you are there again)
-            </Text>
+            <View style={styles.Dsmnoques}>
+              <Text style={styles.DsmQuestion}>3.</Text>
+              <Text style={styles.DsmQuestion}>
+                Acting or feeling as if it was happening again (seeing or
+                hearing something and feeling as if you are there again)
+              </Text>
+            </View>
             <View style={styles.DSMRadioButton}>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -236,10 +249,13 @@ const DSMTrauma = () => {
             </View>
           </View>
           <View style={styles.DsmContent}>
-            <Text style={styles.DsmQuestion}>
-              4. Feeling upset when you remember what happened (for example,
-              feeling scared, angry, sad, guilty, confused)
-            </Text>
+            <View style={styles.Dsmnoques}>
+              <Text style={styles.DsmQuestion}>4.</Text>
+              <Text style={styles.DsmQuestion}>
+                Feeling upset when you remember what happened (for example,
+                feeling scared, angry, sad, guilty, confused)
+              </Text>
+            </View>
             <View style={styles.DSMRadioButton}>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -300,11 +316,14 @@ const DSMTrauma = () => {
             </View>
           </View>
           <View style={styles.DsmContent}>
-            <Text style={styles.DsmQuestion}>
-              5. Having feelings in your body when you remember what happened
-              (for example, sweating, heart beating fast, stomach or head
-              hurting)
-            </Text>
+            <View style={styles.Dsmnoques}>
+              <Text style={styles.DsmQuestion}>5.</Text>
+              <Text style={styles.DsmQuestion}>
+                Having feelings in your body when you remember what happened
+                (for example, sweating, heart beating fast, stomach or head
+                hurting)
+              </Text>
+            </View>
             <View style={styles.DSMRadioButton}>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -365,9 +384,12 @@ const DSMTrauma = () => {
             </View>
           </View>
           <View style={styles.DsmContent}>
-            <Text style={styles.DsmQuestion}>
-              6. Trying not to think about it or have feelings about
-            </Text>
+            <View style={styles.Dsmnoques}>
+              <Text style={styles.DsmQuestion}>6.</Text>
+              <Text style={styles.DsmQuestion}>
+                Trying not to think about it or have feelings about
+              </Text>
+            </View>
             <View style={styles.DSMRadioButton}>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -428,10 +450,14 @@ const DSMTrauma = () => {
             </View>
           </View>
           <View style={styles.DsmContent}>
-            <Text style={styles.DsmQuestion}>
-              7. Trying to stay away from anything that reminds you of what
-              happened (for example, people, places, or conversations about it)
-            </Text>
+            <View style={styles.Dsmnoques}>
+              <Text style={styles.DsmQuestion}>7.</Text>
+              <Text style={styles.DsmQuestion}>
+                Trying to stay away from anything that reminds you of what
+                happened (for example, people, places, or conversations about
+                it)
+              </Text>
+            </View>
             <View style={styles.DSMRadioButton}>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -492,9 +518,12 @@ const DSMTrauma = () => {
             </View>
           </View>
           <View style={styles.DsmContent}>
-            <Text style={styles.DsmQuestion}>
-              8. Not being able to remember an important part of what happened
-            </Text>
+            <View style={styles.Dsmnoques}>
+              <Text style={styles.DsmQuestion}>8.</Text>
+              <Text style={styles.DsmQuestion}>
+                Not being able to remember an important part of what happened
+              </Text>
+            </View>
             <View style={styles.DSMRadioButton}>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -555,11 +584,14 @@ const DSMTrauma = () => {
             </View>
           </View>
           <View style={styles.DsmContent}>
-            <Text style={styles.DsmQuestion}>
-              9. Having bad thoughts about yourself, other people, or the world
-              (for example, “I can’t do anything right”, “All people are bad”,
-              “The world is a scary place”)
-            </Text>
+            <View style={styles.Dsmnoques}>
+              <Text style={styles.DsmQuestion}>9.</Text>
+              <Text style={styles.DsmQuestion}>
+                Having bad thoughts about yourself, other people, or the world
+                (for example, “I can’t do anything right”, “All people are bad”,
+                “The world is a scary place”)
+              </Text>
+            </View>
             <View style={styles.DSMRadioButton}>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -620,11 +652,14 @@ const DSMTrauma = () => {
             </View>
           </View>
           <View style={styles.DsmContent}>
-            <Text style={styles.DsmQuestion}>
-              10. Thinking that what happened is your fault (for example, “I
-              should have known better”, “I shouldn’t have done that”, “I
-              deserved it”)
-            </Text>
+            <View style={styles.Dsmnoques}>
+              <Text style={styles.DsmQuestion}>10.</Text>
+              <Text style={styles.DsmQuestion}>
+                Thinking that what happened is your fault (for example, “I
+                should have known better”, “I shouldn’t have done that”, “I
+                deserved it”)
+              </Text>
+            </View>
             <View style={styles.DSMRadioButton}>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -685,9 +720,12 @@ const DSMTrauma = () => {
             </View>
           </View>
           <View style={styles.DsmContent}>
-            <Text style={styles.DsmQuestion}>
-              11. Having strong bad feelings (like fear, anger, guilt, or shame)
-            </Text>
+            <View style={styles.Dsmnoques}>
+              <Text style={styles.DsmQuestion}>11.</Text>
+              <Text style={styles.DsmQuestion}>
+                Having strong bad feelings (like fear, anger, guilt, or shame)
+              </Text>
+            </View>
             <View style={styles.DSMRadioButton}>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -748,9 +786,12 @@ const DSMTrauma = () => {
             </View>
           </View>
           <View style={styles.DsmContent}>
-            <Text style={styles.DsmQuestion}>
-              12. Having much less interest in doing things you used to do
-            </Text>
+            <View style={styles.Dsmnoques}>
+              <Text style={styles.DsmQuestion}>12.</Text>
+              <Text style={styles.DsmQuestion}>
+                Having much less interest in doing things you used to do
+              </Text>
+            </View>
             <View style={styles.DSMRadioButton}>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -811,10 +852,13 @@ const DSMTrauma = () => {
             </View>
           </View>
           <View style={styles.DsmContent}>
-            <Text style={styles.DsmQuestion}>
-              13. Not feeling close to your friends or family or not wanting to
-              be around them
-            </Text>
+            <View style={styles.Dsmnoques}>
+              <Text style={styles.DsmQuestion}>13.</Text>
+              <Text style={styles.DsmQuestion}>
+                Not feeling close to your friends or family or not wanting to be
+                around them
+              </Text>
+            </View>
             <View style={styles.DSMRadioButton}>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -875,10 +919,13 @@ const DSMTrauma = () => {
             </View>
           </View>
           <View style={styles.DsmContent}>
-            <Text style={styles.DsmQuestion}>
-              14. Trouble having good feelings (like happiness or love) or
-              trouble having any feelings at all
-            </Text>
+            <View style={styles.Dsmnoques}>
+              <Text style={styles.DsmQuestion}>14.</Text>
+              <Text style={styles.DsmQuestion}>
+                Trouble having good feelings (like happiness or love) or trouble
+                having any feelings at all
+              </Text>
+            </View>
             <View style={styles.DSMRadioButton}>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -939,10 +986,13 @@ const DSMTrauma = () => {
             </View>
           </View>
           <View style={styles.DsmContent}>
-            <Text style={styles.DsmQuestion}>
-              15. Getting angry easily (for example, yelling, hitting others,
-              throwing things)
-            </Text>
+            <View style={styles.Dsmnoques}>
+              <Text style={styles.DsmQuestion}>15.</Text>
+              <Text style={styles.DsmQuestion}>
+                Getting angry easily (for example, yelling, hitting others,
+                throwing things)
+              </Text>
+            </View>
             <View style={styles.DSMRadioButton}>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -1003,10 +1053,13 @@ const DSMTrauma = () => {
             </View>
           </View>
           <View style={styles.DsmContent}>
-            <Text style={styles.DsmQuestion}>
-              16. Doing things that might hurt yourself (for example, taking
-              drugs, drinking alcohol, running away, cutting yourself)
-            </Text>
+            <View style={styles.Dsmnoques}>
+              <Text style={styles.DsmQuestion}>16.</Text>
+              <Text style={styles.DsmQuestion}>
+                Doing things that might hurt yourself (for example, taking
+                drugs, drinking alcohol, running away, cutting yourself)
+              </Text>
+            </View>
             <View style={styles.DSMRadioButton}>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -1067,10 +1120,13 @@ const DSMTrauma = () => {
             </View>
           </View>
           <View style={styles.DsmContent}>
-            <Text style={styles.DsmQuestion}>
-              17. Being very careful or on the lookout for danger (for example,
-              checking to see who is around you and what is around you)
-            </Text>
+            <View style={styles.Dsmnoques}>
+              <Text style={styles.DsmQuestion}>17.</Text>
+              <Text style={styles.DsmQuestion}>
+                Being very careful or on the lookout for danger (for example,
+                checking to see who is around you and what is around you)
+              </Text>
+            </View>
             <View style={styles.DSMRadioButton}>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -1131,10 +1187,13 @@ const DSMTrauma = () => {
             </View>
           </View>
           <View style={styles.DsmContent}>
-            <Text style={styles.DsmQuestion}>
-              18. Being jumpy or easily scared (for example, when someone walks
-              up behind you, when you hear a loud noise)
-            </Text>
+            <View style={styles.Dsmnoques}>
+              <Text style={styles.DsmQuestion}>18.</Text>
+              <Text style={styles.DsmQuestion}>
+                Being jumpy or easily scared (for example, when someone walks up
+                behind you, when you hear a loud noise)
+              </Text>
+            </View>
             <View style={styles.DSMRadioButton}>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -1195,11 +1254,14 @@ const DSMTrauma = () => {
             </View>
           </View>
           <View style={styles.DsmContent}>
-            <Text style={styles.DsmQuestion}>
-              19. Having trouble paying attention (for example, losing track of
-              a story on TV, forgetting what you read, unable to pay attention
-              in class)
-            </Text>
+            <View style={styles.Dsmnoques}>
+              <Text style={styles.DsmQuestion}>19.</Text>
+              <Text style={styles.DsmQuestion}>
+                Having trouble paying attention (for example, losing track of a
+                story on TV, forgetting what you read, unable to pay attention
+                in class)
+              </Text>
+            </View>
             <View style={styles.DSMRadioButton}>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -1260,9 +1322,12 @@ const DSMTrauma = () => {
             </View>
           </View>
           <View style={styles.DsmContent}>
-            <Text style={styles.DsmQuestion}>
-              20. Having trouble falling or staying asleep
-            </Text>
+            <View style={styles.Dsmnoques}>
+              <Text style={styles.DsmQuestion}>20.</Text>
+              <Text style={styles.DsmQuestion}>
+                Having trouble falling or staying asleep
+              </Text>
+            </View>
             <View style={styles.DSMRadioButton}>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -1322,7 +1387,7 @@ const DSMTrauma = () => {
               </View>
             </View>
           </View>
-          <View style={styles.DsmContent}>
+          {/* <View style={styles.DsmContent}>
             <Text style={styles.DsmQuestion}>
               21. Fun things you want to do
             </Text>
@@ -1335,7 +1400,7 @@ const DSMTrauma = () => {
                   status={dsmChecked21 === 'first' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked21('first')}
                 />
-                <Text style={styles.RadioTextYes}>YES</Text>
+                <Text style={styles.RadioTextYes}>Yes</Text>
               </View>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -1345,7 +1410,7 @@ const DSMTrauma = () => {
                   status={dsmChecked21 === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked21('second')}
                 />
-                <Text style={styles.RadioTextYes}>NO</Text>
+                <Text style={styles.RadioTextYes}>No</Text>
               </View>
             </View>
           </View>
@@ -1360,7 +1425,7 @@ const DSMTrauma = () => {
                   status={dsmChecked22 === 'first' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked22('first')}
                 />
-                <Text style={styles.RadioTextYes}>YES</Text>
+                <Text style={styles.RadioTextYes}>Yes</Text>
               </View>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -1370,7 +1435,7 @@ const DSMTrauma = () => {
                   status={dsmChecked22 === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked22('second')}
                 />
-                <Text style={styles.RadioTextYes}>NO</Text>
+                <Text style={styles.RadioTextYes}>No</Text>
               </View>
             </View>
           </View>
@@ -1387,7 +1452,7 @@ const DSMTrauma = () => {
                   status={dsmChecked23 === 'first' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked23('first')}
                 />
-                <Text style={styles.RadioTextYes}>YES</Text>
+                <Text style={styles.RadioTextYes}>Yes</Text>
               </View>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -1397,7 +1462,7 @@ const DSMTrauma = () => {
                   status={dsmChecked23 === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked23('second')}
                 />
-                <Text style={styles.RadioTextYes}>NO</Text>
+                <Text style={styles.RadioTextYes}>No</Text>
               </View>
             </View>
           </View>
@@ -1412,7 +1477,7 @@ const DSMTrauma = () => {
                   status={dsmChecked24 === 'first' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked24('first')}
                 />
-                <Text style={styles.RadioTextYes}>YES</Text>
+                <Text style={styles.RadioTextYes}>Yes</Text>
               </View>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -1422,7 +1487,7 @@ const DSMTrauma = () => {
                   status={dsmChecked24 === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked24('second')}
                 />
-                <Text style={styles.RadioTextYes}>NO</Text>
+                <Text style={styles.RadioTextYes}>No</Text>
               </View>
             </View>
           </View>
@@ -1437,7 +1502,7 @@ const DSMTrauma = () => {
                   status={dsmChecked25 === 'first' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked25('first')}
                 />
-                <Text style={styles.RadioTextYes}>YES</Text>
+                <Text style={styles.RadioTextYes}>Yes</Text>
               </View>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -1447,7 +1512,7 @@ const DSMTrauma = () => {
                   status={dsmChecked25 === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked25('second')}
                 />
-                <Text style={styles.RadioTextYes}>NO</Text>
+                <Text style={styles.RadioTextYes}>No</Text>
               </View>
             </View>
           </View>
@@ -1464,7 +1529,7 @@ const DSMTrauma = () => {
                   status={dsmChecked26 === 'first' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked26('first')}
                 />
-                <Text style={styles.RadioTextYes}>YES</Text>
+                <Text style={styles.RadioTextYes}>Yes</Text>
               </View>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -1474,7 +1539,7 @@ const DSMTrauma = () => {
                   status={dsmChecked26 === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked26('second')}
                 />
-                <Text style={styles.RadioTextYes}>NO</Text>
+                <Text style={styles.RadioTextYes}>No</Text>
               </View>
             </View>
           </View>
@@ -1491,7 +1556,7 @@ const DSMTrauma = () => {
                   status={dsmChecked27 === 'first' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked27('first')}
                 />
-                <Text style={styles.RadioTextYes}>YES</Text>
+                <Text style={styles.RadioTextYes}>Yes</Text>
               </View>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -1501,10 +1566,10 @@ const DSMTrauma = () => {
                   status={dsmChecked27 === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked27('second')}
                 />
-                <Text style={styles.RadioTextYes}>NO</Text>
+                <Text style={styles.RadioTextYes}>No</Text>
               </View>
             </View>
-          </View>
+          </View> */}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -1530,24 +1595,28 @@ const styles = StyleSheet.create({
   },
   DsmContent: {
     marginLeft: 10,
+    width: wp('86%'),
+  },
+  Dsmnoques: {
+    flexDirection: 'row',
   },
   DsmQuestion: {
     color: '#000',
     fontFamily: 'Lato-Regular',
     fontSize: 15,
-    lineHeight: 25,
+    lineHeight: 23,
     alignSelf: 'flex-start',
-    marginLeft: 5,
+    marginLeft: 2,
     marginTop: 15,
   },
   DSMRadioButton: {
     flexDirection: 'column',
-    marginLeft: 10,
+    marginLeft: 12,
     top: 3,
   },
   DSMRadioButtonYes: {
-    marginLeft: 10,
-    flexDirection: 'row',
+    marginLeft: 12,
+    flexDirection: 'column',
   },
   ButtonRadio: {
     flexDirection: 'row',
@@ -1556,13 +1625,12 @@ const styles = StyleSheet.create({
     color: '#181818',
     alignSelf: 'center',
     fontFamily: 'Lato-Regular',
-    fontSize: 14,
+    fontSize: 13,
   },
   RadioTextYes: {
     color: '#181818',
-    marginRight: 50,
     fontFamily: 'Lato-Regular',
-    fontSize: 14,
+    fontSize: 13,
     alignSelf: 'center',
   },
 });
