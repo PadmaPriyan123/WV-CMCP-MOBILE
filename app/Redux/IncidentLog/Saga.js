@@ -8,7 +8,7 @@ function* incidentLog({payload: incidentlogCredentials}) {
   try {
     const response = yield call(
       Service.commonFetch,
-      'IncidentVictimLog/CreateIncidentVictomLog',
+      '/IncidentVictimLog/CreateIncidentVictomLog',
       'POST',
       incidentlogCredentials,
       null,
@@ -23,8 +23,7 @@ function* incidentLog({payload: incidentlogCredentials}) {
     } else if (response.StatusCode == 500) {
       yield put(IncidentLogResponse(response));
     }
-  } catch (error) {
-  }
+  } catch (error) {}
 }
 function* victim() {
   yield takeEvery(INCIDENTLOG, incidentLog);

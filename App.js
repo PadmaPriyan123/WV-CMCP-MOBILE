@@ -84,7 +84,7 @@ function App() {
               },
             }}
           />
-            <Stack.Screen
+          <Stack.Screen
             name="viewcard"
             component={Viewcard}
             options={{
@@ -101,7 +101,7 @@ function App() {
               },
             }}
           />
-  <Stack.Screen
+          <Stack.Screen
             name="victim"
             component={Victim}
             options={{
@@ -118,7 +118,7 @@ function App() {
               },
             }}
           />
-   <Stack.Screen
+          <Stack.Screen
             name="complaints"
             component={Complaints}
             options={{
@@ -152,7 +152,7 @@ function App() {
               },
             }}
           />
-           <Stack.Screen
+          <Stack.Screen
             name="service"
             component={Service}
             options={{
@@ -169,7 +169,7 @@ function App() {
               },
             }}
           />
-          
+
           <Stack.Screen
             name="mhpss"
             component={Mhpss}
@@ -192,8 +192,6 @@ function App() {
             component={MyDrawer}
             options={{headerShown: false}}
           />
-
-        
         </Stack.Navigator>
 
         <StatusBar

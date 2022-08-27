@@ -1,4 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import {
   View,
   Text,
@@ -195,7 +197,11 @@ const Login = () => {
       navigation.navigate('Drawer');
       clearAll();
       console.log('came here');
-      dispatch(userLoginResponse(''));
+      (async () =>
+        await AsyncStorage.setItem(
+          'authUser',
+          JSON.stringify(loginResponse),
+        ))();
 
       // setTimeout(() => {
       //   clearAll();
@@ -228,8 +234,9 @@ const Login = () => {
       console.log('came here4');
       a.Password = '*Please enter Valid password!';
     }
-
+    console.log(a);
     if (Object.values(a).every(el => el === '')) {
+      console.log('cameejbvjs');
       setError(a);
       dispatch(usersLogin(login));
     } else {

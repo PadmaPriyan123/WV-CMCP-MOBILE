@@ -1,6 +1,5 @@
 {
-    "WVI_DEV_BASE_URL": " http://wakiso-uganda-edrms.com:91/api",
-    "ENCRYPTION_KEY":"AXe8YwuIn1zxt3FPWTZFlAa14EHdPAdN9FaZ9RQWihc=",
-    "ENCRYPTION_IV":"bsxnWolsAyO7kCfWuyrnqg=="
-    
+    "WVI_DEV_BASE_URL": "http://wakiso-uganda-edrms.com:91/api",
+    "ENCRYPTION_KEY": "AXe8YwuIn1zxt3FPWTZFlAa14EHdPAdN9FaZ9RQWihc=",
+    "ENCRYPTION_IV": "bsxnWolsAyO7kCfWuyrnqg=="
 }

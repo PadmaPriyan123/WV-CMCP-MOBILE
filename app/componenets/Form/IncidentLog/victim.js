@@ -44,6 +44,15 @@ const Victim = ({route}) => {
   };
 
   const handleConfirm = date => {
+    console.log('date', date);
+    let d = new Date(date);
+    let dat = d.getDate();
+    let month = d.getMonth() + 1;
+    let year = d.getFullYear();
+    setValidation({
+      ...validation,
+      Victims_DoB: `${year}-${month}-${dat}`,
+    });
     setDate(date);
     hideDatePicker();
   };
@@ -136,17 +145,25 @@ const Victim = ({route}) => {
     state => state.Incidentlog.incidentlogSuccessfull,
   );
   useEffect(() => {
-    if (incidentlogResponse?.StatusCode === 201) {
-      alert(incidentlogResponse.StatusMessage);
-      navigation.navigate('Drawer');
-    }
-    dispatch(IncidentLog(''));
+    // if (incidentlogResponse?.StatusCode === 201) {
+    //   alert(incidentlogResponse.StatusMessage);
+    //   navigation.navigate('Drawer');
+    // }
+    // dispatch(IncidentLog(''));
   }, [incidentlogResponse]);
 
+  useEffect(() => {
+    dispatch(IncidentLog(validation));
+  }, []);
+
+  let d = new Date();
+  let dat = d.getDate();
+  let month = d.getMonth() + 1;
+  let year = d.getFullYear();
   const [validation, setValidation] = useState({
     ReportersName: '',
     ReporterDesignationID: '',
-    Date_of_reporting: '',
+    Date_of_reporting: `${year}-${month}-${dat}`,
     Name_of_the_Victim: '',
     Guardians_name: '',
     Victim_DoB_if_available: '',
@@ -162,7 +179,6 @@ const Victim = ({route}) => {
     PoliceStationID: '',
     UserID: '',
   });
-  console.log('vujjbdb',validation)
 
   const initialErrorMessage = {
     ReportersName: '',
@@ -187,6 +203,8 @@ const Victim = ({route}) => {
   const [error, setError] = useState(initialErrorMessage);
 
   function myFunction() {
+    dispatch(IncidentLog(validation));
+
     let a = {
       ReportersName: '',
       ReporterDesignationID: '',
@@ -253,8 +271,8 @@ const Victim = ({route}) => {
     ) {
       a.Victim_age = 'Enter a valid victim age';
     }
-    if (!validation.victimDOB) {
-      a.victimDOB = '*Please select the victim date of birth';
+    if (!validation.Victims_DoB) {
+      a.Victims_DoB = '*Please select the victim date of birth';
     }
     if (!validation.Nature_of_incident) {
       a.Nature_of_incident = '*Please select the nature of incident';
@@ -278,9 +296,7 @@ const Victim = ({route}) => {
       a.PoliceStationID = '*Please select the police station';
     }
     if (Object.values(a).every(el => el === '')) {
-      console.log(Object.values(a).every(el => el === ''));
       setError(a);
-
       dispatch(IncidentLog(validation));
     } else {
       setError(a);
@@ -345,7 +361,7 @@ const Victim = ({route}) => {
                 </Text>
               )}
             </View>
-            <View style={{marginTop: 18}}>
+            {/* <View style={{marginTop: 18}}>
               <Text style={styles.FormTitle}>
                 Date of reporting:<Text style={styles.star}>*</Text>
               </Text>
@@ -372,9 +388,9 @@ const Victim = ({route}) => {
                   onCancel={hideDatePicker}
                 />
               </View>
-            </View>
+            </View> */}
 
-            <View style={{marginTop: -5}}>
+            <View style={{top: 20}}>
               <Text style={styles.FormTitle}>
                 Name of the victim:<Text style={styles.star}>*</Text>
               </Text>
@@ -397,7 +413,7 @@ const Victim = ({route}) => {
                 </Text>
               )}
             </View>
-            <View style={{marginTop: 16}}>
+            <View style={{marginTop: 25}}>
               <Text style={styles.FormTitle}>
                 Guardian's name:<Text style={styles.star}>*</Text>
               </Text>
@@ -426,16 +442,34 @@ const Victim = ({route}) => {
                 <RadioButton
                   uncheckedColor={'gray'}
                   color={'#ff6b00'}
-                  status={checked === 'first' ? 'checked' : 'unchecked'}
-                  onPress={() => setChecked('first')}
+                  status={
+                    validation.Victim_DoB_if_available === 'Yes'
+                      ? 'checked'
+                      : 'unchecked'
+                  }
+                  onPress={() =>
+                    setValidation({
+                      ...validation,
+                      Victim_DoB_if_available: 'Yes',
+                    })
+                  }
                 />
                 <Text style={styles.gender}> Yes</Text>
                 <RadioButton
                   uncheckedColor={'gray'}
                   color={'#ff6b00'}
-                  value="second"
-                  status={checked === 'second' ? 'checked' : 'unchecked'}
-                  onPress={() => setChecked('second')}
+                  value="Second"
+                  status={
+                    validation.Victim_DoB_if_available === 'No'
+                      ? 'checked'
+                      : 'unchecked'
+                  }
+                  onPress={() =>
+                    setValidation({
+                      ...validation,
+                      Victim_DoB_if_available: 'No',
+                    })
+                  }
                 />
                 <Text style={styles.gender}>No</Text>
               </View>
@@ -444,7 +478,7 @@ const Victim = ({route}) => {
             <View style={styles.container}>
               {/*Here we will return the view when state is true 
         and will return false if state is false*/}
-              {checked === 'first' && (
+              {validation.Victim_DoB_if_available === 'Yes' && (
                 <View style={{marginTop: 20}}>
                   <Text style={styles.FormTitle}>Victim (dob) : </Text>
                   <View style={{marginTop: 5}}>
