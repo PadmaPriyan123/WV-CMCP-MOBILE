@@ -11,6 +11,7 @@ import store from '../WV-CMCP-MOBILE/app/Redux/Store';
 import Viewcard from './app/componenets/Viewcard/viewcard';
 import UserProfileView from './app/componenets/Userprofile/Userprofile';
 import Victims from './app/componenets/Form/IncidentLog/victim';
+import CaseAssignment from './app/componenets/IncidentView/CaseAssignment';
 import {Provider} from 'react-redux';
 import {StatusBar} from 'react-native';
 
@@ -84,6 +85,23 @@ function App() {
             component={Viewcard}
             options={{
               title: 'Viewcard',
+              headerStyle: {
+                backgroundColor: '#ff6b00',
+                height: 50,
+                fontsize: 17,
+              },
+              headerTintColor: 'white',
+              headerTitleStyle: {
+                fontFamily: 'Lato-Bold',
+                color: '#fff',
+              },
+            }}
+          />
+          <Stack.Screen
+            name="CaseAssignment"
+            component={CaseAssignment}
+            options={{
+              title: 'Case Assignment',
               headerStyle: {
                 backgroundColor: '#ff6b00',
                 height: 50,
