@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useState, useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -23,6 +23,11 @@ import {useNavigation} from '@react-navigation/native';
 
 import {faFile} from '@fortawesome/free-solid-svg-icons/faFile';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  IncidentLog,
+  IncidentLogResponse,
+} from '../../../Redux/IncidentLog/Action';
 
 const Victim = ({route}) => {
   const navigation = useNavigation();
@@ -66,7 +71,7 @@ const Victim = ({route}) => {
   }, []);
 
   const data = [
-    {label: 'Others', value: '1'},
+    {label: 'Child Trafficking', value: '1'},
     {label: 'Online sexual harassment ', value: '2'},
     {label: 'Sexual assault ', value: '3'},
     {label: 'Sexual harassment    ', value: '4'},
@@ -75,7 +80,7 @@ const Victim = ({route}) => {
     {label: 'Kidnap/ abduction    ', value: '7'},
     {label: 'Child Missing    ', value: '8'},
     {label: 'Forced Marriage', value: '9'},
-    {label: 'Child Trafficking   ', value: '10'},
+    {label: ' Others  ', value: '10'},
   ];
   const [value, setValue] = useState(null);
   const data1 = [
@@ -126,6 +131,162 @@ const Victim = ({route}) => {
   const [value7, setValue7] = useState(null);
   const [other, setOther] = useState(false);
 
+  let dispatch = useDispatch();
+  let incidentlogResponse = useSelector(
+    state => state.Incidentlog.incidentlogSuccessfull,
+  );
+  useEffect(() => {
+    if (incidentlogResponse?.StatusCode === 201) {
+      alert(incidentlogResponse.StatusMessage);
+      navigation.navigate('Drawer');
+    }
+    dispatch(IncidentLog(''));
+  }, [incidentlogResponse]);
+
+  const [validation, setValidation] = useState({
+    ReportersName: '',
+    ReporterDesignationID: '',
+    Date_of_reporting: '',
+    Name_of_the_Victim: '',
+    Guardians_name: '',
+    Victim_DoB_if_available: '',
+    Victims_DoB: '',
+    Proof_of_DoB: '',
+    Victim_age: '',
+    Nature_of_incident: '',
+    StateID: '',
+    DistrictID: '',
+    BlockID: '',
+    PanchayatID: '',
+    VillageID: '',
+    PoliceStationID: '',
+    UserID: '',
+  });
+  console.log('vujjbdb',validation)
+
+  const initialErrorMessage = {
+    ReportersName: '',
+    ReporterDesignationID: '',
+    Date_of_reporting: '',
+    Name_of_the_Victim: '',
+    Guardians_name: '',
+    Victim_DoB_if_available: '',
+    Victims_DoB: '',
+    Proof_of_DoB: '',
+    Victim_age: '',
+    Nature_of_incident: '',
+    StateID: '',
+    DistrictID: '',
+    BlockID: '',
+    PanchayatID: '',
+    VillageID: '',
+    PoliceStationID: '',
+    UserID: '',
+  };
+
+  const [error, setError] = useState(initialErrorMessage);
+
+  function myFunction() {
+    let a = {
+      ReportersName: '',
+      ReporterDesignationID: '',
+      Date_of_reporting: '',
+      Name_of_the_Victim: '',
+      Guardians_name: '',
+      Victim_DoB_if_available: '',
+      Victims_DoB: '',
+      Proof_of_DoB: '',
+      Victim_age: '',
+      Nature_of_incident: '',
+      StateID: '',
+      DistrictID: '',
+      BlockID: '',
+      PanchayatID: '',
+      VillageID: '',
+      PoliceStationID: '',
+      UserID: '',
+    };
+
+    var letters = /[A-Za-z]{3,15}/;
+    var empty = /^$/;
+    var Age = /^[0-9]{1,2}$/;
+
+    if (!validation.ReportersName) {
+      a.ReportersName = '*Please enter the reporters name';
+    }
+    if (
+      !letters.test(validation.ReportersName) &&
+      !empty.test(validation.ReportersName)
+    ) {
+      a.ReportersName = 'Enter a valid reporter name';
+    }
+    if (!validation.ReporterDesignationID) {
+      a.ReporterDesignationID = '*Please enter the designation';
+    }
+    if (!validation.Date_of_reporting) {
+      a.Date_of_reporting = '*Please enter the date of reporting';
+    }
+    if (!validation.Name_of_the_Victim) {
+      a.Name_of_the_Victim = '*Please enter the name of the victim';
+    }
+    if (
+      !letters.test(validation.Name_of_the_Victim) &&
+      !empty.test(validation.Name_of_the_Victim)
+    ) {
+      a.Name_of_the_Victim = 'Enter a valid  victim name';
+    }
+    if (!validation.Guardians_name) {
+      a.Guardians_name = '*Please enter the gardian name';
+    }
+    if (
+      !letters.test(validation.Guardians_name) &&
+      !empty.test(validation.Guardians_name)
+    ) {
+      a.Guardians_name = 'Enter a valid guardian name';
+    }
+    if (!validation.Victim_age) {
+      a.Victim_age = '*Please enter the victim age';
+    }
+    if (
+      !Age.test(validation.Victim_age) &&
+      !empty.test(validation.Victim_age)
+    ) {
+      a.Victim_age = 'Enter a valid victim age';
+    }
+    if (!validation.victimDOB) {
+      a.victimDOB = '*Please select the victim date of birth';
+    }
+    if (!validation.Nature_of_incident) {
+      a.Nature_of_incident = '*Please select the nature of incident';
+    }
+    if (!validation.StateID) {
+      a.StateID = '*Please select the state';
+    }
+    if (!validation.DistrictID) {
+      a.DistrictID = '*Please select the district';
+    }
+    if (!validation.BlockID) {
+      a.BlockID = '*Please select the block';
+    }
+    if (!validation.PanchayatID) {
+      a.PanchayatID = '*Please select the gram panchayat';
+    }
+    if (!validation.VillageID) {
+      a.VillageID = '*Please select the village';
+    }
+    if (!validation.PoliceStationID) {
+      a.PoliceStationID = '*Please select the police station';
+    }
+    if (Object.values(a).every(el => el === '')) {
+      console.log(Object.values(a).every(el => el === ''));
+      setError(a);
+
+      dispatch(IncidentLog(validation));
+    } else {
+      setError(a);
+    }
+  }
+
   return (
     <View style={styles.Tab}>
       <ScrollView style={styles.scrollView}>
@@ -140,7 +301,15 @@ const Victim = ({route}) => {
                 type="text"
                 placeholder="Enter reporter's name"
                 placeholderTextColor="gray"
+                onChangeText={text => {
+                  setValidation({...validation, ReportersName: text});
+                }}
               />
+            </View>
+            <View>
+              {error?.ReportersName && (
+                <Text style={styles.errormessage}>{error?.ReportersName}</Text>
+              )}
             </View>
             <View style={{marginTop: 16}}>
               <Text style={styles.FormTitle}>
@@ -158,12 +327,24 @@ const Victim = ({route}) => {
                   placeholder="Select designation"
                   value={value7}
                   onChange={item => {
-                    setValue7(item.value);
+                    {
+                      setValue7(item.value);
+                      setValidation({
+                        ...validation,
+                        ReporterDesignationID: item.value,
+                      });
+                    }
                   }}
                 />
               </View>
             </View>
-
+            <View>
+              {error?.ReporterDesignationID && (
+                <Text style={styles.errormessage}>
+                  {error?.ReporterDesignationID}
+                </Text>
+              )}
+            </View>
             <View style={{marginTop: 18}}>
               <Text style={styles.FormTitle}>
                 Date of reporting:<Text style={styles.star}>*</Text>
@@ -203,8 +384,18 @@ const Victim = ({route}) => {
                   type="text"
                   placeholder="Enter name of the victim"
                   placeholderTextColor="gray"
+                  onChangeText={text => {
+                    setValidation({...validation, Name_of_the_Victim: text});
+                  }}
                 />
               </View>
+            </View>
+            <View>
+              {error?.Name_of_the_Victim && (
+                <Text style={styles.errormessage}>
+                  {error?.Name_of_the_Victim}
+                </Text>
+              )}
             </View>
             <View style={{marginTop: 16}}>
               <Text style={styles.FormTitle}>
@@ -216,8 +407,16 @@ const Victim = ({route}) => {
                   type="text"
                   placeholder="Enter guardian's name"
                   placeholderTextColor="gray"
+                  onChangeText={text => {
+                    setValidation({...validation, Guardians_name: text});
+                  }}
                 />
               </View>
+            </View>
+            <View>
+              {error?.Guardians_name && (
+                <Text style={styles.errormessage}>{error?.Guardians_name}</Text>
+              )}
             </View>
             <View style={{marginTop: 3, marginLeft: 10}}>
               <Text style={styles.radioname}>
@@ -241,6 +440,7 @@ const Victim = ({route}) => {
                 <Text style={styles.gender}>No</Text>
               </View>
             </View>
+
             <View style={styles.container}>
               {/*Here we will return the view when state is true 
         and will return false if state is false*/}
@@ -308,10 +508,17 @@ const Victim = ({route}) => {
                   keyboardType="numeric"
                   placeholder="Enter victims age"
                   placeholderTextColor="gray"
+                  onChangeText={text => {
+                    setValidation({...validation, Victim_age: text});
+                  }}
                 />
               </View>
             </View>
-
+            <View>
+              {error?.Victim_age && (
+                <Text style={styles.errormessage}>{error?.Victim_age}</Text>
+              )}
+            </View>
             <View style={{marginTop: 16}}>
               <Text style={styles.FormTitle}>
                 Nature of incident:<Text style={styles.star}>*</Text>
@@ -331,16 +538,27 @@ const Victim = ({route}) => {
                   onChange={item => {
                     {
                       setValue(item.value);
-                      item.value === '1' ? setOther(true) : setOther(false);
+                      item.value === '10' ? setOther(true) : setOther(false);
+                      setValidation({
+                        ...validation,
+                        Nature_of_incident: item.value,
+                      });
                     }
                   }}
                 />
+              </View>
+              <View>
+                {error?.Nature_of_incident && (
+                  <Text style={styles.errormessage}>
+                    {error?.Nature_of_incident}
+                  </Text>
+                )}
               </View>
             </View>
             {other === true && (
               <View style={{marginTop: 25}}>
                 <Text style={styles.FormTitle}>
-                  Others  (Nature of incident):<Text style={styles.star}>*</Text>
+                  Others (Nature of incident):<Text style={styles.star}>*</Text>
                 </Text>
                 <View style={styles.formtotalinput}>
                   <TextInput
@@ -371,10 +589,18 @@ const Victim = ({route}) => {
                   placeholder="Select state"
                   value={value1}
                   onChange={item => {
-                    setValue1(item.value);
+                    {
+                      setValue1(item.value);
+                      setValidation({...validation, StateID: item.value});
+                    }
                   }}
                 />
               </View>
+            </View>
+            <View>
+              {error?.StateID && (
+                <Text style={styles.errormessage}>{error?.StateID}</Text>
+              )}
             </View>
             <View style={{marginTop: 25}}>
               <Text style={styles.FormTitle}>
@@ -394,9 +620,17 @@ const Victim = ({route}) => {
                   placeholder="Select district"
                   value={value2}
                   onChange={item => {
-                    setValue2(item.value);
+                    {
+                      setValue2(item.value);
+                      setValidation({...validation, DistrictID: item.value});
+                    }
                   }}
                 />
+              </View>
+              <View>
+                {error?.DistrictID && (
+                  <Text style={styles.errormessage}>{error?.DistrictID}</Text>
+                )}
               </View>
               <View style={{marginTop: 25}}>
                 <Text style={styles.FormTitle}>Block: </Text>
@@ -415,10 +649,16 @@ const Victim = ({route}) => {
                     value={value3}
                     onChange={item => {
                       setValue3(item.value);
+                      setValidation({...validation, BlockID: item.value});
                     }}
                   />
                 </View>
               </View>
+            </View>
+            <View>
+              {error?.BlockID && (
+                <Text style={styles.errormessage}>{error?.BlockID}</Text>
+              )}
             </View>
             <View style={{marginTop: 25}}>
               <Text style={styles.FormTitle}>Gram panchayat:</Text>
@@ -438,9 +678,15 @@ const Victim = ({route}) => {
                   value={value4}
                   onChange={item => {
                     setValue4(item.value);
+                    setValidation({...validation, PanchayatID: item.value});
                   }}
                 />
               </View>
+            </View>
+            <View>
+              {error?.PanchayatID && (
+                <Text style={styles.errormessage}>{error?.PanchayatID}</Text>
+              )}
             </View>
             <View style={{marginTop: 25}}>
               <Text style={styles.FormTitle}>
@@ -460,10 +706,18 @@ const Victim = ({route}) => {
                   placeholder="Select village"
                   value={value5}
                   onChange={item => {
-                    setValue5(item.value);
+                    {
+                      setValue5(item.value);
+                      setValidation({...validation, VillageID: item.value});
+                    }
                   }}
                 />
               </View>
+            </View>
+            <View>
+              {error?.VillageID && (
+                <Text style={styles.errormessage}>{error?.VillageID}</Text>
+              )}
             </View>
             <View style={{marginTop: 20}}>
               <Text style={styles.FormTitle}>Police station:</Text>
@@ -482,9 +736,17 @@ const Victim = ({route}) => {
                   value={value6}
                   onChange={item => {
                     setValue6(item.value);
+                    setValidation({...validation, PoliceStationID: item.value});
                   }}
                 />
               </View>
+            </View>
+            <View>
+              {error?.PoliceStationID && (
+                <Text style={styles.errormessage}>
+                  {error?.PoliceStationID}
+                </Text>
+              )}
             </View>
           </View>
         </View>
@@ -495,9 +757,10 @@ const Victim = ({route}) => {
           onPress={() => route.change()}>
           <Text style={styles.formbuttoninput}>SAVE </Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.formbutton}
-          onPress={() => route.change()}>
+          onPress={() => myFunction()}>
           <Text style={styles.formbuttoninput}>NEXT </Text>
         </TouchableOpacity>
       </View>
@@ -508,7 +771,7 @@ export default Victim;
 const styles = StyleSheet.create({
   Tab: {
     backgroundColor: '#fff',
-    height: hp('87%'),
+    height: hp('100%'),
     width: wp('99%'),
   },
   FormTitle: {
@@ -582,7 +845,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 10,
     backgroundColor: '#ff6b00',
-    marginTop: 14,
+    bottom: 40,
+
     marginLeft: 5,
   },
   formbuttonedit: {
@@ -973,7 +1237,7 @@ const styles = StyleSheet.create({
   victimbutton: {
     flexDirection: 'row',
     justifyContent: 'center',
-    top: 10,
+    height: hp('20%'),
   },
   formbutton0: {
     alignSelf: 'center',
@@ -982,7 +1246,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 10,
     backgroundColor: '#46bb95',
-    marginTop: 14,
     marginLeft: 5,
+    bottom: 40,
+  },
+  errormessage: {
+    color: 'red',
+    marginLeft: 10,
+    top: 5,
   },
 });

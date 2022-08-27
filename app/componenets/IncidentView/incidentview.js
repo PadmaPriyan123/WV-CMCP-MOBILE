@@ -87,13 +87,13 @@ const Incident = ({navigation}) => {
           </Text>
         }
         onRequestClose={hideMenu}>
-        <MenuItem onPress={() => navigation.navigate('Form')}>
+        <MenuItem onPress={() => navigation.navigate('viewcard')}>
           <View style={{flexDirection: 'row'}}>
             <FontAwesomeIcon icon={faEye} size={20} color={'gray'} />
             <Text style={{marginLeft: 10, color: '#000'}}>View</Text>
           </View>
         </MenuItem>
-        <MenuItem onPress={() => navigation.navigate('Form')}>
+        <MenuItem onPress={() => navigation.navigate('viewcard')}>
           <View style={{flexDirection: 'row'}}>
             <FontAwesomeIcon icon={faPen} size={20} color={'gray'} />
             <Text style={{marginLeft: 10, color: '#000'}}>Edit</Text>
@@ -247,6 +247,7 @@ const Incident = ({navigation}) => {
                 </Text>
               </Text>
               <View style={{marginTop: 17, marginRight: 10}}>
+           
                 <PopIncidentMenu />
               </View>
             </View>
@@ -307,6 +308,9 @@ const Incident = ({navigation}) => {
                   </Text>
                 </Text>
                 <View style={{marginTop: 17, marginRight: 10}}>
+
+                
+
                   <PopIncidentMenu />
                 </View>
               </View>
@@ -337,6 +341,8 @@ const Incident = ({navigation}) => {
                   </Text>
                 </Text>
                 <View style={{marginTop: 17, marginRight: 10}}>
+
+              
                   <PopIncidentMenu />
                 </View>
               </View>
@@ -368,6 +374,7 @@ const Incident = ({navigation}) => {
                   </Text>
                 </Text>
                 <View style={{marginTop: 17, marginRight: 10}}>
+             
                   <PopIncidentMenu />
                 </View>
               </View>
@@ -457,9 +464,11 @@ const Incident = ({navigation}) => {
                     valueField="value"
                     placeholder="Select state"
                     value={value1}
+                    
                     onChange={item => {
                       setValue1(item.value);
                     }}
+                    
                   />
                 </View>
               </View>
@@ -479,14 +488,14 @@ const Incident = ({navigation}) => {
       <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
         <View
           style={{
-            marginTop: 10,
-            width: 50,
+         width: 50,
             height: 50,
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: 100,
             backgroundColor: '#e26a00',
-            marginLeft: 270,
+            marginLeft: 280,
+            bottom:5
           }}>
           <Text style={styles.initiate}>
             <View>
@@ -860,7 +869,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 14,
-    backgroundColor: '#e26a00',
+    backgroundColor: '#fff',
     color: 'white',
     marginTop: 8,
     marginRight: 12,

@@ -11,6 +11,7 @@ import Victim from './IncidentLog/victim';
 import Complaints from './IncidentLog/complaint';
 import Legal from './legal';
 import Service from './service';
+import Mhpss from './mhpss';
 const FirstRoute = ({route}) => {
   return (
     <>
@@ -43,9 +44,11 @@ const FourthRoute = () => {
 const FivthRoute = () => {
   return (
     <>
+    <Mhpss/>
     </>
   );
 };
+
 export default function TabViewExample() {
   const layout = useWindowDimensions();
  
@@ -53,9 +56,10 @@ export default function TabViewExample() {
   const [routes] = React.useState([
     {key: 'first', title: 'VICTIMS', change: () => setIndex(1)},
     {key: 'second', title: 'COMPLAINTS', change: () => setIndex(2)},
-      {key: 'third', title: 'LEGAL', change: () => setIndex(3)},
-     {key: 'fourth', title: 'SERVICES', change: () => setIndex(Login)},
-        // {key: 'fivth', title: 'CARD', change: () => setIndex(Login)},
+     // {key: 'third', title: 'LEGAL', change: () => setIndex(3)},
+     //{key: 'fourth', title: 'SERVICES', change: () => setIndex(Login)},
+         // {key: 'fivth', title: 'MHPSS', change: () => setIndex()},
+
  
 
   ]);

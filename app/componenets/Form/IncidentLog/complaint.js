@@ -69,7 +69,6 @@ const Complaints = ({route}) => {
   const [value1, setValue1] = useState('');
 
   const data = [
-    {label: 'Other    ', value: '3'},
     {label: 'District Child Protection Unit', value: '4'},
     {label: 'Child Welfare Committee', value: '5'},
     {label: 'Child Line- 1098    ', value: '6'},
@@ -139,6 +138,7 @@ const Complaints = ({route}) => {
   };
   const [others, setOthers] = useState(false);
   const [others1, setOthers1] = useState(false);
+  const [lodged, setLodged] = useState(false);
   const [fileResponse, setFileResponse] = React.useState([]);
 
   const handleDocumentSelection = useCallback(async () => {
@@ -151,6 +151,91 @@ const Complaints = ({route}) => {
       console.warn(err);
     }
   }, []);
+  const [validation1, setValidation1] = useState({
+    dateogIncident: '',
+    discriptionofIncident: '',
+    nameofOffender: '',
+    offenderdreletoiontoVoctim: '',
+    offenderage: '',
+    whoinformedtheincident: '',
+    complaintLogPS: '',
+    GDEntry: '',
+    Firfillornot: '',
+    firGDActionTacken: '',
+  });
+
+  const initialErrorMessage = {
+    dateogIncident: '',
+    discriptionofIncident: '',
+    nameofOffender: '',
+    offenderdreletoiontoVoctim: '',
+    offenderage: '',
+    whoinformedtheincident: '',
+    complaintLogPS: '',
+    GDEntry: '',
+    Firfillornot: '',
+    firGDActionTacken: '',
+  };
+
+  const [error, setError] = useState(initialErrorMessage);
+
+  function myFunction() {
+    let a = {
+      dateogIncident: '',
+      discriptionofIncident: '',
+      nameofOffender: '',
+      offenderdreletoiontoVoctim: '',
+      offenderage: '',
+      whoinformedtheincident: '',
+      complaintLogPS: '',
+      GDEntry: '',
+      Firfillornot: '',
+      firGDActionTacken: '',
+    };
+
+    var letters = /[A-Za-z]{3,15}/;
+    var empty = /^$/;
+    var Age = /^[0-9]{1,2}$/;
+
+    if (!validation1.dateogIncident) {
+      a.dateogIncident = '*Please Select the Date Of Incident';
+    }
+    if (!validation1.discriptionofIncident) {
+      a.discriptionofIncident = '*Please enter the description Of the incident';
+    }
+    if (!validation1.nameofOffender) {
+      a.nameofOffender = '*Please enter the name of offender';
+    }
+    if (!validation1.offenderdrelationtoVictim) {
+      a.offenderdrelationtoVictim =
+        '*Please select the offender relation to the victim';
+    }
+    if (!validation1.whoinformedtheincident) {
+      a.whoinformedtheincident =
+        '*Please Enter the Who Informed About Incident';
+    }
+    if (!validation1.offenderapproximateage) {
+      a.offenderapproximateage = '*Please enter the offender approximate age';
+    }
+    if (!validation1.complaintLogPS) {
+      a.complaintLogPS = '*Please Select the Complaint lodged in PS';
+    }
+    if (!validation1.GDEntry) {
+      a.GDEntry = '*Please Enter the GD-Entry';
+    }
+    if (!validation1.Firfillornot) {
+      a.Firfillornot = '*Please Enter  FIR is Filed or Not';
+    }
+    if (!validation1.firGDActionTacken) {
+      a.firGDActionTacken = '*Please Enter the FIR/GD Action Taken';
+    }
+    if (Object.values(a).every(el => el === '')) {
+      console.log(Object.values(a).every(el => el === ''));
+      setError(a);
+    } else {
+      setError(a);
+    }
+  }
 
   return (
     <View style={styles.Tab}>
@@ -177,8 +262,8 @@ const Complaints = ({route}) => {
                 />
               </Text>
               <DateTimePickerModal
-              minDate={new Date('03-19-2022')}
-              maxDate={new Date('03-21-2022')}
+                minDate={new Date('03-19-2022')}
+                maxDate={new Date('03-21-2022')}
                 isVisible={isDatePickerVisible}
                 mode="date"
                 onConfirm={handleConfirm}
@@ -197,8 +282,18 @@ const Complaints = ({route}) => {
                 type="text"
                 placeholder="Enter description of the incident"
                 placeholderTextColor="gray"
+                onChangeText={text => {
+                  setValidation1({...validation1, discriptionofIncident: text});
+                }}
               />
             </View>
+          </View>
+          <View>
+            {error?.discriptionofIncident && (
+              <Text style={styles.errormessage}>
+                {error?.discriptionofIncident}
+              </Text>
+            )}
           </View>
           <View style={{marginTop: 16}}>
             <Text style={styles.FormTitle}>Name of alleged offender:</Text>
@@ -208,10 +303,17 @@ const Complaints = ({route}) => {
                 type="text"
                 placeholder="Enter name of alleged offender"
                 placeholderTextColor="gray"
+                onChangeText={text => {
+                  setValidation1({...validation1, nameofOffender: text});
+                }}
               />
             </View>
           </View>
-
+          <View>
+            {error?.nameofOffender && (
+              <Text style={styles.errormessage}>{error?.nameofOffender}</Text>
+            )}
+          </View>
           <View style={{marginTop: 16}}>
             <Text style={styles.FormTitle}>
               Offenders relationship to victim:
@@ -222,8 +324,21 @@ const Complaints = ({route}) => {
                 type="text"
                 placeholder="Enter offender relationship to victim"
                 placeholderTextColor="gray"
+                onChangeText={text => {
+                  setValidation1({
+                    ...validation1,
+                    offenderdrelationtoVictim: text,
+                  });
+                }}
               />
             </View>
+          </View>
+          <View>
+            {error?.offenderdrelationtoVictim && (
+              <Text style={styles.errormessage}>
+                {error?.offenderdrelationtoVictim}
+              </Text>
+            )}
           </View>
           <View style={{marginTop: 16}}>
             <Text style={styles.FormTitle}>Offenders approximate age:</Text>
@@ -233,8 +348,21 @@ const Complaints = ({route}) => {
                 keyboardType="numeric"
                 placeholder="Enter offenders approximate age"
                 placeholderTextColor="gray"
+                onChangeText={text => {
+                  setValidation1({
+                    ...validation1,
+                    offenderapproximateage: text,
+                  });
+                }}
               />
             </View>
+          </View>
+          <View>
+            {error?.offenderapproximateage && (
+              <Text style={styles.errormessage}>
+                {error?.offenderapproximateage}
+              </Text>
+            )}
           </View>
           <View style={{marginTop: 16}}>
             <Text style={styles.FormTitle1}>
@@ -257,14 +385,28 @@ const Complaints = ({route}) => {
                   {
                     setValue1(item.value);
                     item.value === '10' ? setOthers(true) : setOthers(false);
+                    setValidation1({
+                      ...validation1,
+                      whoinformedtheincident: item.value,
+                    });
                   }
                 }}
               />
             </View>
           </View>
+
+          <View>
+            {error?.whoinformedtheincident && (
+              <Text style={styles.errormessage}>
+                {error?.whoinformedtheincident}
+              </Text>
+            )}
+          </View>
           {others == true && (
             <View style={{marginTop: 16}}>
-              <Text style={styles.FormTitle}>Others ( Who informed about the incident):</Text>
+              <Text style={styles.FormTitle}>
+                Others ( Who informed about the incident):
+              </Text>
               <View style={styles.formtotalinput}>
                 <TextInput
                   style={styles.FormInput}
@@ -275,207 +417,9 @@ const Complaints = ({route}) => {
               </View>
             </View>
           )}
-          <View style={{marginTop: 3, marginLeft: 10}}>
-            <Text style={styles.radioname}>
-              Complaint lodged in ps:<Text style={styles.star}>*</Text>
-            </Text>
-            <View style={styles.SectionStyle1}>
-              <RadioButton
-                uncheckedColor={'gray'}
-                color={'#ff6b00'}
-                value="first"
-                status={checked1 === 'first' ? 'checked' : 'unchecked'}
-                onPress={() => setChecked1('first')}
-              />
-              <Text style={styles.gender}>Yes</Text>
-              <RadioButton
-                uncheckedColor={'gray'}
-                color={'#ff6b00'}
-                value="second"
-                status={checked1 === 'second' ? 'checked' : 'unchecked'}
-                onPress={() => setChecked1('second')}
-              />
-              <Text style={styles.gender}>No</Text>
-            </View>
-          </View>
-          <View style={{marginTop: 3, marginLeft: 10}}>
-            <Text style={styles.radioname}>
-              GDE entry:<Text style={styles.star}>*</Text>
-            </Text>
-            <View style={styles.SectionStyle1}>
-              <RadioButton
-                uncheckedColor={'gray'}
-                color={'#ff6b00'}
-                value="first"
-                status={checked0 === 'first' ? 'checked' : 'unchecked'}
-                onPress={() => setChecked0('first')}
-              />
-              <Text style={styles.gender}>Yes</Text>
-              <RadioButton
-                uncheckedColor={'gray'}
-                color={'#ff6b00'}
-                value="second"
-                status={checked0 === 'second' ? 'checked' : 'unchecked'}
-                onPress={() => setChecked0('second')}
-              />
-              <Text style={styles.gender}>No</Text>
-            </View>
-          </View>
-          {checked0 === 'first' && (
-            <View style={{marginTop: 20}}>
-              <Text style={styles.FormTitle}>GDE Date: </Text>
-              <View style={{marginTop: 5}}>
-                <TextInput
-                  style={styles.textInput}
-                  value={getDate()}
-                  placeholder="  Enter Date"
-                  Color={'gray'}
-                />
-
-                <Text style={{left: 300, bottom: 39}} onPress={showDatePicker}>
-                  <FontAwesomeIcon
-                    size={20}
-                    icon={faCalendarDays}
-                    title="Show Picker"
-                    color="#00bad7"
-                  />
-                </Text>
-                <DateTimePickerModal
-                  isVisible={isDatePickerVisible}
-                  mode="Date"
-                  onConfirm={handleConfirm}
-                  onCancel={hideDatePicker}
-                />
-              </View>
-              <View style={{marginTop: 0}}>
-                <Text style={styles.FormTitle}>
-                  GDE Number:<Text style={styles.star}>*</Text>
-                </Text>
-                <View style={styles.formtotalinput}>
-                  <TextInput
-                    style={styles.FormInput}
-                    keyboardType="numeric"
-                    placeholder="Enter FIR Number"
-                    placeholderTextColor="#000"
-                  />
-                </View>
-              </View>
-              <View>
-                <View style={{marginTop: 30}}>
-                  <Text style={styles.Filefill}>GDE Document:</Text>
-
-                  {fileResponse.map((file, index) => (
-                    <Text
-                      key={index.toString()}
-                      style={styles.uri}
-                      numberOfLines={1}
-                      ellipsizeMode={'middle'}>
-                      {file?.uri}
-                    </Text>
-                  ))}
-
-                  <Text onPress={handleDocumentSelection}>
-                    <FontAwesomeIcon
-                      icon={faFile}
-                      color="gray"
-                      style={styles.fileUpload}
-                    />
-                  </Text>
-                </View>
-              </View>
-            </View>
-          )}
-          <View style={{ marginLeft: 10}}>
-            <Text style={styles.radioname}>
-              FIR filled or not:<Text style={styles.star}>*</Text>
-            </Text>
-            <View style={styles.SectionStyle1}>
-              <RadioButton
-                uncheckedColor={'gray'}
-                color={'#ff6b00'}
-                value="first"
-                status={checked === 'first' ? 'checked' : 'unchecked'}
-                onPress={() => setChecked('first')}
-              />
-              <Text style={styles.gender}>Yes</Text>
-              <RadioButton
-                uncheckedColor={'gray'}
-                color={'#ff6b00'}
-                value="second"
-                status={checked === 'second' ? 'checked' : 'unchecked'}
-                onPress={() => setChecked('second')}
-              />
-              <Text style={styles.gender}>No</Text>
-            </View>
-          </View>
-          <View style={styles.container}>
-            {/*Here we will return the view when state is true 
-          and will return false if state is false*/}
-            {checked === 'first' && (
-              <View style={{marginTop: 20}}>
-                <Text style={styles.FormTitle}>FIR Date: </Text>
-                <View style={{marginTop: 5}}>
-                  <TextInput
-                    style={styles.textInput}
-                    value={getDate()}
-                    placeholder="  Enter Date"
-                    Color={'gray'}
-                  />
-
-                  <Text
-                    style={{left: 300, bottom: 39}}
-                    onPress={showDatePicker}>
-                    <FontAwesomeIcon
-                      size={20}
-                      icon={faCalendarDays}
-                      title="Show Picker"
-                      color="#00bad7"
-                    />
-                  </Text>
-                  <DateTimePickerModal
-                    isVisible={isDatePickerVisible}
-                    mode="Date"
-                    onConfirm={handleConfirm}
-                    onCancel={hideDatePicker}
-                  />
-                </View>
-                <View style={{marginTop: 0}}>
-                  <Text style={styles.FormTitle}>
-                    FIR Number:<Text style={styles.star}>*</Text>
-                  </Text>
-                  <View style={styles.formtotalinput}>
-                    <TextInput
-                      style={styles.FormInput}
-                      keyboardType="numeric"
-                      placeholder="Enter FIR Number"
-                      placeholderTextColor="#000"
-                    />
-                  </View>
-                </View>
-                <View>
-                  <View style={{marginTop: 30}}>
-                    <Text style={styles.Filefill}>FIR Document</Text>
-
-                    {fileResponse.map((file, index) => (
-                      <Text
-                        key={index.toString()}
-                        style={styles.uri}
-                        numberOfLines={1}
-                        ellipsizeMode={'middle'}>
-                        {file?.uri}
-                      </Text>
-                    ))}
-
-                    <Text onPress={handleDocumentSelection}>
-                      <FontAwesomeIcon
-                        icon={faFile}
-                        color="gray"
-                        style={styles.fileUpload}
-                      />
-                    </Text>
-                  </View>
-                </View>
-              </View>
+          <View>
+            {error?.district && (
+              <Text style={styles.errormessage}>{error?.district}</Text>
             )}
           </View>
           <View style={{marginTop: 16}}>
@@ -505,55 +449,282 @@ const Complaints = ({route}) => {
               />
             </View>
           </View>
-          {others1 === true && (
-            <View style={{marginTop: 16}}>
-              <Text style={styles.FormTitle}>Others:</Text>
-              <View style={styles.formtotalinput}>
-                <TextInput
-                  style={styles.FormInput}
-                  keyboardType="numeric"
-                  placeholder="Others"
-                  placeholderTextColor="gray"
-                />
-              </View>
-            </View>
-          )}
-          <View style={{marginTop: 16}}>
-            <Text style={styles.FormTitle1}>
-              What sections applied in FIR?:<Text style={styles.star}>*</Text>
+
+          <View>
+            {error?.district && (
+              <Text style={styles.errormessage}>{error?.district}</Text>
+            )}
+          </View>
+          <View style={{marginTop: 3, marginLeft: 10}}>
+            <Text style={styles.radioname}>
+              Complaint lodged in ps:<Text style={styles.star}>*</Text>
             </Text>
-            <View style={styles.droppingn}>
-              <Dropdown
-                containerStyle={{backgroundColor: 'green'}}
-                style={styles.dropping}
-                placeholderStyle={styles.placeholderStyle}
-                selectedTextStyle={styles.selectedTextStyle}
-                iconStyle={styles.iconStyle}
-                data={data2}
-                maxHeight={250}
-                labelField="label"
-                valueField="value"
-                placeholder="Select what sections applied in FIR?"
-                value={value2}
-                onChange={item => {
-                  setValue2(item.value);
+            <View style={styles.SectionStyle1}>
+              <RadioButton
+                uncheckedColor={'gray'}
+                color={'#ff6b00'}
+                value="first"
+                status={checked1 === 'first' ? 'checked' : 'unchecked'}
+                onPress={() => {
+                  setChecked1('first');
+                  setLodged(true);
                 }}
               />
-            </View>
-          </View>
-          <View style={{marginTop: 20}}>
-            <Text style={styles.FormTitle}>
-              Incident report others:<Text style={styles.star}>*</Text>
-            </Text>
-            <View style={styles.formtotalinput}>
-              <TextInput
-                style={styles.FormInput}
-                type="text"
-                placeholder="Enter incident report others"
-                placeholderTextColor="gray"
+              <Text style={styles.gender}>Yes</Text>
+              <RadioButton
+                uncheckedColor={'gray'}
+                color={'#ff6b00'}
+                value="second"
+                status={checked1 === 'second' ? 'checked' : 'unchecked'}
+                onPress={() => {
+                  setChecked1('second');
+                  setLodged(false);
+                }}
               />
+              <Text style={styles.gender}>No</Text>
             </View>
           </View>
+
+          {lodged === true ? (
+            <View>
+              <View style={{marginTop: 3, marginLeft: 10}}>
+                <Text style={styles.radioname}>
+                  GDE entry:<Text style={styles.star}>*</Text>
+                </Text>
+                <View style={styles.SectionStyle1}>
+                  <RadioButton
+                    uncheckedColor={'gray'}
+                    color={'#ff6b00'}
+                    value="first"
+                    status={checked0 === 'first' ? 'checked' : 'unchecked'}
+                    onPress={() => setChecked0('first')}
+                  />
+                  <Text style={styles.gender}>Yes</Text>
+                  <RadioButton
+                    uncheckedColor={'gray'}
+                    color={'#ff6b00'}
+                    value="second"
+                    status={checked0 === 'second' ? 'checked' : 'unchecked'}
+                    onPress={() => setChecked0('second')}
+                  />
+                  <Text style={styles.gender}>No</Text>
+                </View>
+              </View>
+              {checked0 === 'first' && (
+                <View style={{marginTop: 20}}>
+                  <Text style={styles.FormTitle}>GDE Date: </Text>
+                  <View style={{marginTop: 5}}>
+                    <TextInput
+                      style={styles.textInput}
+                      value={getDate()}
+                      placeholder="  Enter Date"
+                      Color={'gray'}
+                    />
+
+                    <Text
+                      style={{left: 300, bottom: 39}}
+                      onPress={showDatePicker}>
+                      <FontAwesomeIcon
+                        size={20}
+                        icon={faCalendarDays}
+                        title="Show Picker"
+                        color="#00bad7"
+                      />
+                    </Text>
+                    <DateTimePickerModal
+                      isVisible={isDatePickerVisible}
+                      mode="Date"
+                      onConfirm={handleConfirm}
+                      onCancel={hideDatePicker}
+                    />
+                  </View>
+                  <View style={{marginTop: 0}}>
+                    <Text style={styles.FormTitle}>
+                      GDE Number:<Text style={styles.star}>*</Text>
+                    </Text>
+                    <View style={styles.formtotalinput}>
+                      <TextInput
+                        style={styles.FormInput}
+                        keyboardType="numeric"
+                        placeholder="Enter FIR Number"
+                        placeholderTextColor="#000"
+                      />
+                    </View>
+                  </View>
+
+                  <View>
+                    <View style={{marginTop: 30}}>
+                      <Text style={styles.Filefill}>GDE Document:</Text>
+
+                      {fileResponse.map((file, index) => (
+                        <Text
+                          key={index.toString()}
+                          style={styles.uri}
+                          numberOfLines={1}
+                          ellipsizeMode={'middle'}>
+                          {file?.uri}
+                        </Text>
+                      ))}
+
+                      <Text onPress={handleDocumentSelection}>
+                        <FontAwesomeIcon
+                          icon={faFile}
+                          color="gray"
+                          style={styles.fileUpload}
+                        />
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              )}
+              <View style={{marginLeft: 10}}>
+                <Text style={styles.radioname}>
+                  FIR filled or not:<Text style={styles.star}>*</Text>
+                </Text>
+                <View style={styles.SectionStyle1}>
+                  <RadioButton
+                    uncheckedColor={'gray'}
+                    color={'#ff6b00'}
+                    value="first"
+                    status={checked === 'first' ? 'checked' : 'unchecked'}
+                    onPress={() => setChecked('first')}
+                  />
+                  <Text style={styles.gender}>Yes</Text>
+                  <RadioButton
+                    uncheckedColor={'gray'}
+                    color={'#ff6b00'}
+                    value="second"
+                    status={checked === 'second' ? 'checked' : 'unchecked'}
+                    onPress={() => setChecked('second')}
+                  />
+                  <Text style={styles.gender}>No</Text>
+                </View>
+              </View>
+
+              <View style={styles.container}>
+                {/*Here we will return the view when state is true 
+          and will return false if state is false*/}
+                {checked === 'first' && (
+                  <View style={{marginTop: 20}}>
+                    <Text style={styles.FormTitle}>FIR Date: </Text>
+                    <View style={{marginTop: 5}}>
+                      <TextInput
+                        style={styles.textInput}
+                        value={getDate()}
+                        placeholder="  Enter Date"
+                        Color={'gray'}
+                      />
+
+                      <Text
+                        style={{left: 300, bottom: 39}}
+                        onPress={showDatePicker}>
+                        <FontAwesomeIcon
+                          size={20}
+                          icon={faCalendarDays}
+                          title="Show Picker"
+                          color="#00bad7"
+                        />
+                      </Text>
+                      <DateTimePickerModal
+                        isVisible={isDatePickerVisible}
+                        mode="Date"
+                        onConfirm={handleConfirm}
+                        onCancel={hideDatePicker}
+                      />
+                    </View>
+                    <View style={{marginTop: 0}}>
+                      <Text style={styles.FormTitle}>
+                        FIR Number:<Text style={styles.star}>*</Text>
+                      </Text>
+                      <View style={styles.formtotalinput}>
+                        <TextInput
+                          style={styles.FormInput}
+                          keyboardType="numeric"
+                          placeholder="Enter FIR Number"
+                          placeholderTextColor="#000"
+                        />
+                      </View>
+                    </View>
+                    <View>
+                      <View style={{marginTop: 30}}>
+                        <Text style={styles.Filefill}>FIR Document</Text>
+
+                        {fileResponse.map((file, index) => (
+                          <Text
+                            key={index.toString()}
+                            style={styles.uri}
+                            numberOfLines={1}
+                            ellipsizeMode={'middle'}>
+                            {file?.uri}
+                          </Text>
+                        ))}
+
+                        <Text onPress={handleDocumentSelection}>
+                          <FontAwesomeIcon
+                            icon={faFile}
+                            color="gray"
+                            style={styles.fileUpload}
+                          />
+                        </Text>
+                      </View>
+                      <View style={{marginTop: 16}}>
+                        <Text style={styles.FormTitle1}>
+                          What sections applied in FIR?:
+                          <Text style={styles.star}>*</Text>
+                        </Text>
+                        <View style={styles.droppingn}>
+                          <Dropdown
+                            style={styles.dropping}
+                            placeholderStyle={styles.placeholderStyle}
+                            selectedTextStyle={styles.selectedTextStyle}
+                            iconStyle={styles.iconStyle}
+                            data={data2}
+                            maxHeight={250}
+                            labelField="label"
+                            valueField="value"
+                            placeholder="Select what sections applied in FIR?"
+                            value={value2}
+                            onChange={item => {
+                              setValue2(item.value);
+                            }}
+                          />
+                        </View>
+                      </View>
+                    </View>
+                  </View>
+                )}
+              </View>
+              {checked0 == 'second' && checked == 'second' && (
+                <View style={{marginTop: 16}}>
+                  <Text style={styles.FormTitle}>What action taken:</Text>
+                  <View style={styles.formtotalinput}>
+                    <TextInput
+                      style={styles.FormInput}
+                      type="text"
+                      placeholder="Others"
+                      placeholderTextColor="gray"
+                    />
+                  </View>
+                </View>
+              )}
+
+              {others1 === true && (
+                <View style={{marginTop: 16}}>
+                  <Text style={styles.FormTitle}>Others:</Text>
+                  <View style={styles.formtotalinput}>
+                    <TextInput
+                      style={styles.FormInput}
+                      keyboardType="numeric"
+                      placeholder="Others"
+                      placeholderTextColor="gray"
+                    />
+                  </View>
+                </View>
+              )}
+            </View>
+          ) : (
+            ''
+          )}
         </SafeAreaView>
       </ScrollView>
       <View style={styles.complaintbutton}>
@@ -569,7 +740,7 @@ const Complaints = ({route}) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.formbutton}
-          onPress={() => route.change()}>
+          onPress={() => myFunction()}>
           <Text style={styles.formbuttoninput}>SUBMIT</Text>
         </TouchableOpacity>
       </View>
@@ -580,7 +751,7 @@ export default Complaints;
 const styles = StyleSheet.create({
   Tab: {
     backgroundColor: '#fff',
-    height: hp('87%'),
+    height: hp('100%'),
     width: wp('99%'),
   },
   FormTitle: {
@@ -654,7 +825,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 10,
     backgroundColor: '#ff6b00',
-    marginTop: 14,
+    bottom: 40,
     marginLeft: 5,
   },
   formbuttonedit: {
@@ -1045,7 +1216,7 @@ const styles = StyleSheet.create({
   complaintbutton: {
     flexDirection: 'row',
     justifyContent: 'center',
-    top: 10,
+    height: hp('20%'),
   },
   formbutton0: {
     alignSelf: 'center',
@@ -1054,8 +1225,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 10,
     backgroundColor: '#46bb95',
-    marginTop: 14,
     marginLeft: 5,
+    bottom: 40,
   },
   formbutton1: {
     alignSelf: 'center',
@@ -1064,7 +1235,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 10,
     backgroundColor: '#00bad7',
-    marginTop: 14,
+    bottom: 40,
     marginLeft: 5,
+  },
+  errormessage: {
+    color: 'red',
+    marginLeft: 10,
+    top: 5,
   },
 });
