@@ -45,7 +45,7 @@ const Complaints = ({route}) => {
     let year = d.getFullYear();
     setValidation1({
       ...validation1,
-      Victims_DoB: `${year}-${month}-${dat}`,
+          Date_of_incident: '' `${year}-${month}-${dat}`,
     });
     setDate(date);
     hideDatePicker();
@@ -79,52 +79,52 @@ const Complaints = ({route}) => {
   const [value1, setValue1] = useState('');
 
   const data = [
-    {label: 'District Child Protection Unit', value: '4'},
-    {label: 'Child Welfare Committee', value: '5'},
-    {label: 'Child Line- 1098    ', value: '6'},
-    {label: ' Police Helpline 100', value: '7'},
-    {label: ' Local Police station ', value: '8'},
+    {label: 'District Child Protection Unit', value: '2'},
+    {label: 'Child Welfare Committee', value: '2'},
+    {label: 'Child Line- 1098    ', value: '3'},
+    {label: ' Police Helpline 100', value: '4'},
+    {label: ' Local Police station ', value: '5'},
   ];
   const [selected, setSelected] = useState('');
 
   const data2 = [
-    {label: '161 Statement is done', value: '161 Statement is done'},
-    {label: 'Medical Examination Done ', value: 'Medical Examination Done '},
-    {label: '164 Statement Done', value: '164 Statement Done'},
+    {label: '161 Statement is done', value: '1'},
+    {label: 'Medical Examination Done ', value: '2 '},
+    {label: '164 Statement Done', value: '3'},
 
     {
       label: 'Victim Produced Before CWC    ',
-      value: 'Victim Produced Before CWC   ',
+      value: '4   ',
     },
 
-    {label: 'Victim admitted in CCI    ', value: 'Victim admitted in CCI    '},
+    {label: 'Victim admitted in CCI    ', value: '5   '},
 
     {
       label: 'MHPSS services given to victim',
-      value: 'MHPSS services given to victim',
+      value: '6',
     },
     {
       label: 'Medical Aid given to victim',
-      value: ' Medical Aid given to victim',
+      value: ' 7',
     },
     {
       label: 'Victim Compensation application filed',
-      value: 'Victim Compensation application filed',
+      value: '8',
     },
     {
       label: 'Charge sheet submitted',
-      value: 'Charge sheet submitted',
+      value: '9',
     },
-    {label: 'Examination Chief', value: 'Examination Chief'},
-    {label: 'Cross Examination    ', value: 'Cross Examination    '},
+    {label: 'Examination Chief', value: '10'},
+    {label: 'Cross Examination    ', value: '11  '},
 
-    {label: 'Re-examination    ', value: 'Re-examination    '},
+    {label: 'Re-examination    ', value: '12   '},
 
     {
       label: 'Accused convicted / acquitted?    ',
-      value: 'Accused convicted / acquitted?     ',
+      value: '13   ',
     },
-    {label: 'Appeal under process', value: 'Appeal under process    '},
+    {label: 'Appeal under process', value: '14    '},
   ];
 
   const [value2, setValue2] = useState('');
@@ -191,7 +191,7 @@ const Complaints = ({route}) => {
     Complaints_ID: '',
     CaseID: '',
     UserID: '',
-    Date_of_incident: '',
+    Date_of_incident: `${year}-${month}-${dat}`,
     Description_of_the_incident: '',
     Name_of_Alleged_Offender: '',
     Offenders_relationship_to_victim: '',
@@ -215,7 +215,7 @@ const Complaints = ({route}) => {
       Complaints_ID: 1,
       CaseID: 1,
       UserID: 1,
-      Date_of_incident: '',
+      Date_of_incident: `${year}-${month}-${dat}`,
       Description_of_the_incident: '',
       Name_of_Alleged_Offender: '',
       Offenders_relationship_to_victim: '',
@@ -498,7 +498,10 @@ const Complaints = ({route}) => {
                     setSelected(item);
                     item.selected === '3'
                       ? setOthers1(true)
-                      : setOthers1(false);
+                      : setOthers1(false);  setValidation1({
+                      ...validation1,
+                      Whether_Incident_Reported_Others: item,
+                    });
                   }
                 }}
               />
@@ -506,8 +509,8 @@ const Complaints = ({route}) => {
           </View>
 
           <View>
-            {error?.district && (
-              <Text style={styles.errormessage}>{error?.district}</Text>
+            {error?.Whether_Incident_Reported_Others && (
+              <Text style={styles.errormessage}>{error?.Whether_Incident_Reported_Others}</Text>
             )}
           </View>
           <View style={{marginTop: 3, marginLeft: 10}}>
@@ -664,16 +667,27 @@ const Complaints = ({route}) => {
                     uncheckedColor={'gray'}
                     color={'#ff6b00'}
                     value="first"
-                    status={checked === 'first' ? 'checked' : 'unchecked'}
-                    onPress={() => setChecked('first')}
+                    status={validation1.FIR_filed_or_not === 'first' ? 'checked' : 'unchecked'}
+                    onPress={() =>  {setValidation1({
+                      ...validation1,
+                      FIR_filed_or_not: 'first',
+                    });
+                    setChecked('first');
+                  }}
+                   
                   />
                   <Text style={styles.gender}>Yes</Text>
                   <RadioButton
                     uncheckedColor={'gray'}
                     color={'#ff6b00'}
                     value="second"
-                    status={checked === 'second' ? 'checked' : 'unchecked'}
-                    onPress={() => setChecked('second')}
+                    status={validation1.FIR_filed_or_not === 'second' ? 'checked' : 'unchecked'}
+                    onPress={() =>  {setValidation1({
+                      ...validation1,
+                      FIR_filed_or_not: 'second',
+                    });
+                    setChecked('second');
+                  }}
                   />
                   <Text style={styles.gender}>No</Text>
                 </View>
