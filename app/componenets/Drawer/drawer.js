@@ -84,7 +84,7 @@ const PopMenu = () => {
 
 const Drawer = createDrawerNavigator();
 
-export default function MyDrawer({navigation}) {
+const MyDrawer = ({navigation}) => {
   return (
     <Drawer.Navigator
       screenOptions={{
@@ -251,7 +251,8 @@ export default function MyDrawer({navigation}) {
       />
     </Drawer.Navigator>
   );
-}
+};
+export default MyDrawer;
 
 const styles = StyleSheet.create({
   DrawerImage: {

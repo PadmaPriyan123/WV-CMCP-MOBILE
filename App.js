@@ -8,14 +8,14 @@ import Incident from './app/componenets/IncidentView/incidentview';
 import MyDrawer from './app/componenets/Drawer/drawer';
 import Notification from './app/componenets/Notification/Notification';
 import store from '../WV-CMCP-MOBILE/app/Redux/Store';
-import UserProfileView from './app/componenets/Userprofile/Userprofile';
 import Viewcard from './app/componenets/Viewcard/viewcard';
+import UserProfileView from './app/componenets/Userprofile/Userprofile';
 import Victim from './app/componenets/Form/IncidentLog/victim';
 import Complaints from './app/componenets/Form/IncidentLog/complaint';
 import Legal from './app/componenets/Form/legal';
 import Service from './app/componenets/Form/service';
 import Mhpss from './app/componenets/Form/mhpss';
-
+import CaseAssignment from './app/componenets/IncidentView/CaseAssignment';
 import {Provider} from 'react-redux';
 import {StatusBar} from 'react-native';
 
@@ -85,7 +85,7 @@ function App() {
             }}
           />
           <Stack.Screen
-            name="viewcard"
+            name="Viewcard"
             component={Viewcard}
             options={{
               title: 'Viewcard',
@@ -101,6 +101,7 @@ function App() {
               },
             }}
           />
+
           <Stack.Screen
             name="victim"
             component={Victim}
@@ -135,9 +136,26 @@ function App() {
               },
             }}
           />
-          <Stack.Screen
+           <Stack.Screen
             name="legal"
             component={Legal}
+            options={{
+              title: 'Viewcard',
+              headerStyle: {
+                backgroundColor: '#ff6b00',
+                height: 50,
+                fontsize: 17,
+              },
+              headerTintColor: 'white',
+              headerTitleStyle: {
+                fontFamily: 'Lato-Bold',
+                color: '#fff',
+              },
+            }}
+          />
+          <Stack.Screen
+            name="CaseAssignment"
+            component={CaseAssignment}
             options={{
               title: 'Viewcard',
               headerStyle: {
@@ -175,6 +193,7 @@ function App() {
             component={Mhpss}
             options={{
               title: 'Viewcard',
+              title: 'Case Assignment',
               headerStyle: {
                 backgroundColor: '#ff6b00',
                 height: 50,
@@ -187,6 +206,7 @@ function App() {
               },
             }}
           />
+
           <Stack.Screen
             name="Drawer"
             component={MyDrawer}

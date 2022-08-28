@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+import {ScrollView} from 'react-native-gesture-handler';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -25,137 +26,142 @@ import {
   fa4,
   fa5,
 } from '@fortawesome/free-solid-svg-icons';
-import {color} from 'react-native-reanimated';
 
 const Viewcard = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.Viewcard}>
-        <TouchableOpacity>
-          <View>
+      <ScrollView>
+        <View style={styles.Viewcard}>
+          <TouchableOpacity onPress={() => navigation.navigate('victim')}>
             <Card style={styles.card}>
-              <FontAwesomeIcon
-                style={{marginLeft: 20, top: 10}}
-                icon={faPersonDress}
-                size={40}
-                color={'#fff'}
-              />
-<View>
-              <FontAwesomeIcon
-                style={{top: 30, marginLeft: 20,}}
-                icon={fa1}
-                size={40}
-                color={'#fff'}
-              />
-</View>
-              <Text
-                style={styles.paragraph1}
-                onPress={() => navigation.navigate('victim')}>
-                Victim
-              </Text>
+              <View style={styles.viewcontent}>
+                <View style={styles.viewcontrol}>
+                  <FontAwesomeIcon
+                    style={{top: 25, marginLeft: 20}}
+                    icon={fa1}
+                    size={30}
+                    color={'#fff'}
+                  />
+
+                  <Text style={styles.paragraph}>Victim</Text>
+                </View>
+                <View>
+                  <FontAwesomeIcon
+                    style={{marginRight: 20, marginTop: hp('5.5%')}}
+                    icon={faPersonDress}
+                    size={35}
+                    color={'#fff'}
+                  />
+                </View>
+              </View>
             </Card>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <View>
+          </TouchableOpacity>
+
+          <TouchableOpacity  onPress={() => navigation.navigate('complaints')}>
             <Card style={styles.card1}>
-              <FontAwesomeIcon
-                style={{marginLeft: 20, top: 10}}
-                icon={faBuildingColumns}
-                size={30}
-                color={'#fff'}
-              />
-
-              <FontAwesomeIcon
-                style={{top: 30, marginLeft: 15}}
-                icon={fa2}
-                size={40}
-                color={'#fff'}
-              />
-              <Text
-                style={styles.paragraph1}
-                onPress={() => navigation.navigate('complaints')}>
-                Complaints
-              </Text>
+              <View style={styles.viewcontent}>
+                <View style={styles.viewcontrol}>
+                  <FontAwesomeIcon
+                    style={{top: 25, marginLeft: 20}}
+                    icon={fa2}
+                    size={30}
+                    color={'#fff'}
+                  />
+                  <Text
+                    style={styles.paragraph}
+                   >
+                    Complaints
+                  </Text>
+                </View>
+                <FontAwesomeIcon
+                  style={{marginRight: 20, marginTop: hp('5.5%')}}
+                  icon={faBuildingColumns}
+                  size={32}
+                  color={'#fff'}
+                />
+              </View>
             </Card>
-          </View>
-        </TouchableOpacity>
-      </View>
+          </TouchableOpacity>
 
-      <View style={styles.Viewcard1}>
-        <TouchableOpacity>
-          <View>
+          <TouchableOpacity onPress={() => navigation.navigate('legal')}>
             <Card style={styles.card2}>
-              <FontAwesomeIcon
-                style={{marginLeft: 20, top: 10}}
-                icon={faFileCircleCheck}
-                size={30}
-                color={'#fff'}
-              />
-              <FontAwesomeIcon
-                style={{top: 30, marginLeft: 15}}
-                icon={fa3}
-                size={40}
-                color={'#fff'}
-              />
-              <Text style={styles.paragraph1}  onPress={() => navigation.navigate('legal')}>Legal</Text>
+              <View style={styles.viewcontent}>
+                <View style={styles.viewcontrol}>
+                  <FontAwesomeIcon
+                    style={{top: 25, marginLeft: 20}}
+                    icon={fa3}
+                    size={30}
+                    color={'#fff'}
+                  />
+                  <Text
+                    style={styles.paragraph}
+                    >
+                    Legal
+                  </Text>
+                </View>
+                <FontAwesomeIcon
+                  style={{marginRight: 20, marginTop: hp('5.5%')}}
+                  icon={faFileCircleCheck}
+                  size={32}
+                  color={'#fff'}
+                />
+              </View>
             </Card>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <View>
+          </TouchableOpacity>
+
+          <TouchableOpacity  onPress={() => navigation.navigate('service')}>
             <Card style={styles.card3}>
-              <FontAwesomeIcon
-                style={{marginLeft: 20, top: 10}}
-                icon={faCircleQuestion}
-                size={30}
-                color={'#fff'}
-              />
-              <FontAwesomeIcon
-                style={{top: 30, marginLeft: 15}}
-                icon={fa4}
-                size={40}
-                color={'#fff'}
-              />
-
-              <Text
-                style={styles.paragraph2}
-                onPress={() => navigation.navigate('service')}>
-                Reintegration
-              </Text>
+              <View style={styles.viewcontent}>
+                <View style={styles.viewcontrol}>
+                  <FontAwesomeIcon
+                    style={{top: 25, marginLeft: 20}}
+                    icon={fa4}
+                    size={30}
+                    color={'#fff'}
+                  />
+                  <Text
+                    style={styles.paragraph}
+                   >
+                    Reintegration
+                  </Text>
+                </View>
+                <FontAwesomeIcon
+                  style={{marginRight: 20, marginTop: hp('5.5%')}}
+                  icon={faCircleQuestion}
+                  size={32}
+                  color={'#fff'}
+                />
+              </View>
             </Card>
-          </View>
-        </TouchableOpacity>
-      </View>
-      <TouchableOpacity>
-        <View
-          style={{
-            marginTop: 50,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <Card style={styles.card4}>
-            <FontAwesomeIcon
-              style={{marginLeft: 20, top: 10}}
-              icon={faBriefcaseMedical}
-              size={30}
-              color={'#fff'}
-            />
-            <FontAwesomeIcon
-              style={{top: 30, marginLeft: 15}}
-              icon={fa5}
-              size={40}
-              color={'#fff'}
-            />
+          </TouchableOpacity>
 
-            <Text
-              style={styles.paragraph1}
-              onPress={() => navigation.navigate('mhpss')}>
-              MHPSS
-            </Text>
-          </Card>
+          <TouchableOpacity onPress={() => navigation.navigate('mhpss')}>
+            <Card style={styles.card4}>
+              <View style={styles.viewcontent}>
+                <View style={styles.viewcontrol}>
+                  <FontAwesomeIcon
+                    style={{top: 25, marginLeft: 20}}
+                    icon={fa5}
+                    size={30}
+                    color={'#fff'}
+                  />
+                  <Text
+                    style={styles.paragraph}
+                    >
+                    MHPSS
+                  </Text>
+                </View>
+                <FontAwesomeIcon
+                  style={{marginRight: 20, marginTop: hp('5.5%')}}
+                  icon={faBriefcaseMedical}
+                  size={32}
+                  color={'#fff'}
+                />
+              </View>
+            </Card>
+          </TouchableOpacity>
         </View>
-      </TouchableOpacity>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -163,87 +169,61 @@ export default Viewcard;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: 'center',
     backgroundColor: '#fff',
   },
   paragraph: {
-    fontWeight: 'bold',
-    textAlign: 'center',
-    top: 25,
-    fontSize: 30,
-    color: '#fff',
-  },
-  secondcard: {
-    fontWeight: 'bold',
-    textAlign: 'center',
-    top: 25,
-    fontSize: 30,
-    color: '#fff',
-  },
-  paragraph1: {
-    top: 50,
-    fontSize: 22,
+    top: 45,
+    fontSize: 24,
     color: '#fff',
     marginLeft: 20,
     fontFamily: 'Lato-Bold',
   },
-  paragraph2:{
-    top: 50,
-    fontSize: 20,
-    color: '#fff',
-    marginLeft: 15,
-    fontFamily: 'Lato-Bold',
 
-  },
   Viewcard: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    alignItems: 'center',
   },
-  Viewcard1: {
+  viewcontent: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    top: 20,
+    justifyContent: 'space-between',
   },
-
+  viewcontrol: {
+    flexDirection: 'column',
+  },
   card: {
-    width: wp('40%'),
-    height: hp('25%'),
-    borderRadius: 10,
+    width: wp('90%'),
+    height: hp('17%'),
+    borderRadius: 5,
     backgroundColor: '#46bb95',
-    bottom:50
+    marginTop: hp('1.5%'),
   },
   card1: {
     backgroundColor: '#00acca',
-    width: wp('40%'),
-    height: hp('25%'),
-    borderRadius: 10,
-    bottom:50
-
+    width: wp('90%'),
+    height: hp('17%'),
+    borderRadius: 5,
+    marginTop: hp('1.5%'),
   },
   card2: {
     backgroundColor: '#9054a1',
-    width: wp('40%'),
-    height: hp('25%'),
-    borderRadius: 10,
-    bottom:50
-
+    width: wp('90%'),
+    height: hp('17%'),
+    borderRadius: 5,
+    marginTop: hp('1.5%'),
   },
   card3: {
     backgroundColor: '#006661',
-    width: wp('40%'),
-    height: hp('25%'),
-    borderRadius: 10,
-    bottom:50
-
+    width: wp('90%'),
+    height: hp('17%'),
+    borderRadius: 5,
+    marginTop: hp('1.5%'),
   },
   card4: {
     backgroundColor: '#ff6b00',
-    width: wp('40%'),
-    height: hp('25%'),
-    borderRadius: 10,
-    textAlign: 'center',
-    bottom:50
-
+    width: wp('90%'),
+    height: hp('17%'),
+    borderRadius: 5,
+    marginTop: hp('1.5%'),
+    marginBottom: hp('4%'),
   },
 });
