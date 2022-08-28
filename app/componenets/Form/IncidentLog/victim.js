@@ -21,13 +21,14 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {Dropdown} from 'react-native-element-dropdown';
 import {useNavigation} from '@react-navigation/native';
 
-import {faFile} from '@fortawesome/free-solid-svg-icons/faFile';
+import {faFile} from '@fortawesome/free-solid-svg-icons';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   IncidentLog,
   IncidentLogResponse,
 } from '../../../Redux/IncidentLog/Action';
+import {faFileAlt} from '@fortawesome/free-solid-svg-icons';
 
 const Victim = ({route}) => {
   const navigation = useNavigation();
@@ -490,7 +491,7 @@ const Victim = ({route}) => {
                     />
 
                     <Text
-                      style={{left: 300, bottom: 39}}
+                      style={{left: 290, bottom: 35}}
                       onPress={showDatePicker}>
                       <FontAwesomeIcon
                         size={20}
@@ -509,24 +510,31 @@ const Victim = ({route}) => {
                   <View>
                     <View style={{marginTop: 20}}>
                       <Text style={styles.Filefill}>Victim Documents:</Text>
-
-                      {fileResponse.map((file, index) => (
+                      {/* document picker */}
+                      <View style={styles.formtotalinput2}>
                         <Text
-                          key={index.toString()}
-                          style={styles.uri}
-                          numberOfLines={1}
-                          ellipsizeMode={'middle'}>
-                          {file?.uri}
+                          style={{alignSelf: 'center', marginLeft: 10}}
+                          onPress={handleDocumentSelection}>
+                          <FontAwesomeIcon
+                            size={24}
+                            icon={faFileAlt}
+                            color="gray"
+                          />
                         </Text>
-                      ))}
-
-                      <Text onPress={handleDocumentSelection}>
-                        <FontAwesomeIcon
-                          icon={faFile}
-                          color="gray"
-                          style={styles.fileUpload}
-                        />
-                      </Text>
+                        <TextInput
+                          style={styles.uri}
+                          placeholder="Select a File to Upload"
+                          placeholderTextColor={'gray'}>
+                          {fileResponse.map((file, index) => (
+                            <Text
+                              key={index.toString()}
+                              numberOfLines={1}
+                              ellipsizeMode={'middle'}>
+                              {file?.uri}
+                            </Text>
+                          ))}
+                        </TextInput>
+                      </View>
                     </View>
                   </View>
                 </View>
@@ -825,9 +833,9 @@ const styles = StyleSheet.create({
   FormInput: {
     padding: 10,
     borderRadius: 5,
+    fontFamily: 'Lato-Regular',
     color: '#555',
     backgroundColor: '#ecf0f1',
-    fontFamily: 'Lato',
     height: hp('6.5%'),
   },
   Form: {
@@ -847,16 +855,19 @@ const styles = StyleSheet.create({
   },
   gender: {
     marginTop: 8,
-
     color: '#181818',
   },
-
   uri: {
     color: '#0f0201',
-    fontSize: 14,
-    marginLeft: 60,
+    alignSelf: 'center',
+    fontFamily: 'Lato-Regular',
+    marginLeft: 10,
+    width: wp('70%'),
+    marginRight: 15,
+    Color: 'gray',
+    borderColor: '#ccc',
+    backgroundColor: '#ecf0f1',
   },
-
   FormDrop1: {
     alignSelf: 'center',
     alignItems: 'center',
@@ -880,7 +891,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#ff6b00',
     bottom: 40,
-
     marginLeft: 5,
   },
   formbuttonedit: {
@@ -945,6 +955,16 @@ const styles = StyleSheet.create({
 
     borderWidth: 1,
     marginTop: 10,
+    marginLeft: 6,
+    borderColor: '#ccc',
+    backgroundColor: '#ecf0f1',
+  },
+  formtotalinput2: {
+    height: hp('7%'),
+    borderRadius: 5,
+    flexDirection: 'row',
+    borderWidth: 1,
+
     marginLeft: 6,
     borderColor: '#ccc',
     backgroundColor: '#ecf0f1',
@@ -1287,5 +1307,8 @@ const styles = StyleSheet.create({
     color: 'red',
     marginLeft: 10,
     top: 5,
+  },
+  fileUpload: {
+    color: '#000',
   },
 });

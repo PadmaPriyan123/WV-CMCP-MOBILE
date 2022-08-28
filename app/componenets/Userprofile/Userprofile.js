@@ -282,12 +282,11 @@ const UserProfileView = props => {
               <View style={styles.iconContent}>
                 <Text style={styles.userlabel}>State</Text>
               </View>
-
               <Dropdown
                 style={styles.Userinput}
                 containerStyle={{backgroundColor: '#ecf0f1'}}
                 selectTextOnFocus={false}
-                placeholderStyle={styles.profileplaceholderStyle}
+                selectedTextStyle={styles.profileplaceholderStyle}
                 data={UserDropData}
                 labelField="label"
                 valueField="value"
@@ -406,9 +405,9 @@ const styles = StyleSheet.create({
     marginLeft: 25,
   },
   profileplaceholderStyle: {
-    marginLeft: 10,
     fontSize: 14,
     fontFamily: 'Lato-Regular',
     padding: 5,
+    color: '#000',
   },
 });

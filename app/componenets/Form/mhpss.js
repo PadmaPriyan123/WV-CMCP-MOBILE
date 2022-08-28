@@ -7,38 +7,30 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-
 import {RadioButton} from 'react-native-paper';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-
 import {faCalendarDays} from '@fortawesome/free-solid-svg-icons/faCalendarDays';
-
 import {ScrollView} from 'react-native-gesture-handler';
-
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import DSMTrauma from './DSMTraumaScreening';
 
 const Mhpss = () => {
   const [date, setDate] = React.useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
-
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
-
   const hideDatePicker = () => {
     setDatePickerVisibility(false);
   };
-
   const handleConfirm = date => {
     setDate(date);
     hideDatePicker();
   };
-
   const getDate = () => {
     let tempDate = date.toString().split(' ');
     return date !== ''
@@ -46,20 +38,13 @@ const Mhpss = () => {
       : '';
   };
 
-  const [checked, setChecked] = React.useState('');
-  const [checked1, setChecked1] = React.useState('');
-  const [checked2, setChecked2] = React.useState('');
-  const [checked3, setChecked3] = React.useState('');
-  const [checked4, setChecked4] = React.useState('');
-  const [checked5, setChecked5] = React.useState('');
-  const [checked6, setChecked6] = React.useState('');
-  const [checked7, setChecked7] = React.useState('');
   const [expanded, setExpanded] = React.useState(true);
 
   const handlePress = () => setExpanded(!expanded);
   const [open, setOpen] = React.useState(false);
   const [supportive, setSupportive] = React.useState([]);
 
+  const [checked1, setChecked1] = React.useState('');
   const handleSupportive = () => {
     if (supportive.length < 5) {
       let obj = {
@@ -74,8 +59,7 @@ const Mhpss = () => {
   return (
     <SafeAreaView>
       <ScrollView>
-       <View>
-
+        <View>
           <View style={styles.reintegration}>
             <Text style={styles.reintegrationTitle}>MHPSS </Text>
           </View>
@@ -89,22 +73,22 @@ const Mhpss = () => {
             </TouchableOpacity>
           )}
 
-          {supportive.map((data, i) => {
+          {supportive.map((obj, i) => {
             return (
               <>
                 <View style={{marginTop: 10}}>
                   <Text style={styles.FormTitle}>
-                    Supprotive Call -{i + 1}:
+                    Supportive Call -{i + 1}:
                   </Text>
-                  <View style={{marginTop: 20, marginLeft: 5}}>
+                  <View style={{marginTop: 20, marginLeft: 5}} key={i}>
                     <Text style={styles.FormTitle}>Date & Time</Text>
                     <View style={{marginTop: 5}}>
                       <TextInput
                         style={styles.textInput1}
-                        value={getDate()}
                         placeholder="  Enter Date"
-                        placeholderTextColor={'gray'}
-                      />
+                        placeholderTextColor={'gray'}>
+                        {obj.scheduleDate}
+                      </TextInput>
 
                       <Text
                         style={{left: 300, bottom: 39}}
@@ -135,21 +119,23 @@ const Mhpss = () => {
                       uncheckedColor={'gray'}
                       color={'#ff6b00'}
                       value="first"
-                      status={checked6 === 'first' ? 'checked' : 'unchecked'}
-                      onPress={() => setChecked6('first')}
-                    />
+                      status={checked1 === 'first' ? 'checked' : 'unchecked'}
+                      onPress={() => setChecked1('first')}>
+                      {obj.consent}
+                    </RadioButton>
                     <Text style={styles.gender}>Yes</Text>
                     <RadioButton
                       uncheckedColor={'gray'}
                       color={'#ff6b00'}
                       value="second"
-                      status={checked6 === 'second' ? 'checked' : 'unchecked'}
-                      onPress={() => setChecked6('second')}
-                    />
+                      status={checked1 === 'second' ? 'checked' : 'unchecked'}
+                      onPress={() => setChecked1('second')}>
+                      {obj.consent}
+                    </RadioButton>
                     <Text style={styles.gender}>No</Text>
                   </View>
                   <View style={styles.container}>
-                    {checked6 === 'first' && (
+                    {checked1 === 'first' && (
                       <View style={{marginTop: 15}}>
                         <View style={{bottom: 5}}>
                           <Text style={styles.FormTitle}>
@@ -160,8 +146,9 @@ const Mhpss = () => {
                               style={styles.counsInput}
                               type="text"
                               placeholder="Enter Counselling "
-                              placeholderTextColor="gray"
-                            />
+                              placeholderTextColor="gray">
+                              {obj.counselling}
+                            </TextInput>
                           </View>
                         </View>
                         <Text style={styles.FormTitle}>
@@ -170,10 +157,10 @@ const Mhpss = () => {
                         <View style={{marginTop: 5}}>
                           <TextInput
                             style={styles.textInput1}
-                            value={getDate()}
                             placeholder="  Enter Date"
-                            placeholderTextColor={'gray'}
-                          />
+                            placeholderTextColor={'gray'}>
+                            {obj.nextScheduleData}
+                          </TextInput>
 
                           <Text
                             style={{left: 300, bottom: 39}}
@@ -330,7 +317,7 @@ const styles = StyleSheet.create({
   formbuttoninput: {
     textAlign: 'center',
     color: '#ffffff',
-    fontSize: 14,
+    fontSize: 18,
     fontFamily: 'Lato-Bold',
   },
   formbutton1: {
@@ -686,7 +673,6 @@ const styles = StyleSheet.create({
     height: hp('15%'),
     borderRadius: 5,
     width: wp('90%'),
-
     borderWidth: 2,
     marginTop: 10,
     marginLeft: 8,
