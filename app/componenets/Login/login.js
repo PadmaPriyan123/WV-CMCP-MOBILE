@@ -196,7 +196,9 @@ const Login = () => {
       alert(loginResponse.StatusMessage);
       navigation.navigate('Drawer');
       clearAll();
+    
       console.log('came here');
+    
       (async () =>
         await AsyncStorage.setItem(
           'authUser',
@@ -206,8 +208,9 @@ const Login = () => {
       // setTimeout(() => {
       //   clearAll();
       // }, 0);
+
     }
-  }, [loginResponse]);
+  }, [loginResponse,error]);
 
   function myFunction() {
     console.log('login', login);
@@ -450,7 +453,7 @@ const Login = () => {
                         textAlign="left"
                         value={login.EmailId}
                         required
-                        onChangeText={e => setLogin({...login, EmailId: e})}
+                        onChangeText={(e) => setLogin({...login, EmailId: e})}
                       />
                     </View>
                     {error?.EmailId && (
@@ -473,7 +476,7 @@ const Login = () => {
                         placeholderTextColor="#9e9e9e"
                         value={login.Password}
                         required
-                        onChangeText={e => setLogin({...login, Password: e})}
+                        onChangeText={(e) => setLogin({...login, Password: e})}
                       />
                     </View>
                     {error?.Password && (
@@ -540,7 +543,7 @@ const Login = () => {
                       textAlign="left"
                       value={login.EmailId}
                       required
-                      onChangeText={e => setLogin({...login, EmailId: e})}
+                      onChangeText={e => setError({...login, EmailId: e})}
                     />
                   </View>
                   {error?.EmailId && (

@@ -37,6 +37,16 @@ const Complaints = ({route}) => {
   };
 
   const handleConfirm = date => {
+    console.log('date', date);
+
+    let d = new Date(date);
+    let dat = d.getDate();
+    let month = d.getMonth() + 1;
+    let year = d.getFullYear();
+    setValidation1({
+      ...validation1,
+      Victims_DoB: `${year}-${month}-${dat}`,
+    });
     setDate(date);
     hideDatePicker();
   };
@@ -151,83 +161,120 @@ const Complaints = ({route}) => {
       console.warn(err);
     }
   }, []);
+  let d = new Date();
+  let dat = d.getDate();
+  let month = d.getMonth() + 1;
+  let year = d.getFullYear();
   const [validation1, setValidation1] = useState({
-    dateogIncident: '',
-    discriptionofIncident: '',
-    nameofOffender: '',
-    offenderdreletoiontoVoctim: '',
-    offenderage: '',
-    whoinformedtheincident: '',
-    complaintLogPS: '',
-    GDEntry: '',
-    Firfillornot: '',
-    firGDActionTacken: '',
+    Complaints_ID: 1,
+    CaseID: '',
+    UserID: '',
+    Date_of_incident: `${year}-${month}-${dat}`,
+    Description_of_the_incident: '',
+    Name_of_Alleged_Offender: '',
+    Offenders_relationship_to_victim: '',
+    Offenders_approximate_Age: '',
+    Who_informed_about_the_incident: '',
+    Whether_Incident_Reported_Others: '',
+    complaint_lodged_PS: '',
+    GD_Number: '',
+    GD_EntryDate: '',
+    FIR_filed_or_not: '',
+    FIR_Num: '',
+    FIR_date: '',
+    Action_Taken: '',
+    Sections_AppliedIn_FIR: '',
   });
+  console.log('vhhjd', validation1);
 
   const initialErrorMessage = {
-    dateogIncident: '',
-    discriptionofIncident: '',
-    nameofOffender: '',
-    offenderdreletoiontoVoctim: '',
-    offenderage: '',
-    whoinformedtheincident: '',
-    complaintLogPS: '',
-    GDEntry: '',
-    Firfillornot: '',
-    firGDActionTacken: '',
+    Complaints_ID: '',
+    CaseID: '',
+    UserID: '',
+    Date_of_incident: '',
+    Description_of_the_incident: '',
+    Name_of_Alleged_Offender: '',
+    Offenders_relationship_to_victim: '',
+    Offenders_approximate_Age: '',
+    Who_informed_about_the_incident: '',
+    Whether_Incident_Reported_Others: '',
+    complaint_lodged_PS: '',
+    GD_Number: '',
+    GD_EntryDate: '',
+    FIR_filed_or_not: '',
+    FIR_Num: '',
+    FIR_date: '',
+    Action_Taken: '',
+    Sections_AppliedIn_FIR: '',
   };
 
   const [error, setError] = useState(initialErrorMessage);
 
   function myFunction() {
     let a = {
-      dateogIncident: '',
-      discriptionofIncident: '',
-      nameofOffender: '',
-      offenderdreletoiontoVoctim: '',
-      offenderage: '',
-      whoinformedtheincident: '',
-      complaintLogPS: '',
-      GDEntry: '',
-      Firfillornot: '',
-      firGDActionTacken: '',
+      Complaints_ID: 1,
+      CaseID: 1,
+      UserID: 1,
+      Date_of_incident: '',
+      Description_of_the_incident: '',
+      Name_of_Alleged_Offender: '',
+      Offenders_relationship_to_victim: '',
+      Offenders_approximate_Age: '',
+      Who_informed_about_the_incident: '',
+      Whether_Incident_Reported_Others: '',
+      complaint_lodged_PS: '',
+      GD_Number: '',
+      GD_EntryDate: '',
+      FIR_filed_or_not: '',
+      FIR_Num: '',
+      FIR_date: '',
+      Action_Taken: '',
+      Sections_AppliedIn_FIR: '',
     };
 
     var letters = /[A-Za-z]{3,15}/;
     var empty = /^$/;
     var Age = /^[0-9]{1,2}$/;
 
-    if (!validation1.dateogIncident) {
-      a.dateogIncident = '*Please Select the Date Of Incident';
+    if (!validation1.Date_of_incident) {
+      a.Date_of_incident = '*Please Select the Date Of Incident';
     }
-    if (!validation1.discriptionofIncident) {
-      a.discriptionofIncident = '*Please enter the description Of the incident';
+    if (!validation1.Description_of_the_incident) {
+      a.Description_of_the_incident =
+        '*Please enter the description Of the incident';
     }
-    if (!validation1.nameofOffender) {
-      a.nameofOffender = '*Please enter the name of offender';
+    if (!validation1.Name_of_Alleged_Offender) {
+      a.Name_of_Alleged_Offender = '*Please enter the name of offender';
     }
-    if (!validation1.offenderdrelationtoVictim) {
-      a.offenderdrelationtoVictim =
+    if (!validation1.Offenders_relationship_to_victim) {
+      a.Offenders_relationship_to_victim =
         '*Please select the offender relation to the victim';
     }
-    if (!validation1.whoinformedtheincident) {
-      a.whoinformedtheincident =
+    if (!validation1.Who_informed_about_the_incident) {
+      a.Who_informed_about_the_incident =
         '*Please Enter the Who Informed About Incident';
     }
-    if (!validation1.offenderapproximateage) {
-      a.offenderapproximateage = '*Please enter the offender approximate age';
+    if (!validation1.Offenders_approximate_Age) {
+      a.Offenders_approximate_Age =
+        '*Please enter the offender approximate age';
     }
-    if (!validation1.complaintLogPS) {
-      a.complaintLogPS = '*Please Select the Complaint lodged in PS';
+    if (!validation1.complaint_lodged_PS) {
+      a.complaint_lodged_PS = '*Please Select the Complaint lodged in PS';
     }
-    if (!validation1.GDEntry) {
-      a.GDEntry = '*Please Enter the GD-Entry';
+    if (!validation1.GD_Number) {
+      a.GD_Number = '*Please Enter the GD-Entry';
     }
-    if (!validation1.Firfillornot) {
-      a.Firfillornot = '*Please Enter  FIR is Filed or Not';
+    if (!validation1.FIR_filed_or_not) {
+      a.FIR_filed_or_not = '*Please Enter  FIR is Filed or Not';
     }
-    if (!validation1.firGDActionTacken) {
-      a.firGDActionTacken = '*Please Enter the FIR/GD Action Taken';
+    if (!validation1.FIR_Num) {
+      a.FIR_Num = '*Please Enter  FIR is number';
+    }
+    if (!validation1.Action_Taken) {
+      a.Action_Taken = '*Please Enter the FIR/GD Action Taken';
+    }
+    if (!validation1.Sections_AppliedIn_FIR) {
+      a.Sections_AppliedIn_FIR = '*Please Enter the Section applied fir';
     }
     if (Object.values(a).every(el => el === '')) {
       console.log(Object.values(a).every(el => el === ''));
@@ -283,15 +330,18 @@ const Complaints = ({route}) => {
                 placeholder="Enter description of the incident"
                 placeholderTextColor="gray"
                 onChangeText={text => {
-                  setValidation1({...validation1, discriptionofIncident: text});
+                  setValidation1({
+                    ...validation1,
+                    Description_of_the_incident: text,
+                  });
                 }}
               />
             </View>
           </View>
           <View>
-            {error?.discriptionofIncident && (
+            {error?.Description_of_the_incident && (
               <Text style={styles.errormessage}>
-                {error?.discriptionofIncident}
+                {error?.Description_of_the_incident}
               </Text>
             )}
           </View>
@@ -304,14 +354,19 @@ const Complaints = ({route}) => {
                 placeholder="Enter name of alleged offender"
                 placeholderTextColor="gray"
                 onChangeText={text => {
-                  setValidation1({...validation1, nameofOffender: text});
+                  setValidation1({
+                    ...validation1,
+                    Name_of_Alleged_Offender: text,
+                  });
                 }}
               />
             </View>
           </View>
           <View>
-            {error?.nameofOffender && (
-              <Text style={styles.errormessage}>{error?.nameofOffender}</Text>
+            {error?.Name_of_Alleged_Offender && (
+              <Text style={styles.errormessage}>
+                {error?.Name_of_Alleged_Offender}
+              </Text>
             )}
           </View>
           <View style={{marginTop: 16}}>
@@ -327,16 +382,16 @@ const Complaints = ({route}) => {
                 onChangeText={text => {
                   setValidation1({
                     ...validation1,
-                    offenderdrelationtoVictim: text,
+                    Offenders_relationship_to_victim: text,
                   });
                 }}
               />
             </View>
           </View>
           <View>
-            {error?.offenderdrelationtoVictim && (
+            {error?.Offenders_relationship_to_victim && (
               <Text style={styles.errormessage}>
-                {error?.offenderdrelationtoVictim}
+                {error?.Offenders_relationship_to_victim}
               </Text>
             )}
           </View>
@@ -351,16 +406,16 @@ const Complaints = ({route}) => {
                 onChangeText={text => {
                   setValidation1({
                     ...validation1,
-                    offenderapproximateage: text,
+                    Offenders_approximate_Age: text,
                   });
                 }}
               />
             </View>
           </View>
           <View>
-            {error?.offenderapproximateage && (
+            {error?.Offenders_approximate_Age && (
               <Text style={styles.errormessage}>
-                {error?.offenderapproximateage}
+                {error?.Offenders_approximate_Age}
               </Text>
             )}
           </View>
@@ -387,7 +442,7 @@ const Complaints = ({route}) => {
                     item.value === '10' ? setOthers(true) : setOthers(false);
                     setValidation1({
                       ...validation1,
-                      whoinformedtheincident: item.value,
+                      Who_informed_about_the_incident: item.value,
                     });
                   }
                 }}
@@ -396,9 +451,9 @@ const Complaints = ({route}) => {
           </View>
 
           <View>
-            {error?.whoinformedtheincident && (
+            {error?.Who_informed_about_the_incident && (
               <Text style={styles.errormessage}>
-                {error?.whoinformedtheincident}
+                {error?.Who_informed_about_the_incident}
               </Text>
             )}
           </View>
@@ -464,9 +519,16 @@ const Complaints = ({route}) => {
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
                 value="first"
-                status={checked1 === 'first' ? 'checked' : 'unchecked'}
+                status={
+                  validation1.complaint_lodged_PS === 'first'
+                    ? 'checked'
+                    : 'unchecked'
+                }
                 onPress={() => {
-                  setChecked1('first');
+                  setValidation1({
+                    ...validation1,
+                    complaint_lodged_PS: 'first',
+                  });
                   setLodged(true);
                 }}
               />
@@ -475,9 +537,16 @@ const Complaints = ({route}) => {
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
                 value="second"
-                status={checked1 === 'second' ? 'checked' : 'unchecked'}
+                status={
+                  validation1.complaint_lodged_PS === 'second'
+                    ? 'checked'
+                    : 'unchecked'
+                }
                 onPress={() => {
-                  setChecked1('second');
+                  setValidation1({
+                    ...validation1,
+                    complaint_lodged_PS: 'second',
+                  });
                   setLodged(false);
                 }}
               />
@@ -548,10 +617,19 @@ const Complaints = ({route}) => {
                         keyboardType="numeric"
                         placeholder="Enter FIR Number"
                         placeholderTextColor="#000"
+                        onChangeText={text => {
+                          setValidation1({...validation1, GD_Number: text});
+                        }}
                       />
                     </View>
                   </View>
-
+                  <View>
+                    {error?.GD_Number && (
+                      <Text style={styles.errormessage}>
+                        {error?.GD_Number}
+                      </Text>
+                    )}
+                  </View>
                   <View>
                     <View style={{marginTop: 30}}>
                       <Text style={styles.Filefill}>GDE Document:</Text>
@@ -642,8 +720,18 @@ const Complaints = ({route}) => {
                           keyboardType="numeric"
                           placeholder="Enter FIR Number"
                           placeholderTextColor="#000"
+                          onChangeText={text => {
+                            setValidation1({...validation1, FIR_Num: text});
+                          }}
                         />
                       </View>
+                    </View>
+                    <View>
+                      {error?.FIR_Num && (
+                        <Text style={styles.errormessage}>
+                          {error?.FIR_Num}
+                        </Text>
+                      )}
                     </View>
                     <View>
                       <View style={{marginTop: 30}}>
@@ -686,9 +774,20 @@ const Complaints = ({route}) => {
                             value={value2}
                             onChange={item => {
                               setValue2(item.value);
+                              setValidation1({
+                                ...validation1,
+                                Sections_AppliedIn_FIR: item.value,
+                              });
                             }}
                           />
                         </View>
+                      </View>
+                      <View>
+                        {error?.Sections_AppliedIn_FIR && (
+                          <Text style={styles.errormessage}>
+                            {error?.Sections_AppliedIn_FIR}
+                          </Text>
+                        )}
                       </View>
                     </View>
                   </View>
@@ -703,7 +802,17 @@ const Complaints = ({route}) => {
                       type="text"
                       placeholder="Others"
                       placeholderTextColor="gray"
+                      onChangeText={text => {
+                        setValidation1({...validation1, Action_Taken: text});
+                      }}
                     />
+                  </View>
+                  <View>
+                    {error?.Action_Taken && (
+                      <Text style={styles.errormessage}>
+                        {error?.Action_Taken}
+                      </Text>
+                    )}
                   </View>
                 </View>
               )}
