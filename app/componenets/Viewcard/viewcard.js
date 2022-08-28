@@ -32,7 +32,7 @@ const Viewcard = ({navigation}) => {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.Viewcard}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('victim')}>
             <Card style={styles.card}>
               <View style={styles.viewcontent}>
                 <View style={styles.viewcontrol}>
@@ -43,11 +43,7 @@ const Viewcard = ({navigation}) => {
                     color={'#fff'}
                   />
 
-                  <Text
-                    style={styles.paragraph}
-                    onPress={() => navigation.navigate('victim')}>
-                    Victim
-                  </Text>
+                  <Text style={styles.paragraph}>Victim</Text>
                 </View>
                 <View>
                   <FontAwesomeIcon
@@ -61,7 +57,7 @@ const Viewcard = ({navigation}) => {
             </Card>
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          <TouchableOpacity  onPress={() => navigation.navigate('complaints')}>
             <Card style={styles.card1}>
               <View style={styles.viewcontent}>
                 <View style={styles.viewcontrol}>
@@ -73,7 +69,7 @@ const Viewcard = ({navigation}) => {
                   />
                   <Text
                     style={styles.paragraph}
-                    onPress={() => navigation.navigate('complaints')}>
+                   >
                     Complaints
                   </Text>
                 </View>
@@ -87,7 +83,7 @@ const Viewcard = ({navigation}) => {
             </Card>
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('legal')}>
             <Card style={styles.card2}>
               <View style={styles.viewcontent}>
                 <View style={styles.viewcontrol}>
@@ -99,7 +95,7 @@ const Viewcard = ({navigation}) => {
                   />
                   <Text
                     style={styles.paragraph}
-                    onPress={() => navigation.navigate('legal')}>
+                    >
                     Legal
                   </Text>
                 </View>
@@ -113,7 +109,7 @@ const Viewcard = ({navigation}) => {
             </Card>
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          <TouchableOpacity  onPress={() => navigation.navigate('service')}>
             <Card style={styles.card3}>
               <View style={styles.viewcontent}>
                 <View style={styles.viewcontrol}>
@@ -125,7 +121,7 @@ const Viewcard = ({navigation}) => {
                   />
                   <Text
                     style={styles.paragraph}
-                    onPress={() => navigation.navigate('service')}>
+                   >
                     Reintegration
                   </Text>
                 </View>
@@ -139,7 +135,7 @@ const Viewcard = ({navigation}) => {
             </Card>
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('mhpss')}>
             <Card style={styles.card4}>
               <View style={styles.viewcontent}>
                 <View style={styles.viewcontrol}>
@@ -151,7 +147,7 @@ const Viewcard = ({navigation}) => {
                   />
                   <Text
                     style={styles.paragraph}
-                    onPress={() => navigation.navigate('mhpss')}>
+                    >
                     MHPSS
                   </Text>
                 </View>

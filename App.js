@@ -10,7 +10,6 @@ import Notification from './app/componenets/Notification/Notification';
 import store from '../WV-CMCP-MOBILE/app/Redux/Store';
 import Viewcard from './app/componenets/Viewcard/viewcard';
 import UserProfileView from './app/componenets/Userprofile/Userprofile';
-import Victims from './app/componenets/Form/IncidentLog/victim';
 import CaseAssignment from './app/componenets/IncidentView/CaseAssignment';
 import {Provider} from 'react-redux';
 import {StatusBar} from 'react-native';
@@ -121,11 +120,7 @@ function App() {
             options={{headerShown: false}}
           />
 
-          <Stack.Screen
-            name="FirstRoute"
-            component={Victims}
-            options={{headerShown: false}}
-          />
+        
         </Stack.Navigator>
 
         <StatusBar

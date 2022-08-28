@@ -13,19 +13,18 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {Dropdown} from 'react-native-element-dropdown';
-
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faXmark} from '@fortawesome/free-solid-svg-icons/faXmark';
 
 const CaseAssignment = ({navigation}) => {
   const [assignValue1, setAssignValue1] = React.useState('');
-  const assignLegal = [
+  const [assignLegal, setAssignLegal] = React.useState([
     {label: 'Biju', id: '1'},
     {label: 'Murali ', id: '2'},
     {label: 'Bharat ', id: '3'},
     {label: 'Arun', id: '4'},
     {label: 'Bala', id: '5'},
-  ];
+  ]);
 
   const [incidentError, setIncidentError] = React.useState({
     legalerr: '',
@@ -33,14 +32,14 @@ const CaseAssignment = ({navigation}) => {
   });
 
   const [assignValue2, setAssignValue2] = React.useState('');
-
-  const assignLegal2 = [
+  const [assignLegal2, setAssignLegal2] = React.useState([
     {label: 'Mano', id: '1'},
     {label: 'Vino ', id: '2'},
     {label: 'Ajay ', id: '3'},
     {label: 'Varun', id: '4'},
     {label: 'Gopal', id: '5'},
-  ];
+  ]);
+
   const [mhpss, setMhpss] = React.useState([]);
   const [mhpss2, setMhpss2] = React.useState([]);
 
@@ -85,10 +84,6 @@ const CaseAssignment = ({navigation}) => {
   }
 
   function caseAssignValidation() {
-    console.log('validation');
-    console.log(mhpss);
-    console.log(mhpss2);
-    console.log(incidentError);
     let cnt = 0;
     var incidenterr = {
       legalerr: '',
@@ -110,7 +105,6 @@ const CaseAssignment = ({navigation}) => {
         incidenterr.mphsserr = '';
       }
     }
-    console.log();
     if (cnt > 0) {
       setIncidentError(incidenterr);
     }
@@ -143,6 +137,34 @@ const CaseAssignment = ({navigation}) => {
       alert('You can able to select only 3 persons');
     }
   }
+
+  function setOptionValue1(item, type) {
+    if (type == 1) {
+      var index = assignLegal.indexOf(item); // Here removing option from array
+      if (index !== -1) {
+        assignLegal.splice(index, 1);
+        setAssignLegal(assignLegal);
+      }
+    } else {
+      assignLegal.unshift(item);
+      setAssignLegal(assignLegal);
+    }
+    console.log(assignLegal);
+  }
+
+  function setOptionValue2(item, type) {
+    if (type == 1) {
+      var index = assignLegal2.indexOf(item);
+      if (index !== -1) {
+        assignLegal2.splice(index, 1);
+        setAssignLegal2(assignLegal2);
+      }
+    } else {
+      assignLegal2.unshift(item);
+      setAssignLegal2(assignLegal2);
+    }
+  }
+
   return (
     <SafeAreaView>
       <ScrollView>
@@ -158,6 +180,8 @@ const CaseAssignment = ({navigation}) => {
                     onPress={() => {
                       let c = mhpss2.filter((d, index) => index != i);
                       setMhpss2([...c]);
+                      setOptionValue1(val, 0);
+                      console.log(val);
                     }}>
                     <View style={styles.selectedStyle2}>
                       <Text style={styles.textSelectedStyle2}>{val.label}</Text>
@@ -178,16 +202,18 @@ const CaseAssignment = ({navigation}) => {
               placeholderStyle={styles.AssignplaceholderStyle}
               selectedTextStyle={styles.AssignselectedTextStyle}
               inputSearchStyle={styles.inputSearchStyle}
+              iconStyle={styles.iconStyle}
               data={assignLegal}
               maxHeight={250}
               maxSelect={3}
               labelField="label"
               valueField="id"
-              placeholder="Assign the Legal Person"
+              placeholder="Select the Legal Person"
               value={assignValue1}
               onChange={item => {
                 setAssignValue1(item);
                 setLegalPerson(item);
+                setOptionValue1(item, 1);
               }}
             />
             <View>
@@ -210,6 +236,7 @@ const CaseAssignment = ({navigation}) => {
                       onPress={() => {
                         let a = mhpss.filter((b, index) => index != i);
                         setMhpss([...a]);
+                        setOptionValue2(val, 0);
                       }}>
                       <View style={styles.selectedStyle2}>
                         <Text style={styles.textSelectedStyle2}>
@@ -232,17 +259,19 @@ const CaseAssignment = ({navigation}) => {
                 placeholderStyle={styles.AssignplaceholderStyle}
                 selectedTextStyle={styles.AssignselectedTextStyle}
                 inputSearchStyle={styles.inputSearchStyle}
+                iconStyle={styles.iconStyle}
                 data={assignLegal2}
                 maxSelect={3}
                 maxHeight={250}
                 labelField="label"
                 valueField="id"
-                placeholder="Assign the MHPSS Person"
+                placeholder="Select the MHPSS Person"
                 value={assignValue2}
                 dropdownPosition="bottom"
                 onChange={item => {
                   setAssignValue2(item);
                   setMhpssPerson(item);
+                  setOptionValue2(item, 1);
                 }}
               />
               <View>
@@ -267,8 +296,9 @@ export default CaseAssignment;
 
 const styles = StyleSheet.create({
   centeredView: {
+    top: 40,
     alignSelf: 'center',
-    height: hp('100%'),
+    height: hp('95%'),
   },
 
   button1: {
@@ -353,7 +383,11 @@ const styles = StyleSheet.create({
   assingnmentdrop: {
     height: hp('20%'),
   },
-
+  iconStyle: {
+    width: 20,
+    marginRight: 10,
+    height: 25,
+  },
   incidenterrmessage: {
     color: 'red',
     padding: 5,

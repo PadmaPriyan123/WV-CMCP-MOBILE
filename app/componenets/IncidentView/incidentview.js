@@ -53,7 +53,6 @@ const Incident = ({navigation}) => {
       : '';
   };
   const [modalVisible, setModalVisible] = React.useState(false);
- 
 
   const PopIncidentMenu = () => {
     const hideMenu = () => setVisible(false);
@@ -104,7 +103,6 @@ const Incident = ({navigation}) => {
     {label: 'Closed', value: '4'},
   ];
   const [value1, setValue1] = React.useState('');
-
 
   return (
     <SafeAreaView style={styles.container}>
@@ -261,6 +259,7 @@ const Incident = ({navigation}) => {
               </View>
             </Card>
           </View>
+          
         </View>
         <Modal
           animationType="slide"
@@ -354,6 +353,7 @@ const Incident = ({navigation}) => {
             width: 50,
             height: 50,
             justifyContent: 'center',
+            position: 'absolute',
             alignItems: 'center',
             borderRadius: 100,
             backgroundColor: '#e26a00',
@@ -372,7 +372,6 @@ const Incident = ({navigation}) => {
           </Text>
         </View>
       </TouchableOpacity>
-
     </SafeAreaView>
   );
 };
@@ -448,7 +447,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  
+
   textpopup: {
     height: hp('7%'),
     borderRadius: 5,
@@ -515,7 +514,7 @@ const styles = StyleSheet.create({
     marginLeft: 250,
     bottom: 20,
   },
-  
+
   selectedTextStyle: {
     marginLeft: 10,
     fontFamily: 'Lato-Regular',
@@ -545,12 +544,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Lato-Bold',
     fontSize: 16,
   },
- 
+
   placeholderStyle: {
     marginLeft: 10,
     fontSize: 14,
     fontFamily: 'Lato-Regular',
     padding: 5,
   },
-
 });
