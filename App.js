@@ -88,7 +88,7 @@ function App() {
             name="Viewcard"
             component={Viewcard}
             options={{
-              title: 'Viewcard',
+              title: 'Incident Log',
               headerStyle: {
                 backgroundColor: '#ff6b00',
                 height: 50,
@@ -106,7 +106,7 @@ function App() {
             name="victim"
             component={Victim}
             options={{
-              title: 'Viewcard',
+              title: 'Victim',
               headerStyle: {
                 backgroundColor: '#ff6b00',
                 height: 50,
@@ -123,7 +123,7 @@ function App() {
             name="complaints"
             component={Complaints}
             options={{
-              title: 'Viewcard',
+              title: 'Complaints',
               headerStyle: {
                 backgroundColor: '#ff6b00',
                 height: 50,
@@ -136,11 +136,11 @@ function App() {
               },
             }}
           />
-           <Stack.Screen
+          <Stack.Screen
             name="legal"
             component={Legal}
             options={{
-              title: 'Viewcard',
+              title: 'Legal',
               headerStyle: {
                 backgroundColor: '#ff6b00',
                 height: 50,
@@ -157,7 +157,7 @@ function App() {
             name="CaseAssignment"
             component={CaseAssignment}
             options={{
-              title: 'Viewcard',
+              title: 'Case Assignment',
               headerStyle: {
                 backgroundColor: '#ff6b00',
                 height: 50,
@@ -174,7 +174,7 @@ function App() {
             name="service"
             component={Service}
             options={{
-              title: 'Viewcard',
+              title: 'Service',
               headerStyle: {
                 backgroundColor: '#ff6b00',
                 height: 50,
@@ -192,8 +192,7 @@ function App() {
             name="mhpss"
             component={Mhpss}
             options={{
-              title: 'Viewcard',
-              title: 'Case Assignment',
+              title: 'Mhpss',
               headerStyle: {
                 backgroundColor: '#ff6b00',
                 height: 50,

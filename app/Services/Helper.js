@@ -31,10 +31,9 @@ const commonFetch = async (url, Method, bodyData, paramsHeader) => {
   const URL = config.WVI_DEV_BASE_URL + url;
 
   const authUser = await AsyncStorage.getItem('authUser');
-  console.log('my auth', authUser);
+
   let Header = {};
   if (authUser?.AccessToken) {
-    console.log('came');
     Header = {
       Authorization: `Bearer ${authUser.AccessToken}`,
     };
@@ -54,8 +53,6 @@ const commonFetch = async (url, Method, bodyData, paramsHeader) => {
   };
 
   let result;
-
-  console.log('header', headerComponent);
 
   await axios(headerComponent)
     .then(res => {

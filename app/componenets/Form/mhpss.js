@@ -45,17 +45,20 @@ const Mhpss = () => {
   const [supportive, setSupportive] = React.useState([]);
 
   const [checked1, setChecked1] = React.useState('');
+  const [checked2, setChecked2] = React.useState('');
   const handleSupportive = () => {
     if (supportive.length < 5) {
       let obj = {
         scheduleDate: '',
-        consent: '',
+        consent: 'yes',
         counselling: '',
         nextScheduleData: '',
       };
+
       setSupportive([...supportive, obj]);
     }
   };
+
   return (
     <SafeAreaView>
       <ScrollView>
@@ -80,15 +83,15 @@ const Mhpss = () => {
                   <Text style={styles.FormTitle}>
                     Supportive Call -{i + 1}:
                   </Text>
-                  <View style={{marginTop: 20, marginLeft: 5}} key={i}>
+                  <View style={{marginTop: 20, marginLeft: 5}}>
                     <Text style={styles.FormTitle}>Date & Time</Text>
-                    <View style={{marginTop: 5}}>
+                    <View style={{marginTop: 5}} key={i}>
                       <TextInput
                         style={styles.textInput1}
+                        value={obj.scheduleDate}
                         placeholder="  Enter Date"
-                        placeholderTextColor={'gray'}>
-                        {obj.scheduleDate}
-                      </TextInput>
+                        placeholderTextColor={'gray'}
+                      />
 
                       <Text
                         style={{left: 300, bottom: 39}}
@@ -129,9 +132,7 @@ const Mhpss = () => {
                       color={'#ff6b00'}
                       value="second"
                       status={checked1 === 'second' ? 'checked' : 'unchecked'}
-                      onPress={() => setChecked1('second')}>
-                      {obj.consent}
-                    </RadioButton>
+                      onPress={() => setChecked1('second')}></RadioButton>
                     <Text style={styles.gender}>No</Text>
                   </View>
                   <View style={styles.container}>
@@ -145,10 +146,9 @@ const Mhpss = () => {
                             <TextInput
                               style={styles.counsInput}
                               type="text"
+                              value={obj.counselling}
                               placeholder="Enter Counselling "
-                              placeholderTextColor="gray">
-                              {obj.counselling}
-                            </TextInput>
+                              placeholderTextColor="gray"></TextInput>
                           </View>
                         </View>
                         <Text style={styles.FormTitle}>
@@ -157,10 +157,10 @@ const Mhpss = () => {
                         <View style={{marginTop: 5}}>
                           <TextInput
                             style={styles.textInput1}
+                            value={obj.nextScheduleData}
                             placeholder="  Enter Date"
-                            placeholderTextColor={'gray'}>
-                            {obj.nextScheduleData}
-                          </TextInput>
+                            placeholderTextColor={'gray'}
+                          />
 
                           <Text
                             style={{left: 300, bottom: 39}}

@@ -512,18 +512,9 @@ const Victim = ({route}) => {
                       <Text style={styles.Filefill}>Victim Documents:</Text>
                       {/* document picker */}
                       <View style={styles.formtotalinput2}>
-                        <Text
-                          style={{alignSelf: 'center', marginLeft: 10}}
-                          onPress={handleDocumentSelection}>
-                          <FontAwesomeIcon
-                            size={24}
-                            icon={faFileAlt}
-                            color="gray"
-                          />
-                        </Text>
                         <TextInput
                           style={styles.uri}
-                          placeholder="Select a File to Upload"
+                          placeholder="Upload a file"
                           placeholderTextColor={'gray'}>
                           {fileResponse.map((file, index) => (
                             <Text
@@ -534,6 +525,15 @@ const Victim = ({route}) => {
                             </Text>
                           ))}
                         </TextInput>
+                        <Text
+                          style={{alignSelf: 'center', marginLeft: 6}}
+                          onPress={handleDocumentSelection}>
+                          <FontAwesomeIcon
+                            size={24}
+                            icon={faFileAlt}
+                            color="gray"
+                          />
+                        </Text>
                       </View>
                     </View>
                   </View>
