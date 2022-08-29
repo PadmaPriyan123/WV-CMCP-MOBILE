@@ -31,12 +31,12 @@ const commonFetch = async (url, Method, bodyData, paramsHeader) => {
   const URL = config.WVI_DEV_BASE_URL + url;
 
   const authUser = await AsyncStorage.getItem('authUser');
-  console.log('my auth', authUser);
+  const userToken = JSON.parse(authUser);
+  console.log('body data', bodyData);
   let Header = {};
-  if (authUser?.AccessToken) {
-    console.log('came');
+  if (userToken?.AccessToken) {
     Header = {
-      Authorization: `Bearer ${authUser.AccessToken}`,
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwibmJmIjoxNjYxNjg2NzgzLCJleHAiOjE2NjE2ODg1ODMsImlhdCI6MTY2MTY4Njc4MywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3QiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdCJ9.XZ_MCq4ICBQl17BHe_CDW2kdOWffxoFVxEw_fD2XGJ4`,
     };
   }
 
@@ -55,14 +55,14 @@ const commonFetch = async (url, Method, bodyData, paramsHeader) => {
 
   let result;
 
-  console.log('header', headerComponent);
 
   await axios(headerComponent)
     .then(res => {
+      console.log('api success', res);
       result = decryption(res.data.EncryptData);
-      console.log(res);
     })
     .catch(err => {
+      console.log('api error', err);
       result = decryption(err.response.data.EncryptData);
     });
 
