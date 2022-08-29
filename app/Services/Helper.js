@@ -6,6 +6,7 @@ const key = crypto.enc.Base64.parse(config.ENCRYPTION_KEY);
 const iv = crypto.enc.Base64.parse(config.ENCRYPTION_IV);
 
 const encryption = params => {
+  
   const data = JSON.stringify(params);
 
   const encrptedData = crypto.AES.encrypt(data, key, {

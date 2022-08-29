@@ -44,13 +44,12 @@ const Mhpss = () => {
   const [open, setOpen] = React.useState(false);
   const [supportive, setSupportive] = React.useState([]);
 
-  const [checked1, setChecked1] = React.useState('');
-  const [checked2, setChecked2] = React.useState('');
+  const [checked, setChecked] = React.useState(['']);
   const handleSupportive = () => {
     if (supportive.length < 5) {
       let obj = {
         scheduleDate: '',
-        consent: 'yes',
+        consent: '',
         counselling: '',
         nextScheduleData: '',
       };
@@ -58,6 +57,12 @@ const Mhpss = () => {
       setSupportive([...supportive, obj]);
     }
   };
+
+  function updateChecked(stateVal, index) {
+    checked[index] = stateVal;
+    setChecked(checked);
+    setSupportive([...supportive]);
+  }
 
   return (
     <SafeAreaView>
@@ -122,21 +127,20 @@ const Mhpss = () => {
                       uncheckedColor={'gray'}
                       color={'#ff6b00'}
                       value="first"
-                      status={checked1 === 'first' ? 'checked' : 'unchecked'}
-                      onPress={() => setChecked1('first')}>
-                      {obj.consent}
-                    </RadioButton>
+                      status={checked[i] == 'first' ? 'checked' : 'unchecked'}
+                      onPress={() => updateChecked('first', i)}
+                    />
                     <Text style={styles.gender}>Yes</Text>
                     <RadioButton
                       uncheckedColor={'gray'}
                       color={'#ff6b00'}
                       value="second"
-                      status={checked1 === 'second' ? 'checked' : 'unchecked'}
-                      onPress={() => setChecked1('second')}></RadioButton>
+                      status={checked[i] == 'second' ? 'checked' : 'unchecked'}
+                      onPress={() => updateChecked('second', i)}></RadioButton>
                     <Text style={styles.gender}>No</Text>
                   </View>
                   <View style={styles.container}>
-                    {checked1 === 'first' && (
+                    {checked[i] == 'first' && (
                       <View style={{marginTop: 15}}>
                         <View style={{bottom: 5}}>
                           <Text style={styles.FormTitle}>
