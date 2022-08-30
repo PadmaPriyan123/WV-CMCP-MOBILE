@@ -8,6 +8,7 @@ import {
   Button,
   TouchableOpacity,
   Modal,
+  Alert,
   Pressable,
 } from 'react-native';
 
@@ -24,7 +25,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {faCalendarDays} from '@fortawesome/free-solid-svg-icons/faCalendarDays';
+import {faCalendarDays, faFilter} from '@fortawesome/free-solid-svg-icons';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {Menu, MenuItem, MenuDivider} from 'react-native-material-menu';
 import {Dropdown} from 'react-native-element-dropdown';
@@ -366,7 +367,7 @@ const Incident = ({navigation}) => {
             <View>
               <FontAwesomeIcon
                 style={{bottom: 5}}
-                icon={faPlus}
+                icon={faFilter}
                 size={30}
                 color={'#fff'}
               />

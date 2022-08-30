@@ -113,7 +113,7 @@ const MyDrawer = ({navigation}) => {
           },
           drawerLabelStyle: {
             fontFamily: 'Lato-Bold',
-            fontSize: 17,
+            fontSize: 13,
             justifyContent: 'center',
           },
 
@@ -154,14 +154,14 @@ const MyDrawer = ({navigation}) => {
         name="Form"
         component={Form}
         options={{
-          title: 'INCIDENT LOG',
+          title: 'INCIDENT CREATION',
           headerStyle: {
             backgroundColor: '#ff6b00',
             height: 50,
           },
           drawerLabelStyle: {
             fontFamily: 'Lato-Bold',
-            fontSize: 17,
+            fontSize: 13,
             justifyContent: 'center',
           },
 
@@ -203,7 +203,7 @@ const MyDrawer = ({navigation}) => {
         name="Incident"
         component={Incident}
         options={{
-          title: 'INCIDENT VIEW',
+          title: 'INCIDENT LIST',
           headerStyle: {
             backgroundColor: '#ff6b00',
             height: 50,
@@ -211,7 +211,7 @@ const MyDrawer = ({navigation}) => {
 
           drawerLabelStyle: {
             fontFamily: 'Lato-Bold',
-            fontSize: 17,
+            fontSize: 13,
             justifyContent: 'center',
           },
 

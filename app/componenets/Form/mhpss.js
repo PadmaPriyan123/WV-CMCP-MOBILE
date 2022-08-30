@@ -37,7 +37,6 @@ const Mhpss = () => {
       ? `${tempDate[0]} ${tempDate[1]} ${tempDate[2]} ${tempDate[3]}`
       : '';
   };
-
   const [expanded, setExpanded] = React.useState(true);
 
   const handlePress = () => setExpanded(!expanded);
@@ -58,8 +57,8 @@ const Mhpss = () => {
     }
   };
 
-  function updateChecked(stateVal, index) {
-    checked[index] = stateVal;
+  function updateChecked(mhpssVal, index) {
+    checked[index] = mhpssVal;
     setChecked(checked);
     setSupportive([...supportive]);
   }
@@ -93,7 +92,7 @@ const Mhpss = () => {
                     <View style={{marginTop: 5}} key={i}>
                       <TextInput
                         style={styles.textInput1}
-                        value={obj.scheduleDate}
+                        value={getDate()}
                         placeholder="  Enter Date"
                         placeholderTextColor={'gray'}
                       />
@@ -150,9 +149,9 @@ const Mhpss = () => {
                             <TextInput
                               style={styles.counsInput}
                               type="text"
-                              value={obj.counselling}
                               placeholder="Enter Counselling "
-                              placeholderTextColor="gray"></TextInput>
+                              placeholderTextColor="gray"
+                            />
                           </View>
                         </View>
                         <Text style={styles.FormTitle}>
@@ -161,7 +160,7 @@ const Mhpss = () => {
                         <View style={{marginTop: 5}}>
                           <TextInput
                             style={styles.textInput1}
-                            value={obj.nextScheduleData}
+                            value={getDate()}
                             placeholder="  Enter Date"
                             placeholderTextColor={'gray'}
                           />
