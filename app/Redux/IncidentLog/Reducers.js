@@ -1,16 +1,34 @@
-import {INCIDENTLOG_RESPONSE} from './ActionTypes';
+import {
+  INCIDENT_VICTIM_RESPPONSE,
+  INCIDENT_COMPLAINTS_RESPPONSE,
+  CASE_ASSIGNMENT_RESPONSE,
+} from './ActionTypes';
 
 const initialState = {
   error: '',
-  incidentlogSuccessfull: '',
+  sendVictimDataResponse: {},
+  caseAssignmentResponse: {},
+  sendComplaintsDataResponse: {},
 };
 
-const Incidentlog = (state = initialState, action) => {
+const incidentVictim = (state = initialState, action) => {
   switch (action.type) {
-    case INCIDENTLOG_RESPONSE:
+    case INCIDENT_VICTIM_RESPPONSE:
       state = {
         ...state,
-        incidentlogSuccessfull: action.payload,
+        sendVictimDataResponse: action.payload,
+      };
+      break;
+    case INCIDENT_COMPLAINTS_RESPPONSE:
+      state = {
+        ...state,
+        sendComplaintsDataResponse: action.payload,
+      };
+      break;
+    case CASE_ASSIGNMENT_RESPONSE:
+      state = {
+        ...state,
+        caseAssignmentResponse: action.payload,
       };
       break;
     default:
@@ -20,4 +38,4 @@ const Incidentlog = (state = initialState, action) => {
   return state;
 };
 
-export default Incidentlog;
+export default incidentVictim;

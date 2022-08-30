@@ -1,4 +1,5 @@
 import React, {useCallback, useState, useEffect} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   View,
   StyleSheet,
@@ -6,7 +7,6 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-
 import {RadioButton} from 'react-native-paper';
 import {
   widthPercentageToDP as wp,
@@ -25,8 +25,9 @@ import {faFile} from '@fortawesome/free-solid-svg-icons';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {useDispatch, useSelector} from 'react-redux';
 import {
-  IncidentLog,
-  IncidentLogResponse,
+  sendVictimData,
+  sendVictimDataResponse,
+  caseAssignment,
 } from '../../../Redux/IncidentLog/Action';
 import {faFileAlt} from '@fortawesome/free-solid-svg-icons';
 
@@ -45,11 +46,11 @@ const Victim = ({route}) => {
   };
 
   const handleConfirm = date => {
-    console.log('date', date);
     let d = new Date(date);
-    let dat = d.getDate();
-    let month = d.getMonth() + 1;
+    let dat = String(d.getDate()).padStart(2, '0');
+    let month = String(d.getMonth() + 1).padStart(2, '0');
     let year = d.getFullYear();
+    console.log(`${year}-${month}-${dat}`);
     setValidation({
       ...validation,
       Victims_DoB: `${year}-${month}-${dat}`,
@@ -81,86 +82,83 @@ const Victim = ({route}) => {
   }, []);
 
   const data = [
-    {label: 'Child Trafficking', value: '1'},
-    {label: 'Online sexual harassment ', value: '2'},
-    {label: 'Sexual assault ', value: '3'},
-    {label: 'Sexual harassment    ', value: '4'},
-    {label: 'Sexual abuse', value: '5'},
-    {label: 'Rape ', value: '6'},
-    {label: 'Kidnap/ abduction    ', value: '7'},
-    {label: 'Child Missing    ', value: '8'},
-    {label: 'Forced Marriage', value: '9'},
-    {label: ' Others  ', value: '10'},
+    {label: 'Child Trafficking', value: 1},
+    {label: 'Online sexual harassment ', value: 2},
+    {label: 'Sexual assault ', value: 3},
+    {label: 'Sexual harassment    ', value: 4},
+    {label: 'Sexual abuse', value: 5},
+    {label: 'Rape ', value: 6},
+    {label: 'Kidnap/ abduction    ', value: 7},
+    {label: 'Child Missing    ', value: 8},
+    {label: 'Forced Marriage', value: 9},
+    {label: ' Others  ', value: 10},
   ];
   const [value, setValue] = useState(null);
   const data1 = [
-    {label: 'Assam ', value: '1'},
+    {label: 'Assam ', value: 1},
 
-    {label: 'West Bengal ', value: '2'},
+    {label: 'West Bengal ', value: 2},
   ];
   const [value1, setValue1] = useState(null);
   const data2 = [
-    {label: 'Barpeta ', value: '1'},
+    {label: 'Barpeta ', value: 1},
 
-    {label: 'West Baksa ', value: '2'},
+    {label: 'West Baksa ', value: 2},
   ];
   const [value2, setValue2] = useState(null);
   const data3 = [
-    {label: 'Baganpara ', value: '1'},
+    {label: 'Baganpara ', value: 1},
 
-    {label: ' Bajali ', value: '2'},
+    {label: ' Bajali ', value: 2},
   ];
   const [value3, setValue3] = useState(null);
   const data4 = [
-    {label: 'Amingaon ', value: '1'},
+    {label: 'Amingaon ', value: 1},
 
-    {label: 'Angardhua ', value: '2'},
+    {label: 'Angardhua ', value: 2},
   ];
   const [value4, setValue4] = useState(null);
   const data5 = [
-    {label: 'Balaibill', value: '1'},
+    {label: 'Balaibill', value: 1},
 
-    {label: 'Bamuni Gaon', value: '2'},
+    {label: 'Bamuni Gaon', value: 2},
   ];
   const [value5, setValue5] = useState(null);
   const data6 = [
-    {label: 'Lakhisarai Thana ', value: '1'},
+    {label: 'Lakhisarai Thana ', value: 1},
 
-    {label: 'Virupur Thana ', value: '2'},
+    {label: 'Virupur Thana ', value: 2},
   ];
   const [value6, setValue6] = useState(null);
   const data7 = [
-    {label: 'Development Facilitator', value: '1'},
-    {label: 'TS ', value: '2'},
-    {label: 'SC ', value: '3'},
-    {label: 'Case Manager', value: '4'},
-    {label: 'DME', value: '5'},
-    {label: 'MIS ', value: '6'},
-    {label: 'Project Head   ', value: '7'},
+    {label: 'Development Facilitator', value: 1},
+    {label: 'TS ', value: 2},
+    {label: 'SC ', value: 3},
+    {label: 'Case Manager', value: 4},
+    {label: 'DME', value: 5},
+    {label: 'MIS ', value: 6},
+    {label: 'Project Head   ', value: 7},
   ];
   const [value7, setValue7] = useState(null);
   const [other, setOther] = useState(false);
 
   let dispatch = useDispatch();
-  let incidentlogResponse = useSelector(
-    state => state.Incidentlog.incidentlogSuccessfull,
+  let victimresponse = useSelector(
+    state => state.Incidentlog.sendVictimDataResponse,
   );
   useEffect(() => {
-    // if (incidentlogResponse?.StatusCode === 201) {
-    //   alert(incidentlogResponse.StatusMessage);
-    //   navigation.navigate('Drawer');
-    // }
-    // dispatch(IncidentLog(''));
-  }, [incidentlogResponse]);
-
-  useEffect(() => {
-    dispatch(IncidentLog(validation));
-  }, []);
+    if (victimresponse?.StatusCode === 201) {
+      alert('victim was successfully created');
+      // dispatch(sendVictimData(''));
+    }
+    // dispatch(sendVictimData(''));
+  }, [victimresponse]);
 
   let d = new Date();
-  let dat = d.getDate();
-  let month = d.getMonth() + 1;
+  let dat = String(d.getDate()).padStart(2, '0');
+  let month = String(d.getMonth() + 1).padStart(2, '0');
   let year = d.getFullYear();
+
   const [validation, setValidation] = useState({
     ReportersName: '',
     ReporterDesignationID: '',
@@ -169,18 +167,19 @@ const Victim = ({route}) => {
     Guardians_name: '',
     Victim_DoB_if_available: '',
     Victims_DoB: '',
-    Proof_of_DoB: '',
+    Proof_of_DoB: 'Uploadfile.pdf',
     Victim_age: '',
     Nature_of_incident: '',
-    StateID: '',
+    natureofIncidentOthers: 1,
+    StateID: 1,
     DistrictID: '',
     BlockID: '',
     PanchayatID: '',
     VillageID: '',
     PoliceStationID: '',
-    UserID: '',
+    UserID:1,
   });
-
+  console.log('ffh', validation);
   const initialErrorMessage = {
     ReportersName: '',
     ReporterDesignationID: '',
@@ -192,6 +191,7 @@ const Victim = ({route}) => {
     Proof_of_DoB: '',
     Victim_age: '',
     Nature_of_incident: '',
+    natureofIncidentOthers: '',
     StateID: '',
     DistrictID: '',
     BlockID: '',
@@ -204,8 +204,6 @@ const Victim = ({route}) => {
   const [error, setError] = useState(initialErrorMessage);
 
   function myFunction() {
-    dispatch(IncidentLog(validation));
-
     let a = {
       ReportersName: '',
       ReporterDesignationID: '',
@@ -217,6 +215,7 @@ const Victim = ({route}) => {
       Proof_of_DoB: '',
       Victim_age: '',
       Nature_of_incident: '',
+      natureofIncidentOthers: '',
       StateID: '',
       DistrictID: '',
       BlockID: '',
@@ -298,7 +297,8 @@ const Victim = ({route}) => {
     }
     if (Object.values(a).every(el => el === '')) {
       setError(a);
-      dispatch(IncidentLog(validation));
+      console.log('hiiwl');
+      dispatch(sendVictimData(validation));
     } else {
       setError(a);
     }
@@ -362,14 +362,14 @@ const Victim = ({route}) => {
                 </Text>
               )}
             </View>
-            {/* <View style={{marginTop: 18}}>
+            <View style={{marginTop: 18}}>
               <Text style={styles.FormTitle}>
                 Date of reporting:<Text style={styles.star}>*</Text>
               </Text>
               <View>
                 <TextInput
                   style={styles.textInput}
-                  value={getDate()}
+                  value={validation.Date_of_reporting}
                   placeholder="  Enter date"
                   placeholderTextColor={'gray'}
                 />
@@ -389,9 +389,9 @@ const Victim = ({route}) => {
                   onCancel={hideDatePicker}
                 />
               </View>
-            </View> */}
+            </View>
 
-            <View style={{top: 20}}>
+            <View style={{top: 0}}>
               <Text style={styles.FormTitle}>
                 Name of the victim:<Text style={styles.star}>*</Text>
               </Text>
@@ -551,7 +551,7 @@ const Victim = ({route}) => {
                   placeholder="Enter victims age"
                   placeholderTextColor="gray"
                   onChangeText={text => {
-                    setValidation({...validation, Victim_age: text});
+                    setValidation({...validation, Victim_age: parseInt(text)});
                   }}
                 />
               </View>
@@ -580,10 +580,10 @@ const Victim = ({route}) => {
                   onChange={item => {
                     {
                       setValue(item.value);
-                      item.value === '10' ? setOther(true) : setOther(false);
+                      item.value === 10 ? setOther(true) : setOther(false);
                       setValidation({
                         ...validation,
-                        Nature_of_incident: item.value,
+                        Nature_of_incident: item.label,
                       });
                     }
                   }}
