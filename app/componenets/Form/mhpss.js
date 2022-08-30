@@ -74,8 +74,7 @@ const Mhpss = () => {
   return (
     <SafeAreaView>
       <ScrollView>
-       <View>
-
+        <View>
           <View style={styles.reintegration}>
             <Text style={styles.reintegrationTitle}>MHPSS </Text>
           </View>
@@ -202,6 +201,7 @@ const Mhpss = () => {
                             </Text>
                           </TouchableOpacity>
                         )}
+                        
                       </View>
                     )}
                   </View>
@@ -210,6 +210,7 @@ const Mhpss = () => {
             );
           })}
         </View>
+        
 
         <View>
           <DSMTrauma />

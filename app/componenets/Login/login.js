@@ -163,11 +163,6 @@ const Login = () => {
   let dispatch = useDispatch();
   let loginResponse = useSelector(state => state.Login.loginSuccessfull);
 
-  useEffect(() => {
-    login.EmailId = '';
-    console.log(loginResponse);
-  }, []);
-
   const initialErrorMessage = {EmailId: '', Password: ''};
 
   const [error, setError] = useState(initialErrorMessage);
@@ -176,41 +171,39 @@ const Login = () => {
     let a = {EmailId: '', Password: ''};
     console.log('loginresponse', loginResponse);
 
-    if (
-      loginResponse?.StatusCode === 400 &&
-      loginResponse?.StatusMessage === 'Email not found.'
-    ) {
-      setError({...error, EmailId: '*Email does not exists!'});
-      dispatch(userLoginResponse(''));
-    } else if (
-      loginResponse?.StatusCode === 400 &&
-      loginResponse?.StatusMessage === 'Incorrect password.'
-    ) {
-      setError({...error, Password: '*Incorrect Password!'});
-      dispatch(userLoginResponse(''));
-    } else if (loginResponse?.StatusCode === 500) {
-      alert(loginResponse.StatusMessage);
-      console.log('ter', loginResponse.StatusMessage);
-      dispatch(userLoginResponse(''));
-    } else if (loginResponse?.StatusCode === 201) {
-      alert(loginResponse.StatusMessage);
-      navigation.navigate('Drawer');
-      clearAll();
-    
-      console.log('came here');
-    
-      (async () =>
-        await AsyncStorage.setItem(
-          'authUser',
-          JSON.stringify(loginResponse),
-        ))();
+    if (Object.values(error).every(el => el === '') && loginResponse) {
+      if (
+        loginResponse?.StatusCode === 400 &&
+        loginResponse?.StatusMessage === 'Email not found.'
+      ) {
+        setError({...error, EmailId: '*Email does not exists!'});
+        dispatch(userLoginResponse(''));
+      } else if (
+        loginResponse?.StatusCode === 400 &&
+        loginResponse?.StatusMessage === 'Incorrect password.'
+      ) {
+        setError({...error, Password: '*Incorrect Password!'});
+        dispatch(userLoginResponse(''));
+      } else if (loginResponse?.StatusCode === 500) {
+        alert(loginResponse.StatusMessage);
+        console.log('ter', loginResponse.StatusMessage);
+        dispatch(userLoginResponse(''));
+      } else if (loginResponse?.StatusCode === 201) {
+        alert(loginResponse.StatusMessage);
+        navigation.navigate('Drawer');
+        dispatch(userLoginResponse(''));
+        clearAll();
+        setError(a);
+        console.log('came here');
 
-      // setTimeout(() => {
-      //   clearAll();
-      // }, 0);
-
+        (async () =>
+          await AsyncStorage.setItem(
+            'authUser',
+            JSON.stringify(loginResponse),
+          ))();
+      }
     }
-  }, [loginResponse,error]);
+  }, [loginResponse, error]);
 
   function myFunction() {
     console.log('login', login);
@@ -453,7 +446,7 @@ const Login = () => {
                         textAlign="left"
                         value={login.EmailId}
                         required
-                        onChangeText={(e) => setLogin({...login, EmailId: e})}
+                        onChangeText={e => setLogin({...login, EmailId: e})}
                       />
                     </View>
                     {error?.EmailId && (
@@ -476,7 +469,7 @@ const Login = () => {
                         placeholderTextColor="#9e9e9e"
                         value={login.Password}
                         required
-                        onChangeText={(e) => setLogin({...login, Password: e})}
+                        onChangeText={e => setLogin({...login, Password: e})}
                       />
                     </View>
                     {error?.Password && (
