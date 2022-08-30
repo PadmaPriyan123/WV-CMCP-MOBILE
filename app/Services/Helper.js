@@ -5,22 +5,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const authUser = async () => {
   let data = await AsyncStorage.getItem('authUser');
-
-  const encrptedData = crypto.AES.encrypt(data, key, {
-    keySize: 128 / 8,
-    iv: iv,
-    mode: crypto.mode.CBC,
-    padding: crypto.pad.Pkcs7,
-  });
+  return await JSON.parse(data);
+};
 
 const commonFetch = async (url, Method, bodyData, headerData, paramsData) => {
   const URL = config.WVI_DEV_BASE_URL + url;
-
   let paramsHeader = {};
-
   if (headerData === true) {
     // const authUser = JSON.parse(await AsyncStorage.getItem('authUser'));
-
     paramsHeader = {
       Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwibmJmIjoxNjYxNzg5NDc5LCJleHAiOjE2NjE4NzU4NzksImlhdCI6MTY2MTc4OTQ3OSwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3QiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdCJ9.MnPYLPqf1P7fYchw_wf-bi7lgAIFnq_cFjrzf3iRff0`,
     };
@@ -35,18 +27,9 @@ const commonFetch = async (url, Method, bodyData, headerData, paramsData) => {
     };
 
     console.log(ed);
-
     if (type == 'body') return JSON.stringify(ed);
-
-  const authUser = await AsyncStorage.getItem('authUser');
-  console.log('my auth', authUser);
-  let Header = {};
-  if (authUser?.AccessToken) {
-    console.log('came');
-    Header = {
-      Authorization: `Bearer ${authUser.AccessToken}`,
-    };
-  }
+    if (type == 'query') return ed;
+  };
 
   let headerComponent = {
     method: Method,
@@ -63,7 +46,7 @@ const commonFetch = async (url, Method, bodyData, headerData, paramsData) => {
 
   let result;
 
-  console.log('header', headerComponent);
+  console.log(result);
 
   await axios(headerComponent)
     .then(res => {
@@ -76,10 +59,9 @@ const commonFetch = async (url, Method, bodyData, headerData, paramsData) => {
     });
 
   return result;
-}
-}
-}
+};
 
 export const Service = {
   commonFetch,
+  authUser,
 };

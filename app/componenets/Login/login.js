@@ -58,7 +58,6 @@ const Login = () => {
     setOTPInputValue4('');
     setError('');
     setError1('');
-    setError('');
     setCounter('00');
     setOtpCheck('');
     setEnableVerifyOTP(false);
@@ -83,13 +82,12 @@ const Login = () => {
       message: '',
     };
     var empty = /^$/;
-    var num = /^[0-9]{10}$/;
+    var num = /^[0]?[6789]\d{9}$/;
 
     if (!number.number) {
       a.message = '*Please enter the mobile number';
-    }
-    if (!num.test(number.number) && !empty.test(number.number)) {
-      a.message = '*Enter 10 digit mobile number';
+    } else if (!num.test(number.number)) {
+      a.message = '* Please enter Valid mobile number';
     }
     if (num.test(number.number)) {
       setOtpCheck('first');
@@ -468,6 +466,7 @@ const Login = () => {
                         placeholder="Enter the Password"
                         placeholderTextColor="#9e9e9e"
                         value={login.Password}
+                        secureTextEntry={true}
                         required
                         onChangeText={e => setLogin({...login, Password: e})}
                       />
@@ -535,6 +534,7 @@ const Login = () => {
                       placeholderTextColor="#9e9e9e"
                       textAlign="left"
                       value={login.EmailId}
+                      editable={true}
                       required
                       onChangeText={e => setError({...login, EmailId: e})}
                     />
@@ -617,7 +617,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#ffff',
     borderColor: 'gray',
-    borderWidth: 0.7,
+    borderWidth: 1,
     width: 310,
     bottom: 40,
     borderRadius: 10,
@@ -628,6 +628,7 @@ const styles = StyleSheet.create({
     width: wp('60%'),
     borderRadius: 10,
     borderColor: 'gray',
+    color: '#000000',
     fontFamily: 'Lato-Regular',
     backgroundColor: '#ffff',
   },
@@ -746,6 +747,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Lato-Regular',
     backgroundColor: '#ffff',
     textAlign: 'center',
+    color: '#000',
   },
   otpsmall: {
     justifyContent: 'space-between',

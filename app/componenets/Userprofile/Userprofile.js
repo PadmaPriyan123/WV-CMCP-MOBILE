@@ -46,8 +46,8 @@ const UserProfileView = props => {
     state: '',
   };
 
-  function handleUserSubmit() {
-    var num = /^[0-9]{10}$/;
+  function handleUserSubmit({navigation}) {
+    var num = /^[0]?[6789]\d{9}$/;
     const emailRegex = /^[a-z]+\S+@\S+\.\S+/;
     var profileError = {
       firstName: '',
@@ -56,38 +56,44 @@ const UserProfileView = props => {
       email: '',
       state: '',
     };
-
+    let usererr = 0;
     if (!userData.firstName) {
       profileError.firstName = '*Please enter the first name';
+      ++usererr;
     } else {
       profileError.firstName = '';
     }
     if (!userData.lastName) {
       profileError.lastName = '*Please enter the last name';
+      ++usererr;
     } else {
       profileError.lastName = '';
     }
     if (!userData.mobileno) {
       profileError.mobile = '*Please enter the mobileno';
-    } else {
-      profileError.mobile = '';
-    }
-    if (!num.test(userData.mobileno)) {
-      profileError.mobile = '*Enter 10 digit mobile number';
+      ++usererr;
+    } else if (!num.test(userData.mobileno)) {
+      profileError.mobile = '*Enter 10 digit Valid mobile number';
+      ++usererr;
     } else {
       profileError.mobile = '';
     }
 
     if (!userData.email) {
       profileError.email = '*Please enter the Email-Id';
+      ++usererr;
     } else {
       profileError.email = '';
     }
 
     if (userData.email && emailRegex.test(userData.email) === false) {
       profileError.email = '*Please Enter Valid email id!';
+      ++usererr;
     }
     setProfileError(profileError);
+    if (usererr == 0) {
+      alert('Data Saved Successfully');
+    }
   }
 
   const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
@@ -142,7 +148,9 @@ const UserProfileView = props => {
         </View>
         <View style={styles.item}>
           <View style={styles.iconContent}>
-            <Text style={styles.userlabel}>First name</Text>
+            <Text style={styles.userlabel}>
+              First name<Text style={styles.Userstar}>*</Text>
+            </Text>
           </View>
           <TextInput
             style={styles.Userinput}
@@ -163,7 +171,9 @@ const UserProfileView = props => {
 
         <View style={styles.item}>
           <View style={styles.iconContent}>
-            <Text style={styles.userlabel}>Last name</Text>
+            <Text style={styles.userlabel}>
+              Last name<Text style={styles.Userstar}>*</Text>
+            </Text>
           </View>
           <TextInput
             style={styles.Userinput}
@@ -185,7 +195,9 @@ const UserProfileView = props => {
 
         <View style={styles.item}>
           <View style={styles.iconContent}>
-            <Text style={styles.userlabel}>Mobile no</Text>
+            <Text style={styles.userlabel}>
+              Mobile no<Text style={styles.Userstar}>*</Text>
+            </Text>
           </View>
           <TextInput
             style={styles.Userinput}
@@ -208,7 +220,9 @@ const UserProfileView = props => {
 
         <View style={styles.item}>
           <View style={styles.iconContent}>
-            <Text style={styles.userlabel}>Email</Text>
+            <Text style={styles.userlabel}>
+              Email<Text style={styles.Userstar}>*</Text>
+            </Text>
           </View>
           <TextInput
             style={styles.Userinput}
@@ -230,7 +244,9 @@ const UserProfileView = props => {
 
         <View style={styles.item}>
           <View style={styles.iconContent}>
-            <Text style={styles.userlabel}>Date of birth</Text>
+            <Text style={styles.userlabel}>
+              Date of birth<Text style={styles.Userstar}>*</Text>
+            </Text>
           </View>
 
           <TextInput
@@ -241,7 +257,7 @@ const UserProfileView = props => {
             editable={isEdit}
           />
           <TouchableOpacity>
-            <Text style={{left: 280, bottom: 20}} onPress={showDatePicker}>
+            <Text style={{left: 284, bottom: 19}} onPress={showDatePicker}>
               <FontAwesomeIcon
                 size={20}
                 icon={faCalendarDays}
@@ -264,7 +280,9 @@ const UserProfileView = props => {
           {isEdit == false ? (
             <View style={styles.item}>
               <View style={styles.iconContent}>
-                <Text style={styles.userlabel}>State</Text>
+                <Text style={styles.userlabel}>
+                  State<Text style={styles.Userstar}>*</Text>
+                </Text>
               </View>
               <TextInput
                 style={styles.Userinput}
@@ -280,12 +298,16 @@ const UserProfileView = props => {
           ) : (
             <View style={styles.item}>
               <View style={styles.iconContent}>
-                <Text style={styles.userlabel}>State</Text>
+                <Text style={styles.userlabel}>
+                  State<Text style={styles.Userstar}>*</Text>
+                </Text>
               </View>
               <Dropdown
                 style={styles.Userinput}
                 containerStyle={{backgroundColor: '#ecf0f1'}}
                 selectTextOnFocus={false}
+                itemTextStyle={{fontFamily: 'Font-Family'}}
+                inputSearchStyle={styles.inputSearchStyle}
                 selectedTextStyle={styles.profileplaceholderStyle}
                 data={UserDropData}
                 labelField="label"
@@ -338,6 +360,7 @@ const styles = StyleSheet.create({
     marginRight: '5%',
     fontSize: 24,
     fontFamily: 'Lato-Bold',
+    color: 'gray',
   },
   Userinput: {
     height: hp('6%'),
@@ -364,7 +387,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     marginTop: 12,
   },
-
+  Userstar: {
+    color: 'red',
+    top: 2,
+  },
   iconContent: {
     fontSize: 18,
     marginLeft: 25,
@@ -409,5 +435,15 @@ const styles = StyleSheet.create({
     fontFamily: 'Lato-Regular',
     padding: 5,
     color: '#000',
+  },
+  AssignselectedTextStyle: {
+    marginLeft: 5,
+    fontFamily: 'Lato-Regular',
+    fontSize: 12,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
+    fontFamily: 'Lato-Bold',
   },
 });

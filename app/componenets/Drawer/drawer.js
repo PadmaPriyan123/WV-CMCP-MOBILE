@@ -90,7 +90,7 @@ const MyDrawer = ({navigation}) => {
       screenOptions={{
         drawerStyle: {
           backgroundColor: '#ffffff',
-          width: wp('68%'),
+          width: wp('74%'),
         },
         drawerActiveTintColor: '#ffFFFF',
         drawerActiveBackgroundColor: '#ff6b00',
@@ -113,8 +113,7 @@ const MyDrawer = ({navigation}) => {
           },
           drawerLabelStyle: {
             fontFamily: 'Lato-Bold',
-            fontSize: 13,
-            justifyContent: 'center',
+            fontSize: 16,
           },
 
           headerTintColor: 'white',
@@ -161,12 +160,9 @@ const MyDrawer = ({navigation}) => {
           },
           drawerLabelStyle: {
             fontFamily: 'Lato-Bold',
-            fontSize: 13,
-            justifyContent: 'center',
+            fontSize: 16,
           },
-
           headerTintColor: 'white',
-
           headerTitleStyle: {
             fontFamily: 'Lato-Bold',
           },
@@ -211,8 +207,7 @@ const MyDrawer = ({navigation}) => {
 
           drawerLabelStyle: {
             fontFamily: 'Lato-Bold',
-            fontSize: 13,
-            justifyContent: 'center',
+            fontSize: 16,
           },
 
           headerTintColor: 'white',
@@ -256,7 +251,7 @@ export default MyDrawer;
 
 const styles = StyleSheet.create({
   DrawerImage: {
-    width: wp('68%'),
+    width: wp('74%'),
     height: hp('20%'),
     top: -5,
     marginBottom: 0,
@@ -340,6 +335,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Lato-Bold',
     alignSelf: 'center',
     marginHorizontal: 10,
+    color: '#000000',
   },
   poprow: {
     flexDirection: 'row',

@@ -338,11 +338,13 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     fontFamily: 'Lato-Regular',
     fontSize: 12,
+    color: 'gray',
   },
   selectedTextStyle: {
     marginLeft: 10,
     fontFamily: 'Lato-Regular',
     fontSize: 12,
+    color: 'gray',
   },
 
   selectedStyle2: {
@@ -369,6 +371,7 @@ const styles = StyleSheet.create({
     marginRight: 5,
     fontFamily: 'Lato-Bold',
     fontSize: 16,
+    color: '#000',
     flexDirection: 'row',
   },
 
@@ -396,6 +399,7 @@ const styles = StyleSheet.create({
   inputSearchStyle: {
     height: 40,
     fontSize: 16,
+    color: 'gray',
   },
   mhpsscontent: {
     flexDirection: 'column',

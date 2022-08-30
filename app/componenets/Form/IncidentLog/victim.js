@@ -177,7 +177,7 @@ const Victim = ({route}) => {
     PanchayatID: '',
     VillageID: '',
     PoliceStationID: '',
-    UserID:1,
+    UserID: 1,
   });
   console.log('ffh', validation);
   const initialErrorMessage = {
@@ -374,7 +374,7 @@ const Victim = ({route}) => {
                   placeholderTextColor={'gray'}
                 />
 
-                <Text style={{left: 300, bottom: 39}} onPress={showDatePicker}>
+                <Text style={{left: 290, bottom: 33}} onPress={showDatePicker}>
                   <FontAwesomeIcon
                     size={20}
                     icon={faCalendarDays}

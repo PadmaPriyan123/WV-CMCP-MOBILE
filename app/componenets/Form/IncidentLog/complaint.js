@@ -1,4 +1,4 @@
-import React, {useState, useCallback,useEffect} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -16,7 +16,7 @@ import {
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
 import {faCalendarDays} from '@fortawesome/free-solid-svg-icons/faCalendarDays';
-import {faFile} from '@fortawesome/free-solid-svg-icons/faFile';
+import {faFileAlt, faFile} from '@fortawesome/free-solid-svg-icons';
 
 import {ScrollView} from 'react-native-gesture-handler';
 import {Dropdown} from 'react-native-element-dropdown';
@@ -32,7 +32,7 @@ const Complaints = ({navigation}) => {
   const [dates, setDates] = React.useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
   const [dateKey, setDateKey] = useState('');
-  const showDatePicker = key=> {
+  const showDatePicker = key => {
     setDatePickerVisibility(true);
     setDateKey(key);
   };
@@ -51,7 +51,8 @@ const Complaints = ({navigation}) => {
     if (month.toString.length === 1) month = `0${d.getMonth() + 1}`;
     if (dat.toString.length === 1) dat = `${d.getDate()}`;
     setValidation1({
-      ...validation1, [dateKey]: `${year}-${month}-${dat}`,
+      ...validation1,
+      [dateKey]: `${year}-${month}-${dat}`,
     });
     setDate(date);
     hideDatePicker();
@@ -299,7 +300,6 @@ const Complaints = ({navigation}) => {
       console.log(Object.values(a).every(el => el === ''));
       setError(a);
       dispatch(sendComplaintsData(validation1));
-
     } else {
       setError(a);
     }
@@ -321,7 +321,9 @@ const Complaints = ({navigation}) => {
                 color="#000"
               />
 
-              <Text style={{left: 300, bottom: 39}} onPress={() => showDatePicker('Date_of_incident')}>
+              <Text
+                style={{left: 290, bottom: 35}}
+                onPress={() => showDatePicker('Date_of_incident')}>
                 <FontAwesomeIcon
                   size={20}
                   icon={faCalendarDays}
@@ -329,7 +331,6 @@ const Complaints = ({navigation}) => {
                   color="#00bad7"
                 />
               </Text>
-             
             </View>
           </View>
 
@@ -512,7 +513,8 @@ const Complaints = ({navigation}) => {
                     setSelected(item);
                     item.selected === '3'
                       ? setOthers1(true)
-                      : setOthers1(false);  setValidation1({
+                      : setOthers1(false);
+                    setValidation1({
                       ...validation1,
                       Whether_Incident_Reported_Others: item,
                     });
@@ -524,7 +526,9 @@ const Complaints = ({navigation}) => {
 
           <View>
             {error?.Whether_Incident_Reported_Others && (
-              <Text style={styles.errormessage}>{error?.Whether_Incident_Reported_Others}</Text>
+              <Text style={styles.errormessage}>
+                {error?.Whether_Incident_Reported_Others}
+              </Text>
             )}
           </View>
           <View style={{marginTop: 3, marginLeft: 10}}>
@@ -608,7 +612,7 @@ const Complaints = ({navigation}) => {
                     />
 
                     <Text
-                      style={{left: 300, bottom: 39}}
+                      style={{left: 290, bottom: 35}}
                       onPress={() => showDatePicker('GD_EntryDate')}>
                       <FontAwesomeIcon
                         size={20}
@@ -648,10 +652,32 @@ const Complaints = ({navigation}) => {
                     )}
                   </View>
                   <View>
-                    <View style={{marginTop: 30}}>
-                      <Text style={styles.Filefill}>GDE Document:</Text>
+                    <Text style={styles.Filefill}>GDE Document:</Text>
+                    <View style={styles.formtotalinput2}>
+                      <TextInput
+                        style={styles.uricom}
+                        placeholder="Upload a file"
+                        placeholderTextColor={'gray'}>
+                        {fileResponse.map((file, index) => (
+                          <Text
+                            key={index.toString()}
+                            numberOfLines={1}
+                            ellipsizeMode={'middle'}>
+                            {file?.uri}
+                          </Text>
+                        ))}
+                      </TextInput>
+                      <Text
+                        style={{marginTop: 8}}
+                        onPress={handleDocumentSelection}>
+                        <FontAwesomeIcon
+                          size={24}
+                          icon={faFileAlt}
+                          color="gray"
+                        />
+                      </Text>
 
-                      {fileResponse.map((file, index) => (
+                      {/* {fileResponse.map((file, index) => (
                         <Text
                           key={index.toString()}
                           style={styles.uri}
@@ -667,7 +693,7 @@ const Complaints = ({navigation}) => {
                           color="gray"
                           style={styles.fileUpload}
                         />
-                      </Text>
+                      </Text> */}
                     </View>
                   </View>
                 </View>
@@ -681,27 +707,36 @@ const Complaints = ({navigation}) => {
                     uncheckedColor={'gray'}
                     color={'#ff6b00'}
                     value="yes"
-                    status={validation1.FIR_filed_or_not === 'yes' ? 'checked' : 'unchecked'}
-                    onPress={() =>  {setValidation1({
-                      ...validation1,
-                      FIR_filed_or_not: 'yes',
-                    });
-                    setChecked('yes');
-                  }}
-                   
+                    status={
+                      validation1.FIR_filed_or_not === 'yes'
+                        ? 'checked'
+                        : 'unchecked'
+                    }
+                    onPress={() => {
+                      setValidation1({
+                        ...validation1,
+                        FIR_filed_or_not: 'yes',
+                      });
+                      setChecked('yes');
+                    }}
                   />
                   <Text style={styles.gender}>Yes</Text>
                   <RadioButton
                     uncheckedColor={'gray'}
                     color={'#ff6b00'}
                     value="no"
-                    status={validation1.FIR_filed_or_not === 'no' ? 'checked' : 'unchecked'}
-                    onPress={() =>  {setValidation1({
-                      ...validation1,
-                      FIR_filed_or_not: 'no',
-                    });
-                    setChecked('no');
-                  }}
+                    status={
+                      validation1.FIR_filed_or_not === 'no'
+                        ? 'checked'
+                        : 'unchecked'
+                    }
+                    onPress={() => {
+                      setValidation1({
+                        ...validation1,
+                        FIR_filed_or_not: 'no',
+                      });
+                      setChecked('no');
+                    }}
                   />
                   <Text style={styles.gender}>No</Text>
                 </View>
@@ -723,7 +758,7 @@ const Complaints = ({navigation}) => {
 
                       <Text
                         style={{left: 300, bottom: 39}}
-                        onPress={()=>showDatePicker('FIR_date')}>
+                        onPress={() => showDatePicker('FIR_date')}>
                         <FontAwesomeIcon
                           size={20}
                           icon={faCalendarDays}
@@ -764,6 +799,8 @@ const Complaints = ({navigation}) => {
                     <View>
                       <View style={{marginTop: 30}}>
                         <Text style={styles.Filefill}>FIR Document</Text>
+                        
+                        {/* FIR DOCUMENT */}
 
                         {fileResponse.map((file, index) => (
                           <Text
@@ -867,7 +904,7 @@ const Complaints = ({navigation}) => {
       <View style={styles.complaintbutton}>
         <TouchableOpacity
           style={styles.formbutton1}
-          onPress={() =>navigation.navigate('victim')}>
+          onPress={() => navigation.navigate('victim')}>
           <Text style={styles.formbuttoninput}>BACK </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -882,11 +919,11 @@ const Complaints = ({navigation}) => {
         </TouchableOpacity>
       </View>
       <DateTimePickerModal
-                      isVisible={isDatePickerVisible}
-                      mode="Date"
-                      onConfirm={handleConfirm}
-                      onCancel={hideDatePicker}
-                    />
+        isVisible={isDatePickerVisible}
+        mode="Date"
+        onConfirm={handleConfirm}
+        onCancel={hideDatePicker}
+      />
     </View>
   );
 };
@@ -938,6 +975,17 @@ const styles = StyleSheet.create({
     marginTop: 8,
 
     color: '#181818',
+  },
+  uricom: {
+    color: '#0f0201',
+    alignSelf: 'center',
+    fontFamily: 'Lato-Regular',
+    width: wp('70%'),
+    marginLeft: 10,
+    marginRight: 20,
+    Color: 'gray',
+    borderColor: '#ccc',
+    backgroundColor: '#ecf0f1',
   },
 
   uri: {
@@ -1279,7 +1327,7 @@ const styles = StyleSheet.create({
     top: 10,
   },
   Filefill: {
-    bottom: 15,
+    top: 20,
     color: '#000',
     fontFamily: 'Lato',
     fontSize: 14,
@@ -1301,7 +1349,6 @@ const styles = StyleSheet.create({
     height: hp('7%'),
     borderRadius: 5,
     Color: 'gray',
-
     borderWidth: 1,
     marginTop: 10,
     marginLeft: 7,
@@ -1385,5 +1432,15 @@ const styles = StyleSheet.create({
     color: 'red',
     marginLeft: 10,
     top: 5,
+  },
+  formtotalinput2: {
+    height: hp('7%'),
+    borderRadius: 5,
+    flexDirection: 'row',
+    borderWidth: 1,
+    marginTop: 30,
+    marginLeft: 6,
+    borderColor: '#ccc',
+    backgroundColor: '#ecf0f1',
   },
 });

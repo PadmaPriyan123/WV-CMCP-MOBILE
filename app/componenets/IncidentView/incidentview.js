@@ -559,5 +559,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     alignSelf: 'center',
     fontFamily: 'Lato-Bold',
+    color: '#000000',
   },
 });
