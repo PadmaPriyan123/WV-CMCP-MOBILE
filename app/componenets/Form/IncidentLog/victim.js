@@ -171,7 +171,7 @@ const Victim = ({route}) => {
     Victim_age: '',
     Nature_of_incident: '',
     natureofIncidentOthers: 1,
-    StateID: 1,
+    StateID: '',
     DistrictID: '',
     BlockID: '',
     PanchayatID: '',
@@ -474,6 +474,11 @@ const Victim = ({route}) => {
                 />
                 <Text style={styles.gender}>No</Text>
               </View>
+            </View>
+            <View>
+              {error?.Victims_DoB && (
+                <Text style={styles.errormessage}>{error?.Victims_DoB}</Text>
+              )}
             </View>
 
             <View style={styles.container}>

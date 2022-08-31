@@ -19,22 +19,50 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import DSMTrauma from './DSMTraumaScreening';
 
 const Mhpss = () => {
-  const [date, setDate] = React.useState('');
+  const [date, setDate] = React.useState(['']);
+  const [date1, setDate1] = React.useState(['']);
+  const [dateIndex, setDateIndex] = React.useState(true);
+  const [dateIndex1, setDateIndex1] = React.useState(true);
   const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
+  const [isDatePickerVisible1, setDatePickerVisibility1] =
+    React.useState(false);
   const showDatePicker = () => {
     setDatePickerVisibility(true);
+  };
+  const showDatePicker1 = () => {
+    setDatePickerVisibility1(true);
   };
   const hideDatePicker = () => {
     setDatePickerVisibility(false);
   };
-  const handleConfirm = date => {
+  const hideDatePicker1 = () => {
+    setDatePickerVisibility1(false);
+  };
+  const handleConfirm = (date, i) => {
+    console.log(i);
+    date[dateIndex] = date;
     setDate(date);
     hideDatePicker();
   };
-  const getDate = () => {
-    let tempDate = date.toString().split(' ');
-    return date !== ''
+  const handleConfirm1 = (date, i) => {
+    date1[dateIndex1] = date;
+    setDate1(date1);
+    hideDatePicker1();
+  };
+  const getDate = i => {
+    console.log(date[i]);
+    let tempDate = date[i] === undefined ? '' : date[i].toString().split(' ');
+    return date[i] !== undefined && date[i] !== ''
       ? `${tempDate[0]} ${tempDate[1]} ${tempDate[2]} ${tempDate[3]}`
+      : '';
+  };
+  const getDate1 = i => {
+    let tempDate1 =
+      date1[i] === undefined ? '' : date1[i].toString().split(' ');
+    console.log(date1[i]);
+    console.log(tempDate1);
+    return date1[i] !== undefined && date1[i] !== ''
+      ? `${tempDate1[0]} ${tempDate1[1]} ${tempDate1[2]} ${tempDate1[3]}`
       : '';
   };
   const [expanded, setExpanded] = React.useState(true);
@@ -44,16 +72,60 @@ const Mhpss = () => {
   const [supportive, setSupportive] = React.useState([]);
 
   const [checked, setChecked] = React.useState(['']);
+
   const handleSupportive = () => {
     if (supportive.length < 5) {
-      let obj = {
-        scheduleDate: '',
-        consent: '',
-        counselling: '',
-        nextScheduleData: '',
-      };
+      const datamhpss = [
+        {
+          caseId: 1,
+          supportiveCall: 1,
+          supportiveCallDate: '2022-09-05',
+          consent: 'yes',
+          counselling: 'counselling data',
+          isNextSupportiveCallScheduled: true,
+          nextSupportiveCallDate: '2022-09-06',
+        },
 
-      setSupportive([...supportive, obj]);
+        {
+          caseId: 1,
+          supportiveCall: 2,
+          supportiveCallDate: '2022-09-06',
+          consent: 'yes',
+          counselling: '',
+          isNextSupportiveCallScheduled: true,
+          nextSupportiveCallDate: '2022-09-07',
+        },
+
+        {
+          caseId: 1,
+          supportiveCall: 3,
+          supportiveCallDate: '2022-09-07',
+          consent: 'yes',
+          counselling: 'counselling data',
+          isNextSupportiveCallScheduled: true, // after 3 supportive call, upcoming are optional
+          nextSupportiveCallDate: '2022-09-08',
+        },
+        {
+          caseId: 1,
+          supportiveCall: 4,
+          supportiveCallDate: '2022-09-08',
+          consent: 'yes',
+          counselling: 'counselling data',
+          isNextSupportiveCallScheduled: true, // after 3 supportive call, upcoming are optional
+          nextSupportiveCallDate: '2022-09-09',
+        },
+        {
+          caseId: 1,
+          supportiveCall: 5,
+          supportiveCallDate: '2022-09-10',
+          consent: 'yes',
+          counselling: 'counselling data',
+          isNextSupportiveCallScheduled: true, // after 3 supportive call, upcoming are optional
+          nextSupportiveCallDate: '2022-09-10',
+        },
+      ];
+
+      setSupportive([...supportive, datamhpss]);
     }
   };
 
@@ -80,7 +152,7 @@ const Mhpss = () => {
             </TouchableOpacity>
           )}
 
-          {supportive.map((obj, i) => {
+          {supportive.map((datamhpss, i) => {
             return (
               <>
                 <View style={{marginTop: 10}}>
@@ -89,16 +161,17 @@ const Mhpss = () => {
                   </Text>
                   <View style={{marginTop: 20, marginLeft: 5}}>
                     <Text style={styles.FormTitle}>Date & Time</Text>
-                    <View style={{marginTop: 5}} key={i}>
+                    <View style={{marginTop: 5}}>
                       <TextInput
+                        key={i}
                         style={styles.textInput1}
-                        value={getDate()}
+                        value={datamhpss[i].supportiveCallDate}
                         placeholder="  Enter Date"
                         placeholderTextColor={'gray'}
                       />
 
                       <Text
-                        style={{left: 300, bottom: 39}}
+                        style={{left: 300, bottom: 35}}
                         onPress={showDatePicker}>
                         <FontAwesomeIcon
                           size={20}
@@ -110,7 +183,13 @@ const Mhpss = () => {
                       <DateTimePickerModal
                         isVisible={isDatePickerVisible}
                         mode="date"
-                        onConfirm={handleConfirm}
+                        onConfirm={d => {
+                          // handleConfirm(date, i);
+                          console.log('confirm');
+                          date[i] = d;
+                          setDate(date);
+                          hideDatePicker();
+                        }}
                         onCancel={hideDatePicker}
                       />
                     </View>
@@ -142,17 +221,26 @@ const Mhpss = () => {
                     {checked[i] == 'first' && (
                       <View style={{marginTop: 15}}>
                         <View style={{bottom: 5}}>
-                          <Text style={styles.FormTitle}>
-                            Counselling:<Text style={styles.star}>*</Text>
-                          </Text>
-                          <View style={styles.tabfourfirst1}>
-                            <TextInput
-                              style={styles.counsInput}
-                              type="text"
-                              placeholder="Enter Counselling "
-                              placeholderTextColor="gray"
-                            />
-                          </View>
+                          {i == 1 ? (
+                            <View style={styles.Dsmtrauma}>
+                              <DSMTrauma />
+                            </View>
+                          ) : (
+                            <View style={{bottom: 5}}>
+                              <Text style={styles.FormTitle}>
+                                Counselling:<Text style={styles.star}>*</Text>
+                              </Text>
+                              <View style={styles.tabfourfirst1}>
+                                <TextInput
+                                  style={styles.counsInput}
+                                  value={datamhpss[i].counselling}
+                                  type="text"
+                                  placeholder="Enter Counselling "
+                                  placeholderTextColor="gray"
+                                />
+                              </View>
+                            </View>
+                          )}
                         </View>
                         <Text style={styles.FormTitle}>
                           Scheduling for next session date & Time{' '}
@@ -160,14 +248,14 @@ const Mhpss = () => {
                         <View style={{marginTop: 5}}>
                           <TextInput
                             style={styles.textInput1}
-                            value={getDate()}
+                            value={datamhpss[i].nextSupportiveCallDate}
                             placeholder="  Enter Date"
                             placeholderTextColor={'gray'}
                           />
 
                           <Text
-                            style={{left: 300, bottom: 39}}
-                            onPress={showDatePicker}>
+                            style={{left: 300, bottom: 35}}
+                            onPress={showDatePicker1}>
                             <FontAwesomeIcon
                               size={20}
                               icon={faCalendarDays}
@@ -176,10 +264,16 @@ const Mhpss = () => {
                             />
                           </Text>
                           <DateTimePickerModal
-                            isVisible={isDatePickerVisible}
+                            isVisible={isDatePickerVisible1}
                             mode="date"
-                            onConfirm={handleConfirm}
-                            onCancel={hideDatePicker}
+                            onConfirm={d => {
+                              // handleConfirm(date, i);
+                              console.log('confirm');
+                              date1[i] = d;
+                              setDate1(date1);
+                              hideDatePicker1();
+                            }}
+                            onCancel={hideDatePicker1}
                           />
                         </View>
 
@@ -192,7 +286,6 @@ const Mhpss = () => {
                             </Text>
                           </TouchableOpacity>
                         )}
-                        
                       </View>
                     )}
                   </View>
@@ -201,17 +294,12 @@ const Mhpss = () => {
             );
           })}
         </View>
-        
 
         <View>
-          <DSMTrauma />
-        </View>
-
-        <View style={{bottom: 15}}>
           <TouchableOpacity
             style={styles.formbutton}
             onPress={() => route.change()}>
-            <Text style={styles.formbuttoninput}>Submit </Text>
+            <Text style={styles.formbuttoninput}>Submit</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -264,7 +352,6 @@ const styles = StyleSheet.create({
   },
   gender: {
     marginTop: 8,
-
     color: '#181818',
   },
 
@@ -489,7 +576,6 @@ const styles = StyleSheet.create({
     padding: 10,
     alignSelf: 'stretch',
     marginVertical: 6,
-
     borderWidth: 1,
     borderColor: '#bdc3c7',
     borderRadius: 5,
@@ -498,7 +584,6 @@ const styles = StyleSheet.create({
   dropopen: {
     backgroundColor: '#fff',
     borderRadius: 10,
-
     borderWidth: 1,
     marginLeft: -6,
     width: wp('90%'),
@@ -682,5 +767,11 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 8,
     borderColor: '#ccc',
+  },
+  Dsmtrauma: {
+    marginRight: 10,
+    marginLeft: -10,
+    bottom: 5,
+    marginBottom: 10,
   },
 });

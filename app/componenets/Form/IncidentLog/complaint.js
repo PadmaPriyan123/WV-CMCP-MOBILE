@@ -17,6 +17,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
 import {faCalendarDays} from '@fortawesome/free-solid-svg-icons/faCalendarDays';
 import {faFileAlt, faFile} from '@fortawesome/free-solid-svg-icons';
+import DocumentPicker from 'react-native-document-picker';
 
 import {ScrollView} from 'react-native-gesture-handler';
 import {Dropdown} from 'react-native-element-dropdown';
@@ -48,8 +49,8 @@ const Complaints = ({navigation}) => {
     let dat = d.getDate();
     let month = d.getMonth() + 1;
     let year = d.getFullYear();
-    if (month.toString.length === 1) month = `0${d.getMonth() + 1}`;
-    if (dat.toString.length === 1) dat = `${d.getDate()}`;
+    if (month < 10) month = `0${d.getMonth() + 1}`;
+    if (dat < 10) dat = `0${d.getDate()}`;
     setValidation1({
       ...validation1,
       [dateKey]: `${year}-${month}-${dat}`,
@@ -92,7 +93,7 @@ const Complaints = ({navigation}) => {
     {label: ' Police Helpline 100', value: 4},
     {label: ' Local Police station ', value: 5},
   ];
-  const [selected, setSelected] = useState('');
+  const [incidentValue, setIncidentValue] = useState('');
 
   const data2 = [
     {label: '161 Statement is done', value: 1},
@@ -157,13 +158,19 @@ const Complaints = ({navigation}) => {
   const [others1, setOthers1] = useState(false);
   const [lodged, setLodged] = useState(false);
   const [fileResponse, setFileResponse] = React.useState([]);
+  const [firFileResponse, setFirFileResponse] = React.useState([]);
 
-  const handleDocumentSelection = useCallback(async () => {
+  const handleDocumentSelection = useCallback(async type => {
+    console.log(type);
     try {
       const response = await DocumentPicker.pick({
         presentationStyle: 'fullScreen',
       });
-      setFileResponse(response);
+      if (type == 'fir') {
+        setFirFileResponse(response);
+      } else {
+        setFileResponse(response);
+      }
     } catch (err) {
       console.warn(err);
     }
@@ -183,8 +190,11 @@ const Complaints = ({navigation}) => {
   let dat = d.getDate();
   let month = d.getMonth() + 1;
   let year = d.getFullYear();
-  if (month.toString.length === 1) month = `0${d.getMonth() + 1}`;
-  if (dat.toString.length === 1) dat = `0${d.getDate()}`;
+  if (month < 10) month = `0${d.getMonth() + 1}`;
+  if (dat < 10) {
+    dat = `0${d.getDate()}`;
+    console.log(month);
+  }
   const [validation1, setValidation1] = useState({
     Complaints_ID: 1,
     CaseID: 1,
@@ -198,6 +208,7 @@ const Complaints = ({navigation}) => {
     Whether_Incident_Reported_Others: '',
     complaint_lodged_PS: '',
     GD_Number: '',
+    GDE_select: '',
     GD_EntryDate: '',
     FIR_filed_or_not: '',
     FIR_Num: 0,
@@ -220,6 +231,7 @@ const Complaints = ({navigation}) => {
     Whether_Incident_Reported_Others: '',
     complaint_lodged_PS: '',
     GD_Number: '',
+    GDE_select: '',
     GD_EntryDate: '',
     FIR_filed_or_not: '',
     FIR_Num: '',
@@ -227,7 +239,9 @@ const Complaints = ({navigation}) => {
     Action_Taken: '',
     Sections_AppliedIn_FIR: '',
   };
-
+  useEffect(() => {
+    setError(initialErrorMessage);
+  }, []);
   const [error, setError] = useState(initialErrorMessage);
 
   function myFunction() {
@@ -244,6 +258,7 @@ const Complaints = ({navigation}) => {
       Whether_Incident_Reported_Others: '',
       complaint_lodged_PS: '',
       GD_Number: '',
+      GDE_select: '',
       GD_EntryDate: '',
       FIR_filed_or_not: '',
       FIR_Num: '',
@@ -281,17 +296,29 @@ const Complaints = ({navigation}) => {
     if (!validation1.complaint_lodged_PS) {
       a.complaint_lodged_PS = '*Please Select the Complaint lodged in PS';
     }
-    if (!validation1.GD_Number) {
-      a.GD_Number = '*Please Enter the GD-Entry';
+
+    if (validation1.complaint_lodged_PS == 'yes') {
+      if (!validation1.checked0) {
+        a.GDE_select = '*Please Select GDE';
+      }
     }
-    if (!validation1.FIR_filed_or_not) {
-      a.FIR_filed_or_not = '*Please Enter  FIR is Filed or Not';
+    if (checked0 == 'yes') {
+      if (!validation1.GD_Number) {
+        a.GD_Number = '*Please Enter the GD-Entry';
+      }
+      if (!validation1.FIR_filed_or_not) {
+        a.FIR_filed_or_not = '*Please Enter  FIR is Filed or Not';
+      }
     }
-    if (!validation1.FIR_Num) {
+    if (!validation1.FIR_Num && validation1.FIR_filed_or_not == 'yes') {
       a.FIR_Num = '*Please Enter  FIR is number';
     }
     if (!validation1.Action_Taken) {
       a.Action_Taken = '*Please Enter the FIR/GD Action Taken';
+    }
+    if (incidentValue.length <= 0) {
+      console.log(incidentValue);
+      a.Whether_Incident_Reported_Others = '*Please select Incident report';
     }
     if (!validation1.Sections_AppliedIn_FIR) {
       a.Sections_AppliedIn_FIR = '*Please Enter the Section applied fir';
@@ -507,10 +534,10 @@ const Complaints = ({navigation}) => {
                 labelField="label"
                 valueField="value"
                 placeholder="Select whether the incident"
-                value={selected}
+                value={incidentValue}
                 onChange={item => {
                   {
-                    setSelected(item);
+                    setIncidentValue(item);
                     item.selected === '3'
                       ? setOthers1(true)
                       : setOthers1(false);
@@ -574,7 +601,13 @@ const Complaints = ({navigation}) => {
               <Text style={styles.gender}>No</Text>
             </View>
           </View>
-
+          <View>
+            {error?.complaint_lodged_PS && (
+              <Text style={styles.errormessage}>
+                {error?.complaint_lodged_PS}
+              </Text>
+            )}
+          </View>
           {lodged === true ? (
             <View>
               <View style={{marginTop: 3, marginLeft: 10}}>
@@ -600,6 +633,12 @@ const Complaints = ({navigation}) => {
                   <Text style={styles.gender}>No</Text>
                 </View>
               </View>
+              <View>
+                {error?.GDE_select && (
+                  <Text style={styles.errormessage}>{error?.GDE_select}</Text>
+                )}
+              </View>
+
               {checked0 === 'yes' && (
                 <View style={{marginTop: 20}}>
                   <Text style={styles.FormTitle}>GDE Date: </Text>
@@ -669,31 +708,15 @@ const Complaints = ({navigation}) => {
                       </TextInput>
                       <Text
                         style={{marginTop: 8}}
-                        onPress={handleDocumentSelection}>
+                        onPress={() => {
+                          handleDocumentSelection('gde');
+                        }}>
                         <FontAwesomeIcon
                           size={24}
                           icon={faFileAlt}
                           color="gray"
                         />
                       </Text>
-
-                      {/* {fileResponse.map((file, index) => (
-                        <Text
-                          key={index.toString()}
-                          style={styles.uri}
-                          numberOfLines={1}
-                          ellipsizeMode={'middle'}>
-                          {file?.uri}
-                        </Text>
-                      ))}
-
-                      <Text onPress={handleDocumentSelection}>
-                        <FontAwesomeIcon
-                          icon={faFile}
-                          color="gray"
-                          style={styles.fileUpload}
-                        />
-                      </Text> */}
                     </View>
                   </View>
                 </View>
@@ -741,6 +764,13 @@ const Complaints = ({navigation}) => {
                   <Text style={styles.gender}>No</Text>
                 </View>
               </View>
+              <View>
+                {error?.FIR_filed_or_not && (
+                  <Text style={styles.errormessage}>
+                    {error?.FIR_filed_or_not}
+                  </Text>
+                )}
+              </View>
 
               <View style={styles.container}>
                 {/*Here we will return the view when state is true 
@@ -757,7 +787,7 @@ const Complaints = ({navigation}) => {
                       />
 
                       <Text
-                        style={{left: 300, bottom: 39}}
+                        style={{left: 290, bottom: 35}}
                         onPress={() => showDatePicker('FIR_date')}>
                         <FontAwesomeIcon
                           size={20}
@@ -797,29 +827,58 @@ const Complaints = ({navigation}) => {
                       )}
                     </View>
                     <View>
-                      <View style={{marginTop: 30}}>
-                        <Text style={styles.Filefill}>FIR Document</Text>
-                        
-                        {/* FIR DOCUMENT */}
+                      <Text style={styles.Filefill}>FIR Document</Text>
 
-                        {fileResponse.map((file, index) => (
-                          <Text
-                            key={index.toString()}
-                            style={styles.uri}
-                            numberOfLines={1}
-                            ellipsizeMode={'middle'}>
-                            {file?.uri}
-                          </Text>
-                        ))}
-
-                        <Text onPress={handleDocumentSelection}>
+                      {/* document picker */}
+                      <View style={styles.formtotalinput2}>
+                        <TextInput
+                          style={styles.uricom}
+                          placeholder="Upload a file"
+                          placeholderTextColor={'gray'}>
+                          {fileResponse.map((file, index) => (
+                            <Text
+                              key={index.toString()}
+                              numberOfLines={1}
+                              ellipsizeMode={'middle'}>
+                              {file?.uri}
+                            </Text>
+                          ))}
+                        </TextInput>
+                        <Text
+                          style={{marginTop: 8}}
+                          onPress={() => {
+                            handleDocumentSelection('gde');
+                          }}>
                           <FontAwesomeIcon
-                            icon={faFile}
+                            size={24}
+                            icon={faFileAlt}
                             color="gray"
-                            style={styles.fileUpload}
                           />
                         </Text>
+                        {/* <TextInput
+                          style={styles.uri}
+                          placeholder="Upload a file"
+                          placeholderTextColor={'gray'}>
+                          {fileResponse.map((file, index) => (
+                            <Text
+                              key={index.toString()}
+                              numberOfLines={1}
+                              ellipsizeMode={'middle'}>
+                              {file?.uri}
+                            </Text>
+                          ))}
+                        </TextInput>
+                        <Text
+                          style={{alignSelf: 'center', marginRight: 50}}
+                          onPress={handleDocumentSelection}>
+                          <FontAwesomeIcon
+                            size={24}
+                            icon={faFileAlt}
+                            color="gray"
+                          />
+                        </Text> */}
                       </View>
+
                       <View style={{marginTop: 16}}>
                         <Text style={styles.FormTitle1}>
                           What sections applied in FIR?:
@@ -991,7 +1050,7 @@ const styles = StyleSheet.create({
   uri: {
     color: '#0f0201',
     fontSize: 14,
-    marginLeft: 60,
+    marginLeft: 100,
   },
 
   FormDrop1: {
@@ -1438,7 +1497,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     flexDirection: 'row',
     borderWidth: 1,
-    marginTop: 30,
+    marginTop: 25,
     marginLeft: 6,
     borderColor: '#ccc',
     backgroundColor: '#ecf0f1',

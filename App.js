@@ -26,7 +26,6 @@ function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
-       
           <Stack.Screen
             name="Login"
             component={Login}
@@ -120,7 +119,6 @@ function App() {
             }}
           />
           <Stack.Screen
-
             name="complaints"
             component={Complaints}
             options={{
@@ -138,7 +136,6 @@ function App() {
             }}
           />
           <Stack.Screen
-
             name="legal"
             component={Legal}
             options={{
@@ -194,7 +191,7 @@ function App() {
             name="mhpss"
             component={Mhpss}
             options={{
-              title: 'Case Assignment',
+              title: 'MHPSS',
               headerStyle: {
                 backgroundColor: '#ff6b00',
                 height: 50,

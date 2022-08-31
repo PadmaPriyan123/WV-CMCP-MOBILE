@@ -46,7 +46,7 @@ const UserProfileView = props => {
     state: '',
   };
 
-  function handleUserSubmit({navigation}) {
+  function handleUserSubmit() {
     var num = /^[0]?[6789]\d{9}$/;
     const emailRegex = /^[a-z]+\S+@\S+\.\S+/;
     var profileError = {

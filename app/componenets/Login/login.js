@@ -376,7 +376,7 @@ const Login = () => {
                       </View>
                     ) : (
                       <View style={styles.otpvalidmsg}>
-                        <Text> OTP expires in </Text>
+                        <Text style={{color: 'gray'}}> OTP expires in </Text>
                         <Text style={styles.numbercount}>00:{counter}</Text>
                       </View>
                     )}

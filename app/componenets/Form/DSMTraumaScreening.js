@@ -34,13 +34,6 @@ const DSMTrauma = () => {
   const [dsmChecked18, setDsmChecked18] = React.useState('');
   const [dsmChecked19, setDsmChecked19] = React.useState('');
   const [dsmChecked20, setDsmChecked20] = React.useState('');
-  // const [dsmChecked21, setDsmChecked21] = React.useState('');
-  // const [dsmChecked22, setDsmChecked22] = React.useState('');
-  // const [dsmChecked23, setDsmChecked23] = React.useState('');
-  // const [dsmChecked24, setDsmChecked24] = React.useState('');
-  // const [dsmChecked25, setDsmChecked25] = React.useState('');
-  // const [dsmChecked26, setDsmChecked26] = React.useState('');
-  // const [dsmChecked27, setDsmChecked27] = React.useState('');
   return (
     <SafeAreaView>
       <ScrollView>
@@ -65,7 +58,7 @@ const DSMTrauma = () => {
                   status={dsmChecked === 'first' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked('first')}
                 />
-                <Text style={styles.RadioText}>Not at all</Text>
+                <Text style={styles.RadioText}>Yes</Text>
               </View>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -75,43 +68,7 @@ const DSMTrauma = () => {
                   status={dsmChecked === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked('second')}
                 />
-                <Text style={styles.RadioText}>
-                  Once a week or less/a little
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="third"
-                  status={dsmChecked === 'third' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked('third')}
-                />
-                <Text style={styles.RadioText}>
-                  2 to 3 times a week/somewhat
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fourth"
-                  status={dsmChecked === 'fourth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked('fourth')}
-                />
-                <Text style={styles.RadioText}>4 to 5 times a week/a lot</Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fifth"
-                  status={dsmChecked === 'fifth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked('fifth')}
-                />
-                <Text style={styles.RadioText}>
-                  6 or more times a week/almost always
-                </Text>
+                <Text style={styles.RadioText}>No</Text>
               </View>
             </View>
           </View>
@@ -131,7 +88,7 @@ const DSMTrauma = () => {
                   status={dsmChecked2 === 'first' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked2('first')}
                 />
-                <Text style={styles.RadioText}>Not at all</Text>
+                <Text style={styles.RadioText}>Yes</Text>
               </View>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -141,43 +98,7 @@ const DSMTrauma = () => {
                   status={dsmChecked2 === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked2('second')}
                 />
-                <Text style={styles.RadioText}>
-                  Once a week or less/a little
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="third"
-                  status={dsmChecked2 === 'third' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked2('third')}
-                />
-                <Text style={styles.RadioText}>
-                  2 to 3 times a week/somewhat
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fourth"
-                  status={dsmChecked2 === 'fourth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked2('fourth')}
-                />
-                <Text style={styles.RadioText}>4 to 5 times a week/a lot</Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fifth"
-                  status={dsmChecked2 === 'fifth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked2('fifth')}
-                />
-                <Text style={styles.RadioText}>
-                  6 or more times a week/almost always
-                </Text>
+                <Text style={styles.RadioText}>No</Text>
               </View>
             </View>
           </View>
@@ -198,7 +119,7 @@ const DSMTrauma = () => {
                   status={dsmChecked3 === 'first' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked3('first')}
                 />
-                <Text style={styles.RadioText}>Not at all</Text>
+                <Text style={styles.RadioText}>Yes</Text>
               </View>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -208,43 +129,7 @@ const DSMTrauma = () => {
                   status={dsmChecked3 === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked3('second')}
                 />
-                <Text style={styles.RadioText}>
-                  Once a week or less/a little
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="third"
-                  status={dsmChecked3 === 'third' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked3('third')}
-                />
-                <Text style={styles.RadioText}>
-                  2 to 3 times a week/somewhat
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fourth"
-                  status={dsmChecked3 === 'fourth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked3('fourth')}
-                />
-                <Text style={styles.RadioText}>4 to 5 times a week/a lot</Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fifth"
-                  status={dsmChecked3 === 'fifth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked3('fifth')}
-                />
-                <Text style={styles.RadioText}>
-                  6 or more times a week/almost always
-                </Text>
+                <Text style={styles.RadioText}>No</Text>
               </View>
             </View>
           </View>
@@ -265,7 +150,7 @@ const DSMTrauma = () => {
                   status={dsmChecked4 === 'first' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked4('first')}
                 />
-                <Text style={styles.RadioText}>Not at all</Text>
+                <Text style={styles.RadioText}>Yes</Text>
               </View>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -275,43 +160,7 @@ const DSMTrauma = () => {
                   status={dsmChecked4 === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked4('second')}
                 />
-                <Text style={styles.RadioText}>
-                  Once a week or less/a little
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="third"
-                  status={dsmChecked4 === 'third' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked4('third')}
-                />
-                <Text style={styles.RadioText}>
-                  2 to 3 times a week/somewhat
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fourth"
-                  status={dsmChecked4 === 'fourth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked4('fourth')}
-                />
-                <Text style={styles.RadioText}>4 to 5 times a week/a lot</Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fifth"
-                  status={dsmChecked4 === 'fifth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked4('fifth')}
-                />
-                <Text style={styles.RadioText}>
-                  6 or more times a week/almost always
-                </Text>
+                <Text style={styles.RadioText}>No</Text>
               </View>
             </View>
           </View>
@@ -333,7 +182,7 @@ const DSMTrauma = () => {
                   status={dsmChecked5 === 'first' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked5('first')}
                 />
-                <Text style={styles.RadioText}>Not at all</Text>
+                <Text style={styles.RadioText}>Yes</Text>
               </View>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -343,43 +192,7 @@ const DSMTrauma = () => {
                   status={dsmChecked5 === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked5('second')}
                 />
-                <Text style={styles.RadioText}>
-                  Once a week or less/a little
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="third"
-                  status={dsmChecked5 === 'third' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked5('third')}
-                />
-                <Text style={styles.RadioText}>
-                  2 to 3 times a week/somewhat
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fourth"
-                  status={dsmChecked5 === 'fourth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked5('fourth')}
-                />
-                <Text style={styles.RadioText}>4 to 5 times a week/a lot</Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fifth"
-                  status={dsmChecked5 === 'fifth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked5('fifth')}
-                />
-                <Text style={styles.RadioText}>
-                  6 or more times a week/almost always
-                </Text>
+                <Text style={styles.RadioText}>No</Text>
               </View>
             </View>
           </View>
@@ -399,7 +212,7 @@ const DSMTrauma = () => {
                   status={dsmChecked6 === 'first' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked6('first')}
                 />
-                <Text style={styles.RadioText}>Not at all</Text>
+                <Text style={styles.RadioText}>Yes</Text>
               </View>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -409,43 +222,7 @@ const DSMTrauma = () => {
                   status={dsmChecked6 === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked6('second')}
                 />
-                <Text style={styles.RadioText}>
-                  Once a week or less/a little
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="third"
-                  status={dsmChecked6 === 'third' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked6('third')}
-                />
-                <Text style={styles.RadioText}>
-                  2 to 3 times a week/somewhat
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fourth"
-                  status={dsmChecked6 === 'fourth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked6('fourth')}
-                />
-                <Text style={styles.RadioText}>4 to 5 times a week/a lot</Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fifth"
-                  status={dsmChecked6 === 'fifth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked6('fifth')}
-                />
-                <Text style={styles.RadioText}>
-                  6 or more times a week/almost always
-                </Text>
+                <Text style={styles.RadioText}>No</Text>
               </View>
             </View>
           </View>
@@ -467,7 +244,7 @@ const DSMTrauma = () => {
                   status={dsmChecked7 === 'first' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked7('first')}
                 />
-                <Text style={styles.RadioText}>Not at all</Text>
+                <Text style={styles.RadioText}>Yes</Text>
               </View>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -477,43 +254,7 @@ const DSMTrauma = () => {
                   status={dsmChecked7 === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked7('second')}
                 />
-                <Text style={styles.RadioText}>
-                  Once a week or less/a little
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="third"
-                  status={dsmChecked7 === 'third' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked7('third')}
-                />
-                <Text style={styles.RadioText}>
-                  2 to 3 times a week/somewhat
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fourth"
-                  status={dsmChecked7 === 'fourth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked7('fourth')}
-                />
-                <Text style={styles.RadioText}>4 to 5 times a week/a lot</Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fifth"
-                  status={dsmChecked7 === 'fifth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked7('fifth')}
-                />
-                <Text style={styles.RadioText}>
-                  6 or more times a week/almost always
-                </Text>
+                <Text style={styles.RadioText}>No</Text>
               </View>
             </View>
           </View>
@@ -533,7 +274,7 @@ const DSMTrauma = () => {
                   status={dsmChecked8 === 'first' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked8('first')}
                 />
-                <Text style={styles.RadioText}>Not at all</Text>
+                <Text style={styles.RadioText}>Yes</Text>
               </View>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -543,43 +284,7 @@ const DSMTrauma = () => {
                   status={dsmChecked8 === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked8('second')}
                 />
-                <Text style={styles.RadioText}>
-                  Once a week or less/a little
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="third"
-                  status={dsmChecked8 === 'third' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked8('third')}
-                />
-                <Text style={styles.RadioText}>
-                  2 to 3 times a week/somewhat
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fourth"
-                  status={dsmChecked8 === 'fourth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked8('fourth')}
-                />
-                <Text style={styles.RadioText}>4 to 5 times a week/a lot</Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fifth"
-                  status={dsmChecked8 === 'fifth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked8('fifth')}
-                />
-                <Text style={styles.RadioText}>
-                  6 or more times a week/almost always
-                </Text>
+                <Text style={styles.RadioText}>No</Text>
               </View>
             </View>
           </View>
@@ -601,7 +306,7 @@ const DSMTrauma = () => {
                   status={dsmChecked9 === 'first' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked9('first')}
                 />
-                <Text style={styles.RadioText}>Not at all</Text>
+                <Text style={styles.RadioText}>Yes</Text>
               </View>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -611,43 +316,7 @@ const DSMTrauma = () => {
                   status={dsmChecked9 === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked9('second')}
                 />
-                <Text style={styles.RadioText}>
-                  Once a week or less/a little
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="third"
-                  status={dsmChecked9 === 'third' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked9('third')}
-                />
-                <Text style={styles.RadioText}>
-                  2 to 3 times a week/somewhat
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fourth"
-                  status={dsmChecked9 === 'fourth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked9('fourth')}
-                />
-                <Text style={styles.RadioText}>4 to 5 times a week/a lot</Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fifth"
-                  status={dsmChecked9 === 'fifth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked9('fifth')}
-                />
-                <Text style={styles.RadioText}>
-                  6 or more times a week/almost always
-                </Text>
+                <Text style={styles.RadioText}>No</Text>
               </View>
             </View>
           </View>
@@ -669,7 +338,7 @@ const DSMTrauma = () => {
                   status={dsmChecked10 === 'first' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked10('first')}
                 />
-                <Text style={styles.RadioText}>Not at all</Text>
+                <Text style={styles.RadioText}>Yes</Text>
               </View>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -679,43 +348,7 @@ const DSMTrauma = () => {
                   status={dsmChecked10 === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked10('second')}
                 />
-                <Text style={styles.RadioText}>
-                  Once a week or less/a little
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="third"
-                  status={dsmChecked10 === 'third' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked10('third')}
-                />
-                <Text style={styles.RadioText}>
-                  2 to 3 times a week/somewhat
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fourth"
-                  status={dsmChecked10 === 'fourth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked10('fourth')}
-                />
-                <Text style={styles.RadioText}>4 to 5 times a week/a lot</Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fifth"
-                  status={dsmChecked10 === 'fifth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked10('fifth')}
-                />
-                <Text style={styles.RadioText}>
-                  6 or more times a week/almost always
-                </Text>
+                <Text style={styles.RadioText}>No</Text>
               </View>
             </View>
           </View>
@@ -735,7 +368,7 @@ const DSMTrauma = () => {
                   status={dsmChecked11 === 'first' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked11('first')}
                 />
-                <Text style={styles.RadioText}>Not at all</Text>
+                <Text style={styles.RadioText}>Yes</Text>
               </View>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -745,43 +378,7 @@ const DSMTrauma = () => {
                   status={dsmChecked11 === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked11('second')}
                 />
-                <Text style={styles.RadioText}>
-                  Once a week or less/a little
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="third"
-                  status={dsmChecked11 === 'third' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked11('third')}
-                />
-                <Text style={styles.RadioText}>
-                  2 to 3 times a week/somewhat
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fourth"
-                  status={dsmChecked11 === 'fourth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked11('fourth')}
-                />
-                <Text style={styles.RadioText}>4 to 5 times a week/a lot</Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fifth"
-                  status={dsmChecked11 === 'fifth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked11('fifth')}
-                />
-                <Text style={styles.RadioText}>
-                  6 or more times a week/almost always
-                </Text>
+                <Text style={styles.RadioText}>No</Text>
               </View>
             </View>
           </View>
@@ -801,7 +398,7 @@ const DSMTrauma = () => {
                   status={dsmChecked12 === 'first' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked12('first')}
                 />
-                <Text style={styles.RadioText}>Not at all</Text>
+                <Text style={styles.RadioText}>Yes</Text>
               </View>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -811,43 +408,7 @@ const DSMTrauma = () => {
                   status={dsmChecked12 === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked12('second')}
                 />
-                <Text style={styles.RadioText}>
-                  Once a week or less/a little
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="third"
-                  status={dsmChecked12 === 'third' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked12('third')}
-                />
-                <Text style={styles.RadioText}>
-                  2 to 3 times a week/somewhat
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fourth"
-                  status={dsmChecked12 === 'fourth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked12('fourth')}
-                />
-                <Text style={styles.RadioText}>4 to 5 times a week/a lot</Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fifth"
-                  status={dsmChecked12 === 'fifth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked12('fifth')}
-                />
-                <Text style={styles.RadioText}>
-                  6 or more times a week/almost always
-                </Text>
+                <Text style={styles.RadioText}>No</Text>
               </View>
             </View>
           </View>
@@ -868,7 +429,7 @@ const DSMTrauma = () => {
                   status={dsmChecked13 === 'first' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked13('first')}
                 />
-                <Text style={styles.RadioText}>Not at all</Text>
+                <Text style={styles.RadioText}>Yes</Text>
               </View>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -878,43 +439,7 @@ const DSMTrauma = () => {
                   status={dsmChecked13 === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked13('second')}
                 />
-                <Text style={styles.RadioText}>
-                  Once a week or less/a little
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="third"
-                  status={dsmChecked13 === 'third' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked13('third')}
-                />
-                <Text style={styles.RadioText}>
-                  2 to 3 times a week/somewhat
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fourth"
-                  status={dsmChecked13 === 'fourth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked13('fourth')}
-                />
-                <Text style={styles.RadioText}>4 to 5 times a week/a lot</Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fifth"
-                  status={dsmChecked13 === 'fifth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked13('fifth')}
-                />
-                <Text style={styles.RadioText}>
-                  6 or more times a week/almost always
-                </Text>
+                <Text style={styles.RadioText}>No</Text>
               </View>
             </View>
           </View>
@@ -935,7 +460,7 @@ const DSMTrauma = () => {
                   status={dsmChecked14 === 'first' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked14('first')}
                 />
-                <Text style={styles.RadioText}>Not at all</Text>
+                <Text style={styles.RadioText}>Yes</Text>
               </View>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -945,43 +470,7 @@ const DSMTrauma = () => {
                   status={dsmChecked14 === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked14('second')}
                 />
-                <Text style={styles.RadioText}>
-                  Once a week or less/a little
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="third"
-                  status={dsmChecked14 === 'third' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked14('third')}
-                />
-                <Text style={styles.RadioText}>
-                  2 to 3 times a week/somewhat
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fourth"
-                  status={dsmChecked14 === 'fourth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked14('fourth')}
-                />
-                <Text style={styles.RadioText}>4 to 5 times a week/a lot</Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fifth"
-                  status={dsmChecked14 === 'fifth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked14('fifth')}
-                />
-                <Text style={styles.RadioText}>
-                  6 or more times a week/almost always
-                </Text>
+                <Text style={styles.RadioText}>No</Text>
               </View>
             </View>
           </View>
@@ -1002,7 +491,7 @@ const DSMTrauma = () => {
                   status={dsmChecked15 === 'first' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked15('first')}
                 />
-                <Text style={styles.RadioText}>Not at all</Text>
+                <Text style={styles.RadioText}>Yes</Text>
               </View>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -1012,43 +501,7 @@ const DSMTrauma = () => {
                   status={dsmChecked15 === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked15('second')}
                 />
-                <Text style={styles.RadioText}>
-                  Once a week or less/a little
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="third"
-                  status={dsmChecked15 === 'third' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked15('third')}
-                />
-                <Text style={styles.RadioText}>
-                  2 to 3 times a week/somewhat
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fourth"
-                  status={dsmChecked15 === 'fourth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked15('fourth')}
-                />
-                <Text style={styles.RadioText}>4 to 5 times a week/a lot</Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fifth"
-                  status={dsmChecked15 === 'fifth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked15('fifth')}
-                />
-                <Text style={styles.RadioText}>
-                  6 or more times a week/almost always
-                </Text>
+                <Text style={styles.RadioText}>No</Text>
               </View>
             </View>
           </View>
@@ -1069,7 +522,7 @@ const DSMTrauma = () => {
                   status={dsmChecked16 === 'first' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked16('first')}
                 />
-                <Text style={styles.RadioText}>Not at all</Text>
+                <Text style={styles.RadioText}>Yes</Text>
               </View>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -1079,43 +532,7 @@ const DSMTrauma = () => {
                   status={dsmChecked16 === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked16('second')}
                 />
-                <Text style={styles.RadioText}>
-                  Once a week or less/a little
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="third"
-                  status={dsmChecked16 === 'third' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked16('third')}
-                />
-                <Text style={styles.RadioText}>
-                  2 to 3 times a week/somewhat
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fourth"
-                  status={dsmChecked16 === 'fourth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked16('fourth')}
-                />
-                <Text style={styles.RadioText}>4 to 5 times a week/a lot</Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fifth"
-                  status={dsmChecked16 === 'fifth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked16('fifth')}
-                />
-                <Text style={styles.RadioText}>
-                  6 or more times a week/almost always
-                </Text>
+                <Text style={styles.RadioText}>No</Text>
               </View>
             </View>
           </View>
@@ -1136,7 +553,7 @@ const DSMTrauma = () => {
                   status={dsmChecked17 === 'first' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked17('first')}
                 />
-                <Text style={styles.RadioText}>Not at all</Text>
+                <Text style={styles.RadioText}>Yes</Text>
               </View>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -1146,43 +563,7 @@ const DSMTrauma = () => {
                   status={dsmChecked17 === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked17('second')}
                 />
-                <Text style={styles.RadioText}>
-                  Once a week or less/a little
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="third"
-                  status={dsmChecked17 === 'third' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked17('third')}
-                />
-                <Text style={styles.RadioText}>
-                  2 to 3 times a week/somewhat
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fourth"
-                  status={dsmChecked17 === 'fourth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked17('fourth')}
-                />
-                <Text style={styles.RadioText}>4 to 5 times a week/a lot</Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fifth"
-                  status={dsmChecked17 === 'fifth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked17('fifth')}
-                />
-                <Text style={styles.RadioText}>
-                  6 or more times a week/almost always
-                </Text>
+                <Text style={styles.RadioText}>No</Text>
               </View>
             </View>
           </View>
@@ -1203,7 +584,7 @@ const DSMTrauma = () => {
                   status={dsmChecked18 === 'first' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked18('first')}
                 />
-                <Text style={styles.RadioText}>Not at all</Text>
+                <Text style={styles.RadioText}>Yes</Text>
               </View>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -1213,43 +594,7 @@ const DSMTrauma = () => {
                   status={dsmChecked18 === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked18('second')}
                 />
-                <Text style={styles.RadioText}>
-                  Once a week or less/a little
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="third"
-                  status={dsmChecked18 === 'third' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked18('third')}
-                />
-                <Text style={styles.RadioText}>
-                  2 to 3 times a week/somewhat
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fourth"
-                  status={dsmChecked18 === 'fourth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked18('fourth')}
-                />
-                <Text style={styles.RadioText}>4 to 5 times a week/a lot</Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fifth"
-                  status={dsmChecked18 === 'fifth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked18('fifth')}
-                />
-                <Text style={styles.RadioText}>
-                  6 or more times a week/almost always
-                </Text>
+                <Text style={styles.RadioText}>No</Text>
               </View>
             </View>
           </View>
@@ -1271,7 +616,7 @@ const DSMTrauma = () => {
                   status={dsmChecked19 === 'first' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked19('first')}
                 />
-                <Text style={styles.RadioText}>Not at all</Text>
+                <Text style={styles.RadioText}>Yes</Text>
               </View>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -1281,43 +626,7 @@ const DSMTrauma = () => {
                   status={dsmChecked19 === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked19('second')}
                 />
-                <Text style={styles.RadioText}>
-                  Once a week or less/a little
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="third"
-                  status={dsmChecked19 === 'third' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked19('third')}
-                />
-                <Text style={styles.RadioText}>
-                  2 to 3 times a week/somewhat
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fourth"
-                  status={dsmChecked19 === 'fourth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked19('fourth')}
-                />
-                <Text style={styles.RadioText}>4 to 5 times a week/a lot</Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fifth"
-                  status={dsmChecked19 === 'fifth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked19('fifth')}
-                />
-                <Text style={styles.RadioText}>
-                  6 or more times a week/almost always
-                </Text>
+                <Text style={styles.RadioText}>No</Text>
               </View>
             </View>
           </View>
@@ -1337,7 +646,7 @@ const DSMTrauma = () => {
                   status={dsmChecked20 === 'first' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked20('first')}
                 />
-                <Text style={styles.RadioText}>Not at all</Text>
+                <Text style={styles.RadioText}>Yes</Text>
               </View>
               <View style={styles.ButtonRadio}>
                 <RadioButton
@@ -1347,229 +656,10 @@ const DSMTrauma = () => {
                   status={dsmChecked20 === 'second' ? 'checked' : 'unchecked'}
                   onPress={() => setDsmChecked20('second')}
                 />
-                <Text style={styles.RadioText}>
-                  Once a week or less/a little
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="third"
-                  status={dsmChecked20 === 'third' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked20('third')}
-                />
-                <Text style={styles.RadioText}>
-                  2 to 3 times a week/somewhat
-                </Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fourth"
-                  status={dsmChecked20 === 'fourth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked20('fourth')}
-                />
-                <Text style={styles.RadioText}>4 to 5 times a week/a lot</Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="fifth"
-                  status={dsmChecked20 === 'fifth' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked20('fifth')}
-                />
-                <Text style={styles.RadioText}>
-                  6 or more times a week/almost always
-                </Text>
+                <Text style={styles.RadioText}>No</Text>
               </View>
             </View>
           </View>
-          {/* <View style={styles.DsmContent}>
-            <Text style={styles.DsmQuestion}>
-              21. Fun things you want to do
-            </Text>
-            <View style={styles.DSMRadioButtonYes}>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="first"
-                  status={dsmChecked21 === 'first' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked21('first')}
-                />
-                <Text style={styles.RadioTextYes}>Yes</Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="second"
-                  status={dsmChecked21 === 'second' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked21('second')}
-                />
-                <Text style={styles.RadioTextYes}>No</Text>
-              </View>
-            </View>
-          </View>
-          <View style={styles.DsmContent}>
-            <Text style={styles.DsmQuestion}>22. Doing your chores</Text>
-            <View style={styles.DSMRadioButtonYes}>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="first"
-                  status={dsmChecked22 === 'first' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked22('first')}
-                />
-                <Text style={styles.RadioTextYes}>Yes</Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="second"
-                  status={dsmChecked22 === 'second' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked22('second')}
-                />
-                <Text style={styles.RadioTextYes}>No</Text>
-              </View>
-            </View>
-          </View>
-          <View style={styles.DsmContent}>
-            <Text style={styles.DsmQuestion}>
-              23. Relationships with your friends
-            </Text>
-            <View style={styles.DSMRadioButtonYes}>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="first"
-                  status={dsmChecked23 === 'first' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked23('first')}
-                />
-                <Text style={styles.RadioTextYes}>Yes</Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="second"
-                  status={dsmChecked23 === 'second' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked23('second')}
-                />
-                <Text style={styles.RadioTextYes}>No</Text>
-              </View>
-            </View>
-          </View>
-          <View style={styles.DsmContent}>
-            <Text style={styles.DsmQuestion}>24. Praying</Text>
-            <View style={styles.DSMRadioButtonYes}>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="first"
-                  status={dsmChecked24 === 'first' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked24('first')}
-                />
-                <Text style={styles.RadioTextYes}>Yes</Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="second"
-                  status={dsmChecked24 === 'second' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked24('second')}
-                />
-                <Text style={styles.RadioTextYes}>No</Text>
-              </View>
-            </View>
-          </View>
-          <View style={styles.DsmContent}>
-            <Text style={styles.DsmQuestion}>25. Schoolwork</Text>
-            <View style={styles.DSMRadioButtonYes}>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="first"
-                  status={dsmChecked25 === 'first' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked25('first')}
-                />
-                <Text style={styles.RadioTextYes}>Yes</Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="second"
-                  status={dsmChecked25 === 'second' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked25('second')}
-                />
-                <Text style={styles.RadioTextYes}>No</Text>
-              </View>
-            </View>
-          </View>
-          <View style={styles.DsmContent}>
-            <Text style={styles.DsmQuestion}>
-              26. Relationships with your family
-            </Text>
-            <View style={styles.DSMRadioButtonYes}>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="first"
-                  status={dsmChecked26 === 'first' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked26('first')}
-                />
-                <Text style={styles.RadioTextYes}>Yes</Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="second"
-                  status={dsmChecked26 === 'second' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked26('second')}
-                />
-                <Text style={styles.RadioTextYes}>No</Text>
-              </View>
-            </View>
-          </View>
-          <View style={styles.DsmContent}>
-            <Text style={styles.DsmQuestion}>
-              27. Being happy with your life
-            </Text>
-            <View style={styles.DSMRadioButtonYes}>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="first"
-                  status={dsmChecked27 === 'first' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked27('first')}
-                />
-                <Text style={styles.RadioTextYes}>Yes</Text>
-              </View>
-              <View style={styles.ButtonRadio}>
-                <RadioButton
-                  uncheckedColor={'gray'}
-                  color={'#ff6b00'}
-                  value="second"
-                  status={dsmChecked27 === 'second' ? 'checked' : 'unchecked'}
-                  onPress={() => setDsmChecked27('second')}
-                />
-                <Text style={styles.RadioTextYes}>No</Text>
-              </View>
-            </View>
-          </View> */}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -1610,27 +700,18 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   DSMRadioButton: {
-    flexDirection: 'column',
+    flexDirection: 'row',
     marginLeft: 12,
     top: 3,
   },
-  DSMRadioButtonYes: {
-    marginLeft: 12,
-    flexDirection: 'column',
-  },
   ButtonRadio: {
     flexDirection: 'row',
+    marginRight: 10,
   },
   RadioText: {
     color: '#181818',
     alignSelf: 'center',
     fontFamily: 'Lato-Regular',
     fontSize: 13,
-  },
-  RadioTextYes: {
-    color: '#181818',
-    fontFamily: 'Lato-Regular',
-    fontSize: 13,
-    alignSelf: 'center',
   },
 });
