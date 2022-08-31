@@ -18,12 +18,12 @@ const commonFetch = async (url, Method, bodyData, headerData, paramsData) => {
     // const authUser = JSON.parse(await AsyncStorage.getItem('authUser'));
 
     paramsHeader = {
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwibmJmIjoxNjYxOTIwOTEyLCJleHAiOjE2NjIwMDczMTIsImlhdCI6MTY2MTkyMDkxMiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3QiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdCJ9.dffPqoxKKdJDYcyicF-bx5RUFr-Vo0O7gadVD90Nff0`,
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwibmJmIjoxNjYxOTUxNjIyLCJleHAiOjE2NjIwMzgwMjIsImlhdCI6MTY2MTk1MTYyMiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3QiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdCJ9.3Qm83zPHOzAo-3r-v-gtP_qD3LUq6jO-LLbs8FGDlSo`,
     };
   }
-  paramsHeader = {
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwibmJmIjoxNjYxOTIwOTEyLCJleHAiOjE2NjIwMDczMTIsImlhdCI6MTY2MTkyMDkxMiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3QiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdCJ9.dffPqoxKKdJDYcyicF-bx5RUFr-Vo0O7gadVD90Nff0`,
-  };
+   paramsHeader = {
+     Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwibmJmIjoxNjYxOTQ4MDA3LCJleHAiOjE2NjIwMzQ0MDcsImlhdCI6MTY2MTk0ODAwNywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3QiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdCJ9.9zFJziuH77GSz77tcp2-K4uzYZk-xoom8bqZnt8RDdU`,
+   };
 
   
   const encryptData = (type, data) => {

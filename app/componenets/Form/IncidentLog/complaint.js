@@ -27,7 +27,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   sendComplaintsData,
   sendComplaintsDataResponse,
-} from '../../../Redux/IncidentLog/Action';
+} from '../../../Redux/IncidentLog/IncidentCreation/Action';
 const Complaints = ({navigation}) => {
   const [dates, setDates] = React.useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
@@ -194,7 +194,7 @@ const Complaints = ({navigation}) => {
     Offenders_relationship_to_victim: '',
     Offenders_approximate_Age: 0,
     Who_informed_about_the_incident: '',
-    incidentReportedTo: '',
+    Whether_Incident_Reported_Others: '',
     complaint_lodged_PS: '',
     gdNumber: '',
     GD_EntryDate: '',
@@ -215,7 +215,7 @@ const Complaints = ({navigation}) => {
     Offenders_relationship_to_victim: '',
     Offenders_approximate_Age: '',
     Who_informed_about_the_incident: '',
-    incidentReportedTo: '',
+    Whether_Incident_Reported_Others: '',
     complaint_lodged_PS: '',
     gdNumber: '',
     GD_EntryDate: '',
@@ -238,7 +238,7 @@ const Complaints = ({navigation}) => {
       Offenders_relationship_to_victim: '',
       Offenders_approximate_Age: '',
       Who_informed_about_the_incident: '',
-      incidentReportedTo: '',
+      Whether_Incident_Reported_Others: '',
       complaint_lodged_PS: '',
       gdNumber: '',
       GD_EntryDate: '',
@@ -523,7 +523,7 @@ const Complaints = ({navigation}) => {
                       : setOthers1(false);
                     setValidation1({
                       ...validation1,
-                      incidentReportedTo: item,
+                      Whether_Incident_Reported_Others: item,
                     });
                   }
                 }}
@@ -532,9 +532,9 @@ const Complaints = ({navigation}) => {
           </View>
 
           <View>
-            {error?.incidentReportedTo && (
+            {error?.Whether_Incident_Reported_Others && (
               <Text style={styles.errormessage}>
-                {error?.incidentReportedTo}
+                {error?.Whether_Incident_Reported_Others}
               </Text>
             )}
           </View>
@@ -648,7 +648,7 @@ const Complaints = ({navigation}) => {
                         onChangeText={text => {
                           setValidation1({
                             ...validation1,
-                            gdNumber: parseInt(text),
+                            gdNumber: text,
                           });
                         }}
                       />
@@ -894,11 +894,7 @@ const Complaints = ({navigation}) => {
           onPress={() => navigation.navigate('victim')}>
           <Text style={styles.formbuttoninput}>BACK </Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.formbutton0}
-          onPress={() => route.change()}>
-          <Text style={styles.formbuttoninput}>SAVE </Text>
-        </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.formbutton}
           onPress={() => myFunction()}>

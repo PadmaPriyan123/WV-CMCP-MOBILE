@@ -1,15 +1,15 @@
 import {call, put, takeEvery, takeLatest} from 'redux-saga/effects';
-import {Service} from '../../Services/Helper';
+import {Service} from '../../../Services/Helper';
 import {
   caseAssignmentResponse,
   sendVictimDataResponse,
   sendComplaintsDataResponse,
-} from '../IncidentLog/Action';
+} from '../IncidentCreation/Action';
 import {
   CASE_ASSIGNMENT,
   INCIDENT_VICTIM,
   INCIDENT_COMPLAINTS,
-} from '../IncidentLog/ActionTypes';
+} from '../IncidentCreation/ActionTypes';
 
 function* postVictimData({payload: victimInfo}) {
   try {

@@ -28,7 +28,7 @@ import {
   sendVictimData,
   sendVictimDataResponse,
   caseAssignment,
-} from '../../../Redux/IncidentLog/Action';
+} from '../../../Redux/IncidentLog/IncidentCreation/Action';
 
 const Victim = ({route}) => {
   const navigation = useNavigation();
@@ -147,8 +147,9 @@ const Victim = ({route}) => {
   );
   useEffect(() => {
     if (victimresponse?.StatusCode === 201) {
-      alert('victim was successfully created');
-      // dispatch(sendVictimData(''));
+      alert(victimresponse.StatusMessage);
+      navigation.navigate('complaints');
+       dispatch(sendVictimData(''));
     }
     // dispatch(sendVictimData(''));
   }, [victimresponse]);
@@ -786,11 +787,7 @@ const Victim = ({route}) => {
         </View>
       </ScrollView>
       <View style={styles.victimbutton}>
-        <TouchableOpacity
-          style={styles.formbutton0}
-          onPress={() => route.change()}>
-          <Text style={styles.formbuttoninput}>SAVE </Text>
-        </TouchableOpacity>
+       
 
         <TouchableOpacity
           style={styles.formbutton}

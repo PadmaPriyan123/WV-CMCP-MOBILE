@@ -5,7 +5,7 @@ import {
   INCIDENT_COMPLAINTS_RESPPONSE,
   CASE_ASSIGNMENT,
   CASE_ASSIGNMENT_RESPONSE,
-} from './ActionTypes';
+} from '../IncidentCreation/ActionTypes';
 
 export const sendVictimData = victimInfo => ({
   type: INCIDENT_VICTIM,
