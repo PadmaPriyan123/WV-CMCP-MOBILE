@@ -38,14 +38,15 @@ function* postComplaintsData({payload: complaintsInfo}) {
 
     const authUser = yield call(Service.authUser);
 
-    complaintsInfo.UserID = authUser.userId;
+    //  complaintsInfo.UserID = authUser.userId;
 
     const response = yield call(
       Service.commonFetch,
       '/IncidentComplaintLog/CreateIncidentComplaintLog',
       'POST',
       complaintsInfo,
-      false,
+      true,
+      
     );
 
     yield put(sendComplaintsDataResponse(response));

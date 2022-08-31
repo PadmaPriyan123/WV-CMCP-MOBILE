@@ -26,7 +26,23 @@ function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
-       
+        <Stack.Screen
+            name="complaints"
+            component={Complaints}
+            options={{
+              title: 'Complaints',
+              headerStyle: {
+                backgroundColor: '#ff6b00',
+                height: 50,
+                fontsize: 17,
+              },
+              headerTintColor: 'white',
+              headerTitleStyle: {
+                fontFamily: 'Lato-Bold',
+                color: '#fff',
+              },
+            }}
+          />
           <Stack.Screen
             name="Login"
             component={Login}
@@ -121,23 +137,7 @@ function App() {
           />
           
 
-          <Stack.Screen
-            name="complaints"
-            component={Complaints}
-            options={{
-              title: 'Complaints',
-              headerStyle: {
-                backgroundColor: '#ff6b00',
-                height: 50,
-                fontsize: 17,
-              },
-              headerTintColor: 'white',
-              headerTitleStyle: {
-                fontFamily: 'Lato-Bold',
-                color: '#fff',
-              },
-            }}
-          />
+         
           <Stack.Screen
             name="legal"
             component={Legal}
