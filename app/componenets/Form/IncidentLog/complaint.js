@@ -835,7 +835,7 @@ const Complaints = ({navigation}) => {
                           style={styles.uricom}
                           placeholder="Upload a file"
                           placeholderTextColor={'gray'}>
-                          {fileResponse.map((file, index) => (
+                          {firFileResponse.map((file, index) => (
                             <Text
                               key={index.toString()}
                               numberOfLines={1}
@@ -847,7 +847,7 @@ const Complaints = ({navigation}) => {
                         <Text
                           style={{marginTop: 8}}
                           onPress={() => {
-                            handleDocumentSelection('gde');
+                            handleDocumentSelection('fir');
                           }}>
                           <FontAwesomeIcon
                             size={24}
