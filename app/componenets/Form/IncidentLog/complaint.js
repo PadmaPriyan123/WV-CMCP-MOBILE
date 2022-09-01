@@ -291,6 +291,10 @@ const Complaints = ({navigation}) => {
     if (!validation1.Action_Taken) {
       a.Action_Taken = '*Please Enter the FIR/GD Action Taken';
     }
+    if (incidentValue.length <= 0) {
+      console.log(incidentValue);
+      a.Whether_Incident_Reported_Others = '*Please select Incident report';
+    }
     if (!validation1.Sections_AppliedIn_FIR) {
       a.Sections_AppliedIn_FIR = '*Please Enter the Section applied fir';
     }

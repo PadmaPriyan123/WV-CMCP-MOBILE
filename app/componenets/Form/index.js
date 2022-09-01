@@ -44,27 +44,22 @@ const FourthRoute = () => {
 const FivthRoute = () => {
   return (
     <>
-    <Mhpss/>
+      <Mhpss />
     </>
   );
 };
 
 export default function TabViewExample() {
   const layout = useWindowDimensions();
- 
+
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     {key: 'first', title: 'VICTIMS', change: () => setIndex(1)},
     {key: 'second', title: 'COMPLAINTS', change: () => setIndex(2)},
-     // {key: 'third', title: 'LEGAL', change: () => setIndex(3)},
-     //{key: 'fourth', title: 'SERVICES', change: () => setIndex(Login)},
-         // {key: 'fivth', title: 'MHPSS', change: () => setIndex()},
-
- 
-
+    // {key: 'third', title: 'LEGAL', change: () => setIndex(3)},
+    //{key: 'fourth', title: 'SERVICES', change: () => setIndex(Login)},
+    // {key: 'fivth', title: 'MHPSS', change: () => setIndex()},
   ]);
-
-  
 
   const renderScene = SceneMap({
     first: FirstRoute,
@@ -72,7 +67,6 @@ export default function TabViewExample() {
     third: ThirdRoute,
     fourth: FourthRoute,
     fivth: FivthRoute,
-
   });
 
   const renderTabBar = props => (
@@ -94,12 +88,11 @@ export default function TabViewExample() {
         marginTop: -10,
         backgroundColor: '#fff',
         margin: 'auto',
-
         borderWidth: 0.5,
         borderColor: '#f2f7fa',
         top: 10,
       }}
-      labelStyle={{fontSize: 9, fontFamily: 'Lato-Bold'}}
+      labelStyle={{fontSize: 16, fontFamily: 'Lato-Bold'}}
     />
   );
   return (

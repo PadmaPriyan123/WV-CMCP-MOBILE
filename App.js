@@ -89,7 +89,7 @@ function App() {
             name="Viewcard"
             component={Viewcard}
             options={{
-              title: 'Viewcard',
+              title: 'Incident Log',
               headerStyle: {
                 backgroundColor: '#ff6b00',
                 height: 50,
@@ -120,6 +120,7 @@ function App() {
             }}
           />
           
+
           <Stack.Screen
             name="complaints"
             component={Complaints}
@@ -159,7 +160,7 @@ function App() {
             name="CaseAssignment"
             component={CaseAssignment}
             options={{
-              title: 'CaseAssignment',
+              title: 'Case Assignment',
               headerStyle: {
                 backgroundColor: '#ff6b00',
                 height: 50,
@@ -194,8 +195,7 @@ function App() {
             name="mhpss"
             component={Mhpss}
             options={{
-              title: 'Mhpss',
-              title: 'Case Assignment',
+              title: 'MHPSS',
               headerStyle: {
                 backgroundColor: '#ff6b00',
                 height: 50,

@@ -440,7 +440,6 @@ const Service = () => {
               <Text style={styles.gender}>No</Text>
             </View>
             <View style={styles.container}>
-            
               {checked1 === 'yes' && (
                 <View style={{marginTop: 20, right: 5}}>
                   <Text style={styles.FormTitle}>Treatment Date </Text>
@@ -563,7 +562,6 @@ const Service = () => {
               <Text style={styles.gender}>No</Text>
             </View>
             <View style={styles.container}>
-          
               {checked2 === 'first' && (
                 <View style={{marginTop: 20, right: 5}}>
                   <Text style={styles.FormTitle}>Date</Text>
@@ -585,7 +583,6 @@ const Service = () => {
                         color="#00bad7"
                       />
                     </Text>
-                 
                   </View>
                   <View style={{marginTop: 0}}>
                     <Text style={styles.FormTitle}>
@@ -714,7 +711,6 @@ const Service = () => {
             </View>
           </View>
           <View style={{marginLeft: 5}}>
-     
             {checked3 === 'yes' && (
               <View style={{marginTop: 20}}>
                 <Text style={styles.FormTitle}>Date</Text>
@@ -736,7 +732,6 @@ const Service = () => {
                       color="#00bad7"
                     />
                   </Text>
-               
                 </View>
                 <View style={{marginTop: 0}}>
                   <Text style={styles.FormTitle}>
@@ -862,7 +857,6 @@ const Service = () => {
               <Text style={styles.gender}>No</Text>
             </View>
             <View style={styles.container}>
-          
               {checked4 === 'yes' && (
                 <View style={{marginTop: 20, right: 5}}>
                   <Text style={styles.FormTitle}>Date</Text>
@@ -929,7 +923,6 @@ const Service = () => {
                       <Text style={styles.gender}>No</Text>
                     </View>
                     <View style={{marginLeft: 5}}>
-                 
                       {checked7 === 'yes' && (
                         <View style={{marginTop: 20}}>
                           <View style={{marginTop: 0, right: 8}}>
@@ -1021,7 +1014,6 @@ const Service = () => {
               />
               <Text style={styles.gender}>No</Text>
               <View style={{right: 122, top: 30}}>
-            
                 {checked5 === 'first' && (
                   <View style={{marginTop: 20, right: 10}}>
                     <Text style={styles.FormTitle}>Date</Text>
@@ -1043,7 +1035,6 @@ const Service = () => {
                           color="#00bad7"
                         />
                       </Text>
-                     
                     </View>
                   </View>
                 )}
@@ -1104,9 +1095,10 @@ const styles = StyleSheet.create({
   radioname: {
     color: '#000',
     fontFamily: 'Lato-Regular',
-    fontSize: 13,
+    fontSize: 15,
     alignSelf: 'flex-start',
     marginLeft: 5,
+    lineHeight: 20,
     marginTop: 20,
   },
   SectionStyle1: {
@@ -1115,7 +1107,6 @@ const styles = StyleSheet.create({
   },
   gender: {
     marginTop: 8,
-
     color: '#181818',
   },
 

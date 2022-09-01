@@ -8,6 +8,7 @@ import {
   Button,
   TouchableOpacity,
   Modal,
+  Alert,
   Pressable,
 } from 'react-native';
 
@@ -24,7 +25,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {faCalendarDays} from '@fortawesome/free-solid-svg-icons/faCalendarDays';
+import {faCalendarDays, faFilter} from '@fortawesome/free-solid-svg-icons';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {Menu, MenuItem, MenuDivider} from 'react-native-material-menu';
 import {Dropdown} from 'react-native-element-dropdown';
@@ -73,23 +74,26 @@ const Incident = ({navigation}) => {
         onRequestClose={hideMenu}>
         <MenuItem onPress={() => navigation.navigate('Viewcard')}>
           <View style={{flexDirection: 'row'}}>
-            <FontAwesomeIcon icon={faEye} size={20} color={'gray'} />
-            <Text style={{marginLeft: 10, color: '#000'}}>View</Text>
+            <Text>
+              <FontAwesomeIcon icon={faEye} size={14} />
+            </Text>
+            <Text style={styles.popStyles}>View</Text>
           </View>
         </MenuItem>
         <MenuItem onPress={() => navigation.navigate('Viewcard')}>
           <View style={{flexDirection: 'row'}}>
-            <FontAwesomeIcon icon={faPen} size={20} color={'gray'} />
-            <Text style={{marginLeft: 10, color: '#000'}}>Edit</Text>
+            <Text>
+              <FontAwesomeIcon icon={faPen} size={14} />
+            </Text>
+            <Text style={styles.popStyles}>Edit</Text>
           </View>
         </MenuItem>
         <MenuItem onPress={() => navigation.navigate('CaseAssignment')}>
-          {' '}
           <View style={{flexDirection: 'row'}}>
             <Text>
-              <FontAwesomeIcon icon={faStamp} size={20} color={'gray'} />
+              <FontAwesomeIcon icon={faStamp} size={14} />
             </Text>
-            <Text style={{marginLeft: 8, color: '#000'}}>Case Assign</Text>
+            <Text style={styles.popStyles}>Case Assign</Text>
           </View>
         </MenuItem>
       </Menu>
@@ -259,7 +263,6 @@ const Incident = ({navigation}) => {
               </View>
             </Card>
           </View>
-          
         </View>
         <Modal
           animationType="slide"
@@ -364,7 +367,7 @@ const Incident = ({navigation}) => {
             <View>
               <FontAwesomeIcon
                 style={{bottom: 5}}
-                icon={faPlus}
+                icon={faFilter}
                 size={30}
                 color={'#fff'}
               />
@@ -550,5 +553,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'Lato-Regular',
     padding: 5,
+  },
+  popStyles: {
+    marginLeft: 8,
+    fontSize: 14,
+    alignSelf: 'center',
+    fontFamily: 'Lato-Bold',
+    color: '#000000',
   },
 });

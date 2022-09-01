@@ -5,18 +5,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const authUser = async () => {
   let data = await AsyncStorage.getItem('authUser');
-
   return await JSON.parse(data);
 };
 
 const commonFetch = async (url, Method, bodyData, headerData, paramsData) => {
   const URL = config.WVI_DEV_BASE_URL + url;
-
   let paramsHeader = {};
-
   if (headerData === true) {
     // const authUser = JSON.parse(await AsyncStorage.getItem('authUser'));
-
     paramsHeader = {
       Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwibmJmIjoxNjYxOTUxNjIyLCJleHAiOjE2NjIwMzgwMjIsImlhdCI6MTY2MTk1MTYyMiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3QiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdCJ9.3Qm83zPHOzAo-3r-v-gtP_qD3LUq6jO-LLbs8FGDlSo`,
     };
@@ -32,9 +28,7 @@ const commonFetch = async (url, Method, bodyData, headerData, paramsData) => {
     };
 
     console.log(ed);
-
     if (type == 'body') return JSON.stringify(ed);
-
     if (type == 'query') return ed;
   };
 
