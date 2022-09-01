@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useState,useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -15,15 +15,30 @@ import {
 } from 'react-native-responsive-screen';
 
 import {ScrollView} from 'react-native-gesture-handler';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  sendLegalData,
+  sendLegalDataResponse,
+} from '../../Redux/IncidentLog/IncidentList/Action';
 
 const Legal = ({route}) => {
   const [checked3, setChecked3] = React.useState('first2');
   const [checked4, setChecked4] = React.useState('first2');
+  let dispatch = useDispatch();
+  let legalresponse = useSelector(
+    state => state.Incidentlist.sendLegalDataResponse,
+  );
+  useEffect(() => {
+   
+    if (legalresponse?.StatusCode == 201) {
+      alert('legal was successfully created');
+      dispatch(sendLegalData(''));
+    }
+   
+  }, [legalresponse]);
 
   const [validation2, setValidation2] = useState({
-    Legal_ID: 1,
-
-    CaseID: 2,
+    CaseID: 1,
 
     UserID: 1,
 
@@ -31,13 +46,11 @@ const Legal = ({route}) => {
 
     HasTheAccusedArrested: "",
 
-    NoOfAccusedArrested: "" 
+    NoOfAccusedArrested: ""
   });
   console.log('vikki',validation2)
 
   const initialErrorMessage = {
-    Legal_ID: "",
-
     CaseID: "",
 
     UserID: "",
@@ -46,7 +59,7 @@ const Legal = ({route}) => {
 
     HasTheAccusedArrested: "",
 
-    NoOfAccusedArrested: "" 
+    NoOfAccusedArrested: ""
   };
 
   const [error, setError] = useState(initialErrorMessage);
@@ -54,24 +67,22 @@ const Legal = ({route}) => {
   function myFunction() {
 
     let a = {
-      Legal_ID: "",
+      CaseID: "",
 
-    CaseID: "",
-
-    UserID: "",
-
-    IsVictimRecovered: "",
-
-    HasTheAccusedArrested: "",
-
-    NoOfAccusedArrested: "" 
+      UserID: "",
+  
+      IsVictimRecovered: "",
+  
+      HasTheAccusedArrested: "",
+  
+      NoOfAccusedArrested: ""
     };
 
     var letters = /[A-Za-z]{3,15}/;
     var empty = /^$/;
     var Age = /^[0-9]{1,2}$/;
 
-   
+  
     if (!validation2.IsVictimRecovered) {
       a.IsVictimRecovered = '*Please select the victim recovered or not';
     }
@@ -85,6 +96,7 @@ const Legal = ({route}) => {
     if (Object.values(a).every(el => el === '')) {
       console.log(Object.values(a).every(el => el === ''));
       setError(a);
+      dispatch(sendLegalData(validation2));
     } else {
       setError(a);
     }
@@ -102,11 +114,11 @@ const Legal = ({route}) => {
               <RadioButton
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
-                value="yes"
-                status={  validation2.IsVictimRecovered === 'yes' ? 'checked' : 'unchecked'}
+                value={1}
+                status={  validation2.IsVictimRecovered === 1 ? 'checked' : 'unchecked'}
                 onPress={() =>  {setValidation2({
                   ...validation2,
-                  IsVictimRecovered: 'yes',
+                  IsVictimRecovered:parseInt (1),
                 });
                 setChecked3('yes');
               }}
@@ -115,11 +127,11 @@ const Legal = ({route}) => {
               <RadioButton
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
-                value="no"
-                status={  validation2.IsVictimRecovered === 'no' ? 'checked' : 'unchecked'}
+                value={0}
+                status={  validation2.IsVictimRecovered === 0 ? 'checked' : 'unchecked'}
                 onPress={() =>  {setValidation2({
                   ...validation2,
-                  IsVictimRecovered: 'no',
+                  IsVictimRecovered:parseInt (0),
                 });
                 setChecked3('no');
               }}
@@ -135,11 +147,11 @@ const Legal = ({route}) => {
               <RadioButton
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
-                value="yes"
-                status={validation2.HasTheAccusedArrested === 'yes' ? 'checked' : 'unchecked'}
+                value={1}
+                status={validation2.HasTheAccusedArrested === 1 ? 'checked' : 'unchecked'}
                 onPress={() =>  {setValidation2({
                   ...validation2,
-                  HasTheAccusedArrested: 'yes',
+                  HasTheAccusedArrested: parseInt(1),
                 });
                 setChecked4('yes');
               }}
@@ -148,11 +160,11 @@ const Legal = ({route}) => {
               <RadioButton
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
-                value="no"
-                status={validation2.HasTheAccusedArrested === 'no' ? 'checked' : 'unchecked'}
+                value={0}
+                status={validation2.HasTheAccusedArrested === 0 ? 'checked' : 'unchecked'}
                 onPress={() =>  {setValidation2({
                   ...validation2,
-                  HasTheAccusedArrested: 'no',
+                  HasTheAccusedArrested: parseInt(0),
                 });
                 setChecked4('no');
               }}
@@ -160,6 +172,7 @@ const Legal = ({route}) => {
               <Text style={styles.gender}>No</Text>
             </View>
           </View>
+          {validation2.HasTheAccusedArrested === 1 && (
           <View style={{marginTop: 16}}>
             <Text style={styles.FormTitle}>
               Number of accused arrested?:<Text style={styles.star}>*</Text>
@@ -172,16 +185,20 @@ const Legal = ({route}) => {
                 placeholderTextColor="gray"
                 color="#000"
                 onChangeText={text => {
-                  setValidation2({...validation2, NoOfAccusedArrested: text});
+                  setValidation2({...validation2, NoOfAccusedArrested: parseInt(text)});
                 }}
               />
             </View>
-          </View>
-          <View>
+            <View>
               {error?.NoOfAccusedArrested && (
                 <Text style={styles.errormessage}>{error?.NoOfAccusedArrested}</Text>
               )}
             </View>
+          </View>
+          
+            )}
+          
+        
         </SafeAreaView>
       </ScrollView>
 

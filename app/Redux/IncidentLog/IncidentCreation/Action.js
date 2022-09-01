@@ -5,7 +5,7 @@ import {
   INCIDENT_COMPLAINTS_RESPPONSE,
   CASE_ASSIGNMENT,
   CASE_ASSIGNMENT_RESPONSE,
-} from './ActionTypes';
+} from '../IncidentCreation/ActionTypes';
 
 export const sendVictimData = victimInfo => ({
   type: INCIDENT_VICTIM,
@@ -22,7 +22,7 @@ export const sendComplaintsData = complaintsInfo => ({
   type: INCIDENT_COMPLAINTS,
   payload: complaintsInfo,
 });
-
+console.log('bhf',sendComplaintsData)
 export const sendComplaintsDataResponse = complaintsInfo => ({
   type: INCIDENT_COMPLAINTS_RESPPONSE,
   payload: complaintsInfo,

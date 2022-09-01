@@ -118,6 +118,8 @@ function App() {
               },
             }}
           />
+          
+
           <Stack.Screen
             name="complaints"
             component={Complaints}
@@ -135,7 +137,8 @@ function App() {
               },
             }}
           />
-          <Stack.Screen
+         
+         <Stack.Screen
             name="legal"
             component={Legal}
             options={{

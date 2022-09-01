@@ -28,8 +28,7 @@ import {
   sendVictimData,
   sendVictimDataResponse,
   caseAssignment,
-} from '../../../Redux/IncidentLog/Action';
-import {faFileAlt} from '@fortawesome/free-solid-svg-icons';
+} from '../../../Redux/IncidentLog/IncidentCreation/Action';
 
 const Victim = ({route}) => {
   const navigation = useNavigation();
@@ -148,8 +147,9 @@ const Victim = ({route}) => {
   );
   useEffect(() => {
     if (victimresponse?.StatusCode === 201) {
-      alert('victim was successfully created');
-      // dispatch(sendVictimData(''));
+      alert(victimresponse.StatusMessage);
+      navigation.navigate('complaints');
+       dispatch(sendVictimData(''));
     }
     // dispatch(sendVictimData(''));
   }, [victimresponse]);
@@ -171,7 +171,7 @@ const Victim = ({route}) => {
     Victim_age: '',
     Nature_of_incident: '',
     natureofIncidentOthers: 1,
-    StateID: '',
+    StateID: 1,
     DistrictID: '',
     BlockID: '',
     PanchayatID: '',

@@ -1,15 +1,15 @@
 import {call, put, takeEvery, takeLatest} from 'redux-saga/effects';
-import {Service} from '../../Services/Helper';
+import {Service} from '../../../Services/Helper';
 import {
   caseAssignmentResponse,
   sendVictimDataResponse,
   sendComplaintsDataResponse,
-} from '../IncidentLog/Action';
+} from '../IncidentCreation/Action';
 import {
   CASE_ASSIGNMENT,
   INCIDENT_VICTIM,
   INCIDENT_COMPLAINTS,
-} from '../IncidentLog/ActionTypes';
+} from '../IncidentCreation/ActionTypes';
 
 function* postVictimData({payload: victimInfo}) {
   try {
@@ -38,14 +38,15 @@ function* postComplaintsData({payload: complaintsInfo}) {
 
     const authUser = yield call(Service.authUser);
 
-    complaintsInfo.UserID = authUser.userId;
+    //  complaintsInfo.UserID = authUser.userId;
 
     const response = yield call(
       Service.commonFetch,
       '/IncidentComplaintLog/CreateIncidentComplaintLog',
       'POST',
       complaintsInfo,
-      false,
+      true,
+      
     );
 
     yield put(sendComplaintsDataResponse(response));

@@ -28,7 +28,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   sendComplaintsData,
   sendComplaintsDataResponse,
-} from '../../../Redux/IncidentLog/Action';
+} from '../../../Redux/IncidentLog/IncidentCreation/Action';
 const Complaints = ({navigation}) => {
   const [dates, setDates] = React.useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
@@ -87,52 +87,55 @@ const Complaints = ({navigation}) => {
   const [value1, setValue1] = useState(null);
 
   const data = [
-    {label: 'District Child Protection Unit', value: 1},
-    {label: 'Child Welfare Committee', value: 2},
-    {label: 'Child Line- 1098    ', value: 3},
-    {label: ' Police Helpline 100', value: 4},
-    {label: ' Local Police station ', value: 5},
+    {
+      label: 'District Child Protection Unit',
+      value: 'District Child Protection Unit',
+    },
+    {label: 'Child Welfare Committee', value: 'Child Welfare Committee'},
+    {label: 'Child Line- 1098    ', value: 'Child Line- 1098    '},
+    {label: ' Police Helpline 100', value: ' Police Helpline 100'},
+    {label: ' Local Police station ', value: ' Local Police station '},
   ];
   const [incidentValue, setIncidentValue] = useState('');
 
   const data2 = [
-    {label: '161 Statement is done', value: 1},
-    {label: 'Medical Examination Done ', value: 2},
-    {label: '164 Statement Done', value: 3},
+    {label: '161 Statement is done', value: [1]},
+    {label: 'Medical Examination Done ', value: [2]},
+    {label: '164 Statement Done', value: [3]},
 
     {
       label: 'Victim Produced Before CWC    ',
-      value: 4,
+      value: [4],
     },
 
-    {label: 'Victim admitted in CCI    ', value: 5},
+    {label: 'Victim admitted in CCI    ', value: [5]},
 
     {
       label: 'MHPSS services given to victim',
-      value: 6,
+      value: [6],
     },
     {
       label: 'Medical Aid given to victim',
-      value: 7,
+      value: [7],
     },
     {
       label: 'Victim Compensation application filed',
-      value: 8,
+      value: [8],
     },
     {
       label: 'Charge sheet submitted',
-      value: 9,
+      value: [9],
     },
-    {label: 'Examination Chief', value: 10},
-    {label: 'Cross Examination    ', value: 11},
+    {label: 'Examination Chief', value: [10]},
+    {label: 'Cross Examination    ', value: [11]},
 
-    {label: 'Re-examination    ', value: 12},
+    {label: 'Re-examination    ', value: [12]},
 
     {
       label: 'Accused convicted / acquitted?    ',
-      value: 13,
+      value: [13],
     },
-    {label: 'Appeal under process', value: 14},
+    {label: 'Appeal under process', value: [14]},
   ];
 
   const [value2, setValue2] = useState('');
@@ -186,17 +189,14 @@ const Complaints = ({navigation}) => {
     }
     // dispatch(sendVictimData(''));
   }, [complaintresponse]);
+
   let d = new Date();
-  let dat = d.getDate();
-  let month = d.getMonth() + 1;
+  let dat = String(d.getDate()).padStart(2, '0');
+  let month = String(d.getMonth() + 1).padStart(2, '0');
   let year = d.getFullYear();
-  if (month < 10) month = `0${d.getMonth() + 1}`;
-  if (dat < 10) {
-    dat = `0${d.getDate()}`;
-    console.log(month);
-  }
+  if (month.toString.length === 1) month = `0${d.getMonth() + 1}`;
+  if (dat.toString.length === 1) dat = `0${d.getDate()}`;
   const [validation1, setValidation1] = useState({
-    Complaints_ID: 1,
     CaseID: 1,
     UserID: 1,
     Date_of_incident: `${year}-${month}-${dat}`,
@@ -208,7 +208,6 @@ const Complaints = ({navigation}) => {
     Whether_Incident_Reported_Others: '',
     complaint_lodged_PS: '',
     GD_Number: '',
-    GDE_select: '',
     GD_EntryDate: '',
     FIR_filed_or_not: '',
     FIR_Num: 0,
@@ -231,7 +230,6 @@ const Complaints = ({navigation}) => {
     Whether_Incident_Reported_Others: '',
     complaint_lodged_PS: '',
     GD_Number: '',
-    GDE_select: '',
     GD_EntryDate: '',
     FIR_filed_or_not: '',
     FIR_Num: '',
@@ -270,6 +268,7 @@ const Complaints = ({navigation}) => {
     var letters = /[A-Za-z]{3,15}/;
     var empty = /^$/;
     var Age = /^[0-9]{1,2}$/;
+    dispatch(sendComplaintsData(validation1));
 
     if (!validation1.Date_of_incident) {
       a.Date_of_incident = '*Please Select the Date Of Incident';
@@ -323,10 +322,18 @@ const Complaints = ({navigation}) => {
     if (!validation1.Sections_AppliedIn_FIR) {
       a.Sections_AppliedIn_FIR = '*Please Enter the Section applied fir';
     }
+    console.log(a);
     if (Object.values(a).every(el => el === '')) {
       console.log(Object.values(a).every(el => el === ''));
       setError(a);
-      dispatch(sendComplaintsData(validation1));
+      let reqData = validation1;
+      reqData.Sections_AppliedIn_FIR = JSON.stringify(
+        validation1.Sections_AppliedIn_FIR,
+      );
+      console.log('bhhf', reqData);
+
+      dispatch(sendComplaintsData(reqData));
+      console.log('vjv', validation1);
     } else {
       setError(a);
     }
@@ -358,6 +365,7 @@ const Complaints = ({navigation}) => {
                   color="#00bad7"
                 />
               </Text>
+             
             </View>
           </View>
 
@@ -448,7 +456,7 @@ const Complaints = ({navigation}) => {
                 onChangeText={text => {
                   setValidation1({
                     ...validation1,
-                    Offenders_approximate_Age: text,
+                    Offenders_approximate_Age: parseInt(text),
                   });
                 }}
               />
@@ -484,7 +492,7 @@ const Complaints = ({navigation}) => {
                     item.value === '10' ? setOthers(true) : setOthers(false);
                     setValidation1({
                       ...validation1,
-                      Who_informed_about_the_incident: item.value,
+                      Who_informed_about_the_incident: item.label,
                     });
                   }
                 }}
@@ -537,7 +545,7 @@ const Complaints = ({navigation}) => {
                 value={incidentValue}
                 onChange={item => {
                   {
-                    setIncidentValue(item);
+                    setSelected(item);
                     item.selected === '3'
                       ? setOthers1(true)
                       : setOthers1(false);

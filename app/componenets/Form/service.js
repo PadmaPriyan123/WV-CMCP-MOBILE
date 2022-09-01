@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useState,useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -21,6 +21,12 @@ import {ScrollView} from 'react-native-gesture-handler';
 
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import DSMTrauma from './DSMTraumaScreening';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  sendReintegrationData,
+  sendReintegrationDataResponse,
+} from '../../Redux/IncidentLog/IncidentList/Action';
+
 
 const Service = () => {
   const [date, setDate] = React.useState('');
@@ -68,13 +74,26 @@ const Service = () => {
   const handlePress = () => setExpanded(!expanded);
   const [open, setOpen] = React.useState(false);
   const [supportive, setSupportive] = React.useState([]);
+  let dispatch = useDispatch();
+  let reintegrationresponse = useSelector(
+    state => state.Incidentlist.sendReintegrationDataResponse,
+  );
+  useEffect(() => {
+   
+    if (reintegrationresponse?.StatusCode == 201) {
+      alert('reintegration was successfully created');
+      dispatch(sendReintegrationData(''));
+    }
+   
+  }, [reintegrationresponse]);
+
   let d = new Date();
   let dat = d.getDate();
   let month = d.getMonth() + 1;
   let year = d.getFullYear();
   if (month.toString.length === 1) month = `0${d.getMonth() + 1}`;
   if (dat.toString.length === 1) dat = `0${d.getDate()}`;
-
+  
   const [validation3, setValidation3] = useState({
     CaseID: 2,
     UserID: 1,
@@ -167,7 +186,7 @@ const Service = () => {
     var letters = /[A-Za-z]{3,15}/;
     var empty = /^$/;
     var Age = /^[0-9]{1,2}$/;
-
+       dispatch(sendReintegrationData(validation3));
     if (!validation3.IsFacilitatedToCompensation) {
       a.IsFacilitatedToCompensation =
         '*Please Select is facilated to compensation';
@@ -236,9 +255,12 @@ const Service = () => {
     if (!validation3.GDENumber) {
       a.GDENumber = '*Please enter the GDE number ';
     }
+    if (!validation3.ActionTakenRemarks) {
+      a.ActionTakenRemarks = '*Please enter the action taken remarks ';
+    }
     if (Object.values(a).every(el => el === '')) {
       setError(a);
-      dispatch(IncidentLog(validation));
+   
     } else {
       setError(a);
     }
@@ -260,16 +282,16 @@ const Service = () => {
               <RadioButton
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
-                value="yes"
+                value={1}
                 status={
-                  validation3.IsFacilitatedToCompensation === 'yes'
+                  validation3.IsFacilitatedToCompensation === 1
                     ? 'checked'
                     : 'unchecked'
                 }
                 onPress={() => {
                   setValidation3({
                     ...validation3,
-                    IsFacilitatedToCompensation: 'yes',
+                    IsFacilitatedToCompensation: parseInt(1),
                   });
                   setChecked('yes');
                 }}
@@ -279,16 +301,16 @@ const Service = () => {
               <RadioButton
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
-                value="no"
+                value={0}
                 status={
-                  validation3.IsFacilitatedToCompensation === 'no'
+                  validation3.IsFacilitatedToCompensation === 0
                     ? 'checked'
                     : 'unchecked'
                 }
                 onPress={() => {
                   setValidation3({
                     ...validation3,
-                    IsFacilitatedToCompensation: 'no',
+                    IsFacilitatedToCompensation: parseInt(0),
                   });
                   setChecked('no');
                 }}
@@ -332,7 +354,7 @@ const Service = () => {
                       onChangeText={text => {
                         setValidation3({
                           ...validation3,
-                          CompensationAmount: text,
+                          CompensationAmount:parseInt(text),
                         });
                       }}
                     />
@@ -383,16 +405,16 @@ const Service = () => {
               <RadioButton
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
-                value="yes"
+                value={1}
                 status={
-                  validation3.AnyMedicalAssistance === 'yes'
+                  validation3.AnyMedicalAssistance === 1
                     ? 'checked'
                     : 'unchecked'
                 }
                 onPress={() => {
                   setValidation3({
                     ...validation3,
-                    AnyMedicalAssistance: 'yes',
+                    AnyMedicalAssistance: parseInt(1),
                   });
                   setChecked1('yes');
                 }}
@@ -401,16 +423,16 @@ const Service = () => {
               <RadioButton
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
-                value="no"
+                value={0}
                 status={
-                  validation3.AnyMedicalAssistance === 'no'
+                  validation3.AnyMedicalAssistance === 0
                     ? 'checked'
                     : 'unchecked'
                 }
                 onPress={() => {
                   setValidation3({
                     ...validation3,
-                    AnyMedicalAssistance: 'no',
+                    AnyMedicalAssistance:parseInt(0),
                   });
                   setChecked1('no');
                 }}
@@ -505,16 +527,16 @@ const Service = () => {
               <RadioButton
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
-                value="first"
+                value={1}
                 status={
-                  validation3.IsEnrolledInSchool === 'first'
+                  validation3.IsEnrolledInSchool === 1
                     ? 'checked'
                     : 'unchecked'
                 }
                 onPress={() => {
                   setValidation3({
                     ...validation3,
-                    IsEnrolledInSchool: 'first',
+                    IsEnrolledInSchool: parseInt(1),
                   });
                   setChecked2('first');
                 }}
@@ -523,16 +545,16 @@ const Service = () => {
               <RadioButton
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
-                value="second"
+                value={0}
                 status={
-                  validation3.IsEnrolledInSchool === 'second'
+                  validation3.IsEnrolledInSchool === 0
                     ? 'checked'
                     : 'unchecked'
                 }
                 onPress={() => {
                   setValidation3({
                     ...validation3,
-                    IsEnrolledInSchool: 'second',
+                    IsEnrolledInSchool: parseInt(0),
                   });
                   setChecked2('second');
                 }}
@@ -653,16 +675,16 @@ const Service = () => {
               <RadioButton
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
-                value="yes"
+                value={1}
                 status={
-                  validation3.IsEnrolledInVocationalTraining === 'yes'
+                  validation3.IsEnrolledInVocationalTraining === 1
                     ? 'checked'
                     : 'unchecked'
                 }
                 onPress={() => {
                   setValidation3({
                     ...validation3,
-                    IsEnrolledInVocationalTraining: 'yes',
+                    IsEnrolledInVocationalTraining: parseInt(1),
                   });
                   setChecked3('yes');
                 }}
@@ -671,16 +693,16 @@ const Service = () => {
               <RadioButton
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
-                value="no"
+                value={0}
                 status={
-                  validation3.IsEnrolledInVocationalTraining === 'no'
+                  validation3.IsEnrolledInVocationalTraining === 0
                     ? 'checked'
                     : 'unchecked'
                 }
                 onPress={() => {
                   setValidation3({
                     ...validation3,
-                    IsEnrolledInVocationalTraining: 'no',
+                    IsEnrolledInVocationalTraining: parseInt(0),
                   });
                   setChecked3('no');
                 }}
@@ -800,16 +822,16 @@ const Service = () => {
               <RadioButton
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
-                value="yes"
+                value={1}
                 status={
-                  validation3.IsAnyProtectiveActionTaken === 'yes'
+                  validation3.IsAnyProtectiveActionTaken === 1
                     ? 'checked'
                     : 'unchecked'
                 }
                 onPress={() => {
                   setValidation3({
                     ...validation3,
-                    IsAnyProtectiveActionTaken: 'yes',
+                    IsAnyProtectiveActionTaken: parseInt(1),
                   });
                   setChecked4('yes');
                 }}
@@ -818,16 +840,16 @@ const Service = () => {
               <RadioButton
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
-                value="no"
+                value={0}
                 status={
-                  validation3.IsAnyProtectiveActionTaken === 'no'
+                  validation3.IsAnyProtectiveActionTaken === 0
                     ? 'checked'
                     : 'unchecked'
                 }
                 onPress={() => {
                   setValidation3({
                     ...validation3,
-                    IsAnyProtectiveActionTaken: 'no',
+                    IsAnyProtectiveActionTaken: parseInt(0),
                   });
                   setChecked4('no');
                 }}
@@ -865,16 +887,16 @@ const Service = () => {
                       <RadioButton
                         uncheckedColor={'gray'}
                         color={'#ff6b00'}
-                        value="yes"
+                        value={1}
                         status={
-                          validation3.isGDEDone === 'yes'
+                          validation3.isGDEDone === 1
                             ? 'checked'
                             : 'unchecked'
                         }
                         onPress={() => {
                           setValidation3({
                             ...validation3,
-                            isGDEDone: 'yes',
+                            isGDEDone: parseInt(1),
                           });
                           setChecked7('yes');
                         }}
@@ -884,16 +906,16 @@ const Service = () => {
                       <RadioButton
                         uncheckedColor={'gray'}
                         color={'#ff6b00'}
-                        value="no"
+                        value={0}
                         status={
-                          validation3.isGDEDone === 'no'
+                          validation3.isGDEDone === 0
                             ? 'checked'
                             : 'unchecked'
                         }
                         onPress={() => {
                           setValidation3({
                             ...validation3,
-                            isGDEDone: 'no',
+                            isGDEDone: parseInt(0),
                           });
                           setChecked7('no');
                         }}
@@ -917,7 +939,7 @@ const Service = () => {
                                 onChangeText={text => {
                                   setValidation3({
                                     ...validation3,
-                                    GDENumber: text,
+                                    GDENumber:text,
                                   });
                                 }}
                               />
@@ -934,10 +956,40 @@ const Service = () => {
                       )}
                     </View>
                   </View>
+                  <View style={{marginTop: 20}}>
+                  <Text style={styles.FormTitle}>
+                    Remarks:<Text style={styles.star}>*</Text>
+                  </Text>
+                  <View style={styles.tabfourfirst}>
+                    <TextInput
+                      style={styles.FormInput}
+                      type="text"
+                      placeholder="Enter the remark"
+                      placeholderTextColor="gray"
+                      onChangeText={text => {
+                        setValidation3({
+                          ...validation3,
+                          ActionTakenRemarks: text,
+                        });
+                      }}
+                    />
+                  </View>
                 </View>
+                <View>
+                  {error?.ActionTakenRemarks && (
+                    <Text style={styles.errormessage}>
+                      {error?.ActionTakenRemarks}
+                    </Text>
+                  )}
+                </View>
+              </View>
+             
+                
               )}
             </View>
+            
           </View>
+
 
           <View style={{marginTop: 3, marginLeft: 16}}>
             <Text style={styles.radioname}>
