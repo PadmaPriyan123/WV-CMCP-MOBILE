@@ -170,8 +170,8 @@ const Victim = ({route}) => {
     Proof_of_DoB: 'Uploadfile.pdf',
     Victim_age: '',
     Nature_of_incident: '',
-    natureofIncidentOthers: 1,
-    StateID: 1,
+    natureofIncidentOthers: '',
+    StateID: '',
     DistrictID: '',
     BlockID: '',
     PanchayatID: '',
@@ -254,7 +254,7 @@ const Victim = ({route}) => {
       a.Name_of_the_Victim = 'Enter a valid  victim name';
     }
     if (!validation.Guardians_name) {
-      a.Guardians_name = '*Please enter the gardian name';
+      a.Guardians_name = '*Please enter the guardians name';
     }
     if (
       !letters.test(validation.Guardians_name) &&
@@ -270,6 +270,9 @@ const Victim = ({route}) => {
       !empty.test(validation.Victim_age)
     ) {
       a.Victim_age = 'Enter a valid victim age';
+    }
+    if (!validation.Victim_DoB_if_available) {
+      a.Victim_DoB_if_available = '*Please select the victim dob is available';
     }
     if (!validation.Victims_DoB) {
       a.Victims_DoB = '*Please select the victim date of birth';
@@ -318,6 +321,7 @@ const Victim = ({route}) => {
                 type="text"
                 placeholder="Enter reporter's name"
                 placeholderTextColor="gray"
+                color="#000"
                 onChangeText={text => {
                   setValidation({...validation, ReportersName: text});
                 }}
@@ -374,9 +378,9 @@ const Victim = ({route}) => {
                   placeholderTextColor={'gray'}
                 />
 
-                <Text style={{left: 300, bottom: 39}} onPress={showDatePicker}>
+                <Text style={{left: 320, bottom: 45}} onPress={showDatePicker}>
                   <FontAwesomeIcon
-                    size={20}
+                    size={25}
                     icon={faCalendarDays}
                     title="Show Picker"
                     color="#00bad7"
@@ -401,6 +405,7 @@ const Victim = ({route}) => {
                   type="text"
                   placeholder="Enter name of the victim"
                   placeholderTextColor="gray"
+                  color="#000"
                   onChangeText={text => {
                     setValidation({...validation, Name_of_the_Victim: text});
                   }}
@@ -424,6 +429,7 @@ const Victim = ({route}) => {
                   type="text"
                   placeholder="Enter guardian's name"
                   placeholderTextColor="gray"
+                  color="#000"
                   onChangeText={text => {
                     setValidation({...validation, Guardians_name: text});
                   }}
@@ -475,6 +481,13 @@ const Victim = ({route}) => {
                 <Text style={styles.gender}>No</Text>
               </View>
             </View>
+            <View>
+              {error?.Victim_DoB_if_available && (
+                <Text style={styles.errormessage}>
+                  {error?.Victim_DoB_if_available}
+                </Text>
+              )}
+            </View>
 
             <View style={styles.container}>
               {/*Here we will return the view when state is true 
@@ -491,10 +504,10 @@ const Victim = ({route}) => {
                     />
 
                     <Text
-                      style={{left: 300, bottom: 39}}
+                      style={{left: 320, bottom: 45}}
                       onPress={showDatePicker}>
                       <FontAwesomeIcon
-                        size={20}
+                        size={25}
                         icon={faCalendarDays}
                         title="Show Picker"
                         color="#00bad7"
@@ -543,6 +556,8 @@ const Victim = ({route}) => {
                   keyboardType="numeric"
                   placeholder="Enter victims age"
                   placeholderTextColor="gray"
+                  color="#000"
+                  
                   onChangeText={text => {
                     setValidation({...validation, Victim_age: parseInt(text)});
                   }}
@@ -601,6 +616,7 @@ const Victim = ({route}) => {
                     type="text"
                     placeholder="Others"
                     placeholderTextColor="gray"
+                    color="#000"
                   />
                 </View>
               </View>

@@ -2,7 +2,9 @@ import {
     INCIDENT_LEGAL,
     INCIDENT_LEGAL_RESPPONSE,
     INCIDENT_REINTEGRATION,
-    INCIDENT_REINTEGRATION_RESPPONSE
+    INCIDENT_REINTEGRATION_RESPPONSE,
+    INCIDENT_MHPSS,
+    INCIDENT_MHPSS_RESPPONSE,
     
   } from '../IncidentList/ActionTypes';
   
@@ -25,6 +27,16 @@ import {
     type: INCIDENT_REINTEGRATION_RESPPONSE,
     payload: reintegrationResponse,
   });
+  export const sendMhpssData = mhpssInfo => ({
+    type: INCIDENT_MHPSS,
+    payload: mhpssInfo,
+  });
+  
+  export const sendMhpssDataResponse = mhpssResponse => ({
+    type: INCIDENT_MHPSS_RESPPONSE,
+    payload: mhpssResponse,
+  });
+  
   
   
   

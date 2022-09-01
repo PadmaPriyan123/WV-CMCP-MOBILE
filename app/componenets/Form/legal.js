@@ -26,13 +26,16 @@ const Legal = ({route}) => {
   const [checked4, setChecked4] = React.useState('first2');
   let dispatch = useDispatch();
   let legalresponse = useSelector(
-    state => state.Incidentlist.sendLegalDataResponse,
+    state => state.Incidentlist.sendlegalDataResponse,
   );
   useEffect(() => {
-   
-    if (legalresponse?.StatusCode == 201) {
-      alert('legal was successfully created');
+    if (legalresponse?.StatusCode=== 201) {
+      alert(legalresponse.StatusMessage);
       dispatch(sendLegalData(''));
+    }
+    else if(legalresponse?.StatusCode===401){
+      alert(legalresponse.StatusMessage);
+
     }
    
   }, [legalresponse]);
@@ -136,8 +139,16 @@ const Legal = ({route}) => {
                 setChecked3('no');
               }}
               />
+              
               <Text style={styles.gender}>No</Text>
+             
             </View>
+            <View>
+              {error?.IsVictimRecovered && (
+                <Text style={styles.errormessage}>{error?.IsVictimRecovered}</Text>
+              )}
+            </View>
+           
           </View>
           <View style={{marginTop: 3, marginLeft: 10}}>
             <Text style={styles.radioname}>
@@ -172,6 +183,11 @@ const Legal = ({route}) => {
               <Text style={styles.gender}>No</Text>
             </View>
           </View>
+          <View>
+              {error?.HasTheAccusedArrested && (
+                <Text style={styles.errormessage}>{error?.HasTheAccusedArrested}</Text>
+              )}
+            </View>
           {validation2.HasTheAccusedArrested === 1 && (
           <View style={{marginTop: 16}}>
             <Text style={styles.FormTitle}>

@@ -20,7 +20,7 @@ import {faFile} from '@fortawesome/free-solid-svg-icons/faFile';
 
 import {ScrollView} from 'react-native-gesture-handler';
 import {Dropdown} from 'react-native-element-dropdown';
-
+import {useNavigation} from '@react-navigation/native';
 import {MultiSelect} from 'react-native-element-dropdown';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {useDispatch, useSelector} from 'react-redux';
@@ -28,7 +28,8 @@ import {
   sendComplaintsData,
   sendComplaintsDataResponse,
 } from '../../../Redux/IncidentLog/IncidentCreation/Action';
-const Complaints = ({navigation}) => {
+const Complaints = ({route}) => {
+  const navigation = useNavigation();
   const [dates, setDates] = React.useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
   const [dateKey, setDateKey] = useState('');
@@ -175,10 +176,13 @@ const Complaints = ({navigation}) => {
   );
   useEffect(() => {
     if (complaintresponse?.StatusCode === 201) {
-      alert('complaint was successfully created');
-      // dispatch(sendVictimData(''));
+      alert(complaintresponse.StatusMessage);
+
+      navigation.navigate('Dashboard');
+      dispatch(sendComplaintsData(''));
+    } else if (complaintresponse?.StatusCode === 409) {
+      alert(complaintresponse.StatusMessage);
     }
-    // dispatch(sendVictimData(''));
   }, [complaintresponse]);
 
   let d = new Date();
@@ -259,44 +263,51 @@ const Complaints = ({navigation}) => {
     }
     if (!validation1.Description_of_the_incident) {
       a.Description_of_the_incident =
-        '*Please enter the description Of the incident';
+        '*Please enter the description of the incident';
     }
     if (!validation1.Name_of_Alleged_Offender) {
-      a.Name_of_Alleged_Offender = '*Please enter the name of offender';
+      a.Name_of_Alleged_Offender = '*Please enter the name of alleged offender';
     }
     if (!validation1.Offenders_relationship_to_victim) {
       a.Offenders_relationship_to_victim =
-        '*Please select the offender relation to the victim';
+        '*Please enter the offender relationship to the victim';
     }
     if (!validation1.Who_informed_about_the_incident) {
       a.Who_informed_about_the_incident =
-        '*Please Enter the Who Informed About Incident';
+        '*Please select the who informed about the incident';
+    }
+    if (!validation1.Whether_Incident_Reported_Others) {
+      a.Whether_Incident_Reported_Others =
+        '*Please select the whether the incident report others';
     }
     if (!validation1.Offenders_approximate_Age) {
       a.Offenders_approximate_Age =
         '*Please enter the offender approximate age';
     }
+    if (
+      !Age.test(validation1.Offenders_approximate_Age) &&
+      !empty.test(validation1.Offenders_approximate_Age)
+    ) {
+      a.Offenders_approximate_Age = 'Enter a valid offenders appproximate age';
+    }
     if (!validation1.complaint_lodged_PS) {
-      a.complaint_lodged_PS = '*Please Select the Complaint lodged in PS';
+      a.complaint_lodged_PS = '*Please select the complaint lodged in PS';
     }
     if (!validation1.gdNumber) {
-      a.gdNumber = '*Please Enter the GD-Entry';
+      a.gdNumber = '*Please enter the GD-Entry';
     }
     if (!validation1.FIR_filed_or_not) {
-      a.FIR_filed_or_not = '*Please Enter  FIR is Filed or Not';
+      a.FIR_filed_or_not = '*Please enter  fIR is filed or not';
     }
     if (!validation1.FIR_Num) {
-      a.FIR_Num = '*Please Enter  FIR is number';
+      a.FIR_Num = '*Please enter  FIR is number';
     }
     if (!validation1.Action_Taken) {
-      a.Action_Taken = '*Please Enter the FIR/GD Action Taken';
+      a.Action_Taken = '*Please enter the FIR/GD Action Taken';
     }
-    if (incidentValue.length <= 0) {
-      console.log(incidentValue);
-      a.Whether_Incident_Reported_Others = '*Please select Incident report';
-    }
+
     if (!validation1.Sections_AppliedIn_FIR) {
-      a.Sections_AppliedIn_FIR = '*Please Enter the Section applied fir';
+      a.Sections_AppliedIn_FIR = '*Please enter the Section applied fir';
     }
     console.log(a);
     if (Object.values(a).every(el => el === '')) {
@@ -354,6 +365,7 @@ const Complaints = ({navigation}) => {
                 type="text"
                 placeholder="Enter description of the incident"
                 placeholderTextColor="gray"
+                color="#000"
                 onChangeText={text => {
                   setValidation1({
                     ...validation1,
@@ -378,6 +390,7 @@ const Complaints = ({navigation}) => {
                 type="text"
                 placeholder="Enter name of alleged offender"
                 placeholderTextColor="gray"
+                color="#000"
                 onChangeText={text => {
                   setValidation1({
                     ...validation1,
@@ -404,6 +417,8 @@ const Complaints = ({navigation}) => {
                 type="text"
                 placeholder="Enter offender relationship to victim"
                 placeholderTextColor="gray"
+                color="#000"
+
                 onChangeText={text => {
                   setValidation1({
                     ...validation1,
@@ -428,6 +443,8 @@ const Complaints = ({navigation}) => {
                 keyboardType="numeric"
                 placeholder="Enter offenders approximate age"
                 placeholderTextColor="gray"
+                color="#000"
+
                 onChangeText={text => {
                   setValidation1({
                     ...validation1,
@@ -493,6 +510,8 @@ const Complaints = ({navigation}) => {
                   type="text"
                   placeholder="Others"
                   placeholderTextColor="gray"
+                  color="#000"
+
                 />
               </View>
             </View>
@@ -584,8 +603,16 @@ const Complaints = ({navigation}) => {
               />
               <Text style={styles.gender}>No</Text>
             </View>
-          </View>
+            <View>
+            {error?.complaint_lodged_PS && (
+              <Text style={styles.errormessage}>
+                {error?.complaint_lodged_PS}
+              </Text>
+            )}
+            </View>
 
+          </View>
+         
           {lodged === true ? (
             <View>
               <View style={{marginTop: 3, marginLeft: 10}}>
@@ -611,6 +638,7 @@ const Complaints = ({navigation}) => {
                   <Text style={styles.gender}>No</Text>
                 </View>
               </View>
+              
               {checked0 === 'yes' && (
                 <View style={{marginTop: 20}}>
                   <Text style={styles.FormTitle}>GDE Date: </Text>
@@ -648,7 +676,7 @@ const Complaints = ({navigation}) => {
                         style={styles.FormInput}
                         keyboardType="numeric"
                         placeholder="Enter GDE number"
-                        placeholderTextColor="#000"
+                        color="#000"
                         onChangeText={text => {
                           setValidation1({
                             ...validation1,
@@ -731,7 +759,11 @@ const Complaints = ({navigation}) => {
                   <Text style={styles.gender}>No</Text>
                 </View>
               </View>
-
+              <View>
+                    {error?.FIR_filed_or_not && (
+                      <Text style={styles.errormessage}>{error?.FIR_filed_or_not}</Text>
+                    )}
+                  </View>
               <View style={styles.container}>
                 {/*Here we will return the view when state is true 
           and will return false if state is false*/}
@@ -772,7 +804,7 @@ const Complaints = ({navigation}) => {
                           style={styles.FormInput}
                           keyboardType="numeric"
                           placeholder="Enter FIR Number"
-                          placeholderTextColor="#000"
+                          color="#000"
                           onChangeText={text => {
                             setValidation1({
                               ...validation1,
@@ -858,6 +890,8 @@ const Complaints = ({navigation}) => {
                       type="text"
                       placeholder="Others"
                       placeholderTextColor="gray"
+                      color="#000"
+
                       onChangeText={text => {
                         setValidation1({...validation1, Action_Taken: text});
                       }}
@@ -882,6 +916,8 @@ const Complaints = ({navigation}) => {
                       keyboardType="numeric"
                       placeholder="Others"
                       placeholderTextColor="gray"
+                      color="#000"
+
                     />
                   </View>
                 </View>

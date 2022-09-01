@@ -263,6 +263,37 @@ const Incident = ({navigation}) => {
               </View>
             </Card>
           </View>
+          <View style={{marginTop: 10}}>
+            <Card style={styles.card}>
+              <View style={styles.cardfirstline}>
+                <Text style={styles.cardcontentheading}>
+                  Case No:{' '}
+                  <Text style={{fontFamily: 'Lato-Bold', color: '#000'}}>
+                    567894
+                  </Text>
+                </Text>
+                <View style={{marginTop: 17, marginRight: 10}}>
+                  <PopIncidentMenu />
+                </View>
+              </View>
+              <View style={styles.cardcontentpara}>
+                <Text style={styles.carddetail}>7-06-201</Text>
+              </View>
+              <View
+                style={{
+                  marginLeft: 200,
+                  backgroundColor: '#00bad7',
+                  top: 1,
+                  borderRadius: 40,
+                  borderWidth: 1,
+                  height: 30,
+                  width: 100,
+                  borderColor: '#fff',
+                }}>
+                <Text style={styles.initiate}>Initiated</Text>
+              </View>
+            </Card>
+          </View>
         </View>
         <Modal
           animationType="slide"
@@ -318,7 +349,7 @@ const Incident = ({navigation}) => {
                 </View>
               </View>
               <View>
-                <Text style={styles.Formpopup}>Cast status:</Text>
+                <Text style={styles.Formpopup}>Case status:</Text>
                 <View>
                   <Dropdown
                     containerStyle={{backgroundColor: '#fff'}}
@@ -329,7 +360,7 @@ const Incident = ({navigation}) => {
                     maxHeight={250}
                     labelField="label"
                     valueField="value"
-                    placeholder="Select state"
+                    placeholder="Select status"
                     value={value1}
                     onChange={item => {
                       setValue1(item.value);
@@ -360,8 +391,8 @@ const Incident = ({navigation}) => {
             alignItems: 'center',
             borderRadius: 100,
             backgroundColor: '#e26a00',
-            marginLeft: 280,
-            bottom: 5,
+            marginLeft: 300,
+            bottom: 10,
           }}>
           <Text style={styles.initiate}>
             <View>

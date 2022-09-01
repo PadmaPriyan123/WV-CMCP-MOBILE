@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   Text,
@@ -15,15 +15,34 @@ import {
 import {Dropdown} from 'react-native-element-dropdown';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faXmark} from '@fortawesome/free-solid-svg-icons/faXmark';
+import {useDispatch, useSelector} from 'react-redux';
+import {caseAssignment} from '../../Redux/IncidentLog/IncidentCreation/Action';
 
 const CaseAssignment = ({navigation}) => {
-  const [assignValue1, setAssignValue1] = React.useState('');
+  const dispatch = useDispatch();
+  let legalresponse = useSelector(
+    state => state.Incidentlist.sendlegalDataResponse,
+  );
+  useEffect(() => {
+    if (legalresponse?.StatusCode=== 201) {
+      alert(legalresponse.StatusMessage);
+      dispatch(sendLegalData(''));
+    }
+    else if(legalresponse?.StatusCode===401){
+      alert(legalresponse.StatusMessage);
+
+    }
+   
+  }, [legalresponse]);
+  const [assignValue1, setAssignValue1] = React.useState([]);
+
+  console.log('hff', assignValue1);
   const [assignLegal, setAssignLegal] = React.useState([
-    {label: 'Biju', id: '1'},
-    {label: 'Murali ', id: '2'},
-    {label: 'Bharat ', id: '3'},
-    {label: 'Arun', id: '4'},
-    {label: 'Bala', id: '5'},
+    {label: 'Biju', id: [1]},
+    {label: 'Murali ', id: [2]},
+    {label: 'Bharat ', id: [3]},
+    {label: 'Arun', id: [4]},
+    {label: 'Bala', id: [5]},
   ]);
 
   const [incidentError, setIncidentError] = React.useState({
@@ -31,7 +50,8 @@ const CaseAssignment = ({navigation}) => {
     mphsserr: '',
   });
 
-  const [assignValue2, setAssignValue2] = React.useState('');
+  const [assignValue2, setAssignValue2] = React.useState([]);
+  console.log('jbvfh', assignValue2);
   const [assignLegal2, setAssignLegal2] = React.useState([
     {label: 'Mano', id: '1'},
     {label: 'Vino ', id: '2'},
@@ -63,6 +83,7 @@ const CaseAssignment = ({navigation}) => {
     let err = 0;
     var incidenterr = {
       legalerr: '',
+      mphsserr: '',
     };
     if (!mhpss2.length) {
       incidenterr.legalerr = '*Please select atleast one User';
@@ -79,7 +100,6 @@ const CaseAssignment = ({navigation}) => {
     setIncidentError(incidenterr);
     if (err == 0) {
       alert('Case Assigned Successfully');
-      navigation.navigate('Incident');
     }
   }
 
@@ -164,6 +184,24 @@ const CaseAssignment = ({navigation}) => {
       setAssignLegal2(assignLegal2);
     }
   }
+  const [selectLegalPerson, setSelectedLegalPerson] = useState([]);
+  const [selectMhpssPerson, setSelectedMhpssPerson] = useState([]);
+  useEffect(() => {}, [selectLegalPerson]);
+
+  const handleSave = () => {
+    let a = {
+      CaseID: 3,
+
+      LegalCaseManagerUserID: 1,
+
+      Legal: {userId: [5, 6], type: 'Legal'},
+
+      MHPSS: {userId: [7, 8], type: 'Mental Health Physcho-Social Specialist'},
+    };
+    dispatch(caseAssignment(a));
+  };
+
+  const [MHPSSPersons, setMHPSSPersons] = useState([]);
 
   return (
     <SafeAreaView>
@@ -284,8 +322,15 @@ const CaseAssignment = ({navigation}) => {
             </View>
           </View>
 
-          <Pressable style={styles.button1} onPress={() => incidentmodal()}>
-            <Text style={styles.assigntextStyle}>Submit</Text>
+          <Pressable style={styles.button1}>
+            <Text
+              style={styles.assigntextStyle}
+              onPress={() => {
+                handleSave();
+                incidentmodal();
+              }}>
+              Submit
+            </Text>
           </Pressable>
         </View>
       </ScrollView>

@@ -28,6 +28,7 @@ import {
 } from '../../Redux/IncidentLog/IncidentList/Action';
 
 
+
 const Service = () => {
   const [date, setDate] = React.useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
@@ -76,14 +77,15 @@ const Service = () => {
   const [supportive, setSupportive] = React.useState([]);
   let dispatch = useDispatch();
   let reintegrationresponse = useSelector(
-    state => state.Incidentlist.sendReintegrationDataResponse,
+    state => state.Incidentlist.sendReintegrationResponse,
   );
   useEffect(() => {
    
     if (reintegrationresponse?.StatusCode == 201) {
-      alert('reintegration was successfully created');
+      alert(reintegrationresponse.StatusMessage);
       dispatch(sendReintegrationData(''));
     }
+    
    
   }, [reintegrationresponse]);
 
@@ -189,13 +191,13 @@ const Service = () => {
        dispatch(sendReintegrationData(validation3));
     if (!validation3.IsFacilitatedToCompensation) {
       a.IsFacilitatedToCompensation =
-        '*Please Select is facilated to compensation';
+        '*Please select is facilated to compensation';
     }
     if (!validation3.CompensationAmount) {
-      a.CompensationAmount = '*Please Enter the compensation amount';
+      a.CompensationAmount = '*Please enter the compensation amount';
     }
     if (!validation3.CompensationRemarks) {
-      a.CompensationRemarks = '*Please Enter the compensation remarks';
+      a.CompensationRemarks = '*Please enter the compensation remarks';
     }
     if (!validation3.AnyMedicalAssistance) {
       a.AnyMedicalAssistance = '*Please select the any medical assitence ';
@@ -240,7 +242,7 @@ const Service = () => {
       a.NameOfTheInstitue = '*Please enter the name of the institute';
     }
     if (!validation3.VocationalTrainingRemark) {
-      a.VocationalTrainingRemark = '*Please Enter remark';
+      a.VocationalTrainingRemark = '*Please enter the remark';
     }
     if (!validation3.IsAnyProtectiveActionTaken) {
       a.IsAnyProtectiveActionTaken =
@@ -318,6 +320,13 @@ const Service = () => {
               <Text style={styles.gender}>No</Text>
             </View>
           </View>
+          <View>
+                  {error?.IsFacilitatedToCompensation && (
+                    <Text style={styles.errormessage}>
+                      {error?.IsFacilitatedToCompensation}
+                    </Text>
+                  )}
+                </View>
           <View style={styles.container}>
             {checked === 'yes' && (
               <View style={{marginTop: 20, marginLeft: 5}}>
@@ -439,6 +448,13 @@ const Service = () => {
               />
               <Text style={styles.gender}>No</Text>
             </View>
+            <View>
+                    {error?.AnyMedicalAssistance && (
+                      <Text style={styles.errormessage}>
+                        {error?.AnyMedicalAssistance}
+                      </Text>
+                    )}
+                  </View>
             <View style={styles.container}>
               {checked1 === 'yes' && (
                 <View style={{marginTop: 20, right: 5}}>
@@ -561,6 +577,13 @@ const Service = () => {
               />
               <Text style={styles.gender}>No</Text>
             </View>
+            <View>
+                    {error?.IsEnrolledInSchool && (
+                      <Text style={styles.errormessage}>
+                        {error?.IsEnrolledInSchool}
+                      </Text>
+                    )}
+                  </View>
             <View style={styles.container}>
               {checked2 === 'first' && (
                 <View style={{marginTop: 20, right: 5}}>
@@ -709,6 +732,13 @@ const Service = () => {
               />
               <Text style={styles.gender}>No</Text>
             </View>
+            <View>
+                    {error?.IsEnrolledInVocationalTraining && (
+                      <Text style={styles.errormessage}>
+                        {error?.IsEnrolledInVocationalTraining}
+                      </Text>
+                    )}
+                  </View>
           </View>
           <View style={{marginLeft: 5}}>
             {checked3 === 'yes' && (
@@ -856,6 +886,13 @@ const Service = () => {
               />
               <Text style={styles.gender}>No</Text>
             </View>
+            <View>
+                    {error?.IsAnyProtectiveActionTaken && (
+                      <Text style={styles.errormessage}>
+                        {error?.IsAnyProtectiveActionTaken}
+                      </Text>
+                    )}
+                  </View>
             <View style={styles.container}>
               {checked4 === 'yes' && (
                 <View style={{marginTop: 20, right: 5}}>
@@ -922,6 +959,13 @@ const Service = () => {
                       />
                       <Text style={styles.gender}>No</Text>
                     </View>
+                    <View>
+                    {error?.isGDEDone && (
+                      <Text style={styles.errormessage}>
+                        {error?.isGDEDone}
+                      </Text>
+                    )}
+                  </View>
                     <View style={{marginLeft: 5}}>
                       {checked7 === 'yes' && (
                         <View style={{marginTop: 20}}>
@@ -990,7 +1034,7 @@ const Service = () => {
             
           </View>
 
-
+{ 
           <View style={{marginTop: 3, marginLeft: 16}}>
             <Text style={styles.radioname}>
               Is the survivor enrolled in survivor support program?
@@ -1013,6 +1057,7 @@ const Service = () => {
                 onPress={() => setChecked5('second')}
               />
               <Text style={styles.gender}>No</Text>
+              
               <View style={{right: 122, top: 30}}>
                 {checked5 === 'first' && (
                   <View style={{marginTop: 20, right: 10}}>
@@ -1040,10 +1085,10 @@ const Service = () => {
                 )}
               </View>
             </View>
-          </View>
+          </View> }
         </View>
 
-        <View style={{}}>
+        <View style={{bottom:10}}>
           <TouchableOpacity
             style={styles.formbutton}
             onPress={() => myFunction()}>

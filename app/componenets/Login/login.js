@@ -172,15 +172,15 @@ const Login = () => {
     if (Object.values(error).every(el => el === '') && loginResponse) {
       if (
         loginResponse?.StatusCode === 400 &&
-        loginResponse?.StatusMessage === 'Email not found.'
+        loginResponse?.StatusMessage === 'Email does not exist'
       ) {
         setError({...error, EmailId: '*Email does not exists!'});
         dispatch(userLoginResponse(''));
       } else if (
         loginResponse?.StatusCode === 400 &&
-        loginResponse?.StatusMessage === 'Incorrect password.'
+        loginResponse?.StatusMessage === 'Password does not match'
       ) {
-        setError({...error, Password: '*Incorrect Password!'});
+        setError({...error, Password: '*Password does not match!'});
         dispatch(userLoginResponse(''));
       } else if (loginResponse?.StatusCode === 500) {
         alert(loginResponse.StatusMessage);
@@ -233,7 +233,8 @@ const Login = () => {
       console.log('cameejbvjs');
       setError(a);
       dispatch(usersLogin(login));
-    } else {
+    }
+     else {
       setError(a);
     }
   }
@@ -631,11 +632,12 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontFamily: 'Lato-Regular',
     backgroundColor: '#ffff',
+    
   },
   button: {
     alignSelf: 'center',
     height: hp('8%'),
-    width: wp('88%'),
+    width: wp('78%'),
     justifyContent: 'center',
     fontFamily: 'Lato-Bold',
     borderRadius: 10,
