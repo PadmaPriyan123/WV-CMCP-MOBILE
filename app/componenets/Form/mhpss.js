@@ -156,8 +156,11 @@ const Mhpss = () => {
             return (
               <>
                 <View style={{marginTop: 10}}>
+                  <Text style={styles.FormTitle2}>
+                    Case Id -{datamhpss[i].caseId}:
+                  </Text>
                   <Text style={styles.FormTitle}>
-                    Supportive Call -{i + 1}:
+                    Supportive Call -{datamhpss[i].supportiveCall}:
                   </Text>
                   <View style={{marginTop: 20, marginLeft: 5}}>
                     <Text style={styles.FormTitle}>Date & Time</Text>
@@ -326,6 +329,14 @@ const styles = StyleSheet.create({
     fontSize: 13.5,
     alignSelf: 'flex-start',
     marginLeft: 12,
+  },
+  FormTitle2: {
+    color: '#000',
+    fontFamily: 'Lato-Regular',
+    fontSize: 14,
+    bottom: 5,
+    alignSelf: 'flex-start',
+    marginLeft: 13,
   },
   FormInput: {
     padding: 10,

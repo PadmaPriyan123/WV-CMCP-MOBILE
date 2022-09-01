@@ -21,7 +21,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {Dropdown} from 'react-native-element-dropdown';
 import {useNavigation} from '@react-navigation/native';
 
-import {faFile} from '@fortawesome/free-solid-svg-icons';
+import {faFileAlt} from '@fortawesome/free-solid-svg-icons';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -149,7 +149,7 @@ const Victim = ({route}) => {
     if (victimresponse?.StatusCode === 201) {
       alert(victimresponse.StatusMessage);
       navigation.navigate('complaints');
-       dispatch(sendVictimData(''));
+      dispatch(sendVictimData(''));
     }
     // dispatch(sendVictimData(''));
   }, [victimresponse]);
@@ -169,9 +169,10 @@ const Victim = ({route}) => {
     Victims_DoB: '',
     Proof_of_DoB: 'Uploadfile.pdf',
     Victim_age: '',
+    Victim_Documents: '',
     Nature_of_incident: '',
     natureofIncidentOthers: 1,
-    StateID: 1,
+    StateID: '',
     DistrictID: '',
     BlockID: '',
     PanchayatID: '',
@@ -192,6 +193,7 @@ const Victim = ({route}) => {
     Victim_age: '',
     Nature_of_incident: '',
     natureofIncidentOthers: '',
+    Victim_Documents: '',
     StateID: '',
     DistrictID: '',
     BlockID: '',
@@ -216,6 +218,7 @@ const Victim = ({route}) => {
       Victim_age: '',
       Nature_of_incident: '',
       natureofIncidentOthers: '',
+      Victim_Documents: '',
       StateID: '',
       DistrictID: '',
       BlockID: '',
@@ -251,10 +254,13 @@ const Victim = ({route}) => {
       !letters.test(validation.Name_of_the_Victim) &&
       !empty.test(validation.Name_of_the_Victim)
     ) {
-      a.Name_of_the_Victim = 'Enter a valid  victim name';
+      a.Name_of_the_Victim = 'Enter a valid victim name';
     }
     if (!validation.Guardians_name) {
-      a.Guardians_name = '*Please enter the gardian name';
+      a.Guardians_name = '*Please enter the guardian name';
+    }
+    if (!validation.Victims_DoB) {
+      a.Victims_DoB = '*Please enter victim dob';
     }
     if (
       !letters.test(validation.Guardians_name) &&
@@ -265,15 +271,20 @@ const Victim = ({route}) => {
     if (!validation.Victim_age) {
       a.Victim_age = '*Please enter the victim age';
     }
+    if (!validation.Victim_Documents) {
+      a.Victim_Documents = '*Please enter the victim documents';
+    }
     if (
       !Age.test(validation.Victim_age) &&
       !empty.test(validation.Victim_age)
     ) {
       a.Victim_age = 'Enter a valid victim age';
     }
-    if (!validation.Victims_DoB) {
-      a.Victims_DoB = '*Please select the victim date of birth';
+
+    if (!validation.Victim_DoB_if_available) {
+      a.Victim_DoB_if_available = '*Please select the victim date of birth';
     }
+
     if (!validation.Nature_of_incident) {
       a.Nature_of_incident = '*Please select the nature of incident';
     }
@@ -476,8 +487,10 @@ const Victim = ({route}) => {
               </View>
             </View>
             <View>
-              {error?.Victims_DoB && (
-                <Text style={styles.errormessage}>{error?.Victims_DoB}</Text>
+              {error?.Victim_DoB_if_available && (
+                <Text style={styles.errormessage}>
+                  {error?.Victim_DoB_if_available}
+                </Text>
               )}
             </View>
 
@@ -513,6 +526,13 @@ const Victim = ({route}) => {
                     />
                   </View>
                   <View>
+                    {error?.Victims_DoB && (
+                      <Text style={styles.errormessage3}>
+                        {error?.Victims_DoB}
+                      </Text>
+                    )}
+                  </View>
+                  <View>
                     <View style={{marginTop: 20}}>
                       <Text style={styles.Filefill}>Victim Documents:</Text>
                       {/* document picker */}
@@ -539,6 +559,13 @@ const Victim = ({route}) => {
                             color="gray"
                           />
                         </Text>
+                      </View>
+                      <View>
+                        {error?.Victim_Documents && (
+                          <Text style={styles.errormessage}>
+                            {error?.Victim_Documents}
+                          </Text>
+                        )}
                       </View>
                     </View>
                   </View>
@@ -799,12 +826,6 @@ const Victim = ({route}) => {
         </View>
       </ScrollView>
       <View style={styles.victimbutton}>
-        <TouchableOpacity
-          style={styles.formbutton0}
-          onPress={() => route.change()}>
-          <Text style={styles.formbuttoninput}>SAVE </Text>
-        </TouchableOpacity>
-
         <TouchableOpacity
           style={styles.formbutton}
           onPress={() => myFunction()}>
@@ -1312,6 +1333,11 @@ const styles = StyleSheet.create({
     color: 'red',
     marginLeft: 10,
     top: 5,
+  },
+  errormessage3: {
+    color: 'red',
+    marginLeft: 10,
+    bottom: 12,
   },
   fileUpload: {
     color: '#000',

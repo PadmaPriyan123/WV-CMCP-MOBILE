@@ -1,4 +1,4 @@
-import React, {useCallback, useState,useEffect} from 'react';
+import React, {useCallback, useState, useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -26,7 +26,6 @@ import {
   sendReintegrationData,
   sendReintegrationDataResponse,
 } from '../../Redux/IncidentLog/IncidentList/Action';
-
 
 const Service = () => {
   const [date, setDate] = React.useState('');
@@ -76,15 +75,13 @@ const Service = () => {
   const [supportive, setSupportive] = React.useState([]);
   let dispatch = useDispatch();
   let reintegrationresponse = useSelector(
-    state => state.Incidentlist.sendReintegrationDataResponse,
+    state => state.Incidentlist.sendReintegrationResponse,
   );
   useEffect(() => {
-   
     if (reintegrationresponse?.StatusCode == 201) {
       alert('reintegration was successfully created');
       dispatch(sendReintegrationData(''));
     }
-   
   }, [reintegrationresponse]);
 
   let d = new Date();
@@ -93,7 +90,7 @@ const Service = () => {
   let year = d.getFullYear();
   if (month.toString.length === 1) month = `0${d.getMonth() + 1}`;
   if (dat.toString.length === 1) dat = `0${d.getDate()}`;
-  
+
   const [validation3, setValidation3] = useState({
     CaseID: 2,
     UserID: 1,
@@ -186,7 +183,7 @@ const Service = () => {
     var letters = /[A-Za-z]{3,15}/;
     var empty = /^$/;
     var Age = /^[0-9]{1,2}$/;
-       dispatch(sendReintegrationData(validation3));
+    dispatch(sendReintegrationData(validation3));
     if (!validation3.IsFacilitatedToCompensation) {
       a.IsFacilitatedToCompensation =
         '*Please Select is facilated to compensation';
@@ -260,7 +257,6 @@ const Service = () => {
     }
     if (Object.values(a).every(el => el === '')) {
       setError(a);
-   
     } else {
       setError(a);
     }
@@ -354,7 +350,7 @@ const Service = () => {
                       onChangeText={text => {
                         setValidation3({
                           ...validation3,
-                          CompensationAmount:parseInt(text),
+                          CompensationAmount: parseInt(text),
                         });
                       }}
                     />
@@ -432,7 +428,7 @@ const Service = () => {
                 onPress={() => {
                   setValidation3({
                     ...validation3,
-                    AnyMedicalAssistance:parseInt(0),
+                    AnyMedicalAssistance: parseInt(0),
                   });
                   setChecked1('no');
                 }}
@@ -529,9 +525,7 @@ const Service = () => {
                 color={'#ff6b00'}
                 value={1}
                 status={
-                  validation3.IsEnrolledInSchool === 1
-                    ? 'checked'
-                    : 'unchecked'
+                  validation3.IsEnrolledInSchool === 1 ? 'checked' : 'unchecked'
                 }
                 onPress={() => {
                   setValidation3({
@@ -547,9 +541,7 @@ const Service = () => {
                 color={'#ff6b00'}
                 value={0}
                 status={
-                  validation3.IsEnrolledInSchool === 0
-                    ? 'checked'
-                    : 'unchecked'
+                  validation3.IsEnrolledInSchool === 0 ? 'checked' : 'unchecked'
                 }
                 onPress={() => {
                   setValidation3({
@@ -889,9 +881,7 @@ const Service = () => {
                         color={'#ff6b00'}
                         value={1}
                         status={
-                          validation3.isGDEDone === 1
-                            ? 'checked'
-                            : 'unchecked'
+                          validation3.isGDEDone === 1 ? 'checked' : 'unchecked'
                         }
                         onPress={() => {
                           setValidation3({
@@ -908,9 +898,7 @@ const Service = () => {
                         color={'#ff6b00'}
                         value={0}
                         status={
-                          validation3.isGDEDone === 0
-                            ? 'checked'
-                            : 'unchecked'
+                          validation3.isGDEDone === 0 ? 'checked' : 'unchecked'
                         }
                         onPress={() => {
                           setValidation3({
@@ -939,7 +927,7 @@ const Service = () => {
                                 onChangeText={text => {
                                   setValidation3({
                                     ...validation3,
-                                    GDENumber:text,
+                                    GDENumber: text,
                                   });
                                 }}
                               />
@@ -957,39 +945,35 @@ const Service = () => {
                     </View>
                   </View>
                   <View style={{marginTop: 20}}>
-                  <Text style={styles.FormTitle}>
-                    Remarks:<Text style={styles.star}>*</Text>
-                  </Text>
-                  <View style={styles.tabfourfirst}>
-                    <TextInput
-                      style={styles.FormInput}
-                      type="text"
-                      placeholder="Enter the remark"
-                      placeholderTextColor="gray"
-                      onChangeText={text => {
-                        setValidation3({
-                          ...validation3,
-                          ActionTakenRemarks: text,
-                        });
-                      }}
-                    />
+                    <Text style={styles.FormTitle}>
+                      Remarks:<Text style={styles.star}>*</Text>
+                    </Text>
+                    <View style={styles.tabfourfirst}>
+                      <TextInput
+                        style={styles.FormInput}
+                        type="text"
+                        placeholder="Enter the remark"
+                        placeholderTextColor="gray"
+                        onChangeText={text => {
+                          setValidation3({
+                            ...validation3,
+                            ActionTakenRemarks: text,
+                          });
+                        }}
+                      />
+                    </View>
+                  </View>
+                  <View>
+                    {error?.ActionTakenRemarks && (
+                      <Text style={styles.errormessage}>
+                        {error?.ActionTakenRemarks}
+                      </Text>
+                    )}
                   </View>
                 </View>
-                <View>
-                  {error?.ActionTakenRemarks && (
-                    <Text style={styles.errormessage}>
-                      {error?.ActionTakenRemarks}
-                    </Text>
-                  )}
-                </View>
-              </View>
-             
-                
               )}
             </View>
-            
           </View>
-
 
           <View style={{marginTop: 3, marginLeft: 16}}>
             <Text style={styles.radioname}>

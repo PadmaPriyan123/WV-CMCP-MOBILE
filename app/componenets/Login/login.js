@@ -170,15 +170,16 @@ const Login = () => {
     console.log('loginresponse', loginResponse);
 
     if (Object.values(error).every(el => el === '') && loginResponse) {
+      
       if (
         loginResponse?.StatusCode === 400 &&
-        loginResponse?.StatusMessage === 'Email not found.'
+        loginResponse?.StatusMessage === 'Email does not exist'
       ) {
         setError({...error, EmailId: '*Email does not exists!'});
         dispatch(userLoginResponse(''));
       } else if (
         loginResponse?.StatusCode === 400 &&
-        loginResponse?.StatusMessage === 'Incorrect password.'
+        loginResponse?.StatusMessage === 'Password does not match'
       ) {
         setError({...error, Password: '*Incorrect Password!'});
         dispatch(userLoginResponse(''));
@@ -209,7 +210,6 @@ const Login = () => {
     const PasswordRegex =
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,12}$/;
     let a = {EmailId: '', Password: ''};
-
     if (!login.EmailId) {
       console.log('came here1');
       a.EmailId = '*Please enter email id!';

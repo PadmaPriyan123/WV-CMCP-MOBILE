@@ -47,6 +47,10 @@ const Incident = ({navigation}) => {
     hideDatePicker();
   };
 
+  const minDate = new Date('2022-01-01');
+  const maxDate = new Date('2022-08-30');
+  // const {onChangeText, mode = 'date', min = minDate, max = maxDate} = props;
+
   const getDate = () => {
     let tempDate = date.toString().split(' ');
     return date !== ''
@@ -298,9 +302,8 @@ const Incident = ({navigation}) => {
                     placeholder="  Enter Date"
                     placeholderTextColor="gray"
                   />
-
                   <Text
-                    style={{marginLeft: 230, bottom: 40}}
+                    style={{marginLeft: 230, bottom: hp('5%')}}
                     onPress={showDatePicker}>
                     <FontAwesomeIcon
                       size={20}
@@ -318,7 +321,7 @@ const Incident = ({navigation}) => {
                 </View>
               </View>
               <View>
-                <Text style={styles.Formpopup}>Cast status:</Text>
+                <Text style={styles.Formpopup}>Case status:</Text>
                 <View>
                   <Dropdown
                     containerStyle={{backgroundColor: '#fff'}}
@@ -329,7 +332,7 @@ const Incident = ({navigation}) => {
                     maxHeight={250}
                     labelField="label"
                     valueField="value"
-                    placeholder="Select state"
+                    placeholder="Select case"
                     value={value1}
                     onChange={item => {
                       setValue1(item.value);
@@ -424,7 +427,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignSelf: 'center',
-    backgroundColor: '#000000aa',
+    backgroundColor: '#000',
   },
   modalView: {
     width: wp('90%'),
@@ -449,15 +452,18 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
+    alignSelf: 'center',
   },
 
   textpopup: {
     height: hp('7%'),
     borderRadius: 5,
     Color: 'gray',
+    // border: 'gray',
+    borderTop: 'gray',
     width: wp('69%'),
-    borderWidth: 1,
     marginTop: 10,
+    fontFamily: 'Lato-Regular',
     marginLeft: 5,
     borderColor: '#ccc',
     backgroundColor: '#ecf0f1',
@@ -514,8 +520,8 @@ const styles = StyleSheet.create({
   },
 
   close: {
-    marginLeft: 250,
-    bottom: 20,
+    marginLeft: wp('70%'),
+    bottom: hp('3%'),
   },
 
   selectedTextStyle: {

@@ -144,6 +144,7 @@ const Complaints = ({navigation}) => {
   const [checked, setChecked] = React.useState('');
   const [checked1, setChecked1] = React.useState('');
 
+  const [selected, setSelected] = React.useState('');
   const [isPickerShow, setIsPickerShow] = React.useState(false);
   const [date, setDate] = React.useState(new Date(Date.now()));
 
@@ -185,7 +186,7 @@ const Complaints = ({navigation}) => {
   useEffect(() => {
     if (complaintresponse?.StatusCode === 201) {
       alert('complaint was successfully created');
-      // dispatch(sendVictimData(''));
+      dispatch(sendVictimData(''));
     }
     // dispatch(sendVictimData(''));
   }, [complaintresponse]);
@@ -207,6 +208,7 @@ const Complaints = ({navigation}) => {
     Who_informed_about_the_incident: '',
     Whether_Incident_Reported_Others: '',
     complaint_lodged_PS: '',
+    GDE_select: '',
     GD_Number: '',
     GD_EntryDate: '',
     FIR_filed_or_not: '',
@@ -229,6 +231,7 @@ const Complaints = ({navigation}) => {
     Who_informed_about_the_incident: '',
     Whether_Incident_Reported_Others: '',
     complaint_lodged_PS: '',
+    GDE_select: '',
     GD_Number: '',
     GD_EntryDate: '',
     FIR_filed_or_not: '',
@@ -297,17 +300,24 @@ const Complaints = ({navigation}) => {
     }
 
     if (validation1.complaint_lodged_PS == 'yes') {
-      if (!validation1.checked0) {
-        a.GDE_select = '*Please Select GDE';
-      }
-    }
-    if (checked0 == 'yes') {
-      if (!validation1.GD_Number) {
-        a.GD_Number = '*Please Enter the GD-Entry';
+      if (!validation1.GDE_select) {
+        a.GDE_select = '*Please Select GDE entry';
       }
       if (!validation1.FIR_filed_or_not) {
         a.FIR_filed_or_not = '*Please Enter  FIR is Filed or Not';
       }
+    }
+
+    if (checked0 == 'yes') {
+      if (!validation1.GD_EntryDate) {
+        a.GD_EntryDate = '*Please Enter the GDE Date';
+      }
+      if (!validation1.GD_Number) {
+        a.GD_Number = '*Please Enter the GD-Entry';
+      }
+    }
+    if (!validation1.FIR_date) {
+      a.FIR_date = '*Please enter FIR Date';
     }
     if (!validation1.FIR_Num && validation1.FIR_filed_or_not == 'yes') {
       a.FIR_Num = '*Please Enter  FIR is number';
@@ -315,25 +325,19 @@ const Complaints = ({navigation}) => {
     if (!validation1.Action_Taken) {
       a.Action_Taken = '*Please Enter the FIR/GD Action Taken';
     }
+    if (!incidentValue.length) {
+      a.Whether_Incident_Reported_Others = '*Please select incident report';
+    }
     if (incidentValue.length <= 0) {
-      console.log(incidentValue);
-      a.Whether_Incident_Reported_Others = '*Please select Incident report';
+      a.Whether_Incident_Reported_Others = '';
     }
     if (!validation1.Sections_AppliedIn_FIR) {
       a.Sections_AppliedIn_FIR = '*Please Enter the Section applied fir';
     }
-    console.log(a);
     if (Object.values(a).every(el => el === '')) {
       console.log(Object.values(a).every(el => el === ''));
       setError(a);
-      let reqData = validation1;
-      reqData.Sections_AppliedIn_FIR = JSON.stringify(
-        validation1.Sections_AppliedIn_FIR,
-      );
-      console.log('bhhf', reqData);
-
-      dispatch(sendComplaintsData(reqData));
-      console.log('vjv', validation1);
+      dispatch(sendComplaintsData(validation1));
     } else {
       setError(a);
     }
@@ -365,7 +369,6 @@ const Complaints = ({navigation}) => {
                   color="#00bad7"
                 />
               </Text>
-             
             </View>
           </View>
 
@@ -542,7 +545,7 @@ const Complaints = ({navigation}) => {
                 labelField="label"
                 valueField="value"
                 placeholder="Select whether the incident"
-                value={incidentValue}
+                value={selected}
                 onChange={item => {
                   {
                     setSelected(item);
@@ -558,7 +561,6 @@ const Complaints = ({navigation}) => {
               />
             </View>
           </View>
-
           <View>
             {error?.Whether_Incident_Reported_Others && (
               <Text style={styles.errormessage}>
@@ -566,6 +568,7 @@ const Complaints = ({navigation}) => {
               </Text>
             )}
           </View>
+
           <View style={{marginTop: 3, marginLeft: 10}}>
             <Text style={styles.radioname}>
               Complaint lodged in ps:<Text style={styles.star}>*</Text>
@@ -674,6 +677,13 @@ const Complaints = ({navigation}) => {
                       onConfirm={handleConfirm}
                       onCancel={hideDatePicker}
                     />
+                  </View>
+                  <View>
+                    {error?.GD_EntryDate && (
+                      <Text style={styles.errormessage1}>
+                        {error?.GD_EntryDate}
+                      </Text>
+                    )}
                   </View>
                   <View style={{marginTop: 0}}>
                     <Text style={styles.FormTitle}>
@@ -810,6 +820,13 @@ const Complaints = ({navigation}) => {
                         onConfirm={handleConfirm}
                         onCancel={hideDatePicker}
                       />
+                    </View>
+                    <View>
+                      {error?.FIR_date && (
+                        <Text style={styles.errormessage1}>
+                          {error?.FIR_date}
+                        </Text>
+                      )}
                     </View>
                     <View style={{marginTop: 0}}>
                       <Text style={styles.FormTitle}>
@@ -974,11 +991,11 @@ const Complaints = ({navigation}) => {
           onPress={() => navigation.navigate('victim')}>
           <Text style={styles.formbuttoninput}>BACK </Text>
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.formbutton0}
           onPress={() => route.change()}>
           <Text style={styles.formbuttoninput}>SAVE </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity
           style={styles.formbutton}
           onPress={() => myFunction()}>
@@ -1322,7 +1339,6 @@ const styles = StyleSheet.create({
     padding: 10,
     alignSelf: 'stretch',
     marginVertical: 6,
-
     borderWidth: 1,
     borderColor: '#bdc3c7',
     borderRadius: 5,
@@ -1499,6 +1515,11 @@ const styles = StyleSheet.create({
     color: 'red',
     marginLeft: 10,
     top: 5,
+  },
+  errormessage1: {
+    color: 'red',
+    marginLeft: 10,
+    bottom: 15,
   },
   formtotalinput2: {
     height: hp('7%'),

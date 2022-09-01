@@ -118,8 +118,24 @@ function App() {
               },
             }}
           />
-          
 
+          <Stack.Screen
+            name="CaseAssignment"
+            component={CaseAssignment}
+            options={{
+              title: 'Case Assignment',
+              headerStyle: {
+                backgroundColor: '#ff6b00',
+                height: 50,
+                fontsize: 17,
+              },
+              headerTintColor: 'white',
+              headerTitleStyle: {
+                fontFamily: 'Lato-Bold',
+                color: '#fff',
+              },
+            }}
+          />
           <Stack.Screen
             name="complaints"
             component={Complaints}
@@ -137,29 +153,11 @@ function App() {
               },
             }}
           />
-         
-         <Stack.Screen
+          <Stack.Screen
             name="legal"
             component={Legal}
             options={{
               title: 'Legal',
-              headerStyle: {
-                backgroundColor: '#ff6b00',
-                height: 50,
-                fontsize: 17,
-              },
-              headerTintColor: 'white',
-              headerTitleStyle: {
-                fontFamily: 'Lato-Bold',
-                color: '#fff',
-              },
-            }}
-          />
-          <Stack.Screen
-            name="CaseAssignment"
-            component={CaseAssignment}
-            options={{
-              title: 'Case Assignment',
               headerStyle: {
                 backgroundColor: '#ff6b00',
                 height: 50,
