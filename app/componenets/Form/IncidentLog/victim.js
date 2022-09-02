@@ -171,14 +171,14 @@ const Victim = ({route}) => {
     Victim_age: '',
     Victim_Documents: '',
     Nature_of_incident: '',
-    natureofIncidentOthers: 1,
+    natureofIncidentOthers: '',
     StateID: '',
     DistrictID: '',
     BlockID: '',
     PanchayatID: '',
     VillageID: '',
     PoliceStationID: '',
-    UserID: 1,
+    UserID:1,
   });
   console.log('ffh', validation);
   const initialErrorMessage = {
@@ -280,9 +280,11 @@ const Victim = ({route}) => {
     ) {
       a.Victim_age = 'Enter a valid victim age';
     }
-
     if (!validation.Victim_DoB_if_available) {
-      a.Victim_DoB_if_available = '*Please select the victim date of birth';
+      a.Victim_DoB_if_available = '*Please select the victim dob is available';
+    }
+    if (!validation.Victims_DoB) {
+      a.Victims_DoB = '*Please select the victim date of birth';
     }
 
     if (!validation.Nature_of_incident) {
@@ -329,6 +331,7 @@ const Victim = ({route}) => {
                 type="text"
                 placeholder="Enter reporter's name"
                 placeholderTextColor="gray"
+                color="#000"
                 onChangeText={text => {
                   setValidation({...validation, ReportersName: text});
                 }}
@@ -385,9 +388,9 @@ const Victim = ({route}) => {
                   placeholderTextColor={'gray'}
                 />
 
-                <Text style={{left: 290, bottom: 33}} onPress={showDatePicker}>
+                <Text style={{left: 320, bottom: 45}} onPress={showDatePicker}>
                   <FontAwesomeIcon
-                    size={20}
+                    size={25}
                     icon={faCalendarDays}
                     title="Show Picker"
                     color="#00bad7"
@@ -412,6 +415,7 @@ const Victim = ({route}) => {
                   type="text"
                   placeholder="Enter name of the victim"
                   placeholderTextColor="gray"
+                  color="#000"
                   onChangeText={text => {
                     setValidation({...validation, Name_of_the_Victim: text});
                   }}
@@ -435,6 +439,7 @@ const Victim = ({route}) => {
                   type="text"
                   placeholder="Enter guardian's name"
                   placeholderTextColor="gray"
+                  color="#000"
                   onChangeText={text => {
                     setValidation({...validation, Guardians_name: text});
                   }}
@@ -509,10 +514,10 @@ const Victim = ({route}) => {
                     />
 
                     <Text
-                      style={{left: 290, bottom: 35}}
+                      style={{left: 320, bottom: 45}}
                       onPress={showDatePicker}>
                       <FontAwesomeIcon
-                        size={20}
+                        size={25}
                         icon={faCalendarDays}
                         title="Show Picker"
                         color="#00bad7"
@@ -582,6 +587,8 @@ const Victim = ({route}) => {
                   keyboardType="numeric"
                   placeholder="Enter victims age"
                   placeholderTextColor="gray"
+                  color="#000"
+                  
                   onChangeText={text => {
                     setValidation({...validation, Victim_age: parseInt(text)});
                   }}
@@ -640,6 +647,7 @@ const Victim = ({route}) => {
                     type="text"
                     placeholder="Others"
                     placeholderTextColor="gray"
+                    color="#000"
                   />
                 </View>
               </View>
@@ -859,9 +867,9 @@ const styles = StyleSheet.create({
   FormInput: {
     padding: 10,
     borderRadius: 5,
-    fontFamily: 'Lato-Regular',
     color: '#555',
     backgroundColor: '#ecf0f1',
+    fontFamily: 'Lato',
     height: hp('6.5%'),
   },
   Form: {
@@ -881,19 +889,16 @@ const styles = StyleSheet.create({
   },
   gender: {
     marginTop: 8,
+
     color: '#181818',
   },
+
   uri: {
     color: '#0f0201',
-    alignSelf: 'center',
-    fontFamily: 'Lato-Regular',
-    marginLeft: 10,
-    width: wp('70%'),
-    marginRight: 15,
-    Color: 'gray',
-    borderColor: '#ccc',
-    backgroundColor: '#ecf0f1',
+    fontSize: 14,
+    marginLeft: 60,
   },
+
   FormDrop1: {
     alignSelf: 'center',
     alignItems: 'center',
@@ -917,6 +922,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#ff6b00',
     bottom: 40,
+
     marginLeft: 5,
   },
   formbuttonedit: {
@@ -981,16 +987,6 @@ const styles = StyleSheet.create({
 
     borderWidth: 1,
     marginTop: 10,
-    marginLeft: 6,
-    borderColor: '#ccc',
-    backgroundColor: '#ecf0f1',
-  },
-  formtotalinput2: {
-    height: hp('7%'),
-    borderRadius: 5,
-    flexDirection: 'row',
-    borderWidth: 1,
-
     marginLeft: 6,
     borderColor: '#ccc',
     backgroundColor: '#ecf0f1',

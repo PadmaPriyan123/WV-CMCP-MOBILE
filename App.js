@@ -26,6 +26,7 @@ function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
+       
           <Stack.Screen
             name="Login"
             component={Login}

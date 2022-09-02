@@ -181,7 +181,7 @@ const Login = () => {
         loginResponse?.StatusCode === 400 &&
         loginResponse?.StatusMessage === 'Password does not match'
       ) {
-        setError({...error, Password: '*Incorrect Password!'});
+        setError({...error, Password: '*Password does not match!'});
         dispatch(userLoginResponse(''));
       } else if (loginResponse?.StatusCode === 500) {
         alert(loginResponse.StatusMessage);
@@ -233,7 +233,8 @@ const Login = () => {
       console.log('cameejbvjs');
       setError(a);
       dispatch(usersLogin(login));
-    } else {
+    }
+     else {
       setError(a);
     }
   }
@@ -631,11 +632,12 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontFamily: 'Lato-Regular',
     backgroundColor: '#ffff',
+    
   },
   button: {
     alignSelf: 'center',
     height: hp('8%'),
-    width: wp('88%'),
+    width: wp('78%'),
     justifyContent: 'center',
     fontFamily: 'Lato-Bold',
     borderRadius: 10,

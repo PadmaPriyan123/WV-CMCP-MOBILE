@@ -21,7 +21,7 @@ import DocumentPicker from 'react-native-document-picker';
 
 import {ScrollView} from 'react-native-gesture-handler';
 import {Dropdown} from 'react-native-element-dropdown';
-
+import {useNavigation} from '@react-navigation/native';
 import {MultiSelect} from 'react-native-element-dropdown';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {useDispatch, useSelector} from 'react-redux';
@@ -29,7 +29,8 @@ import {
   sendComplaintsData,
   sendComplaintsDataResponse,
 } from '../../../Redux/IncidentLog/IncidentCreation/Action';
-const Complaints = ({navigation}) => {
+const Complaints = ({route}) => {
+  const navigation = useNavigation();
   const [dates, setDates] = React.useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
   const [dateKey, setDateKey] = useState('');
@@ -96,7 +97,7 @@ const Complaints = ({navigation}) => {
     {label: ' Police Helpline 100', value: ' Police Helpline 100'},
     {label: ' Local Police station ', value: ' Local Police station '},
   ];
-  const [incidentValue, setIncidentValue] = useState('');
+  const [selected, setSelected] = useState('');
 
   const data2 = [
     {label: '161 Statement is done', value: [1]},
@@ -185,10 +186,13 @@ const Complaints = ({navigation}) => {
   );
   useEffect(() => {
     if (complaintresponse?.StatusCode === 201) {
-      alert('complaint was successfully created');
-      dispatch(sendVictimData(''));
+      alert(complaintresponse.StatusMessage);
+
+      navigation.navigate('Dashboard');
+      dispatch(sendComplaintsData(''));
+    } else if (complaintresponse?.StatusCode === 409) {
+      alert(complaintresponse.StatusMessage);
     }
-    // dispatch(sendVictimData(''));
   }, [complaintresponse]);
 
   let d = new Date();
@@ -278,25 +282,35 @@ const Complaints = ({navigation}) => {
     }
     if (!validation1.Description_of_the_incident) {
       a.Description_of_the_incident =
-        '*Please enter the description Of the incident';
+        '*Please enter the description of the incident';
     }
     if (!validation1.Name_of_Alleged_Offender) {
-      a.Name_of_Alleged_Offender = '*Please enter the name of offender';
+      a.Name_of_Alleged_Offender = '*Please enter the name of alleged offender';
     }
     if (!validation1.Offenders_relationship_to_victim) {
       a.Offenders_relationship_to_victim =
-        '*Please select the offender relation to the victim';
+        '*Please enter the offender relationship to the victim';
     }
     if (!validation1.Who_informed_about_the_incident) {
       a.Who_informed_about_the_incident =
-        '*Please Enter the Who Informed About Incident';
+        '*Please select the who informed about the incident';
+    }
+    if (!validation1.Whether_Incident_Reported_Others) {
+      a.Whether_Incident_Reported_Others =
+        '*Please select the whether the incident report others';
     }
     if (!validation1.Offenders_approximate_Age) {
       a.Offenders_approximate_Age =
         '*Please enter the offender approximate age';
     }
+    if (
+      !Age.test(validation1.Offenders_approximate_Age) &&
+      !empty.test(validation1.Offenders_approximate_Age)
+    ) {
+      a.Offenders_approximate_Age = 'Enter a valid offenders appproximate age';
+    }
     if (!validation1.complaint_lodged_PS) {
-      a.complaint_lodged_PS = '*Please Select the Complaint lodged in PS';
+      a.complaint_lodged_PS = '*Please select the complaint lodged in PS';
     }
 
     if (validation1.complaint_lodged_PS == 'yes') {
@@ -323,7 +337,7 @@ const Complaints = ({navigation}) => {
       a.FIR_Num = '*Please Enter  FIR is number';
     }
     if (!validation1.Action_Taken) {
-      a.Action_Taken = '*Please Enter the FIR/GD Action Taken';
+      a.Action_Taken = '*Please enter the FIR/GD Action Taken';
     }
     if (!incidentValue.length) {
       a.Whether_Incident_Reported_Others = '*Please select incident report';
@@ -332,12 +346,19 @@ const Complaints = ({navigation}) => {
       a.Whether_Incident_Reported_Others = '';
     }
     if (!validation1.Sections_AppliedIn_FIR) {
-      a.Sections_AppliedIn_FIR = '*Please Enter the Section applied fir';
+      a.Sections_AppliedIn_FIR = '*Please enter the Section applied fir';
     }
     if (Object.values(a).every(el => el === '')) {
       console.log(Object.values(a).every(el => el === ''));
       setError(a);
-      dispatch(sendComplaintsData(validation1));
+      let reqData = validation1;
+      reqData.Sections_AppliedIn_FIR = JSON.stringify(
+        validation1.Sections_AppliedIn_FIR,
+      );
+      console.log('bhhf', reqData);
+
+      dispatch(sendComplaintsData(reqData));
+      console.log('vjv', validation1);
     } else {
       setError(a);
     }
@@ -360,7 +381,7 @@ const Complaints = ({navigation}) => {
               />
 
               <Text
-                style={{left: 290, bottom: 35}}
+                style={{left: 300, bottom: 39}}
                 onPress={() => showDatePicker('Date_of_incident')}>
                 <FontAwesomeIcon
                   size={20}
@@ -382,6 +403,7 @@ const Complaints = ({navigation}) => {
                 type="text"
                 placeholder="Enter description of the incident"
                 placeholderTextColor="gray"
+                color="#000"
                 onChangeText={text => {
                   setValidation1({
                     ...validation1,
@@ -406,6 +428,7 @@ const Complaints = ({navigation}) => {
                 type="text"
                 placeholder="Enter name of alleged offender"
                 placeholderTextColor="gray"
+                color="#000"
                 onChangeText={text => {
                   setValidation1({
                     ...validation1,
@@ -432,6 +455,8 @@ const Complaints = ({navigation}) => {
                 type="text"
                 placeholder="Enter offender relationship to victim"
                 placeholderTextColor="gray"
+                color="#000"
+
                 onChangeText={text => {
                   setValidation1({
                     ...validation1,
@@ -456,6 +481,8 @@ const Complaints = ({navigation}) => {
                 keyboardType="numeric"
                 placeholder="Enter offenders approximate age"
                 placeholderTextColor="gray"
+                color="#000"
+
                 onChangeText={text => {
                   setValidation1({
                     ...validation1,
@@ -521,6 +548,8 @@ const Complaints = ({navigation}) => {
                   type="text"
                   placeholder="Others"
                   placeholderTextColor="gray"
+                  color="#000"
+
                 />
               </View>
             </View>
@@ -611,14 +640,16 @@ const Complaints = ({navigation}) => {
               />
               <Text style={styles.gender}>No</Text>
             </View>
-          </View>
-          <View>
+            <View>
             {error?.complaint_lodged_PS && (
               <Text style={styles.errormessage}>
                 {error?.complaint_lodged_PS}
               </Text>
             )}
+            </View>
+
           </View>
+         
           {lodged === true ? (
             <View>
               <View style={{marginTop: 3, marginLeft: 10}}>
@@ -662,7 +693,7 @@ const Complaints = ({navigation}) => {
                     />
 
                     <Text
-                      style={{left: 290, bottom: 35}}
+                      style={{left: 300, bottom: 39}}
                       onPress={() => showDatePicker('GD_EntryDate')}>
                       <FontAwesomeIcon
                         size={20}
@@ -694,7 +725,7 @@ const Complaints = ({navigation}) => {
                         style={styles.FormInput}
                         keyboardType="numeric"
                         placeholder="Enter GDE number"
-                        placeholderTextColor="#000"
+                        color="#000"
                         onChangeText={text => {
                           setValidation1({...validation1, GD_Number: text});
                         }}
@@ -783,13 +814,10 @@ const Complaints = ({navigation}) => {
                 </View>
               </View>
               <View>
-                {error?.FIR_filed_or_not && (
-                  <Text style={styles.errormessage}>
-                    {error?.FIR_filed_or_not}
-                  </Text>
-                )}
-              </View>
-
+                    {error?.FIR_filed_or_not && (
+                      <Text style={styles.errormessage}>{error?.FIR_filed_or_not}</Text>
+                    )}
+                  </View>
               <View style={styles.container}>
                 {/*Here we will return the view when state is true 
           and will return false if state is false*/}
@@ -805,7 +833,7 @@ const Complaints = ({navigation}) => {
                       />
 
                       <Text
-                        style={{left: 290, bottom: 35}}
+                        style={{left: 300, bottom: 39}}
                         onPress={() => showDatePicker('FIR_date')}>
                         <FontAwesomeIcon
                           size={20}
@@ -837,7 +865,7 @@ const Complaints = ({navigation}) => {
                           style={styles.FormInput}
                           keyboardType="numeric"
                           placeholder="Enter FIR Number"
-                          placeholderTextColor="#000"
+                          color="#000"
                           onChangeText={text => {
                             setValidation1({...validation1, FIR_Num: text});
                           }}
@@ -852,7 +880,8 @@ const Complaints = ({navigation}) => {
                       )}
                     </View>
                     <View>
-                      <Text style={styles.Filefill}>FIR Document</Text>
+                      <View style={{marginTop: 30}}>
+                        <Text style={styles.Filefill}>FIR Document</Text>
 
                       {/* document picker */}
                       <View style={styles.formtotalinput2}>
@@ -875,35 +904,12 @@ const Complaints = ({navigation}) => {
                             handleDocumentSelection('fir');
                           }}>
                           <FontAwesomeIcon
-                            size={24}
-                            icon={faFileAlt}
+                            icon={faFile}
                             color="gray"
+                            style={styles.fileUpload}
                           />
                         </Text>
-                        {/* <TextInput
-                          style={styles.uri}
-                          placeholder="Upload a file"
-                          placeholderTextColor={'gray'}>
-                          {fileResponse.map((file, index) => (
-                            <Text
-                              key={index.toString()}
-                              numberOfLines={1}
-                              ellipsizeMode={'middle'}>
-                              {file?.uri}
-                            </Text>
-                          ))}
-                        </TextInput>
-                        <Text
-                          style={{alignSelf: 'center', marginRight: 50}}
-                          onPress={handleDocumentSelection}>
-                          <FontAwesomeIcon
-                            size={24}
-                            icon={faFileAlt}
-                            color="gray"
-                          />
-                        </Text> */}
                       </View>
-
                       <View style={{marginTop: 16}}>
                         <Text style={styles.FormTitle1}>
                           What sections applied in FIR?:
@@ -951,6 +957,8 @@ const Complaints = ({navigation}) => {
                       type="text"
                       placeholder="Others"
                       placeholderTextColor="gray"
+                      color="#000"
+
                       onChangeText={text => {
                         setValidation1({...validation1, Action_Taken: text});
                       }}
@@ -975,6 +983,8 @@ const Complaints = ({navigation}) => {
                       keyboardType="numeric"
                       placeholder="Others"
                       placeholderTextColor="gray"
+                      color="#000"
+
                     />
                   </View>
                 </View>
@@ -1339,6 +1349,7 @@ const styles = StyleSheet.create({
     padding: 10,
     alignSelf: 'stretch',
     marginVertical: 6,
+
     borderWidth: 1,
     borderColor: '#bdc3c7',
     borderRadius: 5,
@@ -1432,6 +1443,7 @@ const styles = StyleSheet.create({
     height: hp('7%'),
     borderRadius: 5,
     Color: 'gray',
+
     borderWidth: 1,
     marginTop: 10,
     marginLeft: 7,
