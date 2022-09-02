@@ -24,15 +24,12 @@ const CaseAssignment = ({navigation}) => {
     state => state.Incidentlist.sendlegalDataResponse,
   );
   useEffect(() => {
-    if (legalresponse?.StatusCode=== 201) {
+    if (legalresponse?.StatusCode === 201) {
       alert(legalresponse.StatusMessage);
       dispatch(sendLegalData(''));
-    }
-    else if(legalresponse?.StatusCode===401){
+    } else if (legalresponse?.StatusCode === 401) {
       alert(legalresponse.StatusMessage);
-
     }
-   
   }, [legalresponse]);
   const [assignValue1, setAssignValue1] = React.useState([]);
 

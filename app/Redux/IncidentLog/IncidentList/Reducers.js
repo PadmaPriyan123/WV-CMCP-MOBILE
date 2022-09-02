@@ -2,16 +2,13 @@ import {
     INCIDENT_LEGAL_RESPPONSE,
     INCIDENT_REINTEGRATION_RESPPONSE,
     INCIDENT_MHPSS_RESPPONSE
-   
   } from './ActionTypes';
   
   const initialState = {
     error: '',
     sendlegalDataResponse: {},
     sendReintegrationDataResponse:{},
-    sendMhpssDataResponse:{},
-    
-   
+    sendMhpssDataResponse:{}, 
   };
   
   const incidentLegal = (state = initialState, action) => {

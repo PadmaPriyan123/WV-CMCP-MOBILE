@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import {
   View,
   Text,
@@ -170,7 +169,6 @@ const Login = () => {
     console.log('loginresponse', loginResponse);
 
     if (Object.values(error).every(el => el === '') && loginResponse) {
-      
       if (
         loginResponse?.StatusCode === 400 &&
         loginResponse?.StatusMessage === 'Email does not exist'
@@ -233,8 +231,7 @@ const Login = () => {
       console.log('cameejbvjs');
       setError(a);
       dispatch(usersLogin(login));
-    }
-     else {
+    } else {
       setError(a);
     }
   }
@@ -534,6 +531,7 @@ const Login = () => {
                       placeholder="Enter the Email"
                       placeholderTextColor="#9e9e9e"
                       textAlign="left"
+                      contextMenuHidden={true}
                       value={login.EmailId}
                       editable={true}
                       required
@@ -632,7 +630,6 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontFamily: 'Lato-Regular',
     backgroundColor: '#ffff',
-    
   },
   button: {
     alignSelf: 'center',

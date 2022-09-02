@@ -30,7 +30,7 @@ import {
   caseAssignment,
 } from '../../../Redux/IncidentLog/IncidentCreation/Action';
 
-const Victim = ({route}) => {
+const Victim = props => {
   const navigation = useNavigation();
 
   const [date, setDate] = React.useState('');
@@ -64,6 +64,10 @@ const Victim = ({route}) => {
       ? `${tempDate[0]} ${tempDate[1]} ${tempDate[2]} ${tempDate[3]}`
       : '';
   };
+
+  const minDate = new Date('1950-01-01');
+  const maxDate = new Date('2022-09-02');
+  const {onChangeText, mode = 'date', min = minDate, max = maxDate} = props;
 
   const [checked, setChecked] = React.useState('');
 
@@ -178,7 +182,7 @@ const Victim = ({route}) => {
     PanchayatID: '',
     VillageID: '',
     PoliceStationID: '',
-    UserID:1,
+    UserID: 1,
   });
   console.log('ffh', validation);
   const initialErrorMessage = {
@@ -388,7 +392,9 @@ const Victim = ({route}) => {
                   placeholderTextColor={'gray'}
                 />
 
-                <Text style={{left: 320, bottom: 45}} onPress={showDatePicker}>
+                <Text
+                  style={{left: wp('80%'), bottom: hp('5.5%')}}
+                  onPress={showDatePicker}>
                   <FontAwesomeIcon
                     size={25}
                     icon={faCalendarDays}
@@ -514,7 +520,7 @@ const Victim = ({route}) => {
                     />
 
                     <Text
-                      style={{left: 320, bottom: 45}}
+                      style={{left: wp('80%'), bottom: hp('5.5%')}}
                       onPress={showDatePicker}>
                       <FontAwesomeIcon
                         size={25}
@@ -528,6 +534,8 @@ const Victim = ({route}) => {
                       mode="date"
                       onConfirm={handleConfirm}
                       onCancel={hideDatePicker}
+                      minimumDate={min}
+                      maximumDate={max}
                     />
                   </View>
                   <View>
@@ -538,8 +546,8 @@ const Victim = ({route}) => {
                     )}
                   </View>
                   <View>
-                    <View style={{marginTop: 20}}>
-                      <Text style={styles.Filefill}>Victim Documents:</Text>
+                    <View>
+                      <Text style={styles.FormTitle}>Victim Documents:</Text>
                       {/* document picker */}
                       <View style={styles.formtotalinput2}>
                         <TextInput
@@ -556,7 +564,7 @@ const Victim = ({route}) => {
                           ))}
                         </TextInput>
                         <Text
-                          style={{alignSelf: 'center', marginLeft: 6}}
+                          style={{marginTop: 12, marginRight: 10}}
                           onPress={handleDocumentSelection}>
                           <FontAwesomeIcon
                             size={24}
@@ -565,13 +573,13 @@ const Victim = ({route}) => {
                           />
                         </Text>
                       </View>
-                      <View>
+                      {/* <View>
                         {error?.Victim_Documents && (
                           <Text style={styles.errormessage}>
                             {error?.Victim_Documents}
                           </Text>
                         )}
-                      </View>
+                      </View> */}
                     </View>
                   </View>
                 </View>
@@ -588,7 +596,6 @@ const Victim = ({route}) => {
                   placeholder="Enter victims age"
                   placeholderTextColor="gray"
                   color="#000"
-                  
                   onChangeText={text => {
                     setValidation({...validation, Victim_age: parseInt(text)});
                   }}
@@ -889,14 +896,19 @@ const styles = StyleSheet.create({
   },
   gender: {
     marginTop: 8,
-
     color: '#181818',
   },
 
   uri: {
     color: '#0f0201',
-    fontSize: 14,
-    marginLeft: 60,
+    alignSelf: 'center',
+    fontFamily: 'Lato-Regular',
+    width: wp('70%'),
+    marginLeft: 10,
+    marginRight: 20,
+    Color: 'gray',
+    borderColor: '#ccc',
+    backgroundColor: '#ecf0f1',
   },
 
   FormDrop1: {
@@ -924,6 +936,17 @@ const styles = StyleSheet.create({
     bottom: 40,
 
     marginLeft: 5,
+  },
+  formtotalinput2: {
+    height: hp('7%'),
+    borderRadius: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderWidth: 1,
+    marginTop: 10,
+    marginLeft: 5,
+    borderColor: '#ccc',
+    backgroundColor: '#ecf0f1',
   },
   formbuttonedit: {
     alignSelf: 'center',
@@ -1255,7 +1278,6 @@ const styles = StyleSheet.create({
     height: hp('7%'),
     borderRadius: 5,
     Color: 'gray',
-
     borderWidth: 1,
     marginTop: 10,
     marginLeft: 7,

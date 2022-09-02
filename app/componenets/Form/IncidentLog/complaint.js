@@ -145,7 +145,6 @@ const Complaints = ({route}) => {
   const [checked, setChecked] = React.useState('');
   const [checked1, setChecked1] = React.useState('');
 
-  const [selected, setSelected] = React.useState('');
   const [isPickerShow, setIsPickerShow] = React.useState(false);
   const [date, setDate] = React.useState(new Date(Date.now()));
 
@@ -339,14 +338,8 @@ const Complaints = ({route}) => {
     if (!validation1.Action_Taken) {
       a.Action_Taken = '*Please enter the FIR/GD Action Taken';
     }
-    if (!incidentValue.length) {
-      a.Whether_Incident_Reported_Others = '*Please select incident report';
-    }
-    if (incidentValue.length <= 0) {
-      a.Whether_Incident_Reported_Others = '';
-    }
     if (!validation1.Sections_AppliedIn_FIR) {
-      a.Sections_AppliedIn_FIR = '*Please enter the Section applied fir';
+      a.Sections_AppliedIn_FIR = '*Please enter the Section applied in fir';
     }
     if (Object.values(a).every(el => el === '')) {
       console.log(Object.values(a).every(el => el === ''));
@@ -381,10 +374,10 @@ const Complaints = ({route}) => {
               />
 
               <Text
-                style={{left: 300, bottom: 39}}
+                style={{left: wp('80%'), bottom: hp('5.5%')}}
                 onPress={() => showDatePicker('Date_of_incident')}>
                 <FontAwesomeIcon
-                  size={20}
+                  size={25}
                   icon={faCalendarDays}
                   title="Show Picker"
                   color="#00bad7"
@@ -456,7 +449,6 @@ const Complaints = ({route}) => {
                 placeholder="Enter offender relationship to victim"
                 placeholderTextColor="gray"
                 color="#000"
-
                 onChangeText={text => {
                   setValidation1({
                     ...validation1,
@@ -482,7 +474,6 @@ const Complaints = ({route}) => {
                 placeholder="Enter offenders approximate age"
                 placeholderTextColor="gray"
                 color="#000"
-
                 onChangeText={text => {
                   setValidation1({
                     ...validation1,
@@ -500,7 +491,7 @@ const Complaints = ({route}) => {
             )}
           </View>
           <View style={{marginTop: 16}}>
-            <Text style={styles.FormTitle1}>
+            <Text style={styles.FormTitle}>
               Who informed about the incident:<Text style={styles.star}>*</Text>
             </Text>
             <View style={styles.droppingn}>
@@ -549,7 +540,6 @@ const Complaints = ({route}) => {
                   placeholder="Others"
                   placeholderTextColor="gray"
                   color="#000"
-
                 />
               </View>
             </View>
@@ -641,15 +631,14 @@ const Complaints = ({route}) => {
               <Text style={styles.gender}>No</Text>
             </View>
             <View>
-            {error?.complaint_lodged_PS && (
-              <Text style={styles.errormessage}>
-                {error?.complaint_lodged_PS}
-              </Text>
-            )}
+              {error?.complaint_lodged_PS && (
+                <Text style={styles.errormessage}>
+                  {error?.complaint_lodged_PS}
+                </Text>
+              )}
             </View>
-
           </View>
-         
+
           {lodged === true ? (
             <View>
               <View style={{marginTop: 3, marginLeft: 10}}>
@@ -693,10 +682,10 @@ const Complaints = ({route}) => {
                     />
 
                     <Text
-                      style={{left: 300, bottom: 39}}
+                      style={{left: wp('80%'), bottom: hp('5.5%')}}
                       onPress={() => showDatePicker('GD_EntryDate')}>
                       <FontAwesomeIcon
-                        size={20}
+                        size={25}
                         icon={faCalendarDays}
                         title="Show Picker"
                         color="#00bad7"
@@ -756,7 +745,7 @@ const Complaints = ({route}) => {
                         ))}
                       </TextInput>
                       <Text
-                        style={{marginTop: 8}}
+                        style={{marginTop: 10}}
                         onPress={() => {
                           handleDocumentSelection('gde');
                         }}>
@@ -814,10 +803,12 @@ const Complaints = ({route}) => {
                 </View>
               </View>
               <View>
-                    {error?.FIR_filed_or_not && (
-                      <Text style={styles.errormessage}>{error?.FIR_filed_or_not}</Text>
-                    )}
-                  </View>
+                {error?.FIR_filed_or_not && (
+                  <Text style={styles.errormessage}>
+                    {error?.FIR_filed_or_not}
+                  </Text>
+                )}
+              </View>
               <View style={styles.container}>
                 {/*Here we will return the view when state is true 
           and will return false if state is false*/}
@@ -833,10 +824,10 @@ const Complaints = ({route}) => {
                       />
 
                       <Text
-                        style={{left: 300, bottom: 39}}
+                        style={{left: wp('80%'), bottom: hp('5.5%')}}
                         onPress={() => showDatePicker('FIR_date')}>
                         <FontAwesomeIcon
-                          size={20}
+                          size={25}
                           icon={faCalendarDays}
                           title="Show Picker"
                           color="#00bad7"
@@ -880,69 +871,71 @@ const Complaints = ({route}) => {
                       )}
                     </View>
                     <View>
-                      <View style={{marginTop: 30}}>
+                      <View>
                         <Text style={styles.Filefill}>FIR Document</Text>
 
-                      {/* document picker */}
-                      <View style={styles.formtotalinput2}>
-                        <TextInput
-                          style={styles.uricom}
-                          placeholder="Upload a file"
-                          placeholderTextColor={'gray'}>
-                          {firFileResponse.map((file, index) => (
-                            <Text
-                              key={index.toString()}
-                              numberOfLines={1}
-                              ellipsizeMode={'middle'}>
-                              {file?.uri}
-                            </Text>
-                          ))}
-                        </TextInput>
-                        <Text
-                          style={{marginTop: 8}}
-                          onPress={() => {
-                            handleDocumentSelection('fir');
-                          }}>
-                          <FontAwesomeIcon
-                            icon={faFile}
-                            color="gray"
-                            style={styles.fileUpload}
-                          />
-                        </Text>
-                      </View>
-                      <View style={{marginTop: 16}}>
-                        <Text style={styles.FormTitle1}>
-                          What sections applied in FIR?:
-                          <Text style={styles.star}>*</Text>
-                        </Text>
-                        <View style={styles.droppingn}>
-                          <Dropdown
-                            style={styles.dropping}
-                            placeholderStyle={styles.placeholderStyle}
-                            selectedTextStyle={styles.selectedTextStyle}
-                            iconStyle={styles.iconStyle}
-                            data={data2}
-                            maxHeight={250}
-                            labelField="label"
-                            valueField="value"
-                            placeholder="Select what sections applied in FIR?"
-                            value={value2}
-                            onChange={item => {
-                              setValue2(item.value);
-                              setValidation1({
-                                ...validation1,
-                                Sections_AppliedIn_FIR: item.value,
-                              });
-                            }}
-                          />
-                        </View>
-                      </View>
-                      <View>
-                        {error?.Sections_AppliedIn_FIR && (
-                          <Text style={styles.errormessage}>
-                            {error?.Sections_AppliedIn_FIR}
+                        {/* document picker */}
+                        <View style={styles.formtotalinput2}>
+                          <TextInput
+                            style={styles.uricom}
+                            placeholder="Upload a file"
+                            placeholderTextColor={'gray'}>
+                            {firFileResponse.map((file, index) => (
+                              <Text
+                                key={index.toString()}
+                                numberOfLines={1}
+                                ellipsizeMode={'middle'}>
+                                {file?.uri}
+                              </Text>
+                            ))}
+                          </TextInput>
+                          <Text
+                            style={{marginTop: 12}}
+                            onPress={() => {
+                              handleDocumentSelection('fir');
+                            }}>
+                            <FontAwesomeIcon
+                              icon={faFileAlt}
+                              color="gray"
+                              size={24}
+                              style={styles.fileUpload}
+                            />
                           </Text>
-                        )}
+                        </View>
+                        <View style={{marginTop: 16}}>
+                          <Text style={styles.FormTitle}>
+                            What sections applied in FIR?:
+                            <Text style={styles.star}>*</Text>
+                          </Text>
+                          <View style={styles.droppingn}>
+                            <Dropdown
+                              style={styles.dropping}
+                              placeholderStyle={styles.placeholderStyle}
+                              selectedTextStyle={styles.selectedTextStyle}
+                              iconStyle={styles.iconStyle}
+                              data={data2}
+                              maxHeight={250}
+                              labelField="label"
+                              valueField="value"
+                              placeholder="Select what sections applied in FIR?"
+                              value={value2}
+                              onChange={item => {
+                                setValue2(item.value);
+                                setValidation1({
+                                  ...validation1,
+                                  Sections_AppliedIn_FIR: item.value,
+                                });
+                              }}
+                            />
+                          </View>
+                        </View>
+                        <View style={{top: 5}}>
+                          {error?.Sections_AppliedIn_FIR && (
+                            <Text style={styles.errormessage}>
+                              {error?.Sections_AppliedIn_FIR}
+                            </Text>
+                          )}
+                        </View>
                       </View>
                     </View>
                   </View>
@@ -958,7 +951,6 @@ const Complaints = ({route}) => {
                       placeholder="Others"
                       placeholderTextColor="gray"
                       color="#000"
-
                       onChangeText={text => {
                         setValidation1({...validation1, Action_Taken: text});
                       }}
@@ -984,7 +976,6 @@ const Complaints = ({route}) => {
                       placeholder="Others"
                       placeholderTextColor="gray"
                       color="#000"
-
                     />
                   </View>
                 </View>
@@ -995,6 +986,7 @@ const Complaints = ({route}) => {
           )}
         </SafeAreaView>
       </ScrollView>
+
       <View style={styles.complaintbutton}>
         <TouchableOpacity
           style={styles.formbutton1}
@@ -1443,7 +1435,6 @@ const styles = StyleSheet.create({
     height: hp('7%'),
     borderRadius: 5,
     Color: 'gray',
-
     borderWidth: 1,
     marginTop: 10,
     marginLeft: 7,
@@ -1538,7 +1529,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     flexDirection: 'row',
     borderWidth: 1,
-    marginTop: 25,
+    marginTop: 20,
     marginLeft: 6,
     borderColor: '#ccc',
     backgroundColor: '#ecf0f1',

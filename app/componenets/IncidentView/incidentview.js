@@ -30,7 +30,7 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {Menu, MenuItem, MenuDivider} from 'react-native-material-menu';
 import {Dropdown} from 'react-native-element-dropdown';
 
-const Incident = ({navigation}) => {
+const Incident = ({navigation}, props) => {
   const [date, setDate] = React.useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
 
@@ -47,9 +47,9 @@ const Incident = ({navigation}) => {
     hideDatePicker();
   };
 
-  const minDate = new Date('2022-01-01');
-  const maxDate = new Date('2022-08-30');
-  // const {onChangeText, mode = 'date', min = minDate, max = maxDate} = props;
+  const minDate = new Date('2015-05-01');
+  const maxDate = new Date('2022-09-02');
+  const {onChangeText, mode = 'date', min = minDate, max = maxDate} = props;
 
   const getDate = () => {
     let tempDate = date.toString().split(' ');
@@ -321,6 +321,7 @@ const Incident = ({navigation}) => {
                 <TextInput
                   style={styles.textpopup}
                   placeholder="Search by Case id"
+                  activeUnderlineColor="gray"
                   placeholderTextColor="gray"
                 />
               </View>
@@ -348,6 +349,8 @@ const Incident = ({navigation}) => {
                     mode="date"
                     onConfirm={handleConfirm}
                     onCancel={hideDatePicker}
+                    minimumDate={min}
+                    maximumDate={max}
                   />
                 </View>
               </View>
@@ -458,7 +461,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignSelf: 'center',
-    backgroundColor: '#000',
+    backgroundColor: '#000000aa',
   },
   modalView: {
     width: wp('90%'),
@@ -490,8 +493,6 @@ const styles = StyleSheet.create({
     height: hp('7%'),
     borderRadius: 5,
     Color: 'gray',
-    // border: 'gray',
-    borderTop: 'gray',
     width: wp('69%'),
     marginTop: 10,
     fontFamily: 'Lato-Regular',

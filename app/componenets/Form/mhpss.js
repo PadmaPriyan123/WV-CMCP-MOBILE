@@ -1,4 +1,4 @@
-import React, {useCallback, useState,useEffect} from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -17,15 +17,8 @@ import {faCalendarDays} from '@fortawesome/free-solid-svg-icons/faCalendarDays';
 import {ScrollView} from 'react-native-gesture-handler';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import DSMTrauma from './DSMTraumaScreening';
-import {useDispatch, useSelector} from 'react-redux';
-import {
-  sendMhpssData,
-  sendMhpssDataResponse,
-} from '../../Redux/IncidentLog/IncidentList/Action';
-import { text } from '@fortawesome/fontawesome-svg-core';
 
 const Mhpss = () => {
-  const [text, setText] = useState('');
   const [date, setDate] = React.useState(['']);
   const [date1, setDate1] = React.useState(['']);
   const [dateIndex, setDateIndex] = React.useState(true);
@@ -79,41 +72,18 @@ const Mhpss = () => {
   const [supportive, setSupportive] = React.useState([]);
 
   const [checked, setChecked] = React.useState(['']);
-  let dispatch = useDispatch();
-  let mhpssresponse = useSelector(
-    state => state.Incidentlist.sendMhpssDataResponse,
-  );
-  useEffect(() => {
-   
-    if (mhpssresponse?.StatusCode == 201) {
-      alert('reintegration was successfully created');
-      dispatch(sendMhpssData(''));
-    }
-   
-  }, [mhpssresponse]);
- 
-const [mhpss,setMhpss]=useState({
-  CaseID: 1,
-  SupportiveCall: 1,
-  SupportiveCallDate: "",
-  Consent: "",
-  Counselling: "",
-  TraumaScreeningTool: null,
-  IsNextSupportiveCallScheduled: "",
-  NextSupportiveCallDate: ""
-})
+
   const handleSupportive = () => {
     if (supportive.length < 5) {
       const datamhpss = [
         {
-          CaseID: 1,
-          SupportiveCall: 1,
-          SupportiveCallDate: "2022-07-21",
-          Consent: "yes",
-          Counselling: "counselling data",
-          TraumaScreeningTool: null,
-          IsNextSupportiveCallScheduled: "true",
-          NextSupportiveCallDate: "2022-07-21"
+          caseId: 1,
+          supportiveCall: 1,
+          supportiveCallDate: '2022-09-05',
+          consent: 'yes',
+          counselling: 'counselling data',
+          isNextSupportiveCallScheduled: true,
+          nextSupportiveCallDate: '2022-09-06',
         },
 
         {
@@ -131,7 +101,7 @@ const [mhpss,setMhpss]=useState({
           supportiveCall: 3,
           supportiveCallDate: '2022-09-07',
           consent: 'yes',
-          counselling: '',
+          counselling: 'counselling data',
           isNextSupportiveCallScheduled: true, // after 3 supportive call, upcoming are optional
           nextSupportiveCallDate: '2022-09-08',
         },
@@ -140,7 +110,7 @@ const [mhpss,setMhpss]=useState({
           supportiveCall: 4,
           supportiveCallDate: '2022-09-08',
           consent: 'yes',
-          counselling: '',
+          counselling: 'counselling data',
           isNextSupportiveCallScheduled: true, // after 3 supportive call, upcoming are optional
           nextSupportiveCallDate: '2022-09-09',
         },
@@ -149,7 +119,7 @@ const [mhpss,setMhpss]=useState({
           supportiveCall: 5,
           supportiveCallDate: '2022-09-10',
           consent: 'yes',
-          counselling: '',
+          counselling: 'counselling data',
           isNextSupportiveCallScheduled: true, // after 3 supportive call, upcoming are optional
           nextSupportiveCallDate: '2022-09-10',
         },
@@ -186,11 +156,8 @@ const [mhpss,setMhpss]=useState({
             return (
               <>
                 <View style={{marginTop: 10}}>
-                  <Text style={styles.FormTitle2}>
-                    Case Id -{datamhpss[i].caseId}:
-                  </Text>
                   <Text style={styles.FormTitle}>
-                    Supportive Call -{datamhpss[i].supportiveCall}:
+                    Supportive Call -{i + 1}:
                   </Text>
                   <View style={{marginTop: 20, marginLeft: 5}}>
                     <Text style={styles.FormTitle}>Date & Time</Text>
@@ -198,7 +165,7 @@ const [mhpss,setMhpss]=useState({
                       <TextInput
                         key={i}
                         style={styles.textInput1}
-                        value={datamhpss[i].SupportiveCallDate}
+                        value={datamhpss[i].supportiveCallDate}
                         placeholder="  Enter Date"
                         placeholderTextColor={'gray'}
                       />
@@ -266,7 +233,7 @@ const [mhpss,setMhpss]=useState({
                               <View style={styles.tabfourfirst1}>
                                 <TextInput
                                   style={styles.counsInput}
-                                  value={datamhpss[i].Counselling}
+                                  value={datamhpss[i].counselling}
                                   type="text"
                                   placeholder="Enter Counselling "
                                   placeholderTextColor="gray"
@@ -281,7 +248,7 @@ const [mhpss,setMhpss]=useState({
                         <View style={{marginTop: 5}}>
                           <TextInput
                             style={styles.textInput1}
-                            value={datamhpss[i].NextSupportiveCallDate}
+                            value={datamhpss[i].nextSupportiveCallDate}
                             placeholder="  Enter Date"
                             placeholderTextColor={'gray'}
                           />
@@ -359,14 +326,6 @@ const styles = StyleSheet.create({
     fontSize: 13.5,
     alignSelf: 'flex-start',
     marginLeft: 12,
-  },
-  FormTitle2: {
-    color: '#000',
-    fontFamily: 'Lato-Regular',
-    fontSize: 14,
-    bottom: 5,
-    alignSelf: 'flex-start',
-    marginLeft: 13,
   },
   FormInput: {
     padding: 10,

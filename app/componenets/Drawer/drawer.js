@@ -113,7 +113,7 @@ const MyDrawer = ({navigation}) => {
           },
           drawerLabelStyle: {
             fontFamily: 'Lato-Bold',
-            fontSize: 16,
+            fontSize: 14,
           },
 
           headerTintColor: 'white',
@@ -160,7 +160,7 @@ const MyDrawer = ({navigation}) => {
           },
           drawerLabelStyle: {
             fontFamily: 'Lato-Bold',
-            fontSize: 16,
+            fontSize: 14,
           },
           headerTintColor: 'white',
           headerTitleStyle: {
@@ -207,7 +207,7 @@ const MyDrawer = ({navigation}) => {
 
           drawerLabelStyle: {
             fontFamily: 'Lato-Bold',
-            fontSize: 16,
+            fontSize: 14,
           },
 
           headerTintColor: 'white',
