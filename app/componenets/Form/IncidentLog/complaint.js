@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -20,16 +20,22 @@ import {faFile} from '@fortawesome/free-solid-svg-icons/faFile';
 
 import {ScrollView} from 'react-native-gesture-handler';
 import {Dropdown} from 'react-native-element-dropdown';
-
+import {useNavigation} from '@react-navigation/native';
 import {MultiSelect} from 'react-native-element-dropdown';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  sendComplaintsData,
+  sendComplaintsDataResponse,
+} from '../../../Redux/IncidentLog/IncidentCreation/Action';
 const Complaints = ({route}) => {
+  const navigation = useNavigation();
   const [dates, setDates] = React.useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
-
-  const showDatePicker = () => {
+  const [dateKey, setDateKey] = useState('');
+  const showDatePicker = key => {
     setDatePickerVisibility(true);
+    setDateKey(key);
   };
 
   const hideDatePicker = () => {
@@ -40,12 +46,12 @@ const Complaints = ({route}) => {
     console.log('date', date);
 
     let d = new Date(date);
-    let dat = d.getDate();
-    let month = d.getMonth() + 1;
+    let dat = String(d.getDate()).padStart(2, '0');
+    let month = String(d.getMonth() + 1).padStart(2, '0');
     let year = d.getFullYear();
     setValidation1({
       ...validation1,
-          Date_of_incident: '' `${year}-${month}-${dat}`,
+      [dateKey]: `${year}-${month}-${dat}`,
     });
     setDate(date);
     hideDatePicker();
@@ -59,72 +65,75 @@ const Complaints = ({route}) => {
   };
 
   const data1 = [
-    {label: 'Victim self', value: '1'},
-    {label: 'Victims Family member ', value: '2 '},
-    {label: 'Victims relative', value: '3'},
+    {label: 'Victim self', value: 1},
+    {label: 'Victims Family member ', value: 2},
+    {label: 'Victims relative', value: 3},
 
-    {label: 'Men Care Group member', value: '4'},
+    {label: 'Men Care Group member', value: 4},
 
-    {label: 'CFLRC facilitator ', value: ' 5 '},
+    {label: 'CFLRC facilitator ', value: 5},
 
-    {label: 'Girl Power Group Members', value: '6'},
-    {label: 'GPG/MCG/VLCPC Volunteers', value: ' 7'},
-    {label: 'WV staff', value: '8'},
+    {label: 'Girl Power Group Members', value: 6},
+    {label: 'GPG/MCG/VLCPC Volunteers', value: 7},
+    {label: 'WV staff', value: 8},
     {
       label: 'Anti-Trafficking Warrior member',
-      value: '9',
+      value: 9,
     },
-    {label: 'Others', value: '10'},
+    {label: 'Others', value: 10},
   ];
-  const [value1, setValue1] = useState('');
+  const [value1, setValue1] = useState(null);
 
   const data = [
-    {label: 'District Child Protection Unit', value: '2'},
-    {label: 'Child Welfare Committee', value: '2'},
-    {label: 'Child Line- 1098    ', value: '3'},
-    {label: ' Police Helpline 100', value: '4'},
-    {label: ' Local Police station ', value: '5'},
+    {
+      label: 'District Child Protection Unit',
+      value: 'District Child Protection Unit',
+    },
+    {label: 'Child Welfare Committee', value: 'Child Welfare Committee'},
+    {label: 'Child Line- 1098    ', value: 'Child Line- 1098    '},
+    {label: ' Police Helpline 100', value: ' Police Helpline 100'},
+    {label: ' Local Police station ', value: ' Local Police station '},
   ];
   const [selected, setSelected] = useState('');
 
   const data2 = [
-    {label: '161 Statement is done', value: '1'},
-    {label: 'Medical Examination Done ', value: '2 '},
-    {label: '164 Statement Done', value: '3'},
+    {label: '161 Statement is done', value: [1]},
+    {label: 'Medical Examination Done ', value: [2]},
+    {label: '164 Statement Done', value: [3]},
 
     {
       label: 'Victim Produced Before CWC    ',
-      value: '4   ',
+      value: [4],
     },
 
-    {label: 'Victim admitted in CCI    ', value: '5   '},
+    {label: 'Victim admitted in CCI    ', value: [5]},
 
     {
       label: 'MHPSS services given to victim',
-      value: '6',
+      value: [6],
     },
     {
       label: 'Medical Aid given to victim',
-      value: ' 7',
+      value: [7],
     },
     {
       label: 'Victim Compensation application filed',
-      value: '8',
+      value: [8],
     },
     {
       label: 'Charge sheet submitted',
-      value: '9',
+      value: [9],
     },
-    {label: 'Examination Chief', value: '10'},
-    {label: 'Cross Examination    ', value: '11  '},
+    {label: 'Examination Chief', value: [10]},
+    {label: 'Cross Examination    ', value: [11]},
 
-    {label: 'Re-examination    ', value: '12   '},
+    {label: 'Re-examination    ', value: [12]},
 
     {
       label: 'Accused convicted / acquitted?    ',
-      value: '13   ',
+      value: [13],
     },
-    {label: 'Appeal under process', value: '14    '},
+    {label: 'Appeal under process', value: [14]},
   ];
 
   const [value2, setValue2] = useState('');
@@ -161,37 +170,50 @@ const Complaints = ({route}) => {
       console.warn(err);
     }
   }, []);
+  let dispatch = useDispatch();
+  let complaintresponse = useSelector(
+    state => state.Incidentlog.sendComplaintsDataResponse,
+  );
+  useEffect(() => {
+    if (complaintresponse?.StatusCode === 201) {
+      alert(complaintresponse.StatusMessage);
+
+      navigation.navigate('Dashboard');
+      dispatch(sendComplaintsData(''));
+    } else if (complaintresponse?.StatusCode === 409) {
+      alert(complaintresponse.StatusMessage);
+    }
+  }, [complaintresponse]);
+
   let d = new Date();
-  let dat = d.getDate();
-  let month = d.getMonth() + 1;
+  let dat = String(d.getDate()).padStart(2, '0');
+  let month = String(d.getMonth() + 1).padStart(2, '0');
   let year = d.getFullYear();
   const [validation1, setValidation1] = useState({
-    Complaints_ID: 1,
-    CaseID: '',
-    UserID: '',
+    CaseID: 1,
+    UserID: 1,
     Date_of_incident: `${year}-${month}-${dat}`,
     Description_of_the_incident: '',
     Name_of_Alleged_Offender: '',
     Offenders_relationship_to_victim: '',
-    Offenders_approximate_Age: '',
+    Offenders_approximate_Age: 0,
     Who_informed_about_the_incident: '',
     Whether_Incident_Reported_Others: '',
     complaint_lodged_PS: '',
-    GD_Number: '',
+    gdNumber: '',
     GD_EntryDate: '',
     FIR_filed_or_not: '',
     FIR_Num: '',
     FIR_date: '',
-    Action_Taken: '',
-    Sections_AppliedIn_FIR: '',
+    Action_Taken: 'hello',
+    Sections_AppliedIn_FIR: [],
   });
-  console.log('vhhjd', validation1);
+  console.log('hdhjf', validation1);
 
   const initialErrorMessage = {
-    Complaints_ID: '',
     CaseID: '',
     UserID: '',
-    Date_of_incident: `${year}-${month}-${dat}`,
+    Date_of_incident: ``,
     Description_of_the_incident: '',
     Name_of_Alleged_Offender: '',
     Offenders_relationship_to_victim: '',
@@ -199,7 +221,7 @@ const Complaints = ({route}) => {
     Who_informed_about_the_incident: '',
     Whether_Incident_Reported_Others: '',
     complaint_lodged_PS: '',
-    GD_Number: '',
+    gdNumber: '',
     GD_EntryDate: '',
     FIR_filed_or_not: '',
     FIR_Num: '',
@@ -212,10 +234,9 @@ const Complaints = ({route}) => {
 
   function myFunction() {
     let a = {
-      Complaints_ID: 1,
       CaseID: 1,
       UserID: 1,
-      Date_of_incident: `${year}-${month}-${dat}`,
+      Date_of_incident: '',
       Description_of_the_incident: '',
       Name_of_Alleged_Offender: '',
       Offenders_relationship_to_victim: '',
@@ -223,7 +244,7 @@ const Complaints = ({route}) => {
       Who_informed_about_the_incident: '',
       Whether_Incident_Reported_Others: '',
       complaint_lodged_PS: '',
-      GD_Number: '',
+      gdNumber: '',
       GD_EntryDate: '',
       FIR_filed_or_not: '',
       FIR_Num: '',
@@ -235,50 +256,71 @@ const Complaints = ({route}) => {
     var letters = /[A-Za-z]{3,15}/;
     var empty = /^$/;
     var Age = /^[0-9]{1,2}$/;
+    dispatch(sendComplaintsData(validation1));
 
     if (!validation1.Date_of_incident) {
       a.Date_of_incident = '*Please Select the Date Of Incident';
     }
     if (!validation1.Description_of_the_incident) {
       a.Description_of_the_incident =
-        '*Please enter the description Of the incident';
+        '*Please enter the description of the incident';
     }
     if (!validation1.Name_of_Alleged_Offender) {
-      a.Name_of_Alleged_Offender = '*Please enter the name of offender';
+      a.Name_of_Alleged_Offender = '*Please enter the name of alleged offender';
     }
     if (!validation1.Offenders_relationship_to_victim) {
       a.Offenders_relationship_to_victim =
-        '*Please select the offender relation to the victim';
+        '*Please enter the offender relationship to the victim';
     }
     if (!validation1.Who_informed_about_the_incident) {
       a.Who_informed_about_the_incident =
-        '*Please Enter the Who Informed About Incident';
+        '*Please select the who informed about the incident';
+    }
+    if (!validation1.Whether_Incident_Reported_Others) {
+      a.Whether_Incident_Reported_Others =
+        '*Please select the whether the incident report others';
     }
     if (!validation1.Offenders_approximate_Age) {
       a.Offenders_approximate_Age =
         '*Please enter the offender approximate age';
     }
-    if (!validation1.complaint_lodged_PS) {
-      a.complaint_lodged_PS = '*Please Select the Complaint lodged in PS';
+    if (
+      !Age.test(validation1.Offenders_approximate_Age) &&
+      !empty.test(validation1.Offenders_approximate_Age)
+    ) {
+      a.Offenders_approximate_Age = 'Enter a valid offenders appproximate age';
     }
-    if (!validation1.GD_Number) {
-      a.GD_Number = '*Please Enter the GD-Entry';
+    if (!validation1.complaint_lodged_PS) {
+      a.complaint_lodged_PS = '*Please select the complaint lodged in PS';
+    }
+    if (!validation1.gdNumber) {
+      a.gdNumber = '*Please enter the GD-Entry';
     }
     if (!validation1.FIR_filed_or_not) {
-      a.FIR_filed_or_not = '*Please Enter  FIR is Filed or Not';
+      a.FIR_filed_or_not = '*Please enter  fIR is filed or not';
     }
     if (!validation1.FIR_Num) {
-      a.FIR_Num = '*Please Enter  FIR is number';
+      a.FIR_Num = '*Please enter  FIR is number';
     }
     if (!validation1.Action_Taken) {
-      a.Action_Taken = '*Please Enter the FIR/GD Action Taken';
+      a.Action_Taken = '*Please enter the FIR/GD Action Taken';
     }
+
     if (!validation1.Sections_AppliedIn_FIR) {
-      a.Sections_AppliedIn_FIR = '*Please Enter the Section applied fir';
+      a.Sections_AppliedIn_FIR = '*Please enter the Section applied fir';
     }
+    console.log(a);
     if (Object.values(a).every(el => el === '')) {
       console.log(Object.values(a).every(el => el === ''));
       setError(a);
+      let reqData = validation1;
+      reqData.Sections_AppliedIn_FIR = JSON.stringify(
+        validation1.Sections_AppliedIn_FIR,
+      );
+      console.log('bhhf', reqData);
+
+      dispatch(sendComplaintsData(reqData));
+      console.log('vjv', validation1);
     } else {
       setError(a);
     }
@@ -295,12 +337,14 @@ const Complaints = ({route}) => {
             <View style={{marginTop: 5}}>
               <TextInput
                 style={styles.textInput}
-                value={getDate()}
+                value={validation1.Date_of_incident}
                 placeholder="  Enter date"
-                color="gray"
+                color="#000"
               />
 
-              <Text style={{left: 300, bottom: 39}} onPress={showDatePicker}>
+              <Text
+                style={{left: 300, bottom: 39}}
+                onPress={() => showDatePicker('Date_of_incident')}>
                 <FontAwesomeIcon
                   size={20}
                   icon={faCalendarDays}
@@ -308,14 +352,6 @@ const Complaints = ({route}) => {
                   color="#00bad7"
                 />
               </Text>
-              <DateTimePickerModal
-                minDate={new Date('03-19-2022')}
-                maxDate={new Date('03-21-2022')}
-                isVisible={isDatePickerVisible}
-                mode="date"
-                onConfirm={handleConfirm}
-                onCancel={hideDatePicker}
-              />
             </View>
           </View>
 
@@ -329,6 +365,7 @@ const Complaints = ({route}) => {
                 type="text"
                 placeholder="Enter description of the incident"
                 placeholderTextColor="gray"
+                color="#000"
                 onChangeText={text => {
                   setValidation1({
                     ...validation1,
@@ -353,6 +390,7 @@ const Complaints = ({route}) => {
                 type="text"
                 placeholder="Enter name of alleged offender"
                 placeholderTextColor="gray"
+                color="#000"
                 onChangeText={text => {
                   setValidation1({
                     ...validation1,
@@ -379,6 +417,8 @@ const Complaints = ({route}) => {
                 type="text"
                 placeholder="Enter offender relationship to victim"
                 placeholderTextColor="gray"
+                color="#000"
+
                 onChangeText={text => {
                   setValidation1({
                     ...validation1,
@@ -403,10 +443,12 @@ const Complaints = ({route}) => {
                 keyboardType="numeric"
                 placeholder="Enter offenders approximate age"
                 placeholderTextColor="gray"
+                color="#000"
+
                 onChangeText={text => {
                   setValidation1({
                     ...validation1,
-                    Offenders_approximate_Age: text,
+                    Offenders_approximate_Age: parseInt(text),
                   });
                 }}
               />
@@ -442,7 +484,7 @@ const Complaints = ({route}) => {
                     item.value === '10' ? setOthers(true) : setOthers(false);
                     setValidation1({
                       ...validation1,
-                      Who_informed_about_the_incident: item.value,
+                      Who_informed_about_the_incident: item.label,
                     });
                   }
                 }}
@@ -468,6 +510,8 @@ const Complaints = ({route}) => {
                   type="text"
                   placeholder="Others"
                   placeholderTextColor="gray"
+                  color="#000"
+
                 />
               </View>
             </View>
@@ -496,9 +540,11 @@ const Complaints = ({route}) => {
                 onChange={item => {
                   {
                     setSelected(item);
+                    console.log('ggf', item);
                     item.selected === '3'
                       ? setOthers1(true)
-                      : setOthers1(false);  setValidation1({
+                      : setOthers1(false);
+                    setValidation1({
                       ...validation1,
                       Whether_Incident_Reported_Others: item,
                     });
@@ -510,7 +556,9 @@ const Complaints = ({route}) => {
 
           <View>
             {error?.Whether_Incident_Reported_Others && (
-              <Text style={styles.errormessage}>{error?.Whether_Incident_Reported_Others}</Text>
+              <Text style={styles.errormessage}>
+                {error?.Whether_Incident_Reported_Others}
+              </Text>
             )}
           </View>
           <View style={{marginTop: 3, marginLeft: 10}}>
@@ -521,16 +569,16 @@ const Complaints = ({route}) => {
               <RadioButton
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
-                value="first"
+                value="yes"
                 status={
-                  validation1.complaint_lodged_PS === 'first'
+                  validation1.complaint_lodged_PS === 'yes'
                     ? 'checked'
                     : 'unchecked'
                 }
                 onPress={() => {
                   setValidation1({
                     ...validation1,
-                    complaint_lodged_PS: 'first',
+                    complaint_lodged_PS: 'yes',
                   });
                   setLodged(true);
                 }}
@@ -539,24 +587,32 @@ const Complaints = ({route}) => {
               <RadioButton
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
-                value="second"
+                value="no"
                 status={
-                  validation1.complaint_lodged_PS === 'second'
+                  validation1.complaint_lodged_PS === 'no'
                     ? 'checked'
                     : 'unchecked'
                 }
                 onPress={() => {
                   setValidation1({
                     ...validation1,
-                    complaint_lodged_PS: 'second',
+                    complaint_lodged_PS: 'no',
                   });
                   setLodged(false);
                 }}
               />
               <Text style={styles.gender}>No</Text>
             </View>
-          </View>
+            <View>
+            {error?.complaint_lodged_PS && (
+              <Text style={styles.errormessage}>
+                {error?.complaint_lodged_PS}
+              </Text>
+            )}
+            </View>
 
+          </View>
+         
           {lodged === true ? (
             <View>
               <View style={{marginTop: 3, marginLeft: 10}}>
@@ -567,35 +623,36 @@ const Complaints = ({route}) => {
                   <RadioButton
                     uncheckedColor={'gray'}
                     color={'#ff6b00'}
-                    value="first"
-                    status={checked0 === 'first' ? 'checked' : 'unchecked'}
-                    onPress={() => setChecked0('first')}
+                    value="yes"
+                    status={checked0 === 'yes' ? 'checked' : 'unchecked'}
+                    onPress={() => setChecked0('yes')}
                   />
                   <Text style={styles.gender}>Yes</Text>
                   <RadioButton
                     uncheckedColor={'gray'}
                     color={'#ff6b00'}
-                    value="second"
-                    status={checked0 === 'second' ? 'checked' : 'unchecked'}
-                    onPress={() => setChecked0('second')}
+                    value="no"
+                    status={checked0 === 'no' ? 'checked' : 'unchecked'}
+                    onPress={() => setChecked0('no')}
                   />
                   <Text style={styles.gender}>No</Text>
                 </View>
               </View>
-              {checked0 === 'first' && (
+              
+              {checked0 === 'yes' && (
                 <View style={{marginTop: 20}}>
                   <Text style={styles.FormTitle}>GDE Date: </Text>
                   <View style={{marginTop: 5}}>
                     <TextInput
                       style={styles.textInput}
-                      value={getDate()}
+                      value={validation1.GD_EntryDate}
                       placeholder="  Enter Date"
                       Color={'gray'}
                     />
 
                     <Text
                       style={{left: 300, bottom: 39}}
-                      onPress={showDatePicker}>
+                      onPress={() => showDatePicker('GD_EntryDate')}>
                       <FontAwesomeIcon
                         size={20}
                         icon={faCalendarDays}
@@ -618,19 +675,20 @@ const Complaints = ({route}) => {
                       <TextInput
                         style={styles.FormInput}
                         keyboardType="numeric"
-                        placeholder="Enter FIR Number"
-                        placeholderTextColor="#000"
+                        placeholder="Enter GDE number"
+                        color="#000"
                         onChangeText={text => {
-                          setValidation1({...validation1, GD_Number: text});
+                          setValidation1({
+                            ...validation1,
+                            gdNumber: text,
+                          });
                         }}
                       />
                     </View>
                   </View>
                   <View>
-                    {error?.GD_Number && (
-                      <Text style={styles.errormessage}>
-                        {error?.GD_Number}
-                      </Text>
+                    {error?.gdNumber && (
+                      <Text style={styles.errormessage}>{error?.gdNumber}</Text>
                     )}
                   </View>
                   <View>
@@ -666,50 +724,63 @@ const Complaints = ({route}) => {
                   <RadioButton
                     uncheckedColor={'gray'}
                     color={'#ff6b00'}
-                    value="first"
-                    status={validation1.FIR_filed_or_not === 'first' ? 'checked' : 'unchecked'}
-                    onPress={() =>  {setValidation1({
-                      ...validation1,
-                      FIR_filed_or_not: 'first',
-                    });
-                    setChecked('first');
-                  }}
-                   
+                    value="yes"
+                    status={
+                      validation1.FIR_filed_or_not === 'yes'
+                        ? 'checked'
+                        : 'unchecked'
+                    }
+                    onPress={() => {
+                      setValidation1({
+                        ...validation1,
+                        FIR_filed_or_not: 'yes',
+                      });
+                      setChecked('yes');
+                    }}
                   />
                   <Text style={styles.gender}>Yes</Text>
                   <RadioButton
                     uncheckedColor={'gray'}
                     color={'#ff6b00'}
-                    value="second"
-                    status={validation1.FIR_filed_or_not === 'second' ? 'checked' : 'unchecked'}
-                    onPress={() =>  {setValidation1({
-                      ...validation1,
-                      FIR_filed_or_not: 'second',
-                    });
-                    setChecked('second');
-                  }}
+                    value="no"
+                    status={
+                      validation1.FIR_filed_or_not === 'no'
+                        ? 'checked'
+                        : 'unchecked'
+                    }
+                    onPress={() => {
+                      setValidation1({
+                        ...validation1,
+                        FIR_filed_or_not: 'no',
+                      });
+                      setChecked('no');
+                    }}
                   />
                   <Text style={styles.gender}>No</Text>
                 </View>
               </View>
-
+              <View>
+                    {error?.FIR_filed_or_not && (
+                      <Text style={styles.errormessage}>{error?.FIR_filed_or_not}</Text>
+                    )}
+                  </View>
               <View style={styles.container}>
                 {/*Here we will return the view when state is true 
           and will return false if state is false*/}
-                {checked === 'first' && (
+                {checked === 'yes' && (
                   <View style={{marginTop: 20}}>
                     <Text style={styles.FormTitle}>FIR Date: </Text>
                     <View style={{marginTop: 5}}>
                       <TextInput
                         style={styles.textInput}
-                        value={getDate()}
+                        value={validation1.FIR_date}
                         placeholder="  Enter Date"
                         Color={'gray'}
                       />
 
                       <Text
                         style={{left: 300, bottom: 39}}
-                        onPress={showDatePicker}>
+                        onPress={() => showDatePicker('FIR_date')}>
                         <FontAwesomeIcon
                           size={20}
                           icon={faCalendarDays}
@@ -733,9 +804,12 @@ const Complaints = ({route}) => {
                           style={styles.FormInput}
                           keyboardType="numeric"
                           placeholder="Enter FIR Number"
-                          placeholderTextColor="#000"
+                          color="#000"
                           onChangeText={text => {
-                            setValidation1({...validation1, FIR_Num: text});
+                            setValidation1({
+                              ...validation1,
+                              FIR_Num: text,
+                            });
                           }}
                         />
                       </View>
@@ -790,7 +864,7 @@ const Complaints = ({route}) => {
                               setValue2(item.value);
                               setValidation1({
                                 ...validation1,
-                                Sections_AppliedIn_FIR: item.value,
+                                Sections_AppliedIn_FIR: [item.label],
                               });
                             }}
                           />
@@ -816,6 +890,8 @@ const Complaints = ({route}) => {
                       type="text"
                       placeholder="Others"
                       placeholderTextColor="gray"
+                      color="#000"
+
                       onChangeText={text => {
                         setValidation1({...validation1, Action_Taken: text});
                       }}
@@ -840,6 +916,8 @@ const Complaints = ({route}) => {
                       keyboardType="numeric"
                       placeholder="Others"
                       placeholderTextColor="gray"
+                      color="#000"
+
                     />
                   </View>
                 </View>
@@ -853,20 +931,22 @@ const Complaints = ({route}) => {
       <View style={styles.complaintbutton}>
         <TouchableOpacity
           style={styles.formbutton1}
-          onPress={() => route.change(1)}>
+          onPress={() => navigation.navigate('victim')}>
           <Text style={styles.formbuttoninput}>BACK </Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.formbutton0}
-          onPress={() => route.change()}>
-          <Text style={styles.formbuttoninput}>SAVE </Text>
-        </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.formbutton}
           onPress={() => myFunction()}>
           <Text style={styles.formbuttoninput}>SUBMIT</Text>
         </TouchableOpacity>
       </View>
+      <DateTimePickerModal
+        isVisible={isDatePickerVisible}
+        mode="Date"
+        onConfirm={handleConfirm}
+        onCancel={hideDatePicker}
+      />
     </View>
   );
 };

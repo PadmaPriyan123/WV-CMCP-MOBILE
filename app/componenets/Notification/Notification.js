@@ -19,7 +19,7 @@ import {
 const Notification = () => {
   return (
     <ScrollView>
-      <View style={styles.container}>
+      <View style={styles.NotificationContainer}>
         <Card style={styles.CreateCard}>
           <View style={styles.createContainer}>
             <Text style={styles.styleIcon}>
@@ -165,27 +165,6 @@ const Notification = () => {
           </View>
         </Card>
 
-        <Card style={styles.CreateCard}>
-          <View style={styles.createContainer}>
-            <Text style={styles.styleIcon}>
-              <FontAwesomeIcon icon={faCheck} size={20} color={'#00acca'} />
-            </Text>
-            <View style={styles.NotificationContent}>
-              <Text style={styles.CreateName}>New case registered</Text>
-              <Text style={styles.NotificationText}>
-                New case is registered successfully, details of the case is
-                given below
-              </Text>
-            </View>
-            <Text
-              style={styles.NotificationCancel}
-              onPress={() => {
-                console.log('Working Fine');
-              }}>
-              <FontAwesomeIcon icon={faClose} size={20} color={'lightgray'} />
-            </Text>
-          </View>
-        </Card>
         <Card style={styles.UpdateCard}>
           <View style={styles.updateContainer}>
             <Text style={styles.styleIcon}>
@@ -235,6 +214,29 @@ const Notification = () => {
             </Text>
           </View>
         </Card>
+        <Card style={styles.ReminderCallCard}>
+          <View style={styles.ReminderCallContainer}>
+            <Text style={styles.styleIcon}>
+              <FontAwesomeIcon icon={faBell} size={20} color={'#ff6b00'} />
+            </Text>
+            <View style={styles.NotificationContent}>
+              <Text style={styles.ReminderCallName}>
+                Reminder for supporting call
+              </Text>
+              <Text style={styles.NotificationText}>
+                Dont forget the supporting call, details of the call is given
+                below
+              </Text>
+            </View>
+            <Text
+              style={styles.NotificationCancel}
+              onPress={() => {
+                console.log('Working Fine');
+              }}>
+              <FontAwesomeIcon icon={faClose} size={20} color={'lightgray'} />
+            </Text>
+          </View>
+        </Card>
       </View>
     </ScrollView>
   );
@@ -243,9 +245,10 @@ const Notification = () => {
 export default Notification;
 
 const styles = StyleSheet.create({
-  container: {
+  NotificationContainer: {
     backgroundColor: '#ddd',
     alignItems: 'center',
+    marginBottom: 6,
   },
   NotificationContent: {
     flex: 1,
@@ -342,30 +345,36 @@ const styles = StyleSheet.create({
     height: hp('13%'),
     width: wp('96%'),
     marginTop: 5,
+    marginBottom: 2,
   },
   UpdateCard: {
     height: hp('13%'),
     width: wp('96%'),
-    marginTop: 5,
+    marginTop: 3,
+    marginBottom: 2,
   },
   DeleteCard: {
     height: hp('13%'),
     width: wp('96%'),
-    marginTop: 5,
+    marginTop: 3,
+    marginBottom: 2,
   },
   SupportCallCard: {
     height: hp('13%'),
     width: wp('96%'),
-    marginTop: 5,
+    marginTop: 3,
+    marginBottom: 2,
   },
   ScheduledCallCard: {
     height: hp('13%'),
     width: wp('96%'),
-    marginTop: 5,
+    marginTop: 3,
+    marginBottom: 2,
   },
   ReminderCallCard: {
     height: hp('13%'),
     width: wp('96%'),
-    marginTop: 5,
+    marginTop: 3,
+    marginBottom: 2,
   },
 });

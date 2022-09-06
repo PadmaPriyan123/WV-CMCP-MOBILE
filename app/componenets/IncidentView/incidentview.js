@@ -8,6 +8,7 @@ import {
   Button,
   TouchableOpacity,
   Modal,
+  Alert,
   Pressable,
 } from 'react-native';
 
@@ -24,7 +25,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {faCalendarDays} from '@fortawesome/free-solid-svg-icons/faCalendarDays';
+import {faCalendarDays, faFilter} from '@fortawesome/free-solid-svg-icons';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {Menu, MenuItem, MenuDivider} from 'react-native-material-menu';
 import {Dropdown} from 'react-native-element-dropdown';
@@ -73,23 +74,26 @@ const Incident = ({navigation}) => {
         onRequestClose={hideMenu}>
         <MenuItem onPress={() => navigation.navigate('Viewcard')}>
           <View style={{flexDirection: 'row'}}>
-            <FontAwesomeIcon icon={faEye} size={20} color={'gray'} />
-            <Text style={{marginLeft: 10, color: '#000'}}>View</Text>
+            <Text>
+              <FontAwesomeIcon icon={faEye} size={14} />
+            </Text>
+            <Text style={styles.popStyles}>View</Text>
           </View>
         </MenuItem>
         <MenuItem onPress={() => navigation.navigate('Viewcard')}>
           <View style={{flexDirection: 'row'}}>
-            <FontAwesomeIcon icon={faPen} size={20} color={'gray'} />
-            <Text style={{marginLeft: 10, color: '#000'}}>Edit</Text>
+            <Text>
+              <FontAwesomeIcon icon={faPen} size={14} />
+            </Text>
+            <Text style={styles.popStyles}>Edit</Text>
           </View>
         </MenuItem>
         <MenuItem onPress={() => navigation.navigate('CaseAssignment')}>
-          {' '}
           <View style={{flexDirection: 'row'}}>
             <Text>
-              <FontAwesomeIcon icon={faStamp} size={20} color={'gray'} />
+              <FontAwesomeIcon icon={faStamp} size={14} />
             </Text>
-            <Text style={{marginLeft: 8, color: '#000'}}>Case Assign</Text>
+            <Text style={styles.popStyles}>Case Assign</Text>
           </View>
         </MenuItem>
       </Menu>
@@ -259,7 +263,37 @@ const Incident = ({navigation}) => {
               </View>
             </Card>
           </View>
-          
+          <View style={{marginTop: 10}}>
+            <Card style={styles.card}>
+              <View style={styles.cardfirstline}>
+                <Text style={styles.cardcontentheading}>
+                  Case No:{' '}
+                  <Text style={{fontFamily: 'Lato-Bold', color: '#000'}}>
+                    567894
+                  </Text>
+                </Text>
+                <View style={{marginTop: 17, marginRight: 10}}>
+                  <PopIncidentMenu />
+                </View>
+              </View>
+              <View style={styles.cardcontentpara}>
+                <Text style={styles.carddetail}>7-06-201</Text>
+              </View>
+              <View
+                style={{
+                  marginLeft: 200,
+                  backgroundColor: '#00bad7',
+                  top: 1,
+                  borderRadius: 40,
+                  borderWidth: 1,
+                  height: 30,
+                  width: 100,
+                  borderColor: '#fff',
+                }}>
+                <Text style={styles.initiate}>Initiated</Text>
+              </View>
+            </Card>
+          </View>
         </View>
         <Modal
           animationType="slide"
@@ -315,7 +349,7 @@ const Incident = ({navigation}) => {
                 </View>
               </View>
               <View>
-                <Text style={styles.Formpopup}>Cast status:</Text>
+                <Text style={styles.Formpopup}>Case status:</Text>
                 <View>
                   <Dropdown
                     containerStyle={{backgroundColor: '#fff'}}
@@ -326,7 +360,7 @@ const Incident = ({navigation}) => {
                     maxHeight={250}
                     labelField="label"
                     valueField="value"
-                    placeholder="Select state"
+                    placeholder="Select status"
                     value={value1}
                     onChange={item => {
                       setValue1(item.value);
@@ -357,14 +391,14 @@ const Incident = ({navigation}) => {
             alignItems: 'center',
             borderRadius: 100,
             backgroundColor: '#e26a00',
-            marginLeft: 280,
-            bottom: 5,
+            marginLeft: 300,
+            bottom: 10,
           }}>
           <Text style={styles.initiate}>
             <View>
               <FontAwesomeIcon
                 style={{bottom: 5}}
-                icon={faPlus}
+                icon={faFilter}
                 size={30}
                 color={'#fff'}
               />
@@ -550,5 +584,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'Lato-Regular',
     padding: 5,
+  },
+  popStyles: {
+    marginLeft: 8,
+    fontSize: 14,
+    alignSelf: 'center',
+    fontFamily: 'Lato-Bold',
+    color: '#000000',
   },
 });

@@ -58,7 +58,6 @@ const Login = () => {
     setOTPInputValue4('');
     setError('');
     setError1('');
-    setError('');
     setCounter('00');
     setOtpCheck('');
     setEnableVerifyOTP(false);
@@ -83,13 +82,12 @@ const Login = () => {
       message: '',
     };
     var empty = /^$/;
-    var num = /^[0-9]{10}$/;
+    var num = /^[0]?[6789]\d{9}$/;
 
     if (!number.number) {
       a.message = '*Please enter the mobile number';
-    }
-    if (!num.test(number.number) && !empty.test(number.number)) {
-      a.message = '*Enter 10 digit mobile number';
+    } else if (!num.test(number.number)) {
+      a.message = '* Please enter Valid mobile number';
     }
     if (num.test(number.number)) {
       setOtpCheck('first');
@@ -163,11 +161,6 @@ const Login = () => {
   let dispatch = useDispatch();
   let loginResponse = useSelector(state => state.Login.loginSuccessfull);
 
-  useEffect(() => {
-    login.EmailId = '';
-    console.log(loginResponse);
-  }, []);
-
   const initialErrorMessage = {EmailId: '', Password: ''};
 
   const [error, setError] = useState(initialErrorMessage);
@@ -176,41 +169,39 @@ const Login = () => {
     let a = {EmailId: '', Password: ''};
     console.log('loginresponse', loginResponse);
 
-    if (
-      loginResponse?.StatusCode === 400 &&
-      loginResponse?.StatusMessage === 'Email not found.'
-    ) {
-      setError({...error, EmailId: '*Email does not exists!'});
-      dispatch(userLoginResponse(''));
-    } else if (
-      loginResponse?.StatusCode === 400 &&
-      loginResponse?.StatusMessage === 'Incorrect password.'
-    ) {
-      setError({...error, Password: '*Incorrect Password!'});
-      dispatch(userLoginResponse(''));
-    } else if (loginResponse?.StatusCode === 500) {
-      alert(loginResponse.StatusMessage);
-      console.log('ter', loginResponse.StatusMessage);
-      dispatch(userLoginResponse(''));
-    } else if (loginResponse?.StatusCode === 201) {
-      alert(loginResponse.StatusMessage);
-      navigation.navigate('Drawer');
-      clearAll();
-    
-      console.log('came here');
-    
-      (async () =>
-        await AsyncStorage.setItem(
-          'authUser',
-          JSON.stringify(loginResponse),
-        ))();
+    if (Object.values(error).every(el => el === '') && loginResponse) {
+      if (
+        loginResponse?.StatusCode === 400 &&
+        loginResponse?.StatusMessage === 'Email does not exist'
+      ) {
+        setError({...error, EmailId: '*Email does not exists!'});
+        dispatch(userLoginResponse(''));
+      } else if (
+        loginResponse?.StatusCode === 400 &&
+        loginResponse?.StatusMessage === 'Password does not match'
+      ) {
+        setError({...error, Password: '*Password does not match!'});
+        dispatch(userLoginResponse(''));
+      } else if (loginResponse?.StatusCode === 500) {
+        alert(loginResponse.StatusMessage);
+        console.log('ter', loginResponse.StatusMessage);
+        dispatch(userLoginResponse(''));
+      } else if (loginResponse?.StatusCode === 201) {
+        alert(loginResponse.StatusMessage);
+        navigation.navigate('Drawer');
+        dispatch(userLoginResponse(''));
+        clearAll();
+        setError(a);
+        console.log('came here');
 
-      // setTimeout(() => {
-      //   clearAll();
-      // }, 0);
-
+        (async () =>
+          await AsyncStorage.setItem(
+            'authUser',
+            JSON.stringify(loginResponse),
+          ))();
+      }
     }
-  }, [loginResponse,error]);
+  }, [loginResponse, error]);
 
   function myFunction() {
     console.log('login', login);
@@ -242,7 +233,8 @@ const Login = () => {
       console.log('cameejbvjs');
       setError(a);
       dispatch(usersLogin(login));
-    } else {
+    }
+     else {
       setError(a);
     }
   }
@@ -385,7 +377,7 @@ const Login = () => {
                       </View>
                     ) : (
                       <View style={styles.otpvalidmsg}>
-                        <Text> OTP expires in </Text>
+                        <Text style={{color: 'gray'}}> OTP expires in </Text>
                         <Text style={styles.numbercount}>00:{counter}</Text>
                       </View>
                     )}
@@ -453,7 +445,7 @@ const Login = () => {
                         textAlign="left"
                         value={login.EmailId}
                         required
-                        onChangeText={(e) => setLogin({...login, EmailId: e})}
+                        onChangeText={e => setLogin({...login, EmailId: e})}
                       />
                     </View>
                     {error?.EmailId && (
@@ -475,8 +467,9 @@ const Login = () => {
                         placeholder="Enter the Password"
                         placeholderTextColor="#9e9e9e"
                         value={login.Password}
+                        secureTextEntry={true}
                         required
-                        onChangeText={(e) => setLogin({...login, Password: e})}
+                        onChangeText={e => setLogin({...login, Password: e})}
                       />
                     </View>
                     {error?.Password && (
@@ -542,6 +535,7 @@ const Login = () => {
                       placeholderTextColor="#9e9e9e"
                       textAlign="left"
                       value={login.EmailId}
+                      editable={true}
                       required
                       onChangeText={e => setError({...login, EmailId: e})}
                     />
@@ -624,7 +618,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#ffff',
     borderColor: 'gray',
-    borderWidth: 0.7,
+    borderWidth: 1,
     width: 310,
     bottom: 40,
     borderRadius: 10,
@@ -635,13 +629,15 @@ const styles = StyleSheet.create({
     width: wp('60%'),
     borderRadius: 10,
     borderColor: 'gray',
+    color: '#000000',
     fontFamily: 'Lato-Regular',
     backgroundColor: '#ffff',
+    
   },
   button: {
     alignSelf: 'center',
     height: hp('8%'),
-    width: wp('88%'),
+    width: wp('78%'),
     justifyContent: 'center',
     fontFamily: 'Lato-Bold',
     borderRadius: 10,
@@ -753,6 +749,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Lato-Regular',
     backgroundColor: '#ffff',
     textAlign: 'center',
+    color: '#000',
   },
   otpsmall: {
     justifyContent: 'space-between',

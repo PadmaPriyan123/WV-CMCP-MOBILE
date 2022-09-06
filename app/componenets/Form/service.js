@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useState,useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -21,13 +21,22 @@ import {ScrollView} from 'react-native-gesture-handler';
 
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import DSMTrauma from './DSMTraumaScreening';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  sendReintegrationData,
+  sendReintegrationDataResponse,
+} from '../../Redux/IncidentLog/IncidentList/Action';
+
+
 
 const Service = () => {
   const [date, setDate] = React.useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
+  const [dateKey, setDateKey] = useState('');
 
-  const showDatePicker = () => {
+  const showDatePicker = key => {
     setDatePickerVisibility(true);
+    setDateKey(key);
   };
 
   const hideDatePicker = () => {
@@ -35,7 +44,14 @@ const Service = () => {
   };
 
   const handleConfirm = date => {
-    setDate(date);
+    let d = new Date(date);
+    let dat = d.getDate();
+    let month = d.getMonth() + 1;
+    let year = d.getFullYear();
+    if (month.toString.length === 1) month = `0${d.getMonth() + 1}`;
+    if (dat.toString.length === 1) dat = `${d.getDate()}`;
+    // setDate(date);
+    setValidation3({...validation3, [dateKey]: `${year}-${month}-${dat}`});
     hideDatePicker();
   };
 
@@ -59,18 +75,199 @@ const Service = () => {
   const handlePress = () => setExpanded(!expanded);
   const [open, setOpen] = React.useState(false);
   const [supportive, setSupportive] = React.useState([]);
-
-  const handleSupportive = () => {
-    if (supportive.length < 5) {
-      let obj = {
-        scheduleDate: '',
-        consent: '',
-        counselling: '',
-        nextScheduleData: '',
-      };
-      setSupportive([...supportive, obj]);
+  let dispatch = useDispatch();
+  let reintegrationresponse = useSelector(
+    state => state.Incidentlist.sendReintegrationResponse,
+  );
+  useEffect(() => {
+   
+    if (reintegrationresponse?.StatusCode == 201) {
+      alert(reintegrationresponse.StatusMessage);
+      dispatch(sendReintegrationData(''));
     }
+    
+   
+  }, [reintegrationresponse]);
+
+  let d = new Date();
+  let dat = d.getDate();
+  let month = d.getMonth() + 1;
+  let year = d.getFullYear();
+  if (month.toString.length === 1) month = `0${d.getMonth() + 1}`;
+  if (dat.toString.length === 1) dat = `0${d.getDate()}`;
+  
+  const [validation3, setValidation3] = useState({
+    CaseID: 2,
+    UserID: 1,
+    IsFacilitatedToCompensation: '',
+    CompensatedDate: '',
+    CompensationAmount: '',
+    CompensationRemarks: '',
+    AnyMedicalAssistance: '',
+    MedicalTreatmentDate: '',
+    NatureOfIllness: '',
+    MedicalAssistanceRemarks: '',
+    IsEnrolledInSchool: '',
+    EnrollmentDate: '',
+    ClassName: '',
+    NameOfTheSchool: '',
+    EnrollmentRemarks: '',
+    IsEnrolledInVocationalTraining: '',
+    institutionEnrollmentDate: '',
+    NameOfTheCourse: '',
+    NameOfTheInstitue: '',
+    VocationalTrainingRemark: '',
+    IsAnyProtectiveActionTaken: '',
+    DateOfActionTaken: '',
+    isGDEDone: '',
+    GDENumber: '',
+    ActionTakenRemarks: '',
+  });
+
+  console.log('gfhgf', validation3);
+
+  const initialErrorMessage = {
+    CaseID: '',
+    UserID: '',
+    IsFacilitatedToCompensation: '',
+    CompensatedDate: '',
+    CompensationAmount: '',
+    CompensationRemarks: '',
+    AnyMedicalAssistance: '',
+    MedicalTreatmentDate: '',
+    NatureOfIllness: '',
+    MedicalAssistanceRemarks: '',
+    IsEnrolledInSchool: '',
+    EnrollmentDate: '',
+    ClassName: '',
+    NameOfTheSchool: '',
+    EnrollmentRemarks: '',
+    IsEnrolledInVocationalTraining: '',
+    institutionEnrollmentDate: '',
+    NameOfTheCourse: '',
+    NameOfTheInstitue: '',
+    VocationalTrainingRemark: '',
+    IsAnyProtectiveActionTaken: '',
+    DateOfActionTaken: '',
+    isGDEDone: '',
+    GDENumber: '',
+    ActionTakenRemarks: '',
   };
+
+  const [error, setError] = useState(initialErrorMessage);
+
+  function myFunction() {
+    let a = {
+      CaseID: '',
+      UserID: '',
+      IsFacilitatedToCompensation: '',
+      CompensatedDate: '',
+      CompensationAmount: '',
+      CompensationRemarks: '',
+      AnyMedicalAssistance: '',
+      MedicalTreatmentDate: '',
+      NatureOfIllness: '',
+      MedicalAssistanceRemarks: '',
+      IsEnrolledInSchool: '',
+      EnrollmentDate: '',
+      ClassName: '',
+      NameOfTheSchool: '',
+      EnrollmentRemarks: '',
+      IsEnrolledInVocationalTraining: '',
+      institutionEnrollmentDate: '',
+      NameOfTheCourse: '',
+      NameOfTheInstitue: '',
+      VocationalTrainingRemark: '',
+      IsAnyProtectiveActionTaken: '',
+      DateOfActionTaken: '',
+      isGDEDone: '',
+      GDENumber: '',
+      ActionTakenRemarks: '',
+    };
+
+    var letters = /[A-Za-z]{3,15}/;
+    var empty = /^$/;
+    var Age = /^[0-9]{1,2}$/;
+       dispatch(sendReintegrationData(validation3));
+    if (!validation3.IsFacilitatedToCompensation) {
+      a.IsFacilitatedToCompensation =
+        '*Please select is facilated to compensation';
+    }
+    if (!validation3.CompensationAmount) {
+      a.CompensationAmount = '*Please enter the compensation amount';
+    }
+    if (!validation3.CompensationRemarks) {
+      a.CompensationRemarks = '*Please enter the compensation remarks';
+    }
+    if (!validation3.AnyMedicalAssistance) {
+      a.AnyMedicalAssistance = '*Please select the any medical assitence ';
+    }
+    if (!validation3.MedicalTreatmentDate) {
+      a.MedicalTreatmentDate = '*Please select the medical treatmentdate ';
+    }
+    if (!validation3.AnyMedicalAssistance) {
+      a.AnyMedicalAssistance = '*Please select the any medical assitence ';
+    }
+    if (!validation3.NatureOfIllness) {
+      a.NatureOfIllness = '*Please enter the nature of iliness ';
+    }
+    if (!validation3.MedicalAssistanceRemarks) {
+      a.MedicalAssistanceRemarks =
+        '*Please select the medical assistance remark ';
+    }
+    if (!validation3.IsEnrolledInSchool) {
+      a.IsEnrolledInSchool = '*Please select the is enrolled in school ';
+    }
+
+    if (!validation3.ClassName) {
+      a.ClassName = '*Please enter the class name ';
+    }
+    if (!validation3.NameOfTheSchool) {
+      a.NameOfTheSchool = '*Please enter the name of the school ';
+    }
+    if (!validation3.EnrollmentRemarks) {
+      a.EnrollmentRemarks = '*Please enter the enrolled remarks';
+    }
+    if (!validation3.IsEnrolledInVocationalTraining) {
+      a.IsEnrolledInVocationalTraining =
+        '*Please enter the enrolled vacation training';
+    }
+    if (!validation3.institutionEnrollmentDate) {
+      a.institutionEnrollmentDate = '*Please enter the instition enrolled date';
+    }
+    if (!validation3.NameOfTheCourse) {
+      a.NameOfTheCourse = '*Please enter the name of te course';
+    }
+    if (!validation3.NameOfTheInstitue) {
+      a.NameOfTheInstitue = '*Please enter the name of the institute';
+    }
+    if (!validation3.VocationalTrainingRemark) {
+      a.VocationalTrainingRemark = '*Please enter the remark';
+    }
+    if (!validation3.IsAnyProtectiveActionTaken) {
+      a.IsAnyProtectiveActionTaken =
+        '*Please select the protective Action Taken';
+    }
+    if (!validation3.isGDEDone) {
+      a.isGDEDone = '*Please select the GDE ';
+    }
+    if (!validation3.GDENumber) {
+      a.GDENumber = '*Please enter the GDE number ';
+    }
+    if (!validation3.GDENumber) {
+      a.GDENumber = '*Please enter the GDE number ';
+    }
+    if (!validation3.ActionTakenRemarks) {
+      a.ActionTakenRemarks = '*Please enter the action taken remarks ';
+    }
+    if (Object.values(a).every(el => el === '')) {
+      setError(a);
+   
+    } else {
+      setError(a);
+    }
+  }
+
   return (
     <SafeAreaView>
       <ScrollView>
@@ -87,38 +284,64 @@ const Service = () => {
               <RadioButton
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
-                value="first"
-                status={checked === 'first' ? 'checked' : 'unchecked'}
-                onPress={() => setChecked('first')}
+                value={1}
+                status={
+                  validation3.IsFacilitatedToCompensation === 1
+                    ? 'checked'
+                    : 'unchecked'
+                }
+                onPress={() => {
+                  setValidation3({
+                    ...validation3,
+                    IsFacilitatedToCompensation: parseInt(1),
+                  });
+                  setChecked('yes');
+                }}
               />
+
               <Text style={styles.gender}>Yes</Text>
               <RadioButton
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
-                value="second"
-                status={checked === 'second' ? 'checked' : 'unchecked'}
-                onPress={() => setChecked('second')}
+                value={0}
+                status={
+                  validation3.IsFacilitatedToCompensation === 0
+                    ? 'checked'
+                    : 'unchecked'
+                }
+                onPress={() => {
+                  setValidation3({
+                    ...validation3,
+                    IsFacilitatedToCompensation: parseInt(0),
+                  });
+                  setChecked('no');
+                }}
               />
               <Text style={styles.gender}>No</Text>
             </View>
           </View>
+          <View>
+                  {error?.IsFacilitatedToCompensation && (
+                    <Text style={styles.errormessage}>
+                      {error?.IsFacilitatedToCompensation}
+                    </Text>
+                  )}
+                </View>
           <View style={styles.container}>
-            {/*Here we will return the view when state is true 
-					and will return false if state is false*/}
-            {checked === 'first' && (
+            {checked === 'yes' && (
               <View style={{marginTop: 20, marginLeft: 5}}>
                 <Text style={styles.FormTitle}>Compensation Date </Text>
                 <View style={{marginTop: 5}}>
                   <TextInput
                     style={styles.textInput1}
-                    value={getDate()}
+                    value={validation3.CompensatedDate}
                     placeholder="  Enter Date"
                     placeholderTextColor={'gray'}
                   />
 
                   <Text
                     style={{left: 300, bottom: 39}}
-                    onPress={showDatePicker}>
+                    onPress={() => showDatePicker('CompensatedDate')}>
                     <FontAwesomeIcon
                       size={20}
                       icon={faCalendarDays}
@@ -126,12 +349,6 @@ const Service = () => {
                       color="#00bad7"
                     />
                   </Text>
-                  <DateTimePickerModal
-                    isVisible={isDatePickerVisible}
-                    mode="date"
-                    onConfirm={handleConfirm}
-                    onCancel={hideDatePicker}
-                  />
                 </View>
                 <View style={{marginTop: 0}}>
                   <Text style={styles.FormTitle}>
@@ -143,8 +360,46 @@ const Service = () => {
                       keyboardType="numeric"
                       placeholder="Enter Compensation Amount"
                       placeholderTextColor="gray"
+                      onChangeText={text => {
+                        setValidation3({
+                          ...validation3,
+                          CompensationAmount:parseInt(text),
+                        });
+                      }}
                     />
                   </View>
+                </View>
+                <View>
+                  {error?.CompensationAmount && (
+                    <Text style={styles.errormessage}>
+                      {error?.CompensationAmount}
+                    </Text>
+                  )}
+                </View>
+                <View style={{marginTop: 20}}>
+                  <Text style={styles.FormTitle}>
+                    Remarks:<Text style={styles.star}>*</Text>
+                  </Text>
+                  <View style={styles.tabfourfirst}>
+                    <TextInput
+                      style={styles.FormInput}
+                      placeholder="Enter compensation remarks"
+                      placeholderTextColor="gray"
+                      onChangeText={text => {
+                        setValidation3({
+                          ...validation3,
+                          CompensationRemarks: text,
+                        });
+                      }}
+                    />
+                  </View>
+                </View>
+                <View>
+                  {error?.CompensationRemarks && (
+                    <Text style={styles.errormessage}>
+                      {error?.CompensationRemarks}
+                    </Text>
+                  )}
                 </View>
               </View>
             )}
@@ -159,37 +414,62 @@ const Service = () => {
               <RadioButton
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
-                value="first"
-                status={checked1 === 'first' ? 'checked' : 'unchecked'}
-                onPress={() => setChecked1('first')}
+                value={1}
+                status={
+                  validation3.AnyMedicalAssistance === 1
+                    ? 'checked'
+                    : 'unchecked'
+                }
+                onPress={() => {
+                  setValidation3({
+                    ...validation3,
+                    AnyMedicalAssistance: parseInt(1),
+                  });
+                  setChecked1('yes');
+                }}
               />
               <Text style={styles.gender}>Yes</Text>
               <RadioButton
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
-                value="second"
-                status={checked1 === 'second' ? 'checked' : 'unchecked'}
-                onPress={() => setChecked1('second')}
+                value={0}
+                status={
+                  validation3.AnyMedicalAssistance === 0
+                    ? 'checked'
+                    : 'unchecked'
+                }
+                onPress={() => {
+                  setValidation3({
+                    ...validation3,
+                    AnyMedicalAssistance:parseInt(0),
+                  });
+                  setChecked1('no');
+                }}
               />
               <Text style={styles.gender}>No</Text>
             </View>
+            <View>
+                    {error?.AnyMedicalAssistance && (
+                      <Text style={styles.errormessage}>
+                        {error?.AnyMedicalAssistance}
+                      </Text>
+                    )}
+                  </View>
             <View style={styles.container}>
-              {/*Here we will return the view when state is true 
-					and will return false if state is false*/}
-              {checked1 === 'first' && (
-                <View style={{marginTop: 20}}>
+              {checked1 === 'yes' && (
+                <View style={{marginTop: 20, right: 5}}>
                   <Text style={styles.FormTitle}>Treatment Date </Text>
                   <View style={{marginTop: 5}}>
                     <TextInput
                       style={styles.textInput1}
-                      value={getDate()}
+                      value={validation3.MedicalTreatmentDate}
                       placeholder="  Enter Treatment Date"
                       placeholderTextColor={'gray'}
                     />
 
                     <Text
                       style={{left: 300, bottom: 39}}
-                      onPress={showDatePicker}>
+                      onPress={() => showDatePicker('MedicalTreatmentDate')}>
                       <FontAwesomeIcon
                         size={20}
                         icon={faCalendarDays}
@@ -197,12 +477,6 @@ const Service = () => {
                         color="#00bad7"
                       />
                     </Text>
-                    <DateTimePickerModal
-                      isVisible={isDatePickerVisible}
-                      mode="date"
-                      onConfirm={handleConfirm}
-                      onCancel={hideDatePicker}
-                    />
                   </View>
                   <View style={{marginTop: 0}}>
                     <Text style={styles.FormTitle}>
@@ -214,8 +488,47 @@ const Service = () => {
                         type="text"
                         placeholder="Enter Nature Of illness"
                         placeholderTextColor="gray"
+                        onChangeText={text => {
+                          setValidation3({
+                            ...validation3,
+                            NatureOfIllness: text,
+                          });
+                        }}
                       />
                     </View>
+                  </View>
+                  <View>
+                    {error?.NatureOfIllness && (
+                      <Text style={styles.errormessage}>
+                        {error?.NatureOfIllness}
+                      </Text>
+                    )}
+                  </View>
+                  <View style={{marginTop: 0}}>
+                    <Text style={styles.FormTitle}>
+                      Remarks:<Text style={styles.star}>*</Text>
+                    </Text>
+                    <View style={styles.tabfourfirst}>
+                      <TextInput
+                        style={styles.FormInput}
+                        type="text"
+                        placeholder="Enter Nature Of illness"
+                        placeholderTextColor="gray"
+                        onChangeText={text => {
+                          setValidation3({
+                            ...validation3,
+                            MedicalAssistanceRemarks: text,
+                          });
+                        }}
+                      />
+                    </View>
+                  </View>
+                  <View>
+                    {error?.MedicalAssistanceRemarks && (
+                      <Text style={styles.errormessage}>
+                        {error?.MedicalAssistanceRemarks}
+                      </Text>
+                    )}
                   </View>
                 </View>
               )}
@@ -230,37 +543,62 @@ const Service = () => {
               <RadioButton
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
-                value="first"
-                status={checked2 === 'first' ? 'checked' : 'unchecked'}
-                onPress={() => setChecked2('first')}
+                value={1}
+                status={
+                  validation3.IsEnrolledInSchool === 1
+                    ? 'checked'
+                    : 'unchecked'
+                }
+                onPress={() => {
+                  setValidation3({
+                    ...validation3,
+                    IsEnrolledInSchool: parseInt(1),
+                  });
+                  setChecked2('first');
+                }}
               />
               <Text style={styles.gender}>Yes</Text>
               <RadioButton
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
-                value="second"
-                status={checked2 === 'second' ? 'checked' : 'unchecked'}
-                onPress={() => setChecked2('second')}
+                value={0}
+                status={
+                  validation3.IsEnrolledInSchool === 0
+                    ? 'checked'
+                    : 'unchecked'
+                }
+                onPress={() => {
+                  setValidation3({
+                    ...validation3,
+                    IsEnrolledInSchool: parseInt(0),
+                  });
+                  setChecked2('second');
+                }}
               />
               <Text style={styles.gender}>No</Text>
             </View>
+            <View>
+                    {error?.IsEnrolledInSchool && (
+                      <Text style={styles.errormessage}>
+                        {error?.IsEnrolledInSchool}
+                      </Text>
+                    )}
+                  </View>
             <View style={styles.container}>
-              {/*Here we will return the view when state is true 
-					and will return false if state is false*/}
               {checked2 === 'first' && (
-                <View style={{marginTop: 20}}>
+                <View style={{marginTop: 20, right: 5}}>
                   <Text style={styles.FormTitle}>Date</Text>
                   <View style={{marginTop: 5}}>
                     <TextInput
                       style={styles.textInput1}
-                      value={getDate()}
+                      value={validation3.EnrollmentDate}
                       placeholder="  Enter Date"
                       placeholderTextColor={'gray'}
                     />
 
                     <Text
                       style={{left: 300, bottom: 39}}
-                      onPress={showDatePicker}>
+                      onPress={() => showDatePicker('EnrollmentDate')}>
                       <FontAwesomeIcon
                         size={20}
                         icon={faCalendarDays}
@@ -268,12 +606,6 @@ const Service = () => {
                         color="#00bad7"
                       />
                     </Text>
-                    <DateTimePickerModal
-                      isVisible={isDatePickerVisible}
-                      mode="date"
-                      onConfirm={handleConfirm}
-                      onCancel={hideDatePicker}
-                    />
                   </View>
                   <View style={{marginTop: 0}}>
                     <Text style={styles.FormTitle}>
@@ -285,8 +617,21 @@ const Service = () => {
                         type="text"
                         placeholder="Enter class"
                         placeholderTextColor="gray"
+                        onChangeText={text => {
+                          setValidation3({
+                            ...validation3,
+                            ClassName: text,
+                          });
+                        }}
                       />
                     </View>
+                  </View>
+                  <View>
+                    {error?.ClassName && (
+                      <Text style={styles.errormessage}>
+                        {error?.ClassName}
+                      </Text>
+                    )}
                   </View>
                   <View style={{marginTop: 15}}>
                     <Text style={styles.FormTitle}>
@@ -298,8 +643,47 @@ const Service = () => {
                         type="text"
                         placeholder="Enter name of the school"
                         placeholderTextColor="gray"
+                        onChangeText={text => {
+                          setValidation3({
+                            ...validation3,
+                            NameOfTheSchool: text,
+                          });
+                        }}
                       />
                     </View>
+                  </View>
+                  <View>
+                    {error?.NameOfTheSchool && (
+                      <Text style={styles.errormessage}>
+                        {error?.NameOfTheSchool}
+                      </Text>
+                    )}
+                  </View>
+                  <View style={{marginTop: 20}}>
+                    <Text style={styles.FormTitle}>
+                      Remarks:<Text style={styles.star}>*</Text>
+                    </Text>
+                    <View style={styles.tabfourfirst}>
+                      <TextInput
+                        style={styles.FormInput}
+                        type="text"
+                        placeholder="Enter class"
+                        placeholderTextColor="gray"
+                        onChangeText={text => {
+                          setValidation3({
+                            ...validation3,
+                            EnrollmentRemarks: text,
+                          });
+                        }}
+                      />
+                    </View>
+                  </View>
+                  <View>
+                    {error?.EnrollmentRemarks && (
+                      <Text style={styles.errormessage}>
+                        {error?.EnrollmentRemarks}
+                      </Text>
+                    )}
                   </View>
                 </View>
               )}
@@ -314,38 +698,63 @@ const Service = () => {
               <RadioButton
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
-                value="first"
-                status={checked3 === 'first' ? 'checked' : 'unchecked'}
-                onPress={() => setChecked3('first')}
+                value={1}
+                status={
+                  validation3.IsEnrolledInVocationalTraining === 1
+                    ? 'checked'
+                    : 'unchecked'
+                }
+                onPress={() => {
+                  setValidation3({
+                    ...validation3,
+                    IsEnrolledInVocationalTraining: parseInt(1),
+                  });
+                  setChecked3('yes');
+                }}
               />
               <Text style={styles.gender}>Yes</Text>
               <RadioButton
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
-                value="second"
-                status={checked3 === 'second' ? 'checked' : 'unchecked'}
-                onPress={() => setChecked3('second')}
+                value={0}
+                status={
+                  validation3.IsEnrolledInVocationalTraining === 0
+                    ? 'checked'
+                    : 'unchecked'
+                }
+                onPress={() => {
+                  setValidation3({
+                    ...validation3,
+                    IsEnrolledInVocationalTraining: parseInt(0),
+                  });
+                  setChecked3('no');
+                }}
               />
               <Text style={styles.gender}>No</Text>
             </View>
+            <View>
+                    {error?.IsEnrolledInVocationalTraining && (
+                      <Text style={styles.errormessage}>
+                        {error?.IsEnrolledInVocationalTraining}
+                      </Text>
+                    )}
+                  </View>
           </View>
           <View style={{marginLeft: 5}}>
-            {/*Here we will return the view when state is true 
-					and will return false if state is false*/}
-            {checked3 === 'first' && (
+            {checked3 === 'yes' && (
               <View style={{marginTop: 20}}>
                 <Text style={styles.FormTitle}>Date</Text>
                 <View style={{marginTop: 5}}>
                   <TextInput
                     style={styles.textInput1}
-                    value={getDate()}
+                    value={validation3.institutionEnrollmentDate}
                     placeholder="  Enter Date"
                     placeholderTextColor={'gray'}
                   />
 
                   <Text
                     style={{marginLeft: 300, bottom: 35}}
-                    onPress={showDatePicker}>
+                    onPress={() => showDatePicker('institutionEnrollmentDate')}>
                     <FontAwesomeIcon
                       size={20}
                       icon={faCalendarDays}
@@ -353,12 +762,6 @@ const Service = () => {
                       color="#00bad7"
                     />
                   </Text>
-                  <DateTimePickerModal
-                    isVisible={isDatePickerVisible}
-                    mode="date"
-                    onConfirm={handleConfirm}
-                    onCancel={hideDatePicker}
-                  />
                 </View>
                 <View style={{marginTop: 0}}>
                   <Text style={styles.FormTitle}>
@@ -370,8 +773,21 @@ const Service = () => {
                       type="text"
                       placeholder="Enter class"
                       placeholderTextColor="gray"
+                      onChangeText={text => {
+                        setValidation3({
+                          ...validation3,
+                          NameOfTheCourse: text,
+                        });
+                      }}
                     />
                   </View>
+                </View>
+                <View>
+                  {error?.NameOfTheCourse && (
+                    <Text style={styles.errormessage}>
+                      {error?.NameOfTheCourse}
+                    </Text>
+                  )}
                 </View>
                 <View style={{marginTop: 15}}>
                   <Text style={styles.FormTitle}>
@@ -383,8 +799,47 @@ const Service = () => {
                       type="text"
                       placeholder="Enter name of the Institution"
                       placeholderTextColor="gray"
+                      onChangeText={text => {
+                        setValidation3({
+                          ...validation3,
+                          NameOfTheInstitue: text,
+                        });
+                      }}
                     />
                   </View>
+                </View>
+                <View>
+                  {error?.NameOfTheInstitue && (
+                    <Text style={styles.errormessage}>
+                      {error?.NameOfTheInstitue}
+                    </Text>
+                  )}
+                </View>
+                <View style={{marginTop: 20}}>
+                  <Text style={styles.FormTitle}>
+                    Remarks:<Text style={styles.star}>*</Text>
+                  </Text>
+                  <View style={styles.tabfourfirst}>
+                    <TextInput
+                      style={styles.FormInput}
+                      type="text"
+                      placeholder="Enter the remark"
+                      placeholderTextColor="gray"
+                      onChangeText={text => {
+                        setValidation3({
+                          ...validation3,
+                          VocationalTrainingRemark: text,
+                        });
+                      }}
+                    />
+                  </View>
+                </View>
+                <View>
+                  {error?.VocationalTrainingRemark && (
+                    <Text style={styles.errormessage}>
+                      {error?.VocationalTrainingRemark}
+                    </Text>
+                  )}
                 </View>
               </View>
             )}
@@ -397,37 +852,62 @@ const Service = () => {
               <RadioButton
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
-                value="first"
-                status={checked4 === 'first' ? 'checked' : 'unchecked'}
-                onPress={() => setChecked4('first')}
+                value={1}
+                status={
+                  validation3.IsAnyProtectiveActionTaken === 1
+                    ? 'checked'
+                    : 'unchecked'
+                }
+                onPress={() => {
+                  setValidation3({
+                    ...validation3,
+                    IsAnyProtectiveActionTaken: parseInt(1),
+                  });
+                  setChecked4('yes');
+                }}
               />
               <Text style={styles.gender}>Yes</Text>
               <RadioButton
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
-                value="second"
-                status={checked4 === 'second' ? 'checked' : 'unchecked'}
-                onPress={() => setChecked4('second')}
+                value={0}
+                status={
+                  validation3.IsAnyProtectiveActionTaken === 0
+                    ? 'checked'
+                    : 'unchecked'
+                }
+                onPress={() => {
+                  setValidation3({
+                    ...validation3,
+                    IsAnyProtectiveActionTaken: parseInt(0),
+                  });
+                  setChecked4('no');
+                }}
               />
               <Text style={styles.gender}>No</Text>
             </View>
+            <View>
+                    {error?.IsAnyProtectiveActionTaken && (
+                      <Text style={styles.errormessage}>
+                        {error?.IsAnyProtectiveActionTaken}
+                      </Text>
+                    )}
+                  </View>
             <View style={styles.container}>
-              {/*Here we will return the view when state is true 
-					and will return false if state is false*/}
-              {checked4 === 'first' && (
-                <View style={{marginTop: 20}}>
+              {checked4 === 'yes' && (
+                <View style={{marginTop: 20, right: 5}}>
                   <Text style={styles.FormTitle}>Date</Text>
                   <View style={{marginTop: 5}}>
                     <TextInput
                       style={styles.textInput1}
-                      value={getDate()}
+                      value={validation3.DateOfActionTaken}
                       placeholder="  Enter Date"
                       placeholderTextColor={'gray'}
                     />
 
                     <Text
                       style={{left: 300, bottom: 39}}
-                      onPress={showDatePicker}>
+                      onPress={() => showDatePicker('DateOfActionTaken')}>
                       <FontAwesomeIcon
                         size={20}
                         icon={faCalendarDays}
@@ -435,14 +915,8 @@ const Service = () => {
                         color="#00bad7"
                       />
                     </Text>
-                    <DateTimePickerModal
-                      isVisible={isDatePickerVisible}
-                      mode="date"
-                      onConfirm={handleConfirm}
-                      onCancel={hideDatePicker}
-                    />
                   </View>
-                  <View style={{marginTop: 3}}>
+                  <View style={{marginTop: 3, marginLeft: 5}}>
                     <Text style={styles.radioname}>
                       Whether GDE done<Text style={styles.star}></Text>
                     </Text>
@@ -450,48 +924,117 @@ const Service = () => {
                       <RadioButton
                         uncheckedColor={'gray'}
                         color={'#ff6b00'}
-                        value="first"
-                        status={checked7 === 'first' ? 'checked' : 'unchecked'}
-                        onPress={() => setChecked7('first')}
+                        value={1}
+                        status={
+                          validation3.isGDEDone === 1
+                            ? 'checked'
+                            : 'unchecked'
+                        }
+                        onPress={() => {
+                          setValidation3({
+                            ...validation3,
+                            isGDEDone: parseInt(1),
+                          });
+                          setChecked7('yes');
+                        }}
                       />
 
                       <Text style={styles.gender}>Yes</Text>
                       <RadioButton
                         uncheckedColor={'gray'}
                         color={'#ff6b00'}
-                        value="second"
-                        status={checked7 === 'second' ? 'checked' : 'unchecked'}
-                        onPress={() => setChecked7('second')}
+                        value={0}
+                        status={
+                          validation3.isGDEDone === 0
+                            ? 'checked'
+                            : 'unchecked'
+                        }
+                        onPress={() => {
+                          setValidation3({
+                            ...validation3,
+                            isGDEDone: parseInt(0),
+                          });
+                          setChecked7('no');
+                        }}
                       />
                       <Text style={styles.gender}>No</Text>
                     </View>
+                    <View>
+                    {error?.isGDEDone && (
+                      <Text style={styles.errormessage}>
+                        {error?.isGDEDone}
+                      </Text>
+                    )}
+                  </View>
                     <View style={{marginLeft: 5}}>
-                      {/*Here we will return the view when state is true 
-					and will return false if state is false*/}
-                      {checked7 === 'first' && (
+                      {checked7 === 'yes' && (
                         <View style={{marginTop: 20}}>
                           <View style={{marginTop: 0, right: 8}}>
                             <Text style={styles.FormTitle}>
-                              GDE No<Text style={styles.star}>*</Text>
+                              GDE number<Text style={styles.star}>*</Text>
                             </Text>
                             <View style={styles.tabfourfirst}>
                               <TextInput
                                 style={styles.FormInput}
                                 type="text"
-                                placeholder="Enter class"
+                                keyboardType="numeric"
+                                placeholder="Enter GDE number"
                                 placeholderTextColor="gray"
+                                onChangeText={text => {
+                                  setValidation3({
+                                    ...validation3,
+                                    GDENumber:text,
+                                  });
+                                }}
                               />
                             </View>
+                          </View>
+                          <View>
+                            {error?.GDENumber && (
+                              <Text style={styles.errormessage}>
+                                {error?.GDENumber}
+                              </Text>
+                            )}
                           </View>
                         </View>
                       )}
                     </View>
                   </View>
+                  <View style={{marginTop: 20}}>
+                  <Text style={styles.FormTitle}>
+                    Remarks:<Text style={styles.star}>*</Text>
+                  </Text>
+                  <View style={styles.tabfourfirst}>
+                    <TextInput
+                      style={styles.FormInput}
+                      type="text"
+                      placeholder="Enter the remark"
+                      placeholderTextColor="gray"
+                      onChangeText={text => {
+                        setValidation3({
+                          ...validation3,
+                          ActionTakenRemarks: text,
+                        });
+                      }}
+                    />
+                  </View>
                 </View>
+                <View>
+                  {error?.ActionTakenRemarks && (
+                    <Text style={styles.errormessage}>
+                      {error?.ActionTakenRemarks}
+                    </Text>
+                  )}
+                </View>
+              </View>
+             
+                
               )}
             </View>
+            
           </View>
 
+{ 
           <View style={{marginTop: 3, marginLeft: 16}}>
             <Text style={styles.radioname}>
               Is the survivor enrolled in survivor support program?
@@ -514,11 +1057,10 @@ const Service = () => {
                 onPress={() => setChecked5('second')}
               />
               <Text style={styles.gender}>No</Text>
+              
               <View style={{right: 122, top: 30}}>
-                {/*Here we will return the view when state is true 
-					and will return false if state is false*/}
                 {checked5 === 'first' && (
-                  <View style={{marginTop: 20,right:10}}>
+                  <View style={{marginTop: 20, right: 10}}>
                     <Text style={styles.FormTitle}>Date</Text>
                     <View style={{}}>
                       <TextInput
@@ -538,29 +1080,27 @@ const Service = () => {
                           color="#00bad7"
                         />
                       </Text>
-                      <DateTimePickerModal
-                        isVisible={isDatePickerVisible}
-                        mode="date"
-                        onConfirm={handleConfirm}
-                        onCancel={hideDatePicker}
-                      />
                     </View>
                   </View>
                 )}
               </View>
             </View>
-          </View>
-
+          </View> }
         </View>
 
-       
-        <View style={{}}>
+        <View style={{bottom:10}}>
           <TouchableOpacity
             style={styles.formbutton}
-            onPress={() => route.change()}>
+            onPress={() => myFunction()}>
             <Text style={styles.formbuttoninput}>Submit </Text>
           </TouchableOpacity>
         </View>
+        <DateTimePickerModal
+          isVisible={isDatePickerVisible}
+          mode="date"
+          onConfirm={handleConfirm}
+          onCancel={hideDatePicker}
+        />
       </ScrollView>
     </SafeAreaView>
   );
@@ -568,7 +1108,6 @@ const Service = () => {
 export default Service;
 const styles = StyleSheet.create({
   Tab: {
-    
     backgroundColor: '#fff',
     height: hp('87%'),
     width: wp('99%'),
@@ -601,9 +1140,10 @@ const styles = StyleSheet.create({
   radioname: {
     color: '#000',
     fontFamily: 'Lato-Regular',
-    fontSize: 13,
+    fontSize: 15,
     alignSelf: 'flex-start',
     marginLeft: 5,
+    lineHeight: 20,
     marginTop: 20,
   },
   SectionStyle1: {
@@ -612,7 +1152,6 @@ const styles = StyleSheet.create({
   },
   gender: {
     marginTop: 8,
-
     color: '#181818',
   },
 
@@ -1031,5 +1570,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 8,
     borderColor: '#ccc',
+  },
+  errormessage: {
+    color: 'red',
+    marginLeft: 10,
   },
 });

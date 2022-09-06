@@ -25,9 +25,10 @@ import {faFile} from '@fortawesome/free-solid-svg-icons/faFile';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {useDispatch, useSelector} from 'react-redux';
 import {
-  IncidentLog,
-  IncidentLogResponse,
-} from '../../../Redux/IncidentLog/Action';
+  sendVictimData,
+  sendVictimDataResponse,
+  caseAssignment,
+} from '../../../Redux/IncidentLog/IncidentCreation/Action';
 
 const Victim = ({route}) => {
   const navigation = useNavigation();
@@ -45,12 +46,10 @@ const Victim = ({route}) => {
 
   const handleConfirm = date => {
     let d = new Date(date);
-    let dat = d.getDate();
-    let month = d.getMonth() + 1;
-    if (month.toString.length === 1) month = `0${d.getMonth() + 1}`;
-    if (dat.toString.length === 1) dat = `0${d.getDate()}`;
+    let dat = String(d.getDate()).padStart(2, '0');
+    let month = String(d.getMonth() + 1).padStart(2, '0');
     let year = d.getFullYear();
-    console.log(`${year}-${month}-${dat}`)
+    console.log(`${year}-${month}-${dat}`);
     setValidation({
       ...validation,
       Victims_DoB: `${year}-${month}-${dat}`,
@@ -82,16 +81,16 @@ const Victim = ({route}) => {
   }, []);
 
   const data = [
-    {label: 'Child Trafficking', value: '1'},
-    {label: 'Online sexual harassment ', value: '2'},
-    {label: 'Sexual assault ', value: '3'},
-    {label: 'Sexual harassment    ', value: '4'},
-    {label: 'Sexual abuse', value: '5'},
-    {label: 'Rape ', value: '6'},
-    {label: 'Kidnap/ abduction    ', value: '7'},
-    {label: 'Child Missing    ', value: '8'},
-    {label: 'Forced Marriage', value: '9'},
-    {label: ' Others  ', value: '10'},
+    {label: 'Child Trafficking', value: 1},
+    {label: 'Online sexual harassment ', value: 2},
+    {label: 'Sexual assault ', value: 3},
+    {label: 'Sexual harassment    ', value: 4},
+    {label: 'Sexual abuse', value: 5},
+    {label: 'Rape ', value: 6},
+    {label: 'Kidnap/ abduction    ', value: 7},
+    {label: 'Child Missing    ', value: 8},
+    {label: 'Forced Marriage', value: 9},
+    {label: ' Others  ', value: 10},
   ];
   const [value, setValue] = useState(null);
   const data1 = [
@@ -143,23 +142,22 @@ const Victim = ({route}) => {
   const [other, setOther] = useState(false);
 
   let dispatch = useDispatch();
-  let incidentlogResponse = useSelector(
-    state => state.Incidentlog.incidentlogSuccessfull,
+  let victimresponse = useSelector(
+    state => state.Incidentlog.sendVictimDataResponse,
   );
   useEffect(() => {
-    if (incidentlogResponse?.StatusCode === 201) {
-      alert('victim was successfully created');
+    if (victimresponse?.StatusCode === 201) {
+      alert(victimresponse.StatusMessage);
+      navigation.navigate('complaints');
+       dispatch(sendVictimData(''));
     }
-    dispatch(IncidentLog(''));
-  }, [incidentlogResponse]);
-
+    // dispatch(sendVictimData(''));
+  }, [victimresponse]);
 
   let d = new Date();
-  let dat = d.getDate();
-  let month = d.getMonth() + 1;
+  let dat = String(d.getDate()).padStart(2, '0');
+  let month = String(d.getMonth() + 1).padStart(2, '0');
   let year = d.getFullYear();
-  if (month.toString.length === 1) month = `0${d.getMonth() + 1}`;
-  if (dat.toString.length === 1) dat = `0${d.getDate()}`;
 
   const [validation, setValidation] = useState({
     ReportersName: '',
@@ -172,15 +170,16 @@ const Victim = ({route}) => {
     Proof_of_DoB: 'Uploadfile.pdf',
     Victim_age: '',
     Nature_of_incident: '',
+    natureofIncidentOthers: '',
     StateID: '',
     DistrictID: '',
     BlockID: '',
     PanchayatID: '',
     VillageID: '',
     PoliceStationID: '',
-    UserID: 1,
+    UserID:1,
   });
-
+  console.log('ffh', validation);
   const initialErrorMessage = {
     ReportersName: '',
     ReporterDesignationID: '',
@@ -192,6 +191,7 @@ const Victim = ({route}) => {
     Proof_of_DoB: '',
     Victim_age: '',
     Nature_of_incident: '',
+    natureofIncidentOthers: '',
     StateID: '',
     DistrictID: '',
     BlockID: '',
@@ -204,8 +204,6 @@ const Victim = ({route}) => {
   const [error, setError] = useState(initialErrorMessage);
 
   function myFunction() {
-    dispatch(IncidentLog(validation));
-
     let a = {
       ReportersName: '',
       ReporterDesignationID: '',
@@ -217,6 +215,7 @@ const Victim = ({route}) => {
       Proof_of_DoB: '',
       Victim_age: '',
       Nature_of_incident: '',
+      natureofIncidentOthers: '',
       StateID: '',
       DistrictID: '',
       BlockID: '',
@@ -255,7 +254,7 @@ const Victim = ({route}) => {
       a.Name_of_the_Victim = 'Enter a valid  victim name';
     }
     if (!validation.Guardians_name) {
-      a.Guardians_name = '*Please enter the gardian name';
+      a.Guardians_name = '*Please enter the guardians name';
     }
     if (
       !letters.test(validation.Guardians_name) &&
@@ -271,6 +270,9 @@ const Victim = ({route}) => {
       !empty.test(validation.Victim_age)
     ) {
       a.Victim_age = 'Enter a valid victim age';
+    }
+    if (!validation.Victim_DoB_if_available) {
+      a.Victim_DoB_if_available = '*Please select the victim dob is available';
     }
     if (!validation.Victims_DoB) {
       a.Victims_DoB = '*Please select the victim date of birth';
@@ -298,7 +300,8 @@ const Victim = ({route}) => {
     }
     if (Object.values(a).every(el => el === '')) {
       setError(a);
-      dispatch(IncidentLog(validation));
+      console.log('hiiwl');
+      dispatch(sendVictimData(validation));
     } else {
       setError(a);
     }
@@ -318,6 +321,7 @@ const Victim = ({route}) => {
                 type="text"
                 placeholder="Enter reporter's name"
                 placeholderTextColor="gray"
+                color="#000"
                 onChangeText={text => {
                   setValidation({...validation, ReportersName: text});
                 }}
@@ -362,21 +366,21 @@ const Victim = ({route}) => {
                 </Text>
               )}
             </View>
-            {/* <View style={{marginTop: 18}}>
+            <View style={{marginTop: 18}}>
               <Text style={styles.FormTitle}>
                 Date of reporting:<Text style={styles.star}>*</Text>
               </Text>
               <View>
                 <TextInput
                   style={styles.textInput}
-                  value={getDate()}
+                  value={validation.Date_of_reporting}
                   placeholder="  Enter date"
                   placeholderTextColor={'gray'}
                 />
 
-                <Text style={{left: 300, bottom: 39}} onPress={showDatePicker}>
+                <Text style={{left: 320, bottom: 45}} onPress={showDatePicker}>
                   <FontAwesomeIcon
-                    size={20}
+                    size={25}
                     icon={faCalendarDays}
                     title="Show Picker"
                     color="#00bad7"
@@ -389,9 +393,9 @@ const Victim = ({route}) => {
                   onCancel={hideDatePicker}
                 />
               </View>
-            </View> */}
+            </View>
 
-            <View style={{top: 20}}>
+            <View style={{top: 0}}>
               <Text style={styles.FormTitle}>
                 Name of the victim:<Text style={styles.star}>*</Text>
               </Text>
@@ -401,6 +405,7 @@ const Victim = ({route}) => {
                   type="text"
                   placeholder="Enter name of the victim"
                   placeholderTextColor="gray"
+                  color="#000"
                   onChangeText={text => {
                     setValidation({...validation, Name_of_the_Victim: text});
                   }}
@@ -424,6 +429,7 @@ const Victim = ({route}) => {
                   type="text"
                   placeholder="Enter guardian's name"
                   placeholderTextColor="gray"
+                  color="#000"
                   onChangeText={text => {
                     setValidation({...validation, Guardians_name: text});
                   }}
@@ -475,6 +481,13 @@ const Victim = ({route}) => {
                 <Text style={styles.gender}>No</Text>
               </View>
             </View>
+            <View>
+              {error?.Victim_DoB_if_available && (
+                <Text style={styles.errormessage}>
+                  {error?.Victim_DoB_if_available}
+                </Text>
+              )}
+            </View>
 
             <View style={styles.container}>
               {/*Here we will return the view when state is true 
@@ -491,10 +504,10 @@ const Victim = ({route}) => {
                     />
 
                     <Text
-                      style={{left: 300, bottom: 39}}
+                      style={{left: 320, bottom: 45}}
                       onPress={showDatePicker}>
                       <FontAwesomeIcon
-                        size={20}
+                        size={25}
                         icon={faCalendarDays}
                         title="Show Picker"
                         color="#00bad7"
@@ -543,6 +556,8 @@ const Victim = ({route}) => {
                   keyboardType="numeric"
                   placeholder="Enter victims age"
                   placeholderTextColor="gray"
+                  color="#000"
+                  
                   onChangeText={text => {
                     setValidation({...validation, Victim_age: parseInt(text)});
                   }}
@@ -573,7 +588,7 @@ const Victim = ({route}) => {
                   onChange={item => {
                     {
                       setValue(item.value);
-                      item.value === '10' ? setOther(true) : setOther(false);
+                      item.value === 10 ? setOther(true) : setOther(false);
                       setValidation({
                         ...validation,
                         Nature_of_incident: item.label,
@@ -601,6 +616,7 @@ const Victim = ({route}) => {
                     type="text"
                     placeholder="Others"
                     placeholderTextColor="gray"
+                    color="#000"
                   />
                 </View>
               </View>
@@ -787,11 +803,7 @@ const Victim = ({route}) => {
         </View>
       </ScrollView>
       <View style={styles.victimbutton}>
-        <TouchableOpacity
-          style={styles.formbutton0}
-          onPress={() => route.change()}>
-          <Text style={styles.formbuttoninput}>SAVE </Text>
-        </TouchableOpacity>
+       
 
         <TouchableOpacity
           style={styles.formbutton}

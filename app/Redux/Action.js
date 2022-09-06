@@ -1,2 +1,7 @@
 export * from './Login/Action';
-export * from './IncidentLog/Action';
+export * from '../Redux/IncidentLog/IncidentCreation/Action';
+export * from '../Redux/IncidentLog/IncidentList/Action';
+
+
+
+ 
