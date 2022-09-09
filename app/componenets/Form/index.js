@@ -12,15 +12,15 @@ import Complaints from './IncidentLog/complaint';
 import Legal from './legal';
 import Service from './service';
 import Mhpss from './mhpss';
-const FirstRoute = ({route}) => {
+const FirstRoute = props => {
   return (
     <>
-      <Victim />
+      <Victim isCreationTab={true} change={props.route.change} />
     </>
   );
 };
 
-const SecondRoute = ({route}) => {
+const SecondRoute = props => {
   return (
     <>
       <Complaints />
@@ -64,9 +64,6 @@ export default function TabViewExample() {
   const renderScene = SceneMap({
     first: FirstRoute,
     second: SecondRoute,
-    third: ThirdRoute,
-    fourth: FourthRoute,
-    fivth: FivthRoute,
   });
 
   const renderTabBar = props => (

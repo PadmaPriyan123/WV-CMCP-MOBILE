@@ -93,10 +93,8 @@ const Login = () => {
       setOtpCheck('first');
       setOtpError('');
     }
-    console.log(number.number);
 
     if (Object.values(a).every(el => el == '')) {
-      console.log(Object.values(a).every(el => el == ''));
       setError(a);
       setOtp(true);
       setEnableVerifyOTP(true);
@@ -167,7 +165,6 @@ const Login = () => {
 
   useEffect(() => {
     let a = {EmailId: '', Password: ''};
-    console.log('loginresponse', loginResponse);
 
     if (Object.values(error).every(el => el === '') && loginResponse) {
       if (
@@ -184,7 +181,6 @@ const Login = () => {
         dispatch(userLoginResponse(''));
       } else if (loginResponse?.StatusCode === 500) {
         alert(loginResponse.StatusMessage);
-        console.log('ter', loginResponse.StatusMessage);
         dispatch(userLoginResponse(''));
       } else if (loginResponse?.StatusCode === 201) {
         alert(loginResponse.StatusMessage);
@@ -192,7 +188,6 @@ const Login = () => {
         dispatch(userLoginResponse(''));
         clearAll();
         setError(a);
-        console.log('came here');
 
         (async () =>
           await AsyncStorage.setItem(
@@ -204,33 +199,26 @@ const Login = () => {
   }, [loginResponse, error]);
 
   function myFunction() {
-    console.log('login', login);
     const EmailIdRegex = /^[a-z]+\S+@\S+\.\S+/;
     const PasswordRegex =
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,12}$/;
     let a = {EmailId: '', Password: ''};
 
     if (!login.EmailId) {
-      console.log('came here1');
       a.EmailId = '*Please enter email id!';
     }
     if (!login.Password) {
-      console.log('came here2');
       a.Password = '*Please enter password!';
     }
 
     if (login.EmailId && EmailIdRegex.test(login.EmailId) === false) {
-      console.log('came here3');
       a.EmailId = '*Please enter Valid email id!';
     }
 
     if (login.Password && PasswordRegex.test(login.Password) === false) {
-      console.log('came here4');
       a.Password = '*Please enter Valid password!';
     }
-    console.log(a);
     if (Object.values(a).every(el => el === '')) {
-      console.log('cameejbvjs');
       setError(a);
       dispatch(usersLogin(login));
     }

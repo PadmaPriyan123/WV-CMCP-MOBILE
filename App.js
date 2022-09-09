@@ -26,7 +26,11 @@ function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
-       
+          <Stack.Screen
+            name="Drawer"
+            component={MyDrawer}
+            options={{headerShown: false}}
+          />
           <Stack.Screen
             name="Login"
             component={Login}
@@ -119,7 +123,6 @@ function App() {
               },
             }}
           />
-          
 
           <Stack.Screen
             name="complaints"
@@ -138,8 +141,8 @@ function App() {
               },
             }}
           />
-         
-         <Stack.Screen
+
+          <Stack.Screen
             name="legal"
             component={Legal}
             options={{
@@ -207,12 +210,6 @@ function App() {
                 color: '#fff',
               },
             }}
-          />
-
-          <Stack.Screen
-            name="Drawer"
-            component={MyDrawer}
-            options={{headerShown: false}}
           />
         </Stack.Navigator>
 

@@ -27,12 +27,17 @@ import {
   fa5,
 } from '@fortawesome/free-solid-svg-icons';
 
+import { useRoute } from '@react-navigation/native';
+
 const Viewcard = ({navigation}) => {
+  const route = useRoute();
+
+  console.log("routeparams",route)
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.Viewcard}>
-          <TouchableOpacity onPress={() => navigation.navigate('victim')}>
+          <TouchableOpacity onPress={() => navigation.navigate('victim',route.params)}>
             <Card style={styles.card}>
               <View style={styles.viewcontent}>
                 <View style={styles.viewcontrol}>
@@ -57,7 +62,7 @@ const Viewcard = ({navigation}) => {
             </Card>
           </TouchableOpacity>
 
-          <TouchableOpacity  onPress={() => navigation.navigate('complaints')}>
+          <TouchableOpacity  onPress={() => navigation.navigate('complaints',route.params)}>
             <Card style={styles.card1}>
               <View style={styles.viewcontent}>
                 <View style={styles.viewcontrol}>
@@ -83,7 +88,7 @@ const Viewcard = ({navigation}) => {
             </Card>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => navigation.navigate('legal')}>
+          <TouchableOpacity onPress={() => navigation.navigate('legal',route.params)}>
             <Card style={styles.card2}>
               <View style={styles.viewcontent}>
                 <View style={styles.viewcontrol}>
@@ -109,7 +114,7 @@ const Viewcard = ({navigation}) => {
             </Card>
           </TouchableOpacity>
 
-          <TouchableOpacity  onPress={() => navigation.navigate('service')}>
+          <TouchableOpacity  onPress={() => navigation.navigate('service',route.params)}>
             <Card style={styles.card3}>
               <View style={styles.viewcontent}>
                 <View style={styles.viewcontrol}>
@@ -135,7 +140,7 @@ const Viewcard = ({navigation}) => {
             </Card>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => navigation.navigate('mhpss')}>
+          <TouchableOpacity onPress={() => navigation.navigate('mhpss',route.params)}>
             <Card style={styles.card4}>
               <View style={styles.viewcontent}>
                 <View style={styles.viewcontrol}>

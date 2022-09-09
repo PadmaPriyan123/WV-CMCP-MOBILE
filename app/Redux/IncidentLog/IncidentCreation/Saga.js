@@ -13,7 +13,6 @@ import {
 
 function* postVictimData({payload: victimInfo}) {
   try {
-    console.log('cameee');
     const authUser = yield call(Service.authUser);
 
     // victimInfo.UserID = authUser.userId;
@@ -23,7 +22,7 @@ function* postVictimData({payload: victimInfo}) {
       '/IncidentVictimLog/CreateIncidentVictomLog',
       'POST',
       victimInfo,
-      false,
+      true,
     );
 
     yield put(sendVictimDataResponse(response));
@@ -34,7 +33,6 @@ function* postVictimData({payload: victimInfo}) {
 
 function* postComplaintsData({payload: complaintsInfo}) {
   try {
-    console.log('ggghr');
 
     const authUser = yield call(Service.authUser);
 
@@ -57,7 +55,6 @@ function* postComplaintsData({payload: complaintsInfo}) {
 
 function* caseAssignment({payload: caseAssignmentInfo}) {
   try {
-    console.log('Saga');
 
     const authUser = yield call(Service.authUser);
 

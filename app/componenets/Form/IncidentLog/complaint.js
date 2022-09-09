@@ -30,7 +30,6 @@ import {
 } from '../../../Redux/IncidentLog/IncidentCreation/Action';
 const Complaints = ({route}) => {
   const navigation = useNavigation();
-  const [dates, setDates] = React.useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
   const [dateKey, setDateKey] = useState('');
   const showDatePicker = key => {
@@ -43,8 +42,6 @@ const Complaints = ({route}) => {
   };
 
   const handleConfirm = date => {
-    console.log('date', date);
-
     let d = new Date(date);
     let dat = String(d.getDate()).padStart(2, '0');
     let month = String(d.getMonth() + 1).padStart(2, '0');
@@ -55,13 +52,6 @@ const Complaints = ({route}) => {
     });
     setDate(date);
     hideDatePicker();
-  };
-
-  const getDate = () => {
-    let tempDate = date.toString().split(' ');
-    return date !== ''
-      ? `${tempDate[0]} ${tempDate[1]} ${tempDate[2]} ${tempDate[3]}`
-      : '';
   };
 
   const data1 = [
@@ -125,7 +115,7 @@ const Complaints = ({route}) => {
       value: [9],
     },
     {label: 'Examination Chief', value: [10]},
-    {label: 'Cross Examination    ', value: [11]},
+    {label: 'Cross Examination', value: [11]},
 
     {label: 'Re-examination    ', value: [12]},
 
@@ -140,21 +130,9 @@ const Complaints = ({route}) => {
   const [checked0, setChecked0] = React.useState('');
 
   const [checked, setChecked] = React.useState('');
-  const [checked1, setChecked1] = React.useState('');
 
-  const [isPickerShow, setIsPickerShow] = React.useState(false);
   const [date, setDate] = React.useState(new Date(Date.now()));
 
-  const showPicker = () => {
-    setIsPickerShow(true);
-  };
-
-  const onChange = (event, value) => {
-    setDate(value);
-    if (Platform.OS === 'android') {
-      setIsPickerShow(false);
-    }
-  };
   const [others, setOthers] = useState(false);
   const [others1, setOthers1] = useState(false);
   const [lodged, setLodged] = useState(false);
@@ -174,12 +152,20 @@ const Complaints = ({route}) => {
   let complaintresponse = useSelector(
     state => state.Incidentlog.sendComplaintsDataResponse,
   );
+  let victimresponse = useSelector(
+    state => state.Incidentlog.sendVictimDataResponse,
+  );
+  useEffect(()=>{
+    if(victimresponse){
+      setValidation1({...validation1,CaseID:victimresponse.CaseID})
+    }
+  },[victimresponse]);
+
   useEffect(() => {
     if (complaintresponse?.StatusCode === 201) {
       alert(complaintresponse.StatusMessage);
-
+      dispatch(sendComplaintsDataResponse(""))
       navigation.navigate('Dashboard');
-      dispatch(sendComplaintsData(''));
     } else if (complaintresponse?.StatusCode === 409) {
       alert(complaintresponse.StatusMessage);
     }
@@ -190,7 +176,7 @@ const Complaints = ({route}) => {
   let month = String(d.getMonth() + 1).padStart(2, '0');
   let year = d.getFullYear();
   const [validation1, setValidation1] = useState({
-    CaseID: 1,
+    CaseID: "",
     UserID: 1,
     Date_of_incident: `${year}-${month}-${dat}`,
     Description_of_the_incident: '',
@@ -208,7 +194,6 @@ const Complaints = ({route}) => {
     Action_Taken: 'hello',
     Sections_AppliedIn_FIR: [],
   });
-  console.log('hdhjf', validation1);
 
   const initialErrorMessage = {
     CaseID: '',
@@ -234,8 +219,6 @@ const Complaints = ({route}) => {
 
   function myFunction() {
     let a = {
-      CaseID: 1,
-      UserID: 1,
       Date_of_incident: '',
       Description_of_the_incident: '',
       Name_of_Alleged_Offender: '',
@@ -253,11 +236,10 @@ const Complaints = ({route}) => {
       Sections_AppliedIn_FIR: '',
     };
 
-    var letters = /[A-Za-z]{3,15}/;
     var empty = /^$/;
     var Age = /^[0-9]{1,2}$/;
-    dispatch(sendComplaintsData(validation1));
 
+    console.log("validation",validation1)
     if (!validation1.Date_of_incident) {
       a.Date_of_incident = '*Please Select the Date Of Incident';
     }
@@ -309,18 +291,12 @@ const Complaints = ({route}) => {
     if (!validation1.Sections_AppliedIn_FIR) {
       a.Sections_AppliedIn_FIR = '*Please enter the Section applied fir';
     }
-    console.log(a);
     if (Object.values(a).every(el => el === '')) {
-      console.log(Object.values(a).every(el => el === ''));
       setError(a);
       let reqData = validation1;
-      reqData.Sections_AppliedIn_FIR = JSON.stringify(
-        validation1.Sections_AppliedIn_FIR,
-      );
-      console.log('bhhf', reqData);
 
+      console.log('complaints', reqData);
       dispatch(sendComplaintsData(reqData));
-      console.log('vjv', validation1);
     } else {
       setError(a);
     }
@@ -418,7 +394,6 @@ const Complaints = ({route}) => {
                 placeholder="Enter offender relationship to victim"
                 placeholderTextColor="gray"
                 color="#000"
-
                 onChangeText={text => {
                   setValidation1({
                     ...validation1,
@@ -444,7 +419,6 @@ const Complaints = ({route}) => {
                 placeholder="Enter offenders approximate age"
                 placeholderTextColor="gray"
                 color="#000"
-
                 onChangeText={text => {
                   setValidation1({
                     ...validation1,
@@ -511,7 +485,6 @@ const Complaints = ({route}) => {
                   placeholder="Others"
                   placeholderTextColor="gray"
                   color="#000"
-
                 />
               </View>
             </View>
@@ -540,7 +513,6 @@ const Complaints = ({route}) => {
                 onChange={item => {
                   {
                     setSelected(item);
-                    console.log('ggf', item);
                     item.selected === '3'
                       ? setOthers1(true)
                       : setOthers1(false);
@@ -604,15 +576,14 @@ const Complaints = ({route}) => {
               <Text style={styles.gender}>No</Text>
             </View>
             <View>
-            {error?.complaint_lodged_PS && (
-              <Text style={styles.errormessage}>
-                {error?.complaint_lodged_PS}
-              </Text>
-            )}
+              {error?.complaint_lodged_PS && (
+                <Text style={styles.errormessage}>
+                  {error?.complaint_lodged_PS}
+                </Text>
+              )}
             </View>
-
           </View>
-         
+
           {lodged === true ? (
             <View>
               <View style={{marginTop: 3, marginLeft: 10}}>
@@ -638,7 +609,7 @@ const Complaints = ({route}) => {
                   <Text style={styles.gender}>No</Text>
                 </View>
               </View>
-              
+
               {checked0 === 'yes' && (
                 <View style={{marginTop: 20}}>
                   <Text style={styles.FormTitle}>GDE Date: </Text>
@@ -760,10 +731,12 @@ const Complaints = ({route}) => {
                 </View>
               </View>
               <View>
-                    {error?.FIR_filed_or_not && (
-                      <Text style={styles.errormessage}>{error?.FIR_filed_or_not}</Text>
-                    )}
-                  </View>
+                {error?.FIR_filed_or_not && (
+                  <Text style={styles.errormessage}>
+                    {error?.FIR_filed_or_not}
+                  </Text>
+                )}
+              </View>
               <View style={styles.container}>
                 {/*Here we will return the view when state is true 
           and will return false if state is false*/}
@@ -862,9 +835,11 @@ const Complaints = ({route}) => {
                             value={value2}
                             onChange={item => {
                               setValue2(item.value);
+                              let arr = [];
+                              arr.push(item.label);
                               setValidation1({
                                 ...validation1,
-                                Sections_AppliedIn_FIR: [item.label],
+                                Sections_AppliedIn_FIR: arr,
                               });
                             }}
                           />
@@ -891,7 +866,6 @@ const Complaints = ({route}) => {
                       placeholder="Others"
                       placeholderTextColor="gray"
                       color="#000"
-
                       onChangeText={text => {
                         setValidation1({...validation1, Action_Taken: text});
                       }}
@@ -917,7 +891,6 @@ const Complaints = ({route}) => {
                       placeholder="Others"
                       placeholderTextColor="gray"
                       color="#000"
-
                     />
                   </View>
                 </View>

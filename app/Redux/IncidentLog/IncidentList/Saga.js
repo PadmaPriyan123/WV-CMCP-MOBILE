@@ -3,18 +3,19 @@ import {Service} from '../../../Services/Helper';
 import {
   sendLegalDataResponse,
   sendReintegrationDataResponse,
-  sendMhpssDataResponse
+  sendMhpssDataResponse,
+  getAllCaseResponse
 } from '../IncidentList/Action';
 import {
   INCIDENT_LEGAL,
   INCIDENT_REINTEGRATION,
-  INCIDENT_MHPSS
+  INCIDENT_MHPSS,
+  GET_ALL_CASE
 } from '../IncidentList/ActionTypes';
 
 
 function* postLegalData({payload: legalInfo}) {
   try {
-    console.log('ok');
     const authUser = yield call(Service.authUser);
 
     // victimInfo.UserID = authUser.userId;
@@ -24,7 +25,7 @@ function* postLegalData({payload: legalInfo}) {
       '/IncidentLegalLog/CreateIncidentLegalLog',
       'POST',
       legalInfo,
-      false,
+      true,
     );
 
     yield put(sendLegalDataResponse(response));
@@ -34,7 +35,6 @@ function* postLegalData({payload: legalInfo}) {
 }
 function* postReintegrationData({payload: reintegrationInfo}) {
     try {
-      console.log('ggghr');
   
       const authUser = yield call(Service.authUser);
   
@@ -45,7 +45,7 @@ function* postReintegrationData({payload: reintegrationInfo}) {
         '/IncidentReintegrationLog/CreateIncidentReintegrationLog',
         'POST',
         reintegrationInfo,
-        false,
+        true,
         
       );
   
@@ -68,7 +68,7 @@ function* postReintegrationData({payload: reintegrationInfo}) {
         '/MHPSSSupportiveCall/CreateMHPSSSupportiveCall',
         'POST',
         mhpssInfo,
-        false,
+        true,
         
       );
   
@@ -77,13 +77,34 @@ function* postReintegrationData({payload: reintegrationInfo}) {
       console.log(error);
     }
   }
-
+  function* getCaseDetails() {
+    try {
+   
+  
+      const authUser = yield call(Service.authUser);
+  
+      //  complaintsInfo.UserID = authUser.userId;
+  
+      const response = yield call(
+        Service.commonFetch,
+        '/CaseList/GetAllCaseList',
+        'GET',
+        null,
+        true,
+        null
+      );
+  
+      yield put(getAllCaseResponse(response));
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
 function* legal() {
   yield takeEvery(INCIDENT_LEGAL, postLegalData);
   yield takeEvery(INCIDENT_REINTEGRATION, postReintegrationData);
   yield takeEvery(INCIDENT_MHPSS,postMhpssData)
-
+  yield takeEvery(GET_ALL_CASE,getCaseDetails)
 }
 
 export default legal;

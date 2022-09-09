@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   Text,
@@ -29,33 +29,162 @@ import {faCalendarDays, faFilter} from '@fortawesome/free-solid-svg-icons';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {Menu, MenuItem, MenuDivider} from 'react-native-material-menu';
 import {Dropdown} from 'react-native-element-dropdown';
+import {useDispatch, useSelector} from 'react-redux';
+import {getAllCase} from '../../Redux/Action';
 
 const Incident = ({navigation}) => {
-  const [date, setDate] = React.useState('');
-  const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
+  let dispatch = useDispatch();
 
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
+  let caseDetails = useSelector(state => state.Incidentlist.caseDetails);
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const [value1, setValue1] = useState('');
+
+  const [date, setDate] = useState('');
+
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+  const status = [
+    {label: 'Initiated', value: '1'},
+    {label: 'Inprogress ', value: '2'},
+    {label: 'Completed ', value: '3'},
+    {label: 'Closed', value: '4'},
+  ];
+
+  useEffect(() => {
+    dispatch(getAllCase());
+  }, []);
+
+  useEffect(() => {
+    console.log('caseDetails', caseDetails);
+  }, [caseDetails]);
+
+  const handleCaseStatus = status => {
+    if (Number(status) === 1)
+      return (
+        <View
+          style={{
+            marginLeft: 210,
+            backgroundColor: '#46bb95',
+            borderRadius: 40,
+            borderWidth: 1,
+            height: 30,
+            width: 100,
+            borderColor: '#fff',
+          }}>
+          <Text style={styles.Assigned}>Incomplete</Text>
+        </View>
+      );
+    if (Number(status) === 2)
+      return (
+        <View
+          style={{
+            marginLeft: 210,
+            backgroundColor: '#00bad7',
+            top: 1,
+            borderRadius: 40,
+            borderWidth: 1,
+            height: 30,
+            width: 100,
+            borderColor: '#fff',
+          }}>
+          <Text style={styles.initiate}>Initiated</Text>
+        </View>
+      );
+    if (Number(status) === 3)
+      return (
+        <View
+          style={{
+            marginLeft: 160,
+            backgroundColor: '#e26a00',
+            borderRadius: 40,
+            borderWidth: 1,
+            height: 30,
+            width: 150,
+            borderColor: '#fff',
+          }}>
+          <Text style={styles.Assigned}>Assigned for legal</Text>
+        </View>
+      );
+    if (Number(status) === 4)
+      return (
+        <View
+          style={{
+            marginLeft: 170,
+            backgroundColor: '#e26a00',
+            borderRadius: 40,
+            borderWidth: 1,
+            height: 30,
+            width: 140,
+            borderColor: '#fff',
+          }}>
+          <Text style={styles.Assigned}>Legal is pending</Text>
+        </View>
+      );
+    if (Number(status) === 5)
+      return (
+        <View
+          style={{
+            marginLeft: 140,
+            backgroundColor: '#006661',
+            borderRadius: 40,
+            borderWidth: 1,
+            height: 30,
+            width: 170,
+            borderColor: '#fff',
+          }}>
+          <Text style={styles.Assigned}>Assigned for MHPSS</Text>
+        </View>
+      );
+    if (Number(status) === 6)
+      return (
+        <View
+          style={{
+            marginLeft: 160,
+            backgroundColor: '#e26a00',
+            borderRadius: 40,
+            borderWidth: 1,
+            height: 30,
+            width: 180,
+            borderColor: '#fff',
+          }}>
+          <Text style={styles.Assigned}>MHPSS is pending</Text>
+        </View>
+      );
+    if (Number(status) === 7)
+      return (
+        <View
+          style={{
+            marginLeft: 200,
+            backgroundColor: '	#006400',
+            borderRadius: 40,
+            borderWidth: 1,
+            height: 30,
+            width: 100,
+            borderColor: '#fff',
+          }}>
+          <Text style={styles.Completed}>Completed</Text>
+        </View>
+      );
+    if (Number(status) === 8)
+      return (
+        <View
+          style={{
+            marginLeft: 210,
+            backgroundColor: '#ff0000',
+            borderRadius: 40,
+            borderWidth: 1,
+            height: 30,
+            width: 100,
+            borderColor: '#fff',
+          }}>
+          <Text style={styles.Completed}>Closed</Text>
+        </View>
+      );
   };
 
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-
-  const handleConfirm = date => {
-    setDate(date);
-    hideDatePicker();
-  };
-
-  const getDate = () => {
-    let tempDate = date.toString().split(' ');
-    return date !== ''
-      ? `${tempDate[0]} ${tempDate[1]} ${tempDate[2]} ${tempDate[3]}`
-      : '';
-  };
-  const [modalVisible, setModalVisible] = React.useState(false);
-
-  const PopIncidentMenu = () => {
+  const PopIncidentMenu = ({data}) => {
     const hideMenu = () => setVisible(false);
     const showMenu = () => setVisible(true);
     const [visible, setVisible] = React.useState(false);
@@ -80,7 +209,7 @@ const Incident = ({navigation}) => {
             <Text style={styles.popStyles}>View</Text>
           </View>
         </MenuItem>
-        <MenuItem onPress={() => navigation.navigate('Viewcard')}>
+        <MenuItem onPress={() => navigation.navigate('Viewcard', data)}>
           <View style={{flexDirection: 'row'}}>
             <Text>
               <FontAwesomeIcon icon={faPen} size={14} />
@@ -99,201 +228,51 @@ const Incident = ({navigation}) => {
       </Menu>
     );
   };
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
 
-  const status = [
-    {label: 'Initiated', value: '1'},
-    {label: 'Inprogress ', value: '2'},
-    {label: 'Completed ', value: '3'},
-    {label: 'Closed', value: '4'},
-  ];
-  const [value1, setValue1] = React.useState('');
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = date => {
+    setDate(date);
+    hideDatePicker();
+  };
+
+  const getDate = () => {
+    let tempDate = date.toString().split(' ');
+    return date !== ''
+      ? `${tempDate[0]} ${tempDate[1]} ${tempDate[2]} ${tempDate[3]}`
+      : '';
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.container}>
-          <Card style={styles.card}>
-            <View style={styles.cardfirstline}>
-              <Text style={styles.cardcontentheading}>
-                Case No:{' '}
-                <Text style={{fontFamily: 'Lato-Bold', color: '#000'}}>
-                  125647
-                </Text>
-              </Text>
-              <View style={{marginTop: 17, marginRight: 10}}>
-                <PopIncidentMenu />
-              </View>
-            </View>
-            <View style={styles.cardcontentpara}>
-              <Text style={styles.carddetail}>17-05-2021</Text>
-            </View>
-            <View
-              style={{
-                marginLeft: 200,
-                backgroundColor: '#00bad7',
-                top: 1,
-                borderRadius: 40,
-                borderWidth: 1,
-                height: 30,
-                width: 100,
-                borderColor: '#fff',
-              }}>
-              <Text style={styles.initiate}>Initiated</Text>
-            </View>
-          </Card>
-          <View style={{marginTop: 8}}>
-            <Card style={styles.card}>
-              <View style={styles.cardfirstline}>
-                <Text style={styles.cardcontentheading}>
-                  Case No:{' '}
-                  <Text style={{fontFamily: 'Lato-Bold', color: '#000'}}>
-                    226746
+          {caseDetails &&
+            caseDetails?.Result &&
+            caseDetails.Result.map(data => (
+              <Card style={styles.card}>
+                <View style={styles.cardfirstline}>
+                  <Text style={styles.cardcontentheading}>
+                    Case No:{' '}
+                    <Text style={{fontFamily: 'Lato-Bold', color: '#000'}}>
+                      {data.CaseID}
+                    </Text>
                   </Text>
-                </Text>
-                <View style={{marginTop: 17, marginRight: 10}}>
-                  <PopIncidentMenu />
+                  <View style={{marginTop: 17, marginRight: 10}}>
+                    <PopIncidentMenu data={data} />
+                  </View>
                 </View>
-              </View>
-              <View style={styles.cardcontentpara}>
-                <Text style={styles.carddetail}>09-03-2016</Text>
-              </View>
-              <View
-                style={{
-                  marginLeft: 200,
-                  backgroundColor: '#46bb95',
-                  borderRadius: 40,
-                  borderWidth: 1,
-                  height: 30,
-                  width: 100,
-                  borderColor: '#fff',
-                }}>
-                <Text style={styles.Completed}>Completed</Text>
-              </View>
-            </Card>
-          </View>
-          <View style={{marginTop: 10}}>
-            <Card style={styles.card}>
-              <View style={styles.cardfirstline}>
-                <Text style={styles.cardcontentheading}>
-                  Case No:{' '}
-                  <Text style={{fontFamily: 'Lato-Bold', color: '#000'}}>
-                    778965
-                  </Text>
-                </Text>
-                <View style={{marginTop: 17, marginRight: 10}}>
-                  <PopIncidentMenu />
+                <View style={styles.cardcontentpara}>
+                  <Text style={styles.carddetail}>{data.IncidentDate}</Text>
                 </View>
-              </View>
-              <View style={styles.cardcontentpara}>
-                <Text style={styles.carddetail}>05-02-2021</Text>
-              </View>
-              <View
-                style={{
-                  marginLeft: 200,
-                  backgroundColor: '#e26a00',
-                  borderRadius: 40,
-                  borderWidth: 1,
-                  height: 30,
-                  width: 100,
-                  borderColor: '#fff',
-                }}>
-                <Text style={styles.Assigned}>Assigned</Text>
-              </View>
-            </Card>
-          </View>
-          <View style={{marginTop: 10}}>
-            <Card style={styles.card}>
-              <View style={styles.cardfirstline}>
-                <Text style={styles.cardcontentheading}>
-                  Case No:{' '}
-                  <Text style={{fontFamily: 'Lato-Bold', color: '#000'}}>
-                    112657
-                  </Text>
-                </Text>
-                <View style={{marginTop: 17, marginRight: 10}}>
-                  <PopIncidentMenu />
-                </View>
-              </View>
-              <View style={styles.cardcontentpara}>
-                <Text style={styles.carddetail}>01-09-2020</Text>
-              </View>
-              <View
-                style={{
-                  marginLeft: 200,
-                  backgroundColor: '#46bb95',
-                  borderRadius: 40,
-                  borderWidth: 1,
-                  height: 30,
-                  width: 100,
-                  borderColor: '#fff',
-                }}>
-                <Text style={styles.Completed}>Completed</Text>
-              </View>
-            </Card>
-          </View>
-
-          <View style={{marginTop: 10}}>
-            <Card style={styles.card}>
-              <View style={styles.cardfirstline}>
-                <Text style={styles.cardcontentheading}>
-                  Case No:{' '}
-                  <Text style={{fontFamily: 'Lato-Bold', color: '#000'}}>
-                    111895
-                  </Text>
-                </Text>
-                <View style={{marginTop: 17, marginRight: 10}}>
-                  <PopIncidentMenu />
-                </View>
-              </View>
-              <View style={styles.cardcontentpara}>
-                <Text style={styles.carddetail}>13-02-2015</Text>
-              </View>
-              <View
-                style={{
-                  marginLeft: 200,
-                  backgroundColor: '#00bad7',
-                  top: 1,
-                  borderRadius: 40,
-                  borderWidth: 1,
-                  height: 30,
-                  width: 100,
-                  borderColor: '#fff',
-                }}>
-                <Text style={styles.initiate}>Initiated</Text>
-              </View>
-            </Card>
-          </View>
-          <View style={{marginTop: 10}}>
-            <Card style={styles.card}>
-              <View style={styles.cardfirstline}>
-                <Text style={styles.cardcontentheading}>
-                  Case No:{' '}
-                  <Text style={{fontFamily: 'Lato-Bold', color: '#000'}}>
-                    567894
-                  </Text>
-                </Text>
-                <View style={{marginTop: 17, marginRight: 10}}>
-                  <PopIncidentMenu />
-                </View>
-              </View>
-              <View style={styles.cardcontentpara}>
-                <Text style={styles.carddetail}>7-06-201</Text>
-              </View>
-              <View
-                style={{
-                  marginLeft: 200,
-                  backgroundColor: '#00bad7',
-                  top: 1,
-                  borderRadius: 40,
-                  borderWidth: 1,
-                  height: 30,
-                  width: 100,
-                  borderColor: '#fff',
-                }}>
-                <Text style={styles.initiate}>Initiated</Text>
-              </View>
-            </Card>
-          </View>
+                {handleCaseStatus(data.CaseStatus)}
+              </Card>
+            ))}
         </View>
         <Modal
           animationType="slide"
@@ -432,7 +411,8 @@ const styles = StyleSheet.create({
     top: 25,
   },
   card: {
-    height: 110,
+    height: 120,
+    marginBottom: 7
   },
 
   carddetail: {
@@ -449,6 +429,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginBottom: 4
   },
 
   centeredView: {

@@ -11,10 +11,9 @@ function* userLogin({payload: loginCredentials}) {
       '/User/UserLogin',
       'POST',
       loginCredentials,
-      null,
+      false,
     );
 
-    console.log(response);
 
     if (response.StatusCode == 201) {
       yield put(userLoginResponse(response));
@@ -24,6 +23,7 @@ function* userLogin({payload: loginCredentials}) {
       yield put(userLoginResponse(response));
     }
   } catch (error) {
+    console.error(error)
   }
 }
 function* login() {

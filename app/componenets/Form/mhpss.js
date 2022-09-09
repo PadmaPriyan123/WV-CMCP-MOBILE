@@ -22,9 +22,12 @@ import {
   sendMhpssData,
   sendMhpssDataResponse,
 } from '../../Redux/IncidentLog/IncidentList/Action';
-import { text } from '@fortawesome/fontawesome-svg-core';
+import {useRoute} from '@react-navigation/native';
 
 const Mhpss = () => {
+
+  const route = useRoute();
+
   const [text, setText] = useState('');
   const [date, setDate] = React.useState(['']);
   const [date1, setDate1] = React.useState(['']);
@@ -91,6 +94,10 @@ const Mhpss = () => {
     }
    
   }, [mhpssresponse]);
+
+  useEffect(()=>{
+    console.log('supportive',supportive)
+  },[supportive])
  
 const [mhpss,setMhpss]=useState({
   CaseID: 1,
@@ -132,7 +139,7 @@ const [mhpss,setMhpss]=useState({
           supportiveCallDate: '2022-09-07',
           consent: 'yes',
           counselling: '',
-          isNextSupportiveCallScheduled: true, // after 3 supportive call, upcoming are optional
+          isNextSupportiveCallScheduled: true, 
           nextSupportiveCallDate: '2022-09-08',
         },
         {
@@ -218,7 +225,6 @@ const [mhpss,setMhpss]=useState({
                         mode="date"
                         onConfirm={d => {
                           // handleConfirm(date, i);
-                          console.log('confirm');
                           date[i] = d;
                           setDate(date);
                           hideDatePicker();
@@ -301,7 +307,6 @@ const [mhpss,setMhpss]=useState({
                             mode="date"
                             onConfirm={d => {
                               // handleConfirm(date, i);
-                              console.log('confirm');
                               date1[i] = d;
                               setDate1(date1);
                               hideDatePicker1();
@@ -331,7 +336,8 @@ const [mhpss,setMhpss]=useState({
         <View>
           <TouchableOpacity
             style={styles.formbutton}
-            onPress={() => route.change()}>
+            // onPress={() => route.change()}
+            >
             <Text style={styles.formbuttoninput}>Submit</Text>
           </TouchableOpacity>
         </View>

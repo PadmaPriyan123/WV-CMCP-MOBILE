@@ -30,7 +30,7 @@ import {
   caseAssignment,
 } from '../../../Redux/IncidentLog/IncidentCreation/Action';
 
-const Victim = ({route}) => {
+const Victim = props => {
   const navigation = useNavigation();
 
   const [date, setDate] = React.useState('');
@@ -49,7 +49,6 @@ const Victim = ({route}) => {
     let dat = String(d.getDate()).padStart(2, '0');
     let month = String(d.getMonth() + 1).padStart(2, '0');
     let year = d.getFullYear();
-    console.log(`${year}-${month}-${dat}`);
     setValidation({
       ...validation,
       Victims_DoB: `${year}-${month}-${dat}`,
@@ -64,8 +63,6 @@ const Victim = ({route}) => {
       ? `${tempDate[0]} ${tempDate[1]} ${tempDate[2]} ${tempDate[3]}`
       : '';
   };
-
-  const [checked, setChecked] = React.useState('');
 
   const [fileResponse, setFileResponse] = React.useState([]);
 
@@ -145,13 +142,18 @@ const Victim = ({route}) => {
   let victimresponse = useSelector(
     state => state.Incidentlog.sendVictimDataResponse,
   );
+  
+
   useEffect(() => {
     if (victimresponse?.StatusCode === 201) {
       alert(victimresponse.StatusMessage);
-      navigation.navigate('complaints');
-       dispatch(sendVictimData(''));
+      if (props.isCreationTab === true) {
+        props.change();
+      }
+      if (props.isCreationTab === false) {
+        navigation.navigate('complaints');
+      }
     }
-    // dispatch(sendVictimData(''));
   }, [victimresponse]);
 
   let d = new Date();
@@ -177,9 +179,8 @@ const Victim = ({route}) => {
     PanchayatID: '',
     VillageID: '',
     PoliceStationID: '',
-    UserID:1,
+    UserID: 1,
   });
-  console.log('ffh', validation);
   const initialErrorMessage = {
     ReportersName: '',
     ReporterDesignationID: '',
@@ -300,7 +301,6 @@ const Victim = ({route}) => {
     }
     if (Object.values(a).every(el => el === '')) {
       setError(a);
-      console.log('hiiwl');
       dispatch(sendVictimData(validation));
     } else {
       setError(a);
@@ -557,7 +557,6 @@ const Victim = ({route}) => {
                   placeholder="Enter victims age"
                   placeholderTextColor="gray"
                   color="#000"
-                  
                   onChangeText={text => {
                     setValidation({...validation, Victim_age: parseInt(text)});
                   }}
@@ -803,8 +802,6 @@ const Victim = ({route}) => {
         </View>
       </ScrollView>
       <View style={styles.victimbutton}>
-       
-
         <TouchableOpacity
           style={styles.formbutton}
           onPress={() => myFunction()}>

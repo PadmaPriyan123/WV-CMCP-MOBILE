@@ -22,7 +22,6 @@ export const sendComplaintsData = complaintsInfo => ({
   type: INCIDENT_COMPLAINTS,
   payload: complaintsInfo,
 });
-console.log('bhf',sendComplaintsData)
 export const sendComplaintsDataResponse = complaintsInfo => ({
   type: INCIDENT_COMPLAINTS_RESPPONSE,
   payload: complaintsInfo,

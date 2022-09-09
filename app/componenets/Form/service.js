@@ -1,4 +1,4 @@
-import React, {useCallback, useState,useEffect} from 'react';
+import React, {useCallback, useState, useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -26,13 +26,67 @@ import {
   sendReintegrationData,
   sendReintegrationDataResponse,
 } from '../../Redux/IncidentLog/IncidentList/Action';
-
-
+import {useRoute} from '@react-navigation/native';
 
 const Service = () => {
+  const route = useRoute();
+
   const [date, setDate] = React.useState('');
+
   const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
+
   const [dateKey, setDateKey] = useState('');
+
+  const [checked, setChecked] = React.useState('');
+  const [checked1, setChecked1] = React.useState('');
+  const [checked2, setChecked2] = React.useState('');
+  const [checked3, setChecked3] = React.useState('');
+  const [checked4, setChecked4] = React.useState('');
+  const [checked5, setChecked5] = React.useState('');
+  const [checked6, setChecked6] = React.useState('');
+  const [checked7, setChecked7] = React.useState('');
+  const [expanded, setExpanded] = React.useState(true);
+
+  const [validation3, setValidation3] = useState({
+    CaseID: '',
+    UserID: 1,
+    IsFacilitatedToCompensation: '',
+    CompensatedDate: '',
+    CompensationAmount: '',
+    CompensationRemarks: '',
+    AnyMedicalAssistance: '',
+    MedicalTreatmentDate: '',
+    NatureOfIllness: '',
+    MedicalAssistanceRemarks: '',
+    IsEnrolledInSchool: '',
+    EnrollmentDate: '',
+    ClassName: '',
+    NameOfTheSchool: '',
+    EnrollmentRemarks: '',
+    IsEnrolledInVocationalTraining: '',
+    institutionEnrollmentDate: '',
+    NameOfTheCourse: '',
+    NameOfTheInstitue: '',
+    VocationalTrainingRemark: '',
+    IsAnyProtectiveActionTaken: '',
+    DateOfActionTaken: '',
+    isGDEDone: '',
+    GDENumber: '',
+    ActionTakenRemarks: '',
+  });
+
+  useEffect(() => {
+    if (reintegrationresponse?.StatusCode == 201) {
+      alert(reintegrationresponse.StatusMessage);
+      dispatch(sendReintegrationData(''));
+    }
+  }, [reintegrationresponse]);
+
+  useEffect(() => {
+    if (route.params) {
+      setValidation3({...validation3, CaseID: route.params.CaseID});
+    }
+  }, [route]);
 
   const showDatePicker = key => {
     setDatePickerVisibility(true);
@@ -62,16 +116,6 @@ const Service = () => {
       : '';
   };
 
-  const [checked, setChecked] = React.useState('');
-  const [checked1, setChecked1] = React.useState('');
-  const [checked2, setChecked2] = React.useState('');
-  const [checked3, setChecked3] = React.useState('');
-  const [checked4, setChecked4] = React.useState('');
-  const [checked5, setChecked5] = React.useState('');
-  const [checked6, setChecked6] = React.useState('');
-  const [checked7, setChecked7] = React.useState('');
-  const [expanded, setExpanded] = React.useState(true);
-
   const handlePress = () => setExpanded(!expanded);
   const [open, setOpen] = React.useState(false);
   const [supportive, setSupportive] = React.useState([]);
@@ -79,15 +123,6 @@ const Service = () => {
   let reintegrationresponse = useSelector(
     state => state.Incidentlist.sendReintegrationResponse,
   );
-  useEffect(() => {
-   
-    if (reintegrationresponse?.StatusCode == 201) {
-      alert(reintegrationresponse.StatusMessage);
-      dispatch(sendReintegrationData(''));
-    }
-    
-   
-  }, [reintegrationresponse]);
 
   let d = new Date();
   let dat = d.getDate();
@@ -95,36 +130,6 @@ const Service = () => {
   let year = d.getFullYear();
   if (month.toString.length === 1) month = `0${d.getMonth() + 1}`;
   if (dat.toString.length === 1) dat = `0${d.getDate()}`;
-  
-  const [validation3, setValidation3] = useState({
-    CaseID: 2,
-    UserID: 1,
-    IsFacilitatedToCompensation: '',
-    CompensatedDate: '',
-    CompensationAmount: '',
-    CompensationRemarks: '',
-    AnyMedicalAssistance: '',
-    MedicalTreatmentDate: '',
-    NatureOfIllness: '',
-    MedicalAssistanceRemarks: '',
-    IsEnrolledInSchool: '',
-    EnrollmentDate: '',
-    ClassName: '',
-    NameOfTheSchool: '',
-    EnrollmentRemarks: '',
-    IsEnrolledInVocationalTraining: '',
-    institutionEnrollmentDate: '',
-    NameOfTheCourse: '',
-    NameOfTheInstitue: '',
-    VocationalTrainingRemark: '',
-    IsAnyProtectiveActionTaken: '',
-    DateOfActionTaken: '',
-    isGDEDone: '',
-    GDENumber: '',
-    ActionTakenRemarks: '',
-  });
-
-  console.log('gfhgf', validation3);
 
   const initialErrorMessage = {
     CaseID: '',
@@ -188,7 +193,7 @@ const Service = () => {
     var letters = /[A-Za-z]{3,15}/;
     var empty = /^$/;
     var Age = /^[0-9]{1,2}$/;
-       dispatch(sendReintegrationData(validation3));
+    dispatch(sendReintegrationData(validation3));
     if (!validation3.IsFacilitatedToCompensation) {
       a.IsFacilitatedToCompensation =
         '*Please select is facilated to compensation';
@@ -262,7 +267,6 @@ const Service = () => {
     }
     if (Object.values(a).every(el => el === '')) {
       setError(a);
-   
     } else {
       setError(a);
     }
@@ -321,12 +325,12 @@ const Service = () => {
             </View>
           </View>
           <View>
-                  {error?.IsFacilitatedToCompensation && (
-                    <Text style={styles.errormessage}>
-                      {error?.IsFacilitatedToCompensation}
-                    </Text>
-                  )}
-                </View>
+            {error?.IsFacilitatedToCompensation && (
+              <Text style={styles.errormessage}>
+                {error?.IsFacilitatedToCompensation}
+              </Text>
+            )}
+          </View>
           <View style={styles.container}>
             {checked === 'yes' && (
               <View style={{marginTop: 20, marginLeft: 5}}>
@@ -363,7 +367,7 @@ const Service = () => {
                       onChangeText={text => {
                         setValidation3({
                           ...validation3,
-                          CompensationAmount:parseInt(text),
+                          CompensationAmount: parseInt(text),
                         });
                       }}
                     />
@@ -441,7 +445,7 @@ const Service = () => {
                 onPress={() => {
                   setValidation3({
                     ...validation3,
-                    AnyMedicalAssistance:parseInt(0),
+                    AnyMedicalAssistance: parseInt(0),
                   });
                   setChecked1('no');
                 }}
@@ -449,12 +453,12 @@ const Service = () => {
               <Text style={styles.gender}>No</Text>
             </View>
             <View>
-                    {error?.AnyMedicalAssistance && (
-                      <Text style={styles.errormessage}>
-                        {error?.AnyMedicalAssistance}
-                      </Text>
-                    )}
-                  </View>
+              {error?.AnyMedicalAssistance && (
+                <Text style={styles.errormessage}>
+                  {error?.AnyMedicalAssistance}
+                </Text>
+              )}
+            </View>
             <View style={styles.container}>
               {checked1 === 'yes' && (
                 <View style={{marginTop: 20, right: 5}}>
@@ -545,9 +549,7 @@ const Service = () => {
                 color={'#ff6b00'}
                 value={1}
                 status={
-                  validation3.IsEnrolledInSchool === 1
-                    ? 'checked'
-                    : 'unchecked'
+                  validation3.IsEnrolledInSchool === 1 ? 'checked' : 'unchecked'
                 }
                 onPress={() => {
                   setValidation3({
@@ -563,9 +565,7 @@ const Service = () => {
                 color={'#ff6b00'}
                 value={0}
                 status={
-                  validation3.IsEnrolledInSchool === 0
-                    ? 'checked'
-                    : 'unchecked'
+                  validation3.IsEnrolledInSchool === 0 ? 'checked' : 'unchecked'
                 }
                 onPress={() => {
                   setValidation3({
@@ -578,12 +578,12 @@ const Service = () => {
               <Text style={styles.gender}>No</Text>
             </View>
             <View>
-                    {error?.IsEnrolledInSchool && (
-                      <Text style={styles.errormessage}>
-                        {error?.IsEnrolledInSchool}
-                      </Text>
-                    )}
-                  </View>
+              {error?.IsEnrolledInSchool && (
+                <Text style={styles.errormessage}>
+                  {error?.IsEnrolledInSchool}
+                </Text>
+              )}
+            </View>
             <View style={styles.container}>
               {checked2 === 'first' && (
                 <View style={{marginTop: 20, right: 5}}>
@@ -733,12 +733,12 @@ const Service = () => {
               <Text style={styles.gender}>No</Text>
             </View>
             <View>
-                    {error?.IsEnrolledInVocationalTraining && (
-                      <Text style={styles.errormessage}>
-                        {error?.IsEnrolledInVocationalTraining}
-                      </Text>
-                    )}
-                  </View>
+              {error?.IsEnrolledInVocationalTraining && (
+                <Text style={styles.errormessage}>
+                  {error?.IsEnrolledInVocationalTraining}
+                </Text>
+              )}
+            </View>
           </View>
           <View style={{marginLeft: 5}}>
             {checked3 === 'yes' && (
@@ -887,12 +887,12 @@ const Service = () => {
               <Text style={styles.gender}>No</Text>
             </View>
             <View>
-                    {error?.IsAnyProtectiveActionTaken && (
-                      <Text style={styles.errormessage}>
-                        {error?.IsAnyProtectiveActionTaken}
-                      </Text>
-                    )}
-                  </View>
+              {error?.IsAnyProtectiveActionTaken && (
+                <Text style={styles.errormessage}>
+                  {error?.IsAnyProtectiveActionTaken}
+                </Text>
+              )}
+            </View>
             <View style={styles.container}>
               {checked4 === 'yes' && (
                 <View style={{marginTop: 20, right: 5}}>
@@ -926,9 +926,7 @@ const Service = () => {
                         color={'#ff6b00'}
                         value={1}
                         status={
-                          validation3.isGDEDone === 1
-                            ? 'checked'
-                            : 'unchecked'
+                          validation3.isGDEDone === 1 ? 'checked' : 'unchecked'
                         }
                         onPress={() => {
                           setValidation3({
@@ -945,9 +943,7 @@ const Service = () => {
                         color={'#ff6b00'}
                         value={0}
                         status={
-                          validation3.isGDEDone === 0
-                            ? 'checked'
-                            : 'unchecked'
+                          validation3.isGDEDone === 0 ? 'checked' : 'unchecked'
                         }
                         onPress={() => {
                           setValidation3({
@@ -960,12 +956,12 @@ const Service = () => {
                       <Text style={styles.gender}>No</Text>
                     </View>
                     <View>
-                    {error?.isGDEDone && (
-                      <Text style={styles.errormessage}>
-                        {error?.isGDEDone}
-                      </Text>
-                    )}
-                  </View>
+                      {error?.isGDEDone && (
+                        <Text style={styles.errormessage}>
+                          {error?.isGDEDone}
+                        </Text>
+                      )}
+                    </View>
                     <View style={{marginLeft: 5}}>
                       {checked7 === 'yes' && (
                         <View style={{marginTop: 20}}>
@@ -983,7 +979,7 @@ const Service = () => {
                                 onChangeText={text => {
                                   setValidation3({
                                     ...validation3,
-                                    GDENumber:text,
+                                    GDENumber: text,
                                   });
                                 }}
                               />
@@ -1001,94 +997,92 @@ const Service = () => {
                     </View>
                   </View>
                   <View style={{marginTop: 20}}>
-                  <Text style={styles.FormTitle}>
-                    Remarks:<Text style={styles.star}>*</Text>
-                  </Text>
-                  <View style={styles.tabfourfirst}>
-                    <TextInput
-                      style={styles.FormInput}
-                      type="text"
-                      placeholder="Enter the remark"
-                      placeholderTextColor="gray"
-                      onChangeText={text => {
-                        setValidation3({
-                          ...validation3,
-                          ActionTakenRemarks: text,
-                        });
-                      }}
-                    />
+                    <Text style={styles.FormTitle}>
+                      Remarks:<Text style={styles.star}>*</Text>
+                    </Text>
+                    <View style={styles.tabfourfirst}>
+                      <TextInput
+                        style={styles.FormInput}
+                        type="text"
+                        placeholder="Enter the remark"
+                        placeholderTextColor="gray"
+                        onChangeText={text => {
+                          setValidation3({
+                            ...validation3,
+                            ActionTakenRemarks: text,
+                          });
+                        }}
+                      />
+                    </View>
+                  </View>
+                  <View>
+                    {error?.ActionTakenRemarks && (
+                      <Text style={styles.errormessage}>
+                        {error?.ActionTakenRemarks}
+                      </Text>
+                    )}
                   </View>
                 </View>
-                <View>
-                  {error?.ActionTakenRemarks && (
-                    <Text style={styles.errormessage}>
-                      {error?.ActionTakenRemarks}
-                    </Text>
+              )}
+            </View>
+          </View>
+
+          {
+            <View style={{marginTop: 3, marginLeft: 16}}>
+              <Text style={styles.radioname}>
+                Is the survivor enrolled in survivor support program?
+                <Text style={styles.star}></Text>
+              </Text>
+              <View style={styles.SectionStyle1}>
+                <RadioButton
+                  uncheckedColor={'gray'}
+                  color={'#ff6b00'}
+                  value="first"
+                  status={checked5 === 'first' ? 'checked' : 'unchecked'}
+                  onPress={() => setChecked5('first')}
+                />
+                <Text style={styles.gender}>Yes</Text>
+                <RadioButton
+                  uncheckedColor={'gray'}
+                  color={'#ff6b00'}
+                  value="second"
+                  status={checked5 === 'second' ? 'checked' : 'unchecked'}
+                  onPress={() => setChecked5('second')}
+                />
+                <Text style={styles.gender}>No</Text>
+
+                <View style={{right: 122, top: 30}}>
+                  {checked5 === 'first' && (
+                    <View style={{marginTop: 20, right: 10}}>
+                      <Text style={styles.FormTitle}>Date</Text>
+                      <View style={{}}>
+                        <TextInput
+                          style={styles.textInput1}
+                          value={getDate()}
+                          placeholder="  Enter Date"
+                          placeholderTextColor={'gray'}
+                        />
+
+                        <Text
+                          style={{marginLeft: 300, bottom: 35}}
+                          onPress={showDatePicker}>
+                          <FontAwesomeIcon
+                            size={20}
+                            icon={faCalendarDays}
+                            title="Show Picker"
+                            color="#00bad7"
+                          />
+                        </Text>
+                      </View>
+                    </View>
                   )}
                 </View>
               </View>
-             
-                
-              )}
             </View>
-            
-          </View>
-
-{ 
-          <View style={{marginTop: 3, marginLeft: 16}}>
-            <Text style={styles.radioname}>
-              Is the survivor enrolled in survivor support program?
-              <Text style={styles.star}></Text>
-            </Text>
-            <View style={styles.SectionStyle1}>
-              <RadioButton
-                uncheckedColor={'gray'}
-                color={'#ff6b00'}
-                value="first"
-                status={checked5 === 'first' ? 'checked' : 'unchecked'}
-                onPress={() => setChecked5('first')}
-              />
-              <Text style={styles.gender}>Yes</Text>
-              <RadioButton
-                uncheckedColor={'gray'}
-                color={'#ff6b00'}
-                value="second"
-                status={checked5 === 'second' ? 'checked' : 'unchecked'}
-                onPress={() => setChecked5('second')}
-              />
-              <Text style={styles.gender}>No</Text>
-              
-              <View style={{right: 122, top: 30}}>
-                {checked5 === 'first' && (
-                  <View style={{marginTop: 20, right: 10}}>
-                    <Text style={styles.FormTitle}>Date</Text>
-                    <View style={{}}>
-                      <TextInput
-                        style={styles.textInput1}
-                        value={getDate()}
-                        placeholder="  Enter Date"
-                        placeholderTextColor={'gray'}
-                      />
-
-                      <Text
-                        style={{marginLeft: 300, bottom: 35}}
-                        onPress={showDatePicker}>
-                        <FontAwesomeIcon
-                          size={20}
-                          icon={faCalendarDays}
-                          title="Show Picker"
-                          color="#00bad7"
-                        />
-                      </Text>
-                    </View>
-                  </View>
-                )}
-              </View>
-            </View>
-          </View> }
+          }
         </View>
 
-        <View style={{bottom:10}}>
+        <View style={{bottom: 10}}>
           <TouchableOpacity
             style={styles.formbutton}
             onPress={() => myFunction()}>

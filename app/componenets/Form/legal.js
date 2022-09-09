@@ -1,4 +1,4 @@
-import React, {useCallback, useState,useEffect} from 'react';
+import React, {useCallback, useState, useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -20,72 +20,84 @@ import {
   sendLegalData,
   sendLegalDataResponse,
 } from '../../Redux/IncidentLog/IncidentList/Action';
+import {useRoute,useNavigation} from '@react-navigation/native';
 
-const Legal = ({route}) => {
+const Legal = () => {
   const [checked3, setChecked3] = React.useState('first2');
+
   const [checked4, setChecked4] = React.useState('first2');
+
   let dispatch = useDispatch();
+
+  const route = useRoute();
+
+  const navigation = useNavigation();
+
   let legalresponse = useSelector(
     state => state.Incidentlist.sendlegalDataResponse,
   );
   useEffect(() => {
-    if (legalresponse?.StatusCode=== 201) {
+    if (legalresponse?.StatusCode === 201) {
       alert(legalresponse.StatusMessage);
-      dispatch(sendLegalData(''));
-    }
-    else if(legalresponse?.StatusCode===401){
+      let paramasData = route.params;
+      paramasData.legalID = legalresponse.IncidentLegalLog_ID;
+      navigation.navigate('Viewcard',paramasData);
+      dispatch(sendLegalDataResponse(''));
+    } else if (legalresponse?.StatusCode === 401) {
       alert(legalresponse.StatusMessage);
-
     }
-   
   }, [legalresponse]);
 
   const [validation2, setValidation2] = useState({
-    CaseID: 1,
+    CaseID: '',
 
     UserID: 1,
 
-    IsVictimRecovered: "",
+    IsVictimRecovered: '',
 
-    HasTheAccusedArrested: "",
+    HasTheAccusedArrested: '',
 
-    NoOfAccusedArrested: ""
+    NoOfAccusedArrested: '',
   });
-  console.log('vikki',validation2)
+
+  useEffect(() => {
+    if (route.params) {
+      setValidation2({...validation2, CaseID: route.params.CaseID});
+    }
+  }, [route]);
 
   const initialErrorMessage = {
-    CaseID: "",
+    CaseID: '',
 
-    UserID: "",
+    UserID: '',
 
-    IsVictimRecovered: "",
+    IsVictimRecovered: '',
 
-    HasTheAccusedArrested: "",
+    HasTheAccusedArrested: '',
 
-    NoOfAccusedArrested: ""
+    NoOfAccusedArrested: '',
   };
 
   const [error, setError] = useState(initialErrorMessage);
 
   function myFunction() {
-
     let a = {
-      CaseID: "",
+      CaseID: '',
 
-      UserID: "",
-  
-      IsVictimRecovered: "",
-  
-      HasTheAccusedArrested: "",
-  
-      NoOfAccusedArrested: ""
+      UserID: '',
+
+      IsVictimRecovered: '',
+
+      HasTheAccusedArrested: '',
+
+      NoOfAccusedArrested: '',
     };
 
     var letters = /[A-Za-z]{3,15}/;
     var empty = /^$/;
     var Age = /^[0-9]{1,2}$/;
 
-  
+    console.log("legal",validation2);
     if (!validation2.IsVictimRecovered) {
       a.IsVictimRecovered = '*Please select the victim recovered or not';
     }
@@ -95,9 +107,8 @@ const Legal = ({route}) => {
     if (!validation2.NoOfAccusedArrested) {
       a.NoOfAccusedArrested = '*Please enter number of accused arrested';
     }
-   
+
     if (Object.values(a).every(el => el === '')) {
-      console.log(Object.values(a).every(el => el === ''));
       setError(a);
       dispatch(sendLegalData(validation2));
     } else {
@@ -118,37 +129,43 @@ const Legal = ({route}) => {
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
                 value={1}
-                status={  validation2.IsVictimRecovered === 1 ? 'checked' : 'unchecked'}
-                onPress={() =>  {setValidation2({
-                  ...validation2,
-                  IsVictimRecovered:parseInt (1),
-                });
-                setChecked3('yes');
-              }}
+                status={
+                  validation2.IsVictimRecovered === 1 ? 'checked' : 'unchecked'
+                }
+                onPress={() => {
+                  setValidation2({
+                    ...validation2,
+                    IsVictimRecovered: parseInt(1),
+                  });
+                  setChecked3('yes');
+                }}
               />
               <Text style={styles.gender}>Yes</Text>
               <RadioButton
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
                 value={0}
-                status={  validation2.IsVictimRecovered === 0 ? 'checked' : 'unchecked'}
-                onPress={() =>  {setValidation2({
-                  ...validation2,
-                  IsVictimRecovered:parseInt (0),
-                });
-                setChecked3('no');
-              }}
+                status={
+                  validation2.IsVictimRecovered === 0 ? 'checked' : 'unchecked'
+                }
+                onPress={() => {
+                  setValidation2({
+                    ...validation2,
+                    IsVictimRecovered: parseInt(0),
+                  });
+                  setChecked3('no');
+                }}
               />
-              
+
               <Text style={styles.gender}>No</Text>
-             
             </View>
             <View>
               {error?.IsVictimRecovered && (
-                <Text style={styles.errormessage}>{error?.IsVictimRecovered}</Text>
+                <Text style={styles.errormessage}>
+                  {error?.IsVictimRecovered}
+                </Text>
               )}
             </View>
-           
           </View>
           <View style={{marginTop: 3, marginLeft: 10}}>
             <Text style={styles.radioname}>
@@ -159,62 +176,76 @@ const Legal = ({route}) => {
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
                 value={1}
-                status={validation2.HasTheAccusedArrested === 1 ? 'checked' : 'unchecked'}
-                onPress={() =>  {setValidation2({
-                  ...validation2,
-                  HasTheAccusedArrested: parseInt(1),
-                });
-                setChecked4('yes');
-              }}
+                status={
+                  validation2.HasTheAccusedArrested === 1
+                    ? 'checked'
+                    : 'unchecked'
+                }
+                onPress={() => {
+                  setValidation2({
+                    ...validation2,
+                    HasTheAccusedArrested: parseInt(1),
+                  });
+                  setChecked4('yes');
+                }}
               />
               <Text style={styles.gender}>Yes</Text>
               <RadioButton
                 uncheckedColor={'gray'}
                 color={'#ff6b00'}
                 value={0}
-                status={validation2.HasTheAccusedArrested === 0 ? 'checked' : 'unchecked'}
-                onPress={() =>  {setValidation2({
-                  ...validation2,
-                  HasTheAccusedArrested: parseInt(0),
-                });
-                setChecked4('no');
-              }}
+                status={
+                  validation2.HasTheAccusedArrested === 0
+                    ? 'checked'
+                    : 'unchecked'
+                }
+                onPress={() => {
+                  setValidation2({
+                    ...validation2,
+                    HasTheAccusedArrested: parseInt(0),
+                  });
+                  setChecked4('no');
+                }}
               />
               <Text style={styles.gender}>No</Text>
             </View>
           </View>
           <View>
-              {error?.HasTheAccusedArrested && (
-                <Text style={styles.errormessage}>{error?.HasTheAccusedArrested}</Text>
-              )}
-            </View>
-          {validation2.HasTheAccusedArrested === 1 && (
-          <View style={{marginTop: 16}}>
-            <Text style={styles.FormTitle}>
-              Number of accused arrested?:<Text style={styles.star}>*</Text>
-            </Text>
-            <View style={styles.formtotalinput}>
-              <TextInput
-                style={styles.FormInput}
-                keyboardType="numeric"
-                placeholder="Enter Number of accused arrested"
-                placeholderTextColor="gray"
-                color="#000"
-                onChangeText={text => {
-                  setValidation2({...validation2, NoOfAccusedArrested: parseInt(text)});
-                }}
-              />
-            </View>
-            <View>
-              {error?.NoOfAccusedArrested && (
-                <Text style={styles.errormessage}>{error?.NoOfAccusedArrested}</Text>
-              )}
-            </View>
-          </View>
-          
+            {error?.HasTheAccusedArrested && (
+              <Text style={styles.errormessage}>
+                {error?.HasTheAccusedArrested}
+              </Text>
             )}
-          
-        
+          </View>
+          {validation2.HasTheAccusedArrested === 1 && (
+            <View style={{marginTop: 16}}>
+              <Text style={styles.FormTitle}>
+                Number of accused arrested?:<Text style={styles.star}>*</Text>
+              </Text>
+              <View style={styles.formtotalinput}>
+                <TextInput
+                  style={styles.FormInput}
+                  keyboardType="numeric"
+                  placeholder="Enter Number of accused arrested"
+                  placeholderTextColor="gray"
+                  color="#000"
+                  onChangeText={text => {
+                    setValidation2({
+                      ...validation2,
+                      NoOfAccusedArrested: parseInt(text),
+                    });
+                  }}
+                />
+              </View>
+              <View>
+                {error?.NoOfAccusedArrested && (
+                  <Text style={styles.errormessage}>
+                    {error?.NoOfAccusedArrested}
+                  </Text>
+                )}
+              </View>
+            </View>
+          )}
         </SafeAreaView>
       </ScrollView>
 
@@ -242,7 +273,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     marginLeft: 13,
   },
- 
+
   FormInput: {
     padding: 10,
     borderRadius: 5,
@@ -272,7 +303,6 @@ const styles = StyleSheet.create({
     color: '#181818',
   },
 
-  
   formbutton: {
     alignSelf: 'center',
     width: wp('89%'),
@@ -283,19 +313,19 @@ const styles = StyleSheet.create({
     marginTop: 14,
     marginLeft: 5,
   },
-  
+
   formbuttoninput: {
     textAlign: 'center',
     color: '#ffffff',
     fontSize: 14,
     fontFamily: 'Lato-Bold',
   },
-  
+
   scrollView: {
     paddingVertical: 8,
     marginTop: 12,
   },
-  
+
   formtotalinput: {
     height: hp('7%'),
     borderRadius: 5,
@@ -306,13 +336,13 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     backgroundColor: '#ecf0f1',
   },
-  
+
   star: {
     color: 'red',
   },
-  
-  errormessage:{
-    color:'red',
-    marginLeft:5
-  }
+
+  errormessage: {
+    color: 'red',
+    marginLeft: 5,
+  },
 });

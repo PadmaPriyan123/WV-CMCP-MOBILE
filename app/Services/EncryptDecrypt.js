@@ -16,7 +16,6 @@ const Encryption = params => {
 };
 
 const Decryption = params => {
-  console.log('param', params);
   const decrypted = crypto.AES.decrypt(params, key, {iv: iv});
 
   return JSON.parse(decrypted.toString(crypto.enc.Utf8));
