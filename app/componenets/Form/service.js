@@ -26,10 +26,14 @@ import {
   sendReintegrationData,
   sendReintegrationDataResponse,
 } from '../../Redux/IncidentLog/IncidentList/Action';
-import {useRoute} from '@react-navigation/native';
+import {useRoute, useNavigation} from '@react-navigation/native';
 
 const Service = () => {
   const route = useRoute();
+
+  const navigation = useNavigation();
+
+  let dispatch = useDispatch();
 
   const [date, setDate] = React.useState('');
 
@@ -73,12 +77,17 @@ const Service = () => {
     isGDEDone: '',
     GDENumber: '',
     ActionTakenRemarks: '',
+    IsSurvivorEnrolled: '',
+    SurvivorDate: '',
   });
 
   useEffect(() => {
     if (reintegrationresponse?.StatusCode == 201) {
       alert(reintegrationresponse.StatusMessage);
-      dispatch(sendReintegrationData(''));
+      let paramasData = route.params;
+      paramasData.legalID = reintegrationresponse.IncidentReintegrationLog_ID;
+      navigation.navigate('Viewcard', paramasData);
+      dispatch(sendReintegrationDataResponse(''));
     }
   }, [reintegrationresponse]);
 
@@ -99,27 +108,14 @@ const Service = () => {
 
   const handleConfirm = date => {
     let d = new Date(date);
-    let dat = d.getDate();
-    let month = d.getMonth() + 1;
+    let dat = String(d.getDate()).padStart(2, '0');
+    let month = String(d.getMonth() + 1).padStart(2, '0');
     let year = d.getFullYear();
-    if (month.toString.length === 1) month = `0${d.getMonth() + 1}`;
-    if (dat.toString.length === 1) dat = `${d.getDate()}`;
     // setDate(date);
     setValidation3({...validation3, [dateKey]: `${year}-${month}-${dat}`});
     hideDatePicker();
   };
 
-  const getDate = () => {
-    let tempDate = date.toString().split(' ');
-    return date !== ''
-      ? `${tempDate[0]} ${tempDate[1]} ${tempDate[2]} ${tempDate[3]}`
-      : '';
-  };
-
-  const handlePress = () => setExpanded(!expanded);
-  const [open, setOpen] = React.useState(false);
-  const [supportive, setSupportive] = React.useState([]);
-  let dispatch = useDispatch();
   let reintegrationresponse = useSelector(
     state => state.Incidentlist.sendReintegrationResponse,
   );
@@ -193,7 +189,6 @@ const Service = () => {
     var letters = /[A-Za-z]{3,15}/;
     var empty = /^$/;
     var Age = /^[0-9]{1,2}$/;
-    dispatch(sendReintegrationData(validation3));
     if (!validation3.IsFacilitatedToCompensation) {
       a.IsFacilitatedToCompensation =
         '*Please select is facilated to compensation';
@@ -267,6 +262,7 @@ const Service = () => {
     }
     if (Object.values(a).every(el => el === '')) {
       setError(a);
+      dispatch(sendReintegrationData(validation3));
     } else {
       setError(a);
     }
@@ -1037,35 +1033,53 @@ const Service = () => {
                 <RadioButton
                   uncheckedColor={'gray'}
                   color={'#ff6b00'}
-                  value="first"
-                  status={checked5 === 'first' ? 'checked' : 'unchecked'}
-                  onPress={() => setChecked5('first')}
+                  value={1}
+                  status={
+                    validation3.IsSurvivorEnrolled === 1
+                      ? 'checked'
+                      : 'unchecked'
+                  }
+                  onPress={() =>
+                    setValidation3({
+                      ...validation3,
+                      IsSurvivorEnrolled: parseInt(1),
+                    })
+                  }
                 />
                 <Text style={styles.gender}>Yes</Text>
                 <RadioButton
                   uncheckedColor={'gray'}
                   color={'#ff6b00'}
-                  value="second"
-                  status={checked5 === 'second' ? 'checked' : 'unchecked'}
-                  onPress={() => setChecked5('second')}
+                  value={0}
+                  status={
+                    validation3.IsSurvivorEnrolled === 0
+                      ? 'checked'
+                      : 'unchecked'
+                  }
+                  onPress={() =>
+                    setValidation3({
+                      ...validation3,
+                      IsSurvivorEnrolled: parseInt(0),
+                    })
+                  }
                 />
                 <Text style={styles.gender}>No</Text>
 
                 <View style={{right: 122, top: 30}}>
-                  {checked5 === 'first' && (
+                  {validation3.IsSurvivorEnrolled === 1 && (
                     <View style={{marginTop: 20, right: 10}}>
                       <Text style={styles.FormTitle}>Date</Text>
                       <View style={{}}>
                         <TextInput
                           style={styles.textInput1}
-                          value={getDate()}
+                          value={validation3.SurvivorDate}
                           placeholder="  Enter Date"
                           placeholderTextColor={'gray'}
                         />
 
                         <Text
                           style={{marginLeft: 300, bottom: 35}}
-                          onPress={showDatePicker}>
+                          onPress={() => showDatePicker('SurvivorDate')}>
                           <FontAwesomeIcon
                             size={20}
                             icon={faCalendarDays}

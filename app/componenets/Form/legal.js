@@ -49,7 +49,7 @@ const Legal = () => {
   }, [legalresponse]);
 
   const [validation2, setValidation2] = useState({
-    CaseID: '',
+    CaseID: route.params.CaseID,
 
     UserID: 1,
 

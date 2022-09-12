@@ -7,6 +7,8 @@ import {
   INCIDENT_MHPSS_RESPPONSE,
   GET_ALL_CASE,
   GET_ALL_CASE_RESPONSE,
+  GET_MHPSS,
+  GET_MHPSS_RESPPONSE
 } from '../IncidentList/ActionTypes';
 
 export const sendLegalData = legalInfo => ({
@@ -44,5 +46,15 @@ export const getAllCase = () => ({
 
 export const getAllCaseResponse = response => ({
   type: GET_ALL_CASE_RESPONSE,
+  payload: response,
+});
+
+export const getMhpss = (caseId) => ({
+  type: GET_MHPSS,
+  payload: caseId,
+});
+
+export const getMhpssResponse = response => ({
+  type: GET_MHPSS_RESPPONSE,
   payload: response,
 });

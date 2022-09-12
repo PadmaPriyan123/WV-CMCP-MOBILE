@@ -55,10 +55,7 @@ const Incident = ({navigation}) => {
   useEffect(() => {
     dispatch(getAllCase());
   }, []);
-
-  useEffect(() => {
-    console.log('caseDetails', caseDetails);
-  }, [caseDetails]);
+  
 
   const handleCaseStatus = status => {
     if (Number(status) === 1)

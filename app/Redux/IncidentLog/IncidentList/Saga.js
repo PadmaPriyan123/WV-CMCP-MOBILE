@@ -4,15 +4,16 @@ import {
   sendLegalDataResponse,
   sendReintegrationDataResponse,
   sendMhpssDataResponse,
-  getAllCaseResponse
+  getAllCaseResponse,
+  getMhpssResponse,
 } from '../IncidentList/Action';
 import {
   INCIDENT_LEGAL,
   INCIDENT_REINTEGRATION,
   INCIDENT_MHPSS,
-  GET_ALL_CASE
+  GET_ALL_CASE,
+  GET_MHPSS,
 } from '../IncidentList/ActionTypes';
-
 
 function* postLegalData({payload: legalInfo}) {
   try {
@@ -34,77 +35,91 @@ function* postLegalData({payload: legalInfo}) {
   }
 }
 function* postReintegrationData({payload: reintegrationInfo}) {
-    try {
-  
-      const authUser = yield call(Service.authUser);
-  
-      //  complaintsInfo.UserID = authUser.userId;
-  
-      const response = yield call(
-        Service.commonFetch,
-        '/IncidentReintegrationLog/CreateIncidentReintegrationLog',
-        'POST',
-        reintegrationInfo,
-        true,
-        
-      );
-  
-      yield put(sendReintegrationDataResponse(response));
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  try {
+    const authUser = yield call(Service.authUser);
 
-  function* postMhpssData({payload: mhpssInfo}) {
-    try {
-   
-  
-      const authUser = yield call(Service.authUser);
-  
-      //  complaintsInfo.UserID = authUser.userId;
-  
-      const response = yield call(
-        Service.commonFetch,
-        '/MHPSSSupportiveCall/CreateMHPSSSupportiveCall',
-        'POST',
-        mhpssInfo,
-        true,
-        
-      );
-  
-      yield put(sendMhpssDataResponse(response));
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  function* getCaseDetails() {
-    try {
-   
-  
-      const authUser = yield call(Service.authUser);
-  
-      //  complaintsInfo.UserID = authUser.userId;
-  
-      const response = yield call(
-        Service.commonFetch,
-        '/CaseList/GetAllCaseList',
-        'GET',
-        null,
-        true,
-        null
-      );
-  
-      yield put(getAllCaseResponse(response));
-    } catch (error) {
-      console.log(error);
-    }
-  }
+    //  complaintsInfo.UserID = authUser.userId;
 
+    const response = yield call(
+      Service.commonFetch,
+      '/IncidentReintegrationLog/CreateIncidentReintegrationLog',
+      'POST',
+      reintegrationInfo,
+      true,
+    );
+
+    yield put(sendReintegrationDataResponse(response));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function* postMhpssData({payload: mhpssInfo}) {
+  try {
+    const authUser = yield call(Service.authUser);
+
+    //  complaintsInfo.UserID = authUser.userId;
+
+    const response = yield call(
+      Service.commonFetch,
+      '/MHPSSSupportiveCall/CreateMHPSSSupportiveCall',
+      'POST',
+      mhpssInfo,
+      true,
+    );
+
+    yield put(sendMhpssDataResponse(response));
+  } catch (error) {
+    console.log(error);
+  }
+}
+function* getCaseDetails() {
+  try {
+    const authUser = yield call(Service.authUser);
+
+    //  complaintsInfo.UserID = authUser.userId;
+
+    const response = yield call(
+      Service.commonFetch,
+      '/CaseList/GetAllCaseList',
+      'GET',
+      null,
+      true,
+      null,
+    );
+
+    yield put(getAllCaseResponse(response));
+  } catch (error) {
+    console.log(error);
+  }
+}
+function* getMhpssDetail({payload: caseId}) {
+  try {
+    const authUser = yield call(Service.authUser);
+
+    //  complaintsInfo.UserID = authUser.userId;
+
+    console.log('caseid', caseId);
+    const response = yield call(
+      Service.commonFetch,
+      '/MHPSSSupportiveCall/GetMHPSSSupportiveCall',
+      'GET',
+      null,
+      true,
+      {CaseID: caseId},
+    );
+
+    yield put(getMhpssResponse(response));
+  } catch (error) {
+    console.log(error);
+  }
+}
 function* legal() {
   yield takeEvery(INCIDENT_LEGAL, postLegalData);
   yield takeEvery(INCIDENT_REINTEGRATION, postReintegrationData);
-  yield takeEvery(INCIDENT_MHPSS,postMhpssData)
-  yield takeEvery(GET_ALL_CASE,getCaseDetails)
+  yield takeEvery(INCIDENT_MHPSS, postMhpssData);
+  yield takeEvery(GET_ALL_CASE, getCaseDetails);
+  yield takeEvery(GET_MHPSS, getMhpssDetail);
 }
 
 export default legal;

@@ -1,4 +1,4 @@
-import React, {useCallback, useState,useEffect} from 'react';
+import React, {useCallback, useState, useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -21,157 +21,289 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   sendMhpssData,
   sendMhpssDataResponse,
+  getMhpss,
 } from '../../Redux/IncidentLog/IncidentList/Action';
-import {useRoute} from '@react-navigation/native';
+import {useRoute,useNavigation} from '@react-navigation/native';
 
 const Mhpss = () => {
-
   const route = useRoute();
 
-  const [text, setText] = useState('');
-  const [date, setDate] = React.useState(['']);
-  const [date1, setDate1] = React.useState(['']);
-  const [dateIndex, setDateIndex] = React.useState(true);
-  const [dateIndex1, setDateIndex1] = React.useState(true);
-  const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
-  const [isDatePickerVisible1, setDatePickerVisibility1] =
-    React.useState(false);
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
-  const showDatePicker1 = () => {
-    setDatePickerVisibility1(true);
-  };
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-  const hideDatePicker1 = () => {
-    setDatePickerVisibility1(false);
-  };
-  const handleConfirm = (date, i) => {
-    console.log(i);
-    date[dateIndex] = date;
-    setDate(date);
-    hideDatePicker();
-  };
-  const handleConfirm1 = (date, i) => {
-    date1[dateIndex1] = date;
-    setDate1(date1);
-    hideDatePicker1();
-  };
-  const getDate = i => {
-    console.log(date[i]);
-    let tempDate = date[i] === undefined ? '' : date[i].toString().split(' ');
-    return date[i] !== undefined && date[i] !== ''
-      ? `${tempDate[0]} ${tempDate[1]} ${tempDate[2]} ${tempDate[3]}`
-      : '';
-  };
-  const getDate1 = i => {
-    let tempDate1 =
-      date1[i] === undefined ? '' : date1[i].toString().split(' ');
-    console.log(date1[i]);
-    console.log(tempDate1);
-    return date1[i] !== undefined && date1[i] !== ''
-      ? `${tempDate1[0]} ${tempDate1[1]} ${tempDate1[2]} ${tempDate1[3]}`
-      : '';
-  };
-  const [expanded, setExpanded] = React.useState(true);
-
-  const handlePress = () => setExpanded(!expanded);
-  const [open, setOpen] = React.useState(false);
-  const [supportive, setSupportive] = React.useState([]);
-
-  const [checked, setChecked] = React.useState(['']);
   let dispatch = useDispatch();
+
+  const navigation = useNavigation();
+
+
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+  let dateIns = new Date();
+  let date = String(dateIns.getDate()).padStart(2, '0');
+  let month = String(dateIns.getMonth() + 1).padStart(2, '0');
+  let year = dateIns.getFullYear();
+  let currentDate = `${year}-${month}-${date}`;
+
+  const mhpssSample = useSelector(state => state.Incidentlist.mhpssDetail);
+  const [questionArray, setQuestionArray] = useState([
+    {
+      QuestionID: 1,
+
+      Question:
+        'Having upsetting thoughts or pictures about it that came into your head when you didn’t want them to',
+
+      Answer: '',
+    },
+
+    {
+      QuestionID: 2,
+
+      Question: 'Having bad dreams or nightmares',
+
+      Answer: '',
+    },
+
+    {
+      QuestionID: 3,
+
+      Question:
+        'Acting or feeling as if it was happening again (seeing or hearing something and feeling as if you are there again)',
+
+      Answer: '',
+    },
+
+    {
+      QuestionID: 4,
+
+      Question:
+        ' Feeling upset when you remember what happened (for example, feeling scared, angry, sad, guilty, confused)',
+
+      Answer: '',
+    },
+
+    {
+      QuestionID: 5,
+
+      Question:
+        ' Feeling upset when you remember what happened (for example, feeling scared, angry, sad, guilty, confused)',
+
+      Answer: '',
+    },
+
+    {
+      QuestionID: 6,
+
+      Question: 'Trying not to think about it or have feelings about it',
+
+      Answer: '',
+    },
+
+    {
+      QuestionID: 7,
+
+      Question:
+        'Trying to stay away from anything that reminds you of what happened (for example, people, places, or conversations about it)',
+
+      Answer: '',
+    },
+
+    {
+      QuestionID: 8,
+
+      Question: 'Not being able to remember an important part of what happened',
+
+      Answer: '',
+    },
+
+    {
+      QuestionID: 9,
+
+      Question:
+        'Having bad thoughts about yourself, other people, or the world (for example, “I can’t do anything right”, “All people are bad”, “The world is a scary place”)',
+
+      Answer: '',
+    },
+
+    {
+      QuestionID: 10,
+
+      Question:
+        'Thinking that what happened is your fault (for example, “I should have known better”, “I shouldn’t have done that”, “I deserved it”',
+
+      Answer: '',
+    },
+
+    {
+      QuestionID: 11,
+
+      Question: 'Having strong bad feelings (like fear, anger, guilt, or shame',
+      Answer: '',
+    },
+
+    {
+      QuestionID: 12,
+
+      Question: 'Having much less interest in doing things you used to d',
+
+      Answer: '',
+    },
+
+    {
+      QuestionID: 13,
+
+      Question:
+        'Not feeling close to your friends or family or not wanting to be around them',
+
+      Answer: '',
+    },
+
+    {
+      QuestionID: 14,
+
+      Question:
+        'Trouble having good feelings (like happiness or love) or trouble having any feelings at all',
+
+      Answer: '',
+    },
+
+    {
+      QuestionID: 15,
+
+      Question:
+        'Getting angry easily (for example, yelling, hitting others, throwing things)',
+
+      Answer: '',
+    },
+
+    {
+      QuestionID: 16,
+
+      Question:
+        'Doing things that might hurt yourself (for example, taking drugs, drinking alcohol, running away, cutting yourself)',
+
+      Answer: '',
+    },
+
+    {
+      QuestionID: 17,
+
+      Question:
+        'Doing things that might hurt yourself (for example, taking drugs, drinking alcohol, running away, cutting yourself',
+
+      Answer: '',
+    },
+
+    {
+      QuestionID: 18,
+
+      Question:
+        'Being jumpy or easily scared (for example, when someone walks up behind you, when you hear a loud noise)',
+
+      Answer: '',
+    },
+
+    {
+      QuestionID: 19,
+
+      Question:
+        'Having trouble paying attention (for example, losing track of a story on TV, forgetting what you read, unable to pay attention in class)',
+
+      Answer: '',
+    },
+
+    {
+      QuestionID: 20,
+
+      Question: 'Having trouble falling or staying asleep',
+
+      Answer: '',
+    },
+  ]);
+
+  const [callData, setCallData] = useState({
+    CaseID: route.params.CaseID,
+    SupportiveCall: 1,
+    SupportiveCallDate: currentDate,
+    Consent: '',
+    Counselling: '',
+    TraumaScreeningTool: null,
+    IsNextSupportiveCallScheduled: 'false',
+    NextSupportiveCallDate: '',
+  });
+  const [supportive, setSupportive] = useState([]);
+
+  const [activeSession, setactiveSession] = useState(false);
+
+  const [initiate, setinitiate] = useState(true);
+
   let mhpssresponse = useSelector(
     state => state.Incidentlist.sendMhpssDataResponse,
   );
+
   useEffect(() => {
-   
-    if (mhpssresponse?.StatusCode == 201) {
-      alert('reintegration was successfully created');
-      dispatch(sendMhpssData(''));
+    console.log('route', route);
+    dispatch(getMhpss(route.params.CaseID));
+  }, []);
+
+  useEffect(() => {
+    if (mhpssresponse && mhpssresponse?.StatusCode == 201) {
+      alert(mhpssresponse.StatusMessage);
+      let paramasData = route.params;
+      paramasData.MHPSSID = mhpssresponse.MHPSSSupportiveCall_ID;
+      navigation.navigate('Viewcard', paramasData);
+      dispatch(sendMhpssDataResponse(''));
     }
-   
   }, [mhpssresponse]);
 
-  useEffect(()=>{
-    console.log('supportive',supportive)
-  },[supportive])
- 
-const [mhpss,setMhpss]=useState({
-  CaseID: 1,
-  SupportiveCall: 1,
-  SupportiveCallDate: "",
-  Consent: "",
-  Counselling: "",
-  TraumaScreeningTool: null,
-  IsNextSupportiveCallScheduled: "",
-  NextSupportiveCallDate: ""
-})
-  const handleSupportive = () => {
-    if (supportive.length < 5) {
-      const datamhpss = [
-        {
-          CaseID: 1,
-          SupportiveCall: 1,
-          SupportiveCallDate: "2022-07-21",
-          Consent: "yes",
-          Counselling: "counselling data",
-          TraumaScreeningTool: null,
-          IsNextSupportiveCallScheduled: "true",
-          NextSupportiveCallDate: "2022-07-21"
-        },
-
-        {
-          caseId: 1,
-          supportiveCall: 2,
-          supportiveCallDate: '2022-09-06',
-          consent: 'yes',
-          counselling: '',
-          isNextSupportiveCallScheduled: true,
-          nextSupportiveCallDate: '2022-09-07',
-        },
-
-        {
-          caseId: 1,
-          supportiveCall: 3,
-          supportiveCallDate: '2022-09-07',
-          consent: 'yes',
-          counselling: '',
-          isNextSupportiveCallScheduled: true, 
-          nextSupportiveCallDate: '2022-09-08',
-        },
-        {
-          caseId: 1,
-          supportiveCall: 4,
-          supportiveCallDate: '2022-09-08',
-          consent: 'yes',
-          counselling: '',
-          isNextSupportiveCallScheduled: true, // after 3 supportive call, upcoming are optional
-          nextSupportiveCallDate: '2022-09-09',
-        },
-        {
-          caseId: 1,
-          supportiveCall: 5,
-          supportiveCallDate: '2022-09-10',
-          consent: 'yes',
-          counselling: '',
-          isNextSupportiveCallScheduled: true, // after 3 supportive call, upcoming are optional
-          nextSupportiveCallDate: '2022-09-10',
-        },
-      ];
-
-      setSupportive([...supportive, datamhpss]);
+  useEffect(() => {
+    if (
+      mhpssSample &&
+      mhpssSample.StatusCode == 201 &&
+      mhpssSample?.Result.length > 0
+    ) {
+      setSupportive([...mhpssSample.Result]);
+      let checkSupportive = mhpssSample.Result[mhpssSample.Result.length - 1];
+      if (checkSupportive.NextSupportiveCallDate == currentDate) {
+        setactiveSession(true);
+        setCallData({
+          ...callData,
+          SupportiveCall: mhpssSample.Result.length + 1,
+        });
+      }
+    } else if (
+      mhpssSample &&
+      mhpssSample.StatusCode == 400 &&
+      mhpssSample?.Result == null
+    ) {
+      setCallData({...callData, SupportiveCall: 1});
     }
+  }, [mhpssSample]);
+
+  const handleSupportive = () => {
+    setinitiate(false);
+    setactiveSession(true);
   };
 
-  function updateChecked(mhpssVal, index) {
-    checked[index] = mhpssVal;
-    setChecked(checked);
-    setSupportive([...supportive]);
-  }
+  const handleQuestion = (index, value) => {
+    let Answer = questionArray;
+    questionArray[index].Answer = value;
 
+    setQuestionArray([...Answer]);
+  };
+
+  const handleSumbit = () => {
+    if (
+      mhpssSample &&
+      mhpssSample.StatusCode == 201 &&
+      mhpssSample?.Result.length == 1 
+    ) {
+      let reqData = callData;
+      reqData.Counselling = null;
+      reqData.TraumaScreeningTool = questionArray;
+
+      dispatch(sendMhpssData(reqData));
+    }else{
+      dispatch(sendMhpssData(callData));
+    }
+   
+  };
   return (
     <SafeAreaView>
       <ScrollView>
@@ -179,7 +311,7 @@ const [mhpss,setMhpss]=useState({
           <View style={styles.reintegration}>
             <Text style={styles.reintegrationTitle}>MHPSS </Text>
           </View>
-          {supportive.length < 1 && (
+          {supportive.length < 1 && initiate && (
             <TouchableOpacity style={styles.Initiatebutton}>
               <Text
                 style={styles.formbuttoninput}
@@ -189,15 +321,13 @@ const [mhpss,setMhpss]=useState({
             </TouchableOpacity>
           )}
 
-          {supportive.map((datamhpss, i) => {
+          {supportive.map((data, i) => {
             return (
               <>
                 <View style={{marginTop: 10}}>
-                <Text style={styles.FormTitle2}>
-                    Case Id -{datamhpss[i].caseId}:
-                  </Text>
+                  <Text style={styles.FormTitle2}>Case Id -{data.CaseID}:</Text>
                   <Text style={styles.FormTitle}>
-                    Supportive Call -{datamhpss[i].supportiveCall}:
+                    Supportive Call -{data.SupportiveCall}:
                   </Text>
                   <View style={{marginTop: 20, marginLeft: 5}}>
                     <Text style={styles.FormTitle}>Date & Time</Text>
@@ -205,31 +335,8 @@ const [mhpss,setMhpss]=useState({
                       <TextInput
                         key={i}
                         style={styles.textInput1}
-                        value={datamhpss[i].SupportiveCallDate}
-                        placeholder="  Enter Date"
-                        placeholderTextColor={'gray'}
-                      />
-
-                      <Text
-                        style={{left: 300, bottom: 35}}
-                        onPress={showDatePicker}>
-                        <FontAwesomeIcon
-                          size={20}
-                          icon={faCalendarDays}
-                          title="Show Picker"
-                          color="#00bad7"
-                        />
-                      </Text>
-                      <DateTimePickerModal
-                        isVisible={isDatePickerVisible}
-                        mode="date"
-                        onConfirm={d => {
-                          // handleConfirm(date, i);
-                          date[i] = d;
-                          setDate(date);
-                          hideDatePicker();
-                        }}
-                        onCancel={hideDatePicker}
+                        value={data.SupportiveCallDate}
+                        editable={false}
                       />
                     </View>
                   </View>
@@ -243,26 +350,29 @@ const [mhpss,setMhpss]=useState({
                     <RadioButton
                       uncheckedColor={'gray'}
                       color={'#ff6b00'}
-                      value="first"
-                      status={checked[i] == 'first' ? 'checked' : 'unchecked'}
-                      onPress={() => updateChecked('first', i)}
+                      value="yes"
+                      status={data.Consent == 'yes' ? 'checked' : 'unchecked'}
+                      disabled
                     />
                     <Text style={styles.gender}>Yes</Text>
                     <RadioButton
                       uncheckedColor={'gray'}
                       color={'#ff6b00'}
-                      value="second"
-                      status={checked[i] == 'second' ? 'checked' : 'unchecked'}
-                      onPress={() => updateChecked('second', i)}></RadioButton>
+                      value="no"
+                      status={data.Consent == 'no' ? 'checked' : 'unchecked'}
+                      disabled></RadioButton>
                     <Text style={styles.gender}>No</Text>
                   </View>
                   <View style={styles.container}>
-                    {checked[i] == 'first' && (
+                    {data.Consent == 'yes' && (
                       <View style={{marginTop: 15}}>
                         <View style={{bottom: 5}}>
-                          {i == 1 ? (
+                          {data.TraumaScreeningTool.length > 0 ? (
                             <View style={styles.Dsmtrauma}>
-                              <DSMTrauma />
+                              <DSMTrauma
+                                question={JSON.parse(data.TraumaScreeningTool)}
+                                change={handleQuestion}
+                              />
                             </View>
                           ) : (
                             <View style={{bottom: 5}}>
@@ -272,10 +382,8 @@ const [mhpss,setMhpss]=useState({
                               <View style={styles.tabfourfirst1}>
                                 <TextInput
                                   style={styles.counsInput}
-                                  value={datamhpss[i].Counselling}
-                                  type="text"
-                                  placeholder="Enter Counselling "
-                                  placeholderTextColor="gray"
+                                  value={data.Counselling}
+                                  editable={false}
                                 />
                               </View>
                             </View>
@@ -287,43 +395,10 @@ const [mhpss,setMhpss]=useState({
                         <View style={{marginTop: 5}}>
                           <TextInput
                             style={styles.textInput1}
-                            value={datamhpss[i].NextSupportiveCallDate}
-                            placeholder="  Enter Date"
-                            placeholderTextColor={'gray'}
-                          />
-
-                          <Text
-                            style={{left: 300, bottom: 35}}
-                            onPress={showDatePicker1}>
-                            <FontAwesomeIcon
-                              size={20}
-                              icon={faCalendarDays}
-                              title="Show Picker"
-                              color="#00bad7"
-                            />
-                          </Text>
-                          <DateTimePickerModal
-                            isVisible={isDatePickerVisible1}
-                            mode="date"
-                            onConfirm={d => {
-                              // handleConfirm(date, i);
-                              date1[i] = d;
-                              setDate1(date1);
-                              hideDatePicker1();
-                            }}
-                            onCancel={hideDatePicker1}
+                            value={data.NextSupportiveCallDate}
+                            editable={false}
                           />
                         </View>
-
-                        {supportive.length - 1 == i && (
-                          <TouchableOpacity style={styles.add}>
-                            <Text
-                              style={styles.formbuttoninput}
-                              onPress={() => handleSupportive()}>
-                              Add
-                            </Text>
-                          </TouchableOpacity>
-                        )}
                       </View>
                     )}
                   </View>
@@ -331,13 +406,137 @@ const [mhpss,setMhpss]=useState({
               </>
             );
           })}
-        </View>
+          {activeSession == true && (
+            <>
+              <View style={{marginTop: 10}}>
+                <Text style={styles.FormTitle2}>
+                  Case Id -{callData.CaseID}:
+                </Text>
+                <Text style={styles.FormTitle}>
+                  Supportive Call -{callData.SupportiveCall}:
+                </Text>
+                <View style={{marginTop: 20, marginLeft: 5}}>
+                  <Text style={styles.FormTitle}>Date & Time</Text>
+                  <View style={{marginTop: 5}}>
+                    <TextInput
+                      style={styles.textInput1}
+                      value={callData.SupportiveCallDate}
+                      placeholder="  Enter Date"
+                      placeholderTextColor={'gray'}
+                      editable={false}
+                    />
+                  </View>
+                </View>
+              </View>
+              <View style={{bottom: 20, marginLeft: 10}}>
+                <Text style={styles.radioname}>
+                  Consent
+                  <Text style={styles.star}></Text>
+                </Text>
+                <View style={styles.SectionStyle1}>
+                  <RadioButton
+                    uncheckedColor={'gray'}
+                    color={'#ff6b00'}
+                    value="yes"
+                    status={callData.Consent == 'yes' ? 'checked' : 'unchecked'}
+                    onPress={() => setCallData({...callData, Consent: 'yes'})}
+                  />
+                  <Text style={styles.gender}>Yes</Text>
+                  <RadioButton
+                    uncheckedColor={'gray'}
+                    color={'#ff6b00'}
+                    value="no"
+                    status={callData.Consent == 'no' ? 'checked' : 'unchecked'}
+                    onPress={() =>
+                      setCallData({...callData, Consent: 'no'})
+                    }></RadioButton>
+                  <Text style={styles.gender}>No</Text>
+                </View>
+                <View style={styles.container}>
+                  {callData.Consent == 'yes' && (
+                    <View style={{marginTop: 15}}>
+                      <View style={{bottom: 5}}>
+                        {supportive.length == 1 ? (
+                          <View style={styles.Dsmtrauma}>
+                            <DSMTrauma
+                              question={questionArray}
+                              change={handleQuestion}
+                            />
+                          </View>
+                        ) : (
+                          <View style={{bottom: 5}}>
+                            <Text style={styles.FormTitle}>
+                              Counselling:<Text style={styles.star}>*</Text>
+                            </Text>
+                            <View style={styles.tabfourfirst1}>
+                              <TextInput
+                                style={styles.counsInput}
+                                value={callData.Counselling}
+                                type="text"
+                                placeholder="Enter Counselling "
+                                placeholderTextColor="gray"
+                                onChangeText={newText =>
+                                  setCallData({
+                                    ...callData,
+                                    Counselling: newText,
+                                  })
+                                }
+                              />
+                            </View>
+                          </View>
+                        )}
+                      </View>
+                      <Text style={styles.FormTitle}>
+                        Scheduling for next session date & Time{' '}
+                      </Text>
+                      <View style={{marginTop: 5}}>
+                        <TextInput
+                          style={styles.textInput1}
+                          value={callData.NextSupportiveCallDate}
+                          placeholder="  Enter Date"
+                          placeholderTextColor={'gray'}
+                        />
 
-        <View>
+                        <Text
+                          style={{left: 300, bottom: 35}}
+                          onPress={() => setDatePickerVisibility(true)}>
+                          <FontAwesomeIcon
+                            size={20}
+                            icon={faCalendarDays}
+                            title="Show Picker"
+                            color="#00bad7"
+                          />
+                        </Text>
+                      </View>
+                    </View>
+                  )}
+                </View>
+              </View>
+            </>
+          )}
+        </View>
+        <DateTimePickerModal
+          isVisible={isDatePickerVisible}
+          mode="date"
+          onConfirm={value => {
+            let dateIns = new Date(value);
+            let date = String(dateIns.getDate()).padStart(2, '0');
+            let month = String(dateIns.getMonth() + 1).padStart(2, '0');
+            let year = dateIns.getFullYear();
+            let currentDate = `${year}-${month}-${date}`;
+            setCallData({
+              ...callData,
+              NextSupportiveCallDate: currentDate,
+              IsNextSupportiveCallScheduled: 'true',
+            });
+            setDatePickerVisibility(false);
+          }}
+          onCancel={() => setDatePickerVisibility(false)}
+        />
+        <View style={{marginBottom: 10}}>
           <TouchableOpacity
             style={styles.formbutton}
-            // onPress={() => route.change()}
-            >
+            onPress={() => handleSumbit()}>
             <Text style={styles.formbuttoninput}>Submit</Text>
           </TouchableOpacity>
         </View>

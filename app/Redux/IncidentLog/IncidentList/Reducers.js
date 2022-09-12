@@ -3,6 +3,7 @@ import {
   INCIDENT_REINTEGRATION_RESPPONSE,
   INCIDENT_MHPSS_RESPPONSE,
   GET_ALL_CASE_RESPONSE,
+  GET_MHPSS_RESPPONSE,
 } from './ActionTypes';
 
 const initialState = {
@@ -37,6 +38,12 @@ const incidentLegal = (state = initialState, action) => {
       state = {
         ...state,
         caseDetails: action.payload,
+      };
+      break;
+    case GET_MHPSS_RESPPONSE:
+      state = {
+        ...state,
+        mhpssDetail: action.payload,
       };
       break;
     default:

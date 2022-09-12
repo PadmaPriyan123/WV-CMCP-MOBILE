@@ -15,7 +15,6 @@ const authUser = async () => {
 const commonFetch = async (url, Method, bodyData, headerData, paramsData) => {
   const URL = config.WVI_DEV_BASE_URL + url;
   let paramsHeader = {};
-  console.log('fkdjvndkjvf');
   const user = await authUser();
 
 
